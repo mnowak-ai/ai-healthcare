@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why AI in Healthcare Is the Most Important Skill You Can Learn Right Now — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* Stat cards */
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;}
+.stat-card{background:var(--purple-pale);border:2px solid var(--purple-mid);border-radius:20px;padding:24px;text-align:center;}
+.stat-num{font-family:'Fraunces',serif;font-size:42px;font-weight:900;color:var(--purple);line-height:1;margin-bottom:6px;}
+.stat-label{font-size:13px;font-weight:600;color:var(--purple-dark);line-height:1.4;}
+.stat-source{font-size:11px;color:var(--gray-muted);margin-top:6px;}
+
+/* Timeline */
+.timeline{margin:24px 0;position:relative;}
+.timeline::before{content:'';position:absolute;left:20px;top:0;bottom:0;width:3px;background:var(--purple-mid);border-radius:2px;}
+.tl-item{display:flex;gap:20px;padding:0 0 28px 0;position:relative;}
+.tl-dot{width:42px;height:42px;border-radius:50%;background:var(--purple);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:16px;position:relative;z-index:1;}
+.tl-body{flex:1;padding-top:6px;}
+.tl-year{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--purple);margin-bottom:4px;}
+.tl-title{font-size:16px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.tl-desc{font-size:14px;line-height:1.65;color:var(--gray-text);}
+
+/* Two-path cards */
+.paths{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.path-card{border-radius:20px;padding:24px;border:2px solid;}
+.path-card.without{background:#FFF1F1;border-color:#FCA5A5;}
+.path-card.with{background:var(--green-pale);border-color:#86EFAC;}
+.path-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.path-icon{font-size:24px;}
+.path-title{font-size:15px;font-weight:700;}
+.path-card.without .path-title{color:#DC2626;}
+.path-card.with .path-title{color:var(--green);}
+.path-item{font-size:13px;line-height:1.6;margin-bottom:8px;display:flex;gap:8px;color:var(--gray-text);}
+.path-item::before{content:'→';flex-shrink:0;font-weight:700;}
+.path-card.without .path-item::before{color:#DC2626;}
+.path-card.with .path-item::before{color:var(--green);}
+
+/* Role explorer */
+.role-explorer{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.re-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.re-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.re-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.role-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.role-tab{padding:8px 14px;border-radius:10px;border:1.5px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.role-tab.active{background:var(--purple);border-color:var(--purple);color:white;}
+.role-panel{display:none;animation:fadeIn .3s ease;}
+.role-panel.active{display:block;}
+.role-scenario{background:var(--white);border-radius:14px;padding:20px;margin-bottom:12px;}
+.role-scenario-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--purple);margin-bottom:8px;}
+.role-before-after{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
+.rba-box{border-radius:10px;padding:12px 14px;}
+.rba-box.before{background:#FFF7ED;border:1.5px solid #FDE68A;}
+.rba-box.after{background:var(--purple-pale);border:1.5px solid var(--purple-mid);}
+.rba-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
+.rba-box.before .rba-label{color:var(--orange);}
+.rba-box.after .rba-label{color:var(--purple);}
+.rba-text{font-size:13px;line-height:1.6;color:var(--gray-text);}
+.role-impact{background:var(--green-pale);border:1.5px solid #86EFAC;border-radius:10px;padding:12px 16px;font-size:14px;color:var(--green);}
+
+/* Quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:#FFF1F1;border-color:#DC2626;color:#DC2626;}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:#FFF1F1;color:#DC2626;}
+
+/* Summary */
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.stat-grid{grid-template-columns:1fr;}.paths{grid-template-columns:1fr;}.role-before-after{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+
+<div class="hero">
+  <div class="lesson-tag">Module 1 · Before You Begin</div>
+  <h1>Why AI in Healthcare Is the Most Important Skill You Can Learn Right Now</h1>
+  <p class="hero-sub">Healthcare is one of the largest industries in the world — and it's changing faster than it ever has before. Understanding AI isn't just a bonus anymore. It's quickly becoming the difference between workers who thrive and workers who get left behind.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Let's Start With the Honest Truth</h2>
+    <p>You might be thinking: "I'm going into healthcare to help people — why do I need to understand technology?" That's a fair question. And here's the honest answer: <mark>because the technology is already there</mark>, whether you learn it or not.</p>
+    <p>Right now, hospitals and clinics across the country are using AI to schedule appointments, write clinical notes, analyze medical images, and predict which patients are at risk of getting sicker. Healthcare workers who understand what these tools do — and what they can't do — are more confident, more effective, and more valuable to every team they join.</p>
+    <p>Workers who don't? They often feel confused, anxious, or left out of conversations that directly affect their patients and their jobs.</p>
+    <div class="pull-quote"><p>The goal of this certification isn't to turn you into a computer scientist. It's to make sure that when AI shows up in your workplace — and it will — you're the person who knows what to do with it.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>How Big Is This, Really?</h2>
+    <p>Numbers can feel abstract, so let's make these real. The healthcare AI market isn't a small experiment happening in a few big hospitals. It's a massive, fast-moving shift that's already touching nearly every corner of the industry:</p>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-num">$45B</div>
+        <div class="stat-label">Size of the healthcare AI market as of 2023</div>
+        <div class="stat-source">Grand View Research</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">38%</div>
+        <div class="stat-label">Of U.S. hospitals are already using AI in clinical or administrative workflows</div>
+        <div class="stat-source">American Hospital Association</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">~3M</div>
+        <div class="stat-label">Healthcare job openings in the U.S. that now list digital or AI skills as preferred</div>
+        <div class="stat-source">Bureau of Labor Statistics</div>
+      </div>
+    </div>
+    <p>These aren't future predictions. This is what's happening right now, in clinics and hospitals where people just like you are starting their careers.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What Changes When You Understand AI</h2>
+    <p>Here's the clearest way to see why this matters. Imagine two people starting the same healthcare job on the same day — one who understands AI, and one who doesn't:</p>
+    <div class="paths">
+      <div class="path-card without">
+        <div class="path-header"><span class="path-icon">😟</span><span class="path-title">Without AI Knowledge</span></div>
+        <div class="path-item">Confused when the scheduling software suggests a different appointment slot and doesn't know whether to trust it</div>
+        <div class="path-item">Nervous when a supervisor mentions that AI is helping with patient notes — doesn't know what that means for their job</div>
+        <div class="path-item">Skips AI-generated alerts because they don't understand what triggered them</div>
+        <div class="path-item">Feels left out of team conversations about new technology tools</div>
+        <div class="path-item">Misses errors in AI output because they assume the tool is always right</div>
+      </div>
+      <div class="path-card with">
+        <div class="path-header"><span class="path-icon">💪</span><span class="path-title">With AI Knowledge</span></div>
+        <div class="path-item">Knows when to trust the AI scheduling suggestion and when to override it — and why</div>
+        <div class="path-item">Understands exactly how AI supports note-writing without replacing clinical judgment</div>
+        <div class="path-item">Reviews AI-generated alerts thoughtfully and flags the ones that need human attention</div>
+        <div class="path-item">Actively contributes to team conversations about tools, risks, and improvements</div>
+        <div class="path-item">Catches AI errors before they reach patients — because they know AI makes mistakes</div>
+      </div>
+    </div>
+    <p>Same job. Same team. Completely different experience — and completely different impact on patients.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>See It in Action: AI Across Different Healthcare Roles</h2>
+    <p>AI doesn't look the same in every healthcare job. Click each role below to see what AI actually looks like in that person's daily work — and what understanding it changes for them:</p>
+
+    <div class="role-explorer">
+      <div class="re-label">🏥 Role Simulator</div>
+      <div class="re-title">A Day in the Life — With and Without AI Knowledge</div>
+      <div class="re-sub">Select a role to see how AI knowledge changes the experience of that job.</div>
+      <div class="role-tabs">
+        <button class="role-tab active" onclick="showRole(0)">Front Desk Staff</button>
+        <button class="role-tab" onclick="showRole(1)">Medical Assistant</button>
+        <button class="role-tab" onclick="showRole(2)">Nurse</button>
+        <button class="role-tab" onclick="showRole(3)">Health IT Support</button>
+      </div>
+      <div id="roleContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>This Isn't About Replacing You. It's About Protecting You.</h2>
+    <p>One of the most common fears people bring to this topic is: "Will AI take my job?" It's worth taking that question seriously — because it deserves a real answer, not a dismissal.</p>
+    <p>Here's what the evidence actually shows: <mark>AI is changing healthcare jobs, not eliminating them.</mark> The tasks most affected are repetitive, data-heavy ones — scheduling, data entry, documentation formatting, basic triage sorting. The tasks that remain firmly human are the ones that require judgment, empathy, physical presence, and ethical decision-making.</p>
+    <p>But here's the thing about that shift: it creates a divide. Workers who understand AI use it to offload repetitive tasks and free themselves up for the higher-value human work. Workers who don't understand it feel threatened by it — or worse, make mistakes by trusting it too much or ignoring it entirely.</p>
+    <div class="pull-quote"><p>AI doesn't replace the healthcare worker who understands it. It replaces the healthcare worker who refuses to.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>How This Certification Was Built — and What It Will Do For You</h2>
+    <p>This program was designed specifically for people entering or working in healthcare — not for software engineers or data scientists. Every concept is explained in plain language. Every tool is connected to real situations you'll actually face at work.</p>
+    <p>By the time you finish, you'll be able to:</p>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-num">🧠</div>
+        <div class="stat-label">Explain how AI works in healthcare in simple, accurate terms — to coworkers and patients</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">🔍</div>
+        <div class="stat-label">Identify when AI is helping, when it's making mistakes, and when human judgment must take over</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">🛡️</div>
+        <div class="stat-label">Protect yourself and your patients by understanding privacy rules, bias risks, and accountability</div>
+      </div>
+    </div>
+    <p style="margin-top:20px;">That's not a minor skill upgrade. That's the difference between being a capable healthcare worker and being an exceptional one.</p>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A new healthcare worker sees an AI-generated alert suggesting a patient may be at risk for a fall. They haven't learned anything about how AI works. What is the most likely problem with this situation?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">The AI alert is probably wrong and should always be ignored</button>
+        <button class="qopt" onclick="cq(this,false)">The worker should follow the alert automatically — AI is more accurate than human judgment</button>
+        <button class="qopt" onclick="cq(this,true)">Without understanding how the AI generated the alert or what its limitations are, the worker can't evaluate it properly — they might ignore a real risk or act on a false one</button>
+        <button class="qopt" onclick="cq(this,false)">This situation doesn't require any AI knowledge — healthcare instincts are enough</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI is already in healthcare — in scheduling systems, clinical notes, patient monitoring, and medical imaging. Learning about it isn't optional for workers entering this field. It's essential.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI knowledge doesn't replace clinical skills — it enhances them. Workers who understand AI use it confidently, catch its mistakes, and focus their human skills where they matter most.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The goal of this certification is practical, not theoretical: to make sure that when AI shows up in your workplace, you know exactly what to do with it — and what not to do.</p></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const roles=[
+  {
+    name:'Front Desk Staff',
+    scenario:'It\'s Monday morning. The AI scheduling system has automatically rearranged three appointment slots based on patient history and provider availability. A patient calls asking to move their appointment.',
+    before:'Doesn\'t know if she can override the AI\'s schedule. Calls a supervisor for every change. Feels stressed and slows down the whole front desk. Eventually just stops looking at the AI suggestions altogether.',
+    after:'Understands what the AI optimized for (provider availability, appointment length). Confidently reviews the suggestion, overrides it when the patient\'s needs require it, and documents why. Handles the call in two minutes.',
+    impact:'💡 AI knowledge turns a stressful situation into a routine one — and keeps the patient experience smooth.'
+  },
+  {
+    name:'Medical Assistant',
+    scenario:'Before a patient visit, the AI pulls together a summary of the patient\'s recent vitals, flagging an elevated blood pressure reading from three visits ago that wasn\'t followed up on.',
+    before:'Isn\'t sure if the AI flag is accurate or why it appeared. Doesn\'t mention it to the physician because she doesn\'t want to seem like she\'s "trusting a computer over a doctor." The flag gets missed.',
+    after:'Understands that AI flags are prompts for human review, not diagnoses. Briefly mentions the flagged reading to the physician before the visit: "The system flagged an unaddressed BP reading — wanted you to know before you go in." Takes three seconds. Potentially changes the patient\'s care.',
+    impact:'💡 Knowing that AI surfaces information — not conclusions — makes this worker a better communication bridge between technology and clinical staff.'
+  },
+  {
+    name:'Nurse',
+    scenario:'The hospital\'s AI documentation tool has drafted a clinical note based on the nurse\'s verbal summary after patient rounds. The note is mostly correct but mischaracterizes the patient\'s pain level as "moderate" when the patient said "severe."',
+    before:'Signs off on the note quickly — trusting that the AI captured things correctly. The error enters the official record and affects how the next shift interprets the patient\'s status.',
+    after:'Knows that AI documentation tools require human review before sign-off. Reads the draft, catches the pain level error, corrects it in 30 seconds, and signs. The record is accurate. The next shift gets the right picture.',
+    impact:'💡 Understanding that AI produces drafts — not finished records — makes this nurse a guardian of accurate patient documentation.'
+  },
+  {
+    name:'Health IT Support',
+    scenario:'A nurse calls IT reporting that the AI scheduling tool is "acting weird" and making appointments that don\'t make sense. Three providers are being double-booked.',
+    before:'Treats it like a regular software bug. Reboots the system. The problem comes back. Escalates to a vendor after two hours of confusion — the clinic runs behind all morning.',
+    after:'Recognizes that AI scheduling tools use training data to predict availability. Asks the right question: "Was there a change to any provider\'s schedule template recently?" There was — a new template was added incorrectly, confusing the AI\'s inputs. Fixes the source, not the symptom. Problem resolved in 20 minutes.',
+    impact:'💡 Understanding how AI systems are built — not just how to reboot them — makes this IT worker dramatically more effective at solving the problems that actually disrupt care.'
+  }
+];
+
+let roleIdx=0;
+function showRole(i){
+  roleIdx=i;
+  document.querySelectorAll('.role-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));
+  renderRole();
+}
+function renderRole(){
+  const r=roles[roleIdx];
+  document.getElementById('roleContainer').innerHTML=`
+    <div class="role-scenario">
+      <div class="role-scenario-label">📋 The Situation</div>
+      <p style="font-size:15px;line-height:1.7;color:var(--gray-text);margin:0;">${r.scenario}</p>
+      <div class="role-before-after">
+        <div class="rba-box before">
+          <div class="rba-label">❌ Without AI Knowledge</div>
+          <div class="rba-text">${r.before}</div>
+        </div>
+        <div class="rba-box after">
+          <div class="rba-label">✅ With AI Knowledge</div>
+          <div class="rba-text">${r.after}</div>
+        </div>
+      </div>
+    </div>
+    <div class="role-impact">${r.impact}</div>`;
+}
+renderRole();
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){
+    fb.className='qfb show cfb';
+    fb.textContent='✅ Exactly right. AI tools produce outputs that require human evaluation — but you can only evaluate something properly if you understand what it is, where it came from, and what it might get wrong. That\'s the entire purpose of this certification: giving you the knowledge to be a confident, critical user of AI tools, not just a passive recipient of whatever they generate.';
+  } else {
+    document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes("can't evaluate"))o.classList.add('correct');});
+    fb.className='qfb show wfb';
+    fb.textContent='❌ Neither blindly trusting AI nor always ignoring it is the right answer — both lead to poor outcomes for patients. The real problem is the knowledge gap: without understanding what AI alerts are, how they\'re generated, and what their limitations are, a healthcare worker can\'t make informed decisions about them. That\'s exactly what this certification addresses.';
+  }
+}
+
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

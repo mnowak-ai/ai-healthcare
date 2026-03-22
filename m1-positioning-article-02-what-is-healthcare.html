@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Is Healthcare, Really? — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* Setting type cards */
+.settings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;}
+.setting-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:20px;padding:20px;cursor:pointer;transition:all .2s;}
+.setting-card:hover,.setting-card.active{border-color:var(--purple);background:var(--purple-pale);}
+.setting-icon{font-size:28px;margin-bottom:8px;}
+.setting-name{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.setting-desc{font-size:12px;line-height:1.5;color:var(--gray-muted);}
+.setting-detail{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:16px;padding:24px;margin-top:12px;display:none;animation:fadeIn .3s ease;}
+.setting-detail.show{display:block;}
+.sd-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--purple-dark);margin-bottom:10px;}
+.sd-body{font-size:15px;line-height:1.75;color:var(--gray-text);margin-bottom:12px;}
+.sd-ai-note{background:var(--purple-pale);border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:10px 14px;font-size:13px;color:var(--purple-dark);line-height:1.6;}
+
+/* Patient journey flow */
+.journey{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.journey-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.journey-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.journey-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.journey-steps{display:flex;flex-direction:column;gap:12px;}
+.j-step{background:var(--white);border-radius:14px;padding:16px 20px;border:1.5px solid var(--purple-mid);cursor:pointer;transition:all .2s;}
+.j-step:hover{border-color:var(--purple);}
+.j-step-header{display:flex;align-items:center;gap:12px;}
+.j-step-num{width:32px;height:32px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:700;flex-shrink:0;}
+.j-step-name{font-size:15px;font-weight:700;color:var(--purple-dark);}
+.j-step-arrow{margin-left:auto;font-size:16px;color:var(--gray-muted);transition:transform .2s;}
+.j-step.open .j-step-arrow{transform:rotate(180deg);}
+.j-step-body{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--purple-mid);}
+.j-step.open .j-step-body{display:block;}
+.j-step-who{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:6px;}
+.j-step-desc{font-size:14px;line-height:1.65;color:var(--gray-text);margin-bottom:10px;}
+.j-step-ai{background:var(--purple-pale);border-radius:8px;padding:8px 12px;font-size:13px;color:var(--purple-dark);}
+
+/* Two-column roles */
+.roles-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.role-box{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px;}
+.role-box-icon{font-size:24px;margin-bottom:8px;}
+.role-box-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:10px;}
+.role-item{font-size:13px;line-height:1.55;margin-bottom:6px;display:flex;gap:8px;color:var(--gray-text);}
+.role-item::before{content:'•';color:var(--purple);font-weight:700;flex-shrink:0;}
+
+/* Quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:#FFF1F1;border-color:#DC2626;color:#DC2626;}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:#FFF1F1;color:#DC2626;}
+
+/* Summary */
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.settings-grid{grid-template-columns:1fr;}.roles-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+
+<div class="hero">
+  <div class="lesson-tag">Module 1 · Before You Begin</div>
+  <h1>What Is Healthcare, Really? A Beginner's Map of How the Industry Works</h1>
+  <p class="hero-sub">Before you can understand how AI is changing healthcare, you need a clear picture of what healthcare actually is — who the people are, what the places look like, and how a patient moves through the system. This article gives you that foundation.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Healthcare Is Bigger Than You Think</h2>
+    <p>Most people picture healthcare as doctors and hospitals. That's part of it — but healthcare is one of the largest industries in the United States, employing over <mark>22 million people</mark> across thousands of different job types.</p>
+    <p>Think about everything that has to happen for a single patient to get care: someone has to answer the phone when they call to schedule. Someone has to verify their insurance. A nurse takes their vitals. A doctor reviews their history and examines them. A lab processes their bloodwork. A pharmacist fills their prescription. A billing specialist files the claim. And that's just for a routine visit.</p>
+    <p>Every single one of those steps involves a person — often several people — doing a specific job. And AI is now touching almost all of them.</p>
+    <div class="pull-quote"><p>Healthcare isn't one place. It's a connected system of people, buildings, technology, and decisions — all working together (or sometimes not) to keep people healthy.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Different Places Healthcare Happens</h2>
+    <p>Healthcare isn't just hospitals. Click each setting below to learn what it is, who works there, and how AI is already showing up in that environment:</p>
+
+    <div class="settings-grid" id="settingsGrid">
+      <div class="setting-card" onclick="showSetting(0)">
+        <div class="setting-icon">🏥</div>
+        <div class="setting-name">Hospitals</div>
+        <div class="setting-desc">Inpatient care, emergency services, surgeries, and specialist departments</div>
+      </div>
+      <div class="setting-card" onclick="showSetting(1)">
+        <div class="setting-icon">🏢</div>
+        <div class="setting-name">Outpatient Clinics</div>
+        <div class="setting-desc">Regular check-ups, specialist visits, and follow-up care without overnight stays</div>
+      </div>
+      <div class="setting-card" onclick="showSetting(2)">
+        <div class="setting-icon">🧪</div>
+        <div class="setting-name">Laboratories</div>
+        <div class="setting-desc">Blood tests, imaging, pathology — the diagnostic backbone of healthcare</div>
+      </div>
+      <div class="setting-card" onclick="showSetting(3)">
+        <div class="setting-icon">💊</div>
+        <div class="setting-name">Pharmacies</div>
+        <div class="setting-desc">Filling prescriptions, managing medication safety, and patient counseling</div>
+      </div>
+      <div class="setting-card" onclick="showSetting(4)">
+        <div class="setting-icon">🏠</div>
+        <div class="setting-name">Home Health</div>
+        <div class="setting-desc">Nurses and aides who provide care in a patient's own home</div>
+      </div>
+      <div class="setting-card" onclick="showSetting(5)">
+        <div class="setting-icon">💻</div>
+        <div class="setting-name">Telehealth</div>
+        <div class="setting-desc">Remote care delivered by video or phone — fast-growing since 2020</div>
+      </div>
+    </div>
+    <div class="setting-detail" id="settingDetail"></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The People Who Make It Work</h2>
+    <p>Healthcare workers fall into two broad categories. Understanding this distinction matters a lot when we talk about AI — because AI affects these two groups in very different ways:</p>
+    <div class="roles-grid">
+      <div class="role-box">
+        <div class="role-box-icon">🩺</div>
+        <div class="role-box-title">Clinical Staff — Directly involved in patient care</div>
+        <div class="role-item">Physicians and doctors</div>
+        <div class="role-item">Registered nurses (RNs)</div>
+        <div class="role-item">Licensed practical nurses (LPNs)</div>
+        <div class="role-item">Medical assistants</div>
+        <div class="role-item">Surgeons and specialists</div>
+        <div class="role-item">Radiologists and lab technicians</div>
+        <div class="role-item">Physical and occupational therapists</div>
+        <div class="role-item">Pharmacists</div>
+      </div>
+      <div class="role-box">
+        <div class="role-box-icon">💼</div>
+        <div class="role-box-title">Administrative Staff — Keep the system running</div>
+        <div class="role-item">Front desk and reception staff</div>
+        <div class="role-item">Scheduling coordinators</div>
+        <div class="role-item">Medical billing specialists</div>
+        <div class="role-item">Health information managers</div>
+        <div class="role-item">Insurance verification staff</div>
+        <div class="role-item">Office managers</div>
+        <div class="role-item">Health IT support specialists</div>
+        <div class="role-item">Patient services coordinators</div>
+      </div>
+    </div>
+    <p>In most healthcare settings, clinical and administrative staff work side by side every single day. A nurse can't do their job well if the scheduling system is broken. A front desk worker can't do their job well if the clinical records aren't accessible. The whole system is interconnected — and AI touches both sides.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Follow a Patient Through the System</h2>
+    <p>The best way to understand how healthcare actually works is to follow what happens when a real person needs care. Click each step to see what happens, who's involved, and where AI already plays a role:</p>
+
+    <div class="journey">
+      <div class="journey-label">🚶 Patient Journey Simulator</div>
+      <div class="journey-title">From First Symptom to Treatment — Step by Step</div>
+      <div class="journey-sub">Click any step to expand it and see the full picture of what happens and who's involved.</div>
+      <div class="journey-steps" id="journeySteps"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Why This Map Matters for AI</h2>
+    <p>Here's why we spent this article building a picture of the healthcare system before touching AI at all: <mark>AI doesn't exist in a vacuum</mark>. Every AI tool in healthcare was built to fit into a specific part of this system — a specific setting, a specific role, a specific step in a patient's journey.</p>
+    <p>When you understand how the system works — the different settings, the different roles, the flow from first symptom to treatment — you can start asking the right questions about AI:</p>
+    <p><em>Where in this process does the AI tool fit? Whose job does it affect? What information does it need to work? What could go wrong if it makes a mistake at this step?</em></p>
+    <p>Those are the questions that make someone a thoughtful, effective healthcare professional in an age of AI. You now have the foundation to start asking them.</p>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A hospital implements an AI tool to help with appointment scheduling. Which group of healthcare workers is MOST directly affected by this change first?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Surgeons and physicians</button>
+        <button class="qopt" onclick="cq(this,true)">Administrative staff like scheduling coordinators and front desk workers</button>
+        <button class="qopt" onclick="cq(this,false)">Pharmacists</button>
+        <button class="qopt" onclick="cq(this,false)">Laboratory technicians</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Healthcare is a large, interconnected system with many settings (hospitals, clinics, labs, pharmacies, home health, telehealth) and two main types of workers: clinical staff who directly care for patients, and administrative staff who keep everything running.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Every AI tool in healthcare is designed to fit into a specific part of this system. Understanding the system helps you understand why AI is being used, who it affects, and what could go wrong when it's applied to each step.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>A patient's journey from first symptom to treatment touches many different workers and many different systems. AI is already present at multiple points in that journey — from scheduling and documentation to diagnosis support and remote monitoring.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const settings=[
+  {name:'Hospitals',icon:'🏥',desc:'Hospitals are the largest and most complex healthcare settings. They provide care for patients who are seriously ill, injured, or recovering from surgery. Hospitals have dozens of specialized departments — emergency rooms, intensive care units (ICUs), maternity wards, oncology floors, and more — each with their own teams, systems, and workflows.',aiNote:'🤖 AI in hospitals: Hospitals are the biggest adopters of AI in healthcare. AI is used in hospital scheduling systems, clinical documentation, fall risk prediction, sepsis detection alerts, radiology image analysis, and staff coordination tools like bed management systems.'},
+  {name:'Outpatient Clinics',icon:'🏢',desc:'Outpatient clinics are where most routine healthcare happens — annual physicals, follow-up appointments, specialist consultations, and minor procedures. Patients come in, get care, and go home the same day. Clinics can be general (like a family practice) or highly specialized (like a cardiology or orthopedics clinic).',aiNote:'🤖 AI in clinics: Clinics often use AI scheduling tools to optimize appointment booking and reduce no-shows. AI documentation tools help physicians write notes faster. Some clinics use AI-powered patient portals that let patients check in, update information, and get appointment reminders automatically.'},
+  {name:'Laboratories',icon:'🧪',desc:'Laboratories process the tests that help doctors diagnose conditions — blood tests, urine tests, cultures, biopsies, and medical imaging like X-rays, MRIs, and CT scans. Labs can be inside hospitals or freestanding. They\'re staffed by medical laboratory scientists, pathologists, radiologists, and imaging technicians.',aiNote:'🤖 AI in labs: This is one of the most advanced areas of healthcare AI. AI tools can analyze medical images (X-rays, CT scans, MRIs) and flag potential abnormalities for radiologists to review. AI can also process lab results faster and identify patterns across thousands of results that humans might miss.'},
+  {name:'Pharmacies',icon:'💊',desc:'Pharmacies fill prescriptions, manage medication safety, and provide patient counseling. Hospital pharmacies are inside the hospital and work closely with clinical teams. Retail pharmacies (like the ones in grocery stores or standalone pharmacy chains) serve the general public.',aiNote:'🤖 AI in pharmacies: AI tools check for dangerous drug interactions automatically when a new prescription is entered. AI is also used to predict medication demand, reduce waste, and flag patients who may be at risk for not taking their medications correctly (called medication non-adherence).'},
+  {name:'Home Health',icon:'🏠',desc:'Home health agencies send nurses, aides, and therapists directly to patients\' homes to provide care. This is especially important for elderly patients, patients recovering from surgery, or anyone who can\'t easily travel to a clinic. Home health workers often work independently and must make clinical decisions without a team immediately available.',aiNote:'🤖 AI in home health: Remote patient monitoring is growing fast — wearable devices track patient vitals and send data to clinical teams. AI analyzes that data and flags concerning changes. Some home health agencies also use AI route planning to help workers visit more patients efficiently.'},
+  {name:'Telehealth',icon:'💻',desc:'Telehealth lets patients see a healthcare provider by video or phone without traveling to a clinic. It exploded during the COVID-19 pandemic and has remained popular for routine visits, mental health appointments, and follow-up care. Telehealth requires strong digital infrastructure and creates new documentation and communication workflows.',aiNote:'🤖 AI in telehealth: AI chatbots often handle the pre-visit intake — asking patients about their symptoms before the provider joins the call. AI tools also support real-time note-taking during video visits. Some telehealth platforms use AI to analyze patient-reported symptoms and suggest appropriate care pathways.'}
+];
+
+function showSetting(i){
+  const cards=document.querySelectorAll('.setting-card');
+  cards.forEach((c,ci)=>c.classList.toggle('active',ci===i));
+  const s=settings[i];
+  const detail=document.getElementById('settingDetail');
+  detail.innerHTML=`<div class="sd-title">${s.icon} ${s.name}</div><div class="sd-body">${s.desc}</div><div class="sd-ai-note">${s.aiNote}</div>`;
+  detail.classList.add('show');
+}
+
+const journeyData=[
+  {num:1,name:'Noticing a Symptom',who:'The Patient',desc:'A person notices something is wrong — persistent headache, chest pain, an unusual lump. They decide to seek care. This seems simple, but it\'s actually a decision point: do they call their primary care doctor? Go to an urgent care? Head to the ER? The answer depends on the severity of the symptom.',ai:'🤖 AI here: Some healthcare systems have AI-powered symptom checkers — either on their website or through a patient portal app — that help patients decide what level of care they need and where to go.'},
+  {num:2,name:'Scheduling an Appointment',who:'Front Desk / Scheduling Coordinator',desc:'The patient calls or goes online to make an appointment. A scheduling coordinator or automated system finds an available slot that matches the patient\'s needs, insurance, and provider availability. If the system is overbooked, the coordinator has to find alternatives.',ai:'🤖 AI here: AI scheduling tools predict appointment length, optimize provider schedules, flag patients who are likely to no-show, and send automatic reminders. This is one of the most common uses of AI in outpatient healthcare settings.'},
+  {num:3,name:'Checking In',who:'Front Desk Staff / Medical Assistant',desc:'The patient arrives and checks in. Their insurance is verified, their information is confirmed, and their reason for visiting is documented. They\'re taken to an exam room where a medical assistant takes their vitals — height, weight, blood pressure, temperature, pulse.',ai:'🤖 AI here: Some clinics use AI-assisted intake — patients fill out digital forms that are automatically added to their electronic health record (EHR). AI can flag if key information is missing or if vitals fall outside normal ranges.'},
+  {num:4,name:'The Provider Visit',who:'Physician / Nurse Practitioner / PA',desc:'The provider comes in, reviews the patient\'s history, asks questions, performs a physical exam, and decides what\'s going on. They may order tests, make a diagnosis, or refer the patient to a specialist. This is the most complex and judgment-heavy part of the process.',ai:'🤖 AI here: AI documentation tools (like ambient scribing software) listen to the conversation and draft a clinical note automatically. AI also surfaces relevant patient history, flags potential drug interactions, and can suggest diagnostic possibilities — though the provider always makes the final decision.'},
+  {num:5,name:'Ordering Tests',who:'Physician / Lab Technician / Radiologist',desc:'If the provider needs more information, they order tests — blood work, imaging (X-rays, MRIs), or other diagnostics. The patient may go to a lab within the same facility or be sent elsewhere. Results are sent back to the provider electronically.',ai:'🤖 AI here: In radiology and pathology, AI tools analyze images and lab slides, highlighting areas that may indicate a problem. The radiologist or pathologist reviews the AI\'s flagged areas and makes the final read. This can significantly speed up the process.'},
+  {num:6,name:'Treatment and Follow-Up',who:'Clinical Team / Patient / Care Coordinator',desc:'Once a diagnosis is made, the provider creates a treatment plan — a prescription, a procedure, a referral, lifestyle recommendations, or a combination. A care coordinator may help the patient navigate next steps, schedule follow-ups, and connect to other services they need.',ai:'🤖 AI here: AI tools can predict which patients are at risk of not following through on their treatment plan (called care plan adherence). Some systems automatically reach out to patients who miss follow-up appointments or don\'t refill prescriptions.'}
+];
+
+const stepsEl=document.getElementById('journeySteps');
+journeyData.forEach((step,i)=>{
+  const el=document.createElement('div');
+  el.className='j-step';
+  el.innerHTML=`<div class="j-step-header" onclick="toggleStep(${i})">
+    <div class="j-step-num">${step.num}</div>
+    <div class="j-step-name">${step.name}</div>
+    <div class="j-step-arrow">▼</div>
+  </div>
+  <div class="j-step-body">
+    <div class="j-step-who">Who's involved: ${step.who}</div>
+    <div class="j-step-desc">${step.desc}</div>
+    <div class="j-step-ai">${step.ai}</div>
+  </div>`;
+  stepsEl.appendChild(el);
+});
+
+function toggleStep(i){
+  const steps=document.querySelectorAll('.j-step');
+  steps[i].classList.toggle('open');
+}
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){
+    fb.className='qfb show cfb';
+    fb.textContent='✅ Correct! Scheduling AI directly changes the workflow of the people who manage appointments and greet patients every day. Clinical staff like doctors and nurses feel the impact of scheduling AI more indirectly — through changes in patient flow and appointment load — but administrative staff are on the front line of that change. Understanding who\'s most affected helps you think clearly about how AI should be implemented and supported.';
+  } else {
+    document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('Administrative'))o.classList.add('correct');});
+    fb.className='qfb show wfb';
+    fb.textContent='❌ Scheduling systems primarily affect the people who manage scheduling — administrative staff. Clinical workers like surgeons, pharmacists, and lab techs have very different workflows that are touched by different types of AI tools. This is exactly why mapping the healthcare system matters: AI tools are designed for specific parts of the system, and knowing that helps you understand their real-world impact.';
+  }
+}
+
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

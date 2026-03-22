@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Technology Has Always Changed Healthcare — And Why AI Is Different — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* Interactive timeline */
+.timeline-explorer{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.te-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.te-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.te-sub{font-size:15px;color:var(--gray-muted);margin-bottom:24px;}
+.tl-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.tl-btn{padding:8px 16px;border-radius:10px;border:1.5px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.tl-btn.active{background:var(--purple);border-color:var(--purple);color:white;}
+.tl-panel{display:none;animation:fadeIn .3s ease;}
+.tl-panel.active{display:block;}
+.tl-era-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:16px;}
+.tl-era-icon{font-size:40px;flex-shrink:0;}
+.tl-era-info{}
+.tl-era-year{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:4px;}
+.tl-era-name{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.tl-era-tagline{font-size:15px;color:var(--gray-muted);}
+.tl-tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.tl-tech{background:var(--white);border-radius:12px;padding:14px;}
+.tl-tech-name{font-size:13px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.tl-tech-impact{font-size:13px;line-height:1.55;color:var(--gray-text);}
+.tl-resistance{background:var(--orange-pale);border:1.5px solid #FDE68A;border-radius:10px;padding:12px 16px;font-size:14px;color:#92400E;margin-bottom:10px;}
+.tl-lesson{background:var(--green-pale);border:1.5px solid #86EFAC;border-radius:10px;padding:12px 16px;font-size:14px;color:var(--green);}
+
+/* Comparison table */
+.compare-table{width:100%;border-collapse:collapse;margin:24px 0;border-radius:14px;overflow:hidden;border:1.5px solid var(--purple-mid);}
+.compare-table th{background:var(--purple);color:white;padding:12px 16px;font-size:13px;font-weight:600;text-align:left;}
+.compare-table td{padding:11px 16px;font-size:13px;border-bottom:1px solid var(--purple-mid);vertical-align:top;line-height:1.6;}
+.compare-table tr:last-child td{border-bottom:none;}
+.compare-table tr:nth-child(even) td{background:var(--gray-soft);}
+.tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;}
+.tag.old{background:var(--purple-pale);color:var(--purple);}
+.tag.ai{background:var(--green-pale);color:var(--green);}
+.tag.both{background:var(--orange-pale);color:var(--orange);}
+
+/* Why different callout boxes */
+.diff-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.diff-card{border-radius:20px;padding:22px;border:2px solid;}
+.diff-card.old-tech{background:var(--purple-pale);border-color:var(--purple-mid);}
+.diff-card.ai-tech{background:var(--green-pale);border-color:#86EFAC;}
+.diff-card-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;}
+.diff-card.old-tech .diff-card-label{color:var(--purple);}
+.diff-card.ai-tech .diff-card-label{color:var(--green);}
+.diff-card-title{font-size:16px;font-weight:700;margin-bottom:10px;}
+.diff-card.old-tech .diff-card-title{color:var(--purple-dark);}
+.diff-card.ai-tech .diff-card-title{color:var(--green);}
+.diff-item{font-size:13px;line-height:1.6;margin-bottom:8px;padding-left:14px;position:relative;color:var(--gray-text);}
+.diff-item::before{content:'→';position:absolute;left:0;font-weight:700;}
+.diff-card.old-tech .diff-item::before{color:var(--purple);}
+.diff-card.ai-tech .diff-item::before{color:var(--green);}
+
+/* Quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:#FFF1F1;border-color:#DC2626;color:#DC2626;}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:#FFF1F1;color:#DC2626;}
+
+/* Summary */
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.tl-tech-grid{grid-template-columns:1fr;}.diff-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+
+<div class="hero">
+  <div class="lesson-tag">Module 1 · Before You Begin</div>
+  <h1>How Technology Has Always Changed Healthcare — And Why AI Is Different</h1>
+  <p class="hero-sub">Every generation of healthcare workers has faced a moment when new technology arrived and changed everything. Understanding that history doesn't just make for interesting reading — it helps you see exactly why AI is such a big deal, and what's genuinely new about it.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Healthcare Has Always Been Transformed by Technology</h2>
+    <p>Before X-rays existed, a doctor trying to understand what was happening inside a patient's body had to rely entirely on symptoms, physical touch, and educated guessing. The idea that you could see inside a living person without surgery seemed impossible — until 1895, when Wilhelm Röntgen accidentally discovered X-rays and changed medicine forever.</p>
+    <p>Before electronic health records, every note a doctor or nurse wrote was on paper. Finding a patient's history meant physically searching through filing cabinets. Sending records to another facility meant faxing paper — or mailing it. The idea that a patient's complete medical history could be pulled up on a screen in seconds seemed like science fiction — until it wasn't.</p>
+    <p>This is the pattern: <mark>healthcare has always been transformed by technology</mark>, and every time it happens, the people working in healthcare had to learn something new, change how they worked, and trust something unfamiliar. AI is the latest chapter in that story — not the first.</p>
+    <div class="pull-quote"><p>The healthcare workers who thrived through every previous technology shift weren't the ones who avoided the change. They were the ones who understood what the technology could and couldn't do — and kept their human judgment front and center.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>A Tour Through Healthcare's Biggest Technology Moments</h2>
+    <p>Click through each era to see what changed, how workers responded, and what lesson it holds for today:</p>
+
+    <div class="timeline-explorer">
+      <div class="te-label">📅 Technology Timeline</div>
+      <div class="te-title">How Healthcare Has Changed — Era by Era</div>
+      <div class="te-sub">Select an era to explore what technology arrived, how it changed healthcare, and what workers had to learn.</div>
+      <div class="tl-nav">
+        <button class="tl-btn active" onclick="showEra(0)">1890s–1940s</button>
+        <button class="tl-btn" onclick="showEra(1)">1950s–1970s</button>
+        <button class="tl-btn" onclick="showEra(2)">1980s–2000s</button>
+        <button class="tl-btn" onclick="showEra(3)">2000s–2010s</button>
+        <button class="tl-btn" onclick="showEra(4)">2010s–Now</button>
+      </div>
+      <div id="eraContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>So What's Actually Different About AI?</h2>
+    <p>Every technology in the timeline above changed how healthcare workers did their jobs — but they all shared a common trait: <mark>they were tools that did exactly what you told them to do</mark>. An X-ray machine takes an X-ray. An EHR stores what you type into it. A heart monitor tracks whatever it's programmed to track.</p>
+    <p>AI is different in a way that's genuinely new — and genuinely important:</p>
+    <div class="diff-grid">
+      <div class="diff-card old-tech">
+        <div class="diff-card-label">📋 Every Previous Technology</div>
+        <div class="diff-card-title">Passive tools — they do what they're told</div>
+        <div class="diff-item">Operates within fixed rules set by a human</div>
+        <div class="diff-item">Produces the same output given the same input, every time</div>
+        <div class="diff-item">Doesn't learn, adapt, or change its own behavior</div>
+        <div class="diff-item">Fails in predictable, visible ways (it breaks, it shows an error)</div>
+        <div class="diff-item">The human is always the one interpreting and deciding</div>
+      </div>
+      <div class="diff-card ai-tech">
+        <div class="diff-card-label">🤖 Artificial Intelligence</div>
+        <div class="diff-card-title">Active systems — they make predictions and suggestions</div>
+        <div class="diff-item">Learns patterns from data and applies them to new situations</div>
+        <div class="diff-item">Can produce different outputs for similar inputs — based on patterns</div>
+        <div class="diff-item">Improves (or degrades) over time as it processes more data</div>
+        <div class="diff-item">Can fail in invisible, confident ways — wrong answers that look right</div>
+        <div class="diff-item">The AI makes suggestions — but a human still must decide and take responsibility</div>
+      </div>
+    </div>
+    <p>That last point — AI failing in invisible, confident ways — is the most important difference to understand. When an X-ray machine breaks, you know it broke. When an AI tool gives you a wrong answer, it doesn't come with a warning label. It just looks like an answer.</p>
+    <p>This is why healthcare workers who use AI need something their predecessors didn't need as much: the ability to critically evaluate what the tool is telling them, not just execute what it says.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>How AI Compares to Previous Healthcare Technologies</h2>
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Past Technologies (X-rays, EHRs, monitors)</th>
+            <th>AI Tools</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>How it works</strong></td>
+            <td>Fixed rules, manual input</td>
+            <td>Learns from patterns in large datasets</td>
+          </tr>
+          <tr>
+            <td><strong>Who controls the output</strong></td>
+            <td>Entirely determined by user input</td>
+            <td>AI generates suggestions; human must evaluate and decide</td>
+          </tr>
+          <tr>
+            <td><strong>How it fails</strong></td>
+            <td>Visibly — machine breaks, error message appears</td>
+            <td>Often invisibly — confident wrong answers that look correct</td>
+          </tr>
+          <tr>
+            <td><strong>Scope of impact</strong></td>
+            <td>Specific task (take an image, store a record)</td>
+            <td>Can affect entire workflows, recommendations, and decisions</td>
+          </tr>
+          <tr>
+            <td><strong>Bias risk</strong></td>
+            <td>Low — does what it's programmed to do</td>
+            <td>High — reflects biases in the data it was trained on</td>
+          </tr>
+          <tr>
+            <td><strong>Worker skill needed</strong></td>
+            <td>Learn to use the tool correctly</td>
+            <td>Learn to use the tool AND critically evaluate its outputs</td>
+          </tr>
+          <tr>
+            <td><strong>Accountability</strong></td>
+            <td>Human who operated the tool is responsible</td>
+            <td>Human who acted on AI output is still responsible</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Pattern That Repeats — And What It Means for You</h2>
+    <p>Look back at every technology shift in the timeline above, and you'll see the same pattern repeat:</p>
+    <p><strong>1. New technology arrives.</strong> It promises to make things faster, better, or more accurate. Early adopters experiment. Most people are skeptical or anxious.</p>
+    <p><strong>2. Resistance follows.</strong> Some workers fear the technology will replace them, get it wrong, or create new problems. Some of those fears are valid. Some aren't.</p>
+    <p><strong>3. The technology gets integrated.</strong> It doesn't replace workers — it changes what workers do. The people who understood it earliest became more valuable, not less.</p>
+    <p><strong>4. A new baseline is set.</strong> Within a generation, the technology is just part of the job. Workers who remember the old way retire. The new way is simply how healthcare works.</p>
+    <p>We are currently in stage 2 moving into stage 3 with AI. The workers who will thrive are the ones learning it now — <mark>before it becomes the baseline everyone is expected to already know</mark>.</p>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">When electronic health records (EHRs) were first introduced, many healthcare workers resisted them — saying paper records were more reliable and the technology created too much extra work. Looking back, what does this resistance actually demonstrate?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">That EHRs were actually a bad idea that shouldn't have been implemented</button>
+        <button class="qopt" onclick="cq(this,false)">That healthcare workers should always resist new technology until it's proven perfect</button>
+        <button class="qopt" onclick="cq(this,true)">That resistance to new technology in healthcare is a normal, recurring pattern — and workers who learned EHRs early became more valuable, not less, while the technology eventually became the new standard everyone was expected to know</button>
+        <button class="qopt" onclick="cq(this,false)">That paper records were actually better and the switch to EHRs was a mistake</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Healthcare has been transformed by technology repeatedly — X-rays, antibiotics, medical imaging, electronic records, telehealth. Each shift required workers to learn something new, and each time, the workers who understood the technology earliest became more valuable.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI is genuinely different from previous healthcare technologies: it makes suggestions and predictions, it can fail in invisible and confident ways, it reflects the biases in its training data, and it requires human workers to critically evaluate its outputs — not just execute them.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The pattern is consistent: resistance is normal, integration follows, and the technology eventually becomes the new baseline. Healthcare workers currently learning AI are ahead of where most of the workforce is — and that head start matters.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const eras=[
+  {
+    period:'1890s–1940s',
+    icon:'🔬',
+    name:'The Age of Diagnostics',
+    tagline:'Seeing inside the body for the first time',
+    techs:[
+      {name:'X-rays (1895)',impact:'Doctors could see bones and internal structures without surgery. Radiology became an entirely new medical specialty.'},
+      {name:'Blood typing (1901)',impact:'For the first time, blood transfusions became safe. Surgeries that once killed patients from blood loss became survivable.'},
+      {name:'Antibiotics (1928)',impact:'Penicillin turned previously fatal bacterial infections into treatable conditions. The leading causes of death changed almost overnight.'},
+      {name:'Electrocardiogram / ECG (1930s)',impact:'Doctors could see the electrical activity of the heart. Diagnosing heart conditions moved from guesswork to science.'}
+    ],
+    resistance:'Many physicians resisted X-rays initially — some called them a gimmick, and there were legitimate concerns about radiation exposure. Others worried that "seeing inside patients" would undermine the doctor\'s traditional role of diagnosis through experience and touch.',
+    lesson:'✅ The lesson: Each technology was eventually integrated because it genuinely improved patient outcomes. Workers who learned to use X-rays and ECGs became more capable, not less necessary.'
+  },
+  {
+    period:'1950s–1970s',
+    icon:'💉',
+    name:'The Age of Intervention',
+    tagline:'Technology enters the operating room',
+    techs:[
+      {name:'Heart-lung bypass machine (1953)',impact:'Open-heart surgery became possible. Procedures that were previously impossible could now be performed routinely.'},
+      {name:'Intensive Care Units / ICUs (1950s–60s)',impact:'Centralized monitoring of critically ill patients created an entirely new nursing specialty — critical care nursing.'},
+      {name:'CT Scanning (1970s)',impact:'Cross-sectional images of the body gave doctors a level of diagnostic detail that was previously impossible without surgery.'},
+      {name:'Dialysis machines (1960s)',impact:'Kidney failure, which was always fatal, became manageable. Patients could live for years on dialysis.'}
+    ],
+    resistance:'Nurses were initially skeptical of ICUs — some felt that concentrated technology would depersonalize care and reduce their role to "machine watching." There were real concerns about whether technology was replacing the human connection between nurse and patient.',
+    lesson:'✅ The lesson: ICU nursing became one of the most specialized and respected roles in healthcare. Technology didn\'t replace the nurse — it created a new, higher-skill version of the job.'
+  },
+  {
+    period:'1980s–2000s',
+    icon:'💻',
+    name:'The Digital Revolution',
+    tagline:'Healthcare goes electronic for the first time',
+    techs:[
+      {name:'Personal computers in hospitals (1980s)',impact:'Administrative work shifted from typewriters and paper to screens and keyboards. Billing, scheduling, and records changed completely.'},
+      {name:'Fax machines (1980s)',impact:'Medical records could be transmitted between facilities in minutes instead of days. The fax became the backbone of healthcare communication.'},
+      {name:'Early electronic health records (1990s)',impact:'Patient records started migrating to digital systems, though early adoption was slow and inconsistent across facilities.'},
+      {name:'Internet and email (late 1990s)',impact:'Information sharing within and between healthcare systems accelerated. Research and clinical guidelines became instantly accessible.'}
+    ],
+    resistance:'Many physicians strongly resisted computers in the late 1980s and 1990s — arguing that typing during patient visits was disrespectful, that digital systems were unreliable, and that paper was more secure. These concerns were debated loudly for over a decade.',
+    lesson:'✅ The lesson: Computers didn\'t go away. Physicians who refused to adapt to digital systems eventually had to anyway — and those who learned early were far better positioned as healthcare continued to digitize.'
+  },
+  {
+    period:'2000s–2010s',
+    icon:'📋',
+    name:'The EHR Era',
+    tagline:'Mandated digital records — ready or not',
+    techs:[
+      {name:'Electronic Health Records — mandated (2009)',impact:'The HITECH Act incentivized and ultimately required healthcare facilities to adopt EHR systems. This was one of the largest technology transformations in healthcare history.'},
+      {name:'Smartphone and tablet entry (2010s)',impact:'Mobile devices entered clinical workflows. Nurses could chart at the bedside. Physicians could review results from anywhere.'},
+      {name:'Telehealth platforms (2010s)',impact:'Video visits began, primarily for mental health and rural care. Most facilities treated it as a niche option — until the pandemic changed everything.'},
+      {name:'Patient portals (2010s)',impact:'Patients gained access to their own records, test results, and communication with providers. This shifted the information balance in healthcare.'}
+    ],
+    resistance:'EHR adoption was one of the most contentious technology shifts in healthcare history. Physicians reported significant burnout from documentation burdens. Studies showed doctors spending more time on computers than with patients. The concerns were real — and led to ongoing efforts to reduce EHR burden.',
+    lesson:'✅ The lesson: Some resistance was justified — early EHR systems were genuinely burdensome. But the solution was improving the technology and workflows, not abandoning digital records. Healthcare workers who learned to use EHR systems efficiently became significantly more productive.'
+  },
+  {
+    period:'2010s–Now',
+    icon:'🤖',
+    name:'The AI Era',
+    tagline:'Technology that learns, predicts, and suggests',
+    techs:[
+      {name:'AI medical imaging analysis (2015–now)',impact:'AI tools assist radiologists by flagging potential abnormalities in X-rays, CT scans, and MRIs — dramatically speeding up the review process.'},
+      {name:'Ambient clinical documentation (2020–now)',impact:'AI listens to patient-provider conversations and drafts clinical notes automatically. Tools like Nuance DAX are being adopted by major health systems.'},
+      {name:'Predictive analytics and early warning systems (2018–now)',impact:'AI tools analyze patient data in real time and alert clinical teams when a patient\'s vital signs or lab trends suggest they\'re at risk of deteriorating.'},
+      {name:'AI scheduling and workflow optimization (2019–now)',impact:'AI tools manage appointment scheduling, predict no-shows, optimize staff scheduling, and flag bottlenecks in patient flow.'}
+    ],
+    resistance:'Current resistance to AI in healthcare mirrors earlier technology shifts: concerns about accuracy, fears about job displacement, worries about patient privacy, and questions about who is responsible when AI makes a mistake. Many of these concerns are legitimate and deserve serious attention.',
+    lesson:'✅ The lesson so far: The pattern predicts that AI will become integrated into healthcare workflows — the question is how thoughtfully. Workers who understand AI now will shape how it\'s used, not just react to decisions made without them.'
+  }
+];
+
+let eraIdx=0;
+function showEra(i){
+  eraIdx=i;
+  document.querySelectorAll('.tl-btn').forEach((b,bi)=>b.classList.toggle('active',bi===i));
+  renderEra();
+}
+function renderEra(){
+  const e=eras[eraIdx];
+  const techHtml=e.techs.map(t=>`<div class="tl-tech"><div class="tl-tech-name">🔹 ${t.name}</div><div class="tl-tech-impact">${t.impact}</div></div>`).join('');
+  document.getElementById('eraContainer').innerHTML=`
+    <div class="tl-panel active">
+      <div class="tl-era-header">
+        <div class="tl-era-icon">${e.icon}</div>
+        <div class="tl-era-info">
+          <div class="tl-era-year">${e.period}</div>
+          <div class="tl-era-name">${e.name}</div>
+          <div class="tl-era-tagline">${e.tagline}</div>
+        </div>
+      </div>
+      <div class="tl-tech-grid">${techHtml}</div>
+      <div class="tl-resistance"><strong>⚠️ How workers responded:</strong> ${e.resistance}</div>
+      <div class="tl-lesson">${e.lesson}</div>
+    </div>`;
+}
+renderEra();
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){
+    fb.className='qfb show cfb';
+    fb.textContent='✅ Exactly right. Resistance to new technology in healthcare is a consistent, recurring pattern — and looking back, EHR resistance makes complete sense. The technology genuinely was burdensome at first. But healthcare workers who learned it early and helped shape how it was implemented became far more valuable than those who waited. The same dynamic is playing out with AI right now.';
+  } else {
+    document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('recurring pattern'))o.classList.add('correct');});
+    fb.className='qfb show wfb';
+    fb.textContent='❌ EHRs are now universal in healthcare — they didn\'t go away, and paper records didn\'t come back. The resistance was a normal part of the adoption cycle, not a signal that the technology was wrong. Understanding this pattern is important: it helps you approach AI with realistic expectations rather than either uncritical enthusiasm or reflexive resistance.';
+  }
+}
+
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
