@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>When AI Gets It Wrong — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.case-studies{display:flex;flex-direction:column;gap:14px;margin:24px 0;}
+.case{background:var(--white);border:1.5px solid #FCA5A5;border-radius:18px;overflow:hidden;cursor:pointer;transition:border-color .2s;}
+.case:hover,.case.open{border-color:var(--red);}
+.case-header{display:flex;align-items:center;gap:14px;padding:18px 22px;}
+.case-icon{font-size:24px;flex-shrink:0;}
+.case-meta{flex:1;}
+.case-name{font-size:16px;font-weight:700;color:var(--purple-dark);margin-bottom:2px;}
+.case-type{font-size:12px;color:var(--gray-muted);}
+.case-severity{font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px;text-transform:uppercase;letter-spacing:.06em;flex-shrink:0;}
+.case-severity.high{background:var(--red-pale);color:var(--red);}
+.case-severity.systemic{background:#FFF7ED;color:var(--orange);}
+.case-arrow{font-size:14px;color:var(--gray-muted);transition:transform .2s;flex-shrink:0;}
+.case.open .case-arrow{transform:rotate(180deg);}
+.case-body{display:none;padding:0 22px 18px;border-top:1px solid #FCA5A5;}
+.case.open .case-body{display:block;}
+.case-what{font-size:14px;line-height:1.75;color:var(--gray-text);margin:12px 0 10px;}
+.case-boxes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.case-box{border-radius:8px;padding:10px 12px;}
+.case-box.cause{background:#FFF7ED;border:1px solid #FDE68A;}
+.case-box.lesson{background:var(--green-pale);border:1px solid #86EFAC;}
+.case-box-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
+.case-box.cause .case-box-label{color:var(--orange);}
+.case-box.lesson .case-box-label{color:var(--green);}
+.case-box-text{font-size:13px;line-height:1.6;color:var(--gray-text);}
+.case-worker{background:var(--purple-pale);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--purple-dark);line-height:1.65;}
+.error-types{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;}
+.error-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:18px;padding:20px;}
+.error-icon{font-size:28px;margin-bottom:8px;}
+.error-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.error-desc{font-size:13px;line-height:1.6;color:var(--gray-text);}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.error-types{grid-template-columns:1fr;}.case-boxes{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 1.3 · AI Limitations in Healthcare</div>
+  <h1>When AI Gets It Wrong: Real Healthcare Mistakes and What We Learned From Them</h1>
+  <p class="hero-sub">Understanding AI limitations isn't about being afraid of the technology — it's about being a smarter, safer user of it. These are real documented cases where healthcare AI failed, why it failed, and what those failures teach every healthcare worker about their role in the human-AI partnership.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Why We Study Failures</h2>
+    <p>Aviation, medicine, and nuclear power all use the same approach to safety: study failures rigorously, publish the findings, and build those lessons into training and systems. AI in healthcare is no different. <mark>Understanding real failures is not pessimism — it's professionalism.</mark></p>
+    <p>The cases below are documented and publicly reported. None are hypothetical. Each one reveals a category of AI risk that applies not just to that specific tool — but to the broader landscape of healthcare AI you'll encounter in your career.</p>
+    <div class="pull-quote"><p>The most dangerous assumption a healthcare worker can make about an AI tool is that because it's been deployed, it's been verified as safe. Deployment is the beginning of oversight, not the end of it.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Real AI Failures in Healthcare — Click Each to Learn</h2>
+    <p>These are documented cases. Click each one to see what happened, why the AI failed, and what the lesson is for healthcare workers:</p>
+    <div class="case-studies" id="caseStudies"></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Three Categories of AI Error in Healthcare</h2>
+    <p>Across all of these cases, AI errors in healthcare fall into three broad categories. Knowing these helps you anticipate where problems are most likely to arise:</p>
+    <div class="error-types">
+      <div class="error-card">
+        <div class="error-icon">📉</div>
+        <div class="error-title">Bias Errors</div>
+        <div class="error-desc">AI performs differently for different patient groups because its training data didn't represent them equally. Often invisible until someone looks for it specifically.</div>
+      </div>
+      <div class="error-card">
+        <div class="error-icon">🎭</div>
+        <div class="error-title">Hallucination Errors</div>
+        <div class="error-desc">AI generates confident, plausible-sounding output that is factually wrong. Most common with generative AI tools like documentation assistants. No warning signal — it just looks like a finished sentence.</div>
+      </div>
+      <div class="error-card">
+        <div class="error-icon">🔀</div>
+        <div class="error-title">Context Errors</div>
+        <div class="error-desc">AI applies patterns from its training data to situations those patterns don't fit — a different hospital setting, a changed patient population, conditions it wasn't trained on. The AI keeps working; it just works incorrectly.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What Every Healthcare Worker Can Do</h2>
+    <p>You don't need to be an AI engineer to prevent these errors from harming patients. You need three habits:</p>
+    <p><strong>1. Review before acting.</strong> Every AI output is a starting point, not a conclusion. Whether it's a risk score, a drafted note, a diagnostic flag, or a scheduling recommendation — review it with your own professional judgment before taking action on it.</p>
+    <p><strong>2. Notice patterns and report them.</strong> If an AI tool seems to give worse results for certain patients, flag it. If a documentation AI is consistently wrong about a specific type of information, report it. Individual observations aggregate into the evidence that drives system improvements.</p>
+    <p><strong>3. Never let "the AI said so" end the conversation.</strong> <mark>AI outputs are inputs to human judgment — not replacements for it.</mark> If something in an AI output doesn't match what you're seeing clinically, trust your clinical assessment. Investigate the discrepancy. The AI might be wrong.</p>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A hospital has been using a sepsis prediction AI for 18 months with good results. New data suggests the AI is significantly under-predicting sepsis risk in patients with a specific autoimmune condition. What does this most likely indicate?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">The AI has developed a software bug and needs to be restarted</button>
+        <button class="qopt" onclick="cq(this,true)">The AI's training data likely underrepresented patients with this autoimmune condition, creating a bias that wasn't detected until enough cases accumulated — a context or bias error</button>
+        <button class="qopt" onclick="cq(this,false)">The AI is performing normally — no AI can predict every case</button>
+        <button class="qopt" onclick="cq(this,false)">The clinicians are interpreting the AI scores incorrectly</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Real documented AI failures in healthcare include biased risk scoring that denied care to Black patients, pulse oximeter bias affecting darker-skinned patients, and AI diagnostic errors in dermatology — all caused by training data that didn't represent the full patient population.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI errors fall into three categories: bias errors (works worse for some groups), hallucination errors (confident but wrong output), and context errors (applied outside the range it was trained on). All three require human review to catch.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Healthcare workers prevent AI errors by reviewing before acting, noticing and reporting patterns, and never letting "the AI said so" be the final word. Your professional judgment is the safety layer between AI outputs and patient care.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const cases=[
+  {icon:'⚕️',name:'Optum\'s Commercial Risk Algorithm',type:'Algorithmic Bias · Published in Science (2019)',severity:'systemic',severityLabel:'Systemic',what:'A widely used commercial algorithm that health systems used to identify patients who needed additional care management was found to be systematically biased against Black patients. The algorithm used healthcare cost as a proxy for health need — but because Black patients had historically received less care (due to systemic barriers), they had lower costs despite being equally sick. The result: Black patients were assigned lower risk scores than equally ill white patients, directing fewer care resources to those who needed them.',cause:'Root cause: The AI was trained to predict healthcare costs, not health needs. Because historical cost data reflected systemic inequities in care access, the AI learned and amplified those inequities. This affected an estimated 200 million people annually across U.S. health systems.',lesson:'The lesson: Optimizing for the wrong outcome produces the wrong results. Before using any AI risk tool, understand what it was trained to predict — and whether that proxy accurately represents what you actually care about.',worker:'🏥 For healthcare workers: When using AI risk stratification tools, ask: what was this trained to optimize? If the answer is "cost" rather than "clinical need," apply extra scrutiny to results for patients from underserved communities.'},
+  {icon:'💡',name:'Pulse Oximeter Bias and ICU Monitoring',type:'Device Bias · Multiple studies 2020–2022',severity:'high',severityLabel:'Patient Safety',what:'Pulse oximeters — devices that measure blood oxygen levels — were widely used in hospitals and integrated into AI monitoring systems. Multiple peer-reviewed studies found that these devices significantly overestimated oxygen saturation in patients with darker skin tones, sometimes by as much as 3–4 percentage points. Patients appeared to have acceptable oxygen levels when they were actually dangerously hypoxic (low on oxygen).',cause:'Root cause: The devices were validated primarily on patients with lighter skin tones. AI monitoring systems built on oximeter data inherited this same bias. The error was invisible — the device appeared to function normally.',lesson:'The lesson: Technology that seems to work may work unequally for different patients. Validation on one population doesn\'t guarantee accuracy for all populations. The broader lesson is that devices and AI tools need diverse validation datasets.',worker:'🏥 For healthcare workers: Be aware that oximeter readings may be less reliable for patients with darker skin tones. Clinically assess oxygenation holistically — don\'t rely solely on a number from a device that has documented bias for this population.'},
+  {icon:'🔬',name:'AI Dermatology Tool Performance Gaps',type:'Training Data Bias · Multiple research papers',severity:'high',severityLabel:'Patient Safety',what:'AI tools designed to detect skin cancer from photos of skin lesions showed impressive performance overall — but when researchers analyzed performance by skin tone, significant gaps emerged. Tools trained predominantly on images from lighter-skinned patients performed substantially worse at detecting melanoma in patients with darker skin tones. Since melanoma is already harder to detect clinically in darker skin and often presents at later stages, reduced AI accuracy compounds an existing disparity.',cause:'Root cause: Training datasets were not diverse. The images used to train these models came overwhelmingly from medical literature and clinical databases that historically documented more cases from lighter-skinned patients.',lesson:'The lesson: "Impressive overall accuracy" can mask dangerous inaccuracy for specific groups. When evaluating any AI diagnostic tool, ask specifically about performance across different patient populations — not just aggregate metrics.',worker:'🏥 For healthcare workers in dermatology or primary care: Do not reduce clinical vigilance based on an AI screening result for patients with darker skin tones. Current tools have documented lower accuracy for this group. Clinical judgment and referral thresholds should not be lowered based on AI clearance.'},
+  {icon:'📋',name:'AI Documentation Hallucinations in Clinical Notes',type:'Generative AI Error · Reported by multiple health systems',severity:'high',severityLabel:'Documentation Safety',what:'Multiple health systems deploying ambient documentation AI tools reported cases where the AI generated clinical notes containing medications the patient didn\'t take, conditions that weren\'t discussed, or plans that weren\'t agreed upon. In one reported case, an AI-drafted note recorded a specific medication dosage increase that was only discussed as a possibility for a future visit — not as a current order.',cause:'Root cause: Generative AI produces the most statistically likely completion of a text pattern — not a verified account of what actually happened. When the visit conversation is ambiguous or incomplete, the AI fills gaps with plausible-sounding content that may be factually wrong.',lesson:'The lesson: AI documentation tools produce drafts, not records. Every hallucinated detail in a signed note becomes part of the official medical record and can influence future care decisions — potentially dangerously.',worker:'🏥 For healthcare workers: The review step before signing is not optional or ceremonial. Read every section. Medications, diagnoses, and plan elements are the highest-risk sections — verify each one against your actual clinical recollection of the visit.'},
+  {icon:'⚡',name:'Sepsis AI Alert Fatigue — Real-World Performance',type:'Implementation Failure · Published research 2021–2023',severity:'systemic',severityLabel:'Systemic',what:'Several studies examining real-world performance of sepsis prediction AI tools found that their alert rates were far higher than their validated performance suggested — meaning clinical staff received far more alerts than true sepsis cases warranted. At some hospitals, staff were receiving dozens of alerts per shift. The result was predictable: alert fatigue led to staff routinely overriding or ignoring alerts — including some that were clinically significant.',cause:'Root cause: AI tools validated in controlled research settings performed differently when deployed in real hospital environments with different patient populations, clinical workflows, and staff behaviors. The validation didn\'t predict real-world alert volume.',lesson:'The lesson: Deployment isn\'t the end of evaluation. AI tools need ongoing monitoring of real-world performance — including how staff actually interact with them. An AI that generates too many alerts may be more dangerous than no AI at all.',worker:'🏥 For healthcare workers: If you find yourself routinely dismissing the same type of AI alert, that\'s important information. It may mean the alert threshold needs adjustment — or it may mean you\'ve developed a dangerous habit. Report the pattern to your supervisor or clinical informatics team rather than managing it privately.'}
+];
+
+const container=document.getElementById('caseStudies');
+cases.forEach((c,i)=>{
+  const el=document.createElement('div');el.className='case';
+  el.innerHTML=`<div class="case-header" onclick="toggleCase(${i})">
+    <div class="case-icon">${c.icon}</div>
+    <div class="case-meta"><div class="case-name">${c.name}</div><div class="case-type">${c.type}</div></div>
+    <span class="case-severity ${c.severity}">${c.severityLabel}</span>
+    <div class="case-arrow">▼</div>
+  </div>
+  <div class="case-body">
+    <div class="case-what">${c.what}</div>
+    <div class="case-boxes">
+      <div class="case-box cause"><div class="case-box-label">⚠️ Root Cause</div><div class="case-box-text">${c.cause}</div></div>
+      <div class="case-box lesson"><div class="case-box-label">✅ The Lesson</div><div class="case-box-text">${c.lesson}</div></div>
+    </div>
+    <div class="case-worker">${c.worker}</div>
+  </div>`;
+  container.appendChild(el);
+});
+function toggleCase(i){document.querySelectorAll('.case').forEach((el,idx)=>{if(idx===i)el.classList.toggle('open');else el.classList.remove('open');});}
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. This is a classic presentation of training data bias combined with a context error — the AI was probably trained on a dataset that underrepresented patients with this autoimmune condition, so its patterns don\'t apply well to them. This kind of gap often goes undetected until enough cases accumulate to show the pattern statistically. The right response is to temporarily increase clinical vigilance for this patient group, report the finding to clinical informatics or the vendor, and advocate for retraining or recalibration of the model.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('bias'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ AI tools don\'t develop "bugs" in the traditional software sense — they apply learned patterns. When an AI performs differently for a specific subgroup, the most likely explanation is that subgroup was underrepresented in training data, or the AI\'s patterns don\'t transfer well to them. Calling it "normal variation" misses a patient safety issue. Blaming clinicians\' interpretation assumes the tool is working when evidence suggests it isn\'t.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why AI Can't Replace Human Judgment — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.judgment-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.jc{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:18px;padding:20px;}
+.jc-icon{font-size:28px;margin-bottom:8px;}
+.jc-title{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.jc-desc{font-size:13px;line-height:1.65;color:var(--gray-text);margin-bottom:8px;}
+.jc-scenario{background:var(--purple-pale);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--purple-dark);line-height:1.5;}
+.case-tabs{margin:24px 0;}
+.ct-nav{display:flex;gap:8px;border-bottom:2px solid var(--purple-mid);}
+.ct-tab{padding:10px 18px;font-size:13px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--gray-muted);border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;}
+.ct-tab.active{color:var(--purple);border-bottom-color:var(--purple);}
+.ct-panel{display:none;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:0 16px 16px 16px;padding:24px;animation:fadeIn .3s ease;}
+.ct-panel.active{display:block;}
+.ct-situation{background:#FFF7ED;border-left:4px solid var(--orange);padding:14px 18px;border-radius:0 10px 10px 0;font-size:15px;line-height:1.7;margin-bottom:12px;}
+.ct-ai{background:var(--purple-pale);border-radius:10px;padding:14px;margin-bottom:10px;}
+.ct-ai-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.08em;margin-bottom:6px;}
+.ct-ai-text{font-size:14px;line-height:1.65;color:var(--gray-text);}
+.ct-human{background:var(--green-pale);border-radius:10px;padding:14px;margin-bottom:10px;}
+.ct-human-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--green);letter-spacing:.08em;margin-bottom:6px;}
+.ct-human-text{font-size:14px;line-height:1.65;color:var(--gray-text);}
+.ct-lesson{background:var(--gray-soft);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--gray-text);line-height:1.65;}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.judgment-cards{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 1.3 · AI Limitations in Healthcare</div>
+  <h1>Why AI Can't Replace Human Judgment: Context, Ethics, and the Limits of Pattern Recognition</h1>
+  <p class="hero-sub">AI is extraordinarily good at pattern recognition. Human judgment is extraordinarily good at something different: navigating complexity, uncertainty, context, and ethical weight. This article clarifies precisely where each excels — and why the two must work together.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>Pattern Recognition vs. Judgment — Not the Same Thing</h2>
+    <p>We often talk about AI and human judgment as if they're doing the same thing, just at different speeds. They're not. They're doing fundamentally different things.</p>
+    <p>AI pattern recognition is about finding what's statistically consistent in large datasets. It's powerful, fast, and increasingly accurate for well-defined problems with abundant training data.</p>
+    <p>Human judgment is about navigating situations where <mark>the right answer depends on context, values, relationships, and factors that may never appear in any dataset</mark> — and where being wrong has moral and professional weight that AI cannot bear.</p>
+    <div class="pull-quote"><p>AI gets better and better at telling you what has been true in the past. Human judgment is what you need when you're in a situation that requires knowing what's right to do now — for this specific person, in these specific circumstances, with these specific stakes.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Four Domains Where Human Judgment Is Irreplaceable</h2>
+    <div class="judgment-cards">
+      <div class="jc"><div class="jc-icon">🧭</div><div class="jc-title">Contextual Reasoning</div><div class="jc-desc">The ability to take in information that wasn't in any training set, integrate it with everything else you know, and reach a conclusion that fits this specific situation rather than the average of similar situations.</div><div class="jc-scenario">A patient's AI fall risk score is low. But the nurse notices the patient seems confused this morning and recently started a new medication. She raises the concern despite the score — and is right to.</div></div>
+      <div class="jc"><div class="jc-icon">⚖️</div><div class="jc-title">Ethical Reasoning</div><div class="jc-desc">When a clinical decision involves competing values — patient autonomy vs. safety, honesty vs. false hope, family wishes vs. patient wishes — navigating those tensions requires moral reasoning that AI cannot do.</div><div class="jc-scenario">A family asks staff not to tell their elderly parent about a new serious diagnosis. Staff must navigate patient autonomy, cultural sensitivity, and legal obligations — a human ethical judgment call with no algorithmic answer.</div></div>
+      <div class="jc"><div class="jc-icon">🤝</div><div class="jc-title">Therapeutic Relationship</div><div class="jc-desc">Care happens in relationship. The trust, empathy, and human presence that patients need — especially when they're scared, in pain, or receiving difficult news — cannot be delivered through a pattern-matching system.</div><div class="jc-scenario">A patient breaks down crying during a routine follow-up and discloses they've been struggling with severe depression. What happens next requires human presence, empathy, and skilled therapeutic response — not an algorithm.</div></div>
+      <div class="jc"><div class="jc-icon">🔄</div><div class="jc-title">Uncertainty Navigation</div><div class="jc-desc">Real clinical situations are frequently ambiguous. The right course of action is often not obvious. Human judgment can hold uncertainty, weigh incomplete information, and make reasonable decisions under conditions of genuine unknowing.</div><div class="jc-scenario">A patient presents with symptoms that could be three different things. The most likely possibility is manageable; the least likely is serious. An experienced clinician decides which to rule out first and in what order — calibrating risk and uncertainty in real time.</div></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Where AI Ends and Human Judgment Begins</h2>
+    <p>Click each scenario to see exactly where the AI contribution ends and the human judgment begins:</p>
+    <div class="case-tabs">
+      <div class="ct-nav">
+        <button class="ct-tab active" onclick="showCase(0)">Sepsis Alert</button>
+        <button class="ct-tab" onclick="showCase(1)">Discharge Decision</button>
+        <button class="ct-tab" onclick="showCase(2)">End-of-Life Conversation</button>
+        <button class="ct-tab" onclick="showCase(3)">Treatment Refusal</button>
+      </div>
+      <div id="caseContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">An AI workflow tool predicts that a patient will be ready for discharge by 2 PM based on their clinical progress data. The patient's case manager notices the AI prediction but during her morning conversation with the patient discovers the patient has no one at home and lives alone with no transportation. What should happen?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Discharge the patient at 2 PM as predicted — the AI has more data than the case manager</button>
+        <button class="qopt" onclick="cq(this,true)">Override the AI prediction and work on a safe discharge plan — the case manager has information the AI doesn't, and safe discharge requires addressing the social context the AI can't see</button>
+        <button class="qopt" onclick="cq(this,false)">Enter the social situation into the AI system and wait for an updated prediction</button>
+        <button class="qopt" onclick="cq(this,false)">The AI prediction is about clinical readiness only — social context isn't relevant to the discharge decision</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI excels at pattern recognition across large datasets. Human judgment excels at contextual reasoning, ethical navigation, therapeutic relationship, and uncertainty management. These are complementary, not competing, capabilities.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI cannot see what isn't in its data. Clinical conversations, patient affect, social circumstances, family dynamics, and values — the information that often matters most — rarely appears in structured EHR data. Human healthcare workers are the bridge between AI outputs and the full reality of a patient's situation.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Healthcare workers who understand exactly where AI ends are better positioned to use it well — trusting it where it genuinely helps, and applying their own judgment where the situation demands it. This is the core competency of the AI era in healthcare.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const cases=[
+  {title:'Sepsis Alert',situation:'The EHR fires a sepsis early warning alert for a patient in Room 412. The alert is based on trending vitals and lab values.',ai:'The AI has identified a pattern consistent with early sepsis. It has calculated a risk score. It has generated the alert. This is all the AI can do — it cannot assess the patient, determine severity, or decide on treatment.',human:'The nurse goes to Room 412 and directly assesses the patient. She considers the patient\'s baseline, recent medication changes, clinical appearance, and her own clinical instincts. She calls the attending with her full assessment — including things the AI never saw. The attending orders additional workup.',lesson:'📌 The AI created urgency. The human created the clinical picture. Treatment followed the human\'s assessment — informed by, but not limited to, the AI alert.'},
+  {title:'Discharge Decision',situation:'A hospitalized patient\'s AI-powered discharge prediction tool flags them as "clinically ready for discharge."',ai:'The AI has analyzed vitals stability, lab trends, mobility scores, and length-of-stay patterns for similar patients. Based on these, clinical readiness criteria appear met. This is the AI\'s contribution — a data-driven prediction about clinical parameters.',human:'The care team discusses the patient in morning rounds. The social worker notes the patient lives alone in a third-floor walk-up with no elevator, has a fall risk score of 8, and has not yet been seen by PT. The discharge is delayed pending PT evaluation and home safety assessment.',lesson:'📌 The AI saw clinical data. The humans saw the whole patient. A discharge that looks appropriate from the data can be premature — or even unsafe — without the full social and functional picture.'},
+  {title:'End-of-Life Conversation',situation:'An AI prognostic tool predicts a 6-month survival probability of 12% for a patient with advanced cancer. The care team must discuss goals of care with the patient.',ai:'The AI has processed clinical data and generated a prognostic estimate. It has surfaced a statistically based probability. This is valuable — it gives the care team a data-grounded starting point for an evidence-based conversation.',human:'The palliative care physician meets with the patient and family. She listens. She learns that the patient wants to stay home as long as possible, that the family is struggling with denial, and that the patient has specific wishes about where they want to be at the end. She guides a goals-of-care conversation that honors all of this.',lesson:'📌 No AI model can have a goals-of-care conversation. Probability estimates are inputs to clinical communication — not substitutes for it. The most important part of this encounter is entirely human.'},
+  {title:'Treatment Refusal',situation:'A patient with a serious infection refuses the antibiotic treatment their provider has recommended, citing concerns about side effects from a previous experience.',ai:'The clinical decision support AI has flagged the infection type, suggested the treatment protocol, and noted the potential consequences of untreated infection. This is what the AI can contribute — guideline-based recommendations and risk information.',human:'The provider listens to the patient\'s previous experience with antibiotics. Learns the reaction was significant. Explores what matters most to the patient. Discusses alternative options, explains consequences in terms that are meaningful to this patient, and ultimately respects the patient\'s autonomous decision while ensuring it\'s truly informed.',lesson:'📌 The AI recommended a treatment. The human navigated patient autonomy, fear, values, informed consent, and alternative options. These are not parallel tracks — the human judgment layer is where the care actually happens.'}
+];
+
+function showCase(i){
+  document.querySelectorAll('.ct-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));
+  const c=cases[i];
+  document.getElementById('caseContainer').innerHTML=`<div class="ct-panel active">
+    <div class="ct-situation"><strong>📋 Situation:</strong> ${c.situation}</div>
+    <div class="ct-ai"><div class="ct-ai-label">🤖 Where AI ends</div><div class="ct-ai-text">${c.ai}</div></div>
+    <div class="ct-human"><div class="ct-human-label">👤 Where human judgment begins</div><div class="ct-human-text">${c.human}</div></div>
+    <div class="ct-lesson">${c.lesson}</div>
+  </div>`;
+}
+showCase(0);
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. "Clinically ready for discharge" means the clinical parameters look stable — not that discharge is safe and appropriate for this specific patient in their specific circumstances. The case manager has information the AI doesn\'t have: the patient\'s social situation, support network, and practical barriers. A clinically appropriate discharge that sends a patient home without support to a situation they can\'t manage is a preventable harm. Human judgment about the full patient situation is what makes discharge truly safe.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('safe discharge plan'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ Social context is absolutely relevant to discharge decisions — it\'s often what determines whether a clinically appropriate discharge actually results in a safe patient outcome. The AI can\'t enter a conversation with a patient; the case manager can. The AI predicts clinical readiness; the case manager assesses real-world readiness. Discharging a patient who has no support home to an unsafe situation because the AI said they were clinically ready is exactly the kind of harm that human oversight is meant to prevent.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

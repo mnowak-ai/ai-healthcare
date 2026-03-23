@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Confidence vs. AI Accuracy — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.contrast-block{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;}
+.contrast-card{border-radius:20px;padding:26px;border:2px solid;}
+.contrast-card.human{background:var(--green-pale);border-color:#86EFAC;}
+.contrast-card.ai-card{background:var(--red-pale);border-color:#FCA5A5;}
+.contrast-icon{font-size:32px;margin-bottom:10px;}
+.contrast-title{font-size:15px;font-weight:700;margin-bottom:10px;}
+.contrast-card.human .contrast-title{color:var(--green);}
+.contrast-card.ai-card .contrast-title{color:var(--red);}
+.contrast-item{font-size:13px;line-height:1.65;margin-bottom:8px;padding-left:16px;position:relative;color:var(--gray-text);}
+.contrast-item::before{content:'→';position:absolute;left:0;font-weight:700;}
+.contrast-card.human .contrast-item::before{color:var(--green);}
+.contrast-card.ai-card .contrast-item::before{color:var(--red);}
+.output-sim{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.os-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.os-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.os-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.output-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.ot-btn{padding:8px 16px;border-radius:10px;border:1.5px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.ot-btn.active{background:var(--purple);border-color:var(--purple);color:white;}
+.output-panel{display:none;animation:fadeIn .3s ease;}
+.output-panel.active{display:block;}
+.output-scenario{background:var(--white);border-left:4px solid var(--orange);padding:14px 18px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.7;margin-bottom:14px;}
+.output-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+.output-box{border-radius:14px;padding:16px;}
+.output-box.wrong{background:var(--red-pale);border:1.5px solid #FCA5A5;}
+.output-box.right{background:var(--green-pale);border:1.5px solid #86EFAC;}
+.ob-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.output-box.wrong .ob-label{color:var(--red);}
+.output-box.right .ob-label{color:var(--green);}
+.ob-output{font-size:13px;line-height:1.7;color:var(--gray-text);margin-bottom:8px;background:rgba(255,255,255,.8);padding:10px 12px;border-radius:8px;font-style:italic;}
+.ob-analysis{font-size:13px;line-height:1.6;color:var(--gray-text);}
+.output-lesson{background:var(--purple-pale);border-radius:10px;padding:12px 16px;font-size:14px;color:var(--purple-dark);line-height:1.65;}
+.matrix-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0;}
+.mq{border-radius:16px;padding:20px;border:2px solid;}
+.mq.good{background:var(--green-pale);border-color:#86EFAC;}
+.mq.dangerous{background:var(--red-pale);border-color:#FCA5A5;}
+.mq.obvious{background:var(--purple-pale);border-color:var(--purple-mid);}
+.mq.tricky{background:var(--orange-pale);border-color:#FDE68A;}
+.mq-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
+.mq.good .mq-label{color:var(--green);}
+.mq.dangerous .mq-label{color:var(--red);}
+.mq.obvious .mq-label{color:var(--purple);}
+.mq.tricky .mq-label{color:var(--orange);}
+.mq-title{font-size:15px;font-weight:700;color:var(--gray-text);margin-bottom:6px;}
+.mq-desc{font-size:13px;line-height:1.6;color:var(--gray-text);}
+.mq-example{font-size:12px;color:var(--gray-muted);margin-top:6px;font-style:italic;}
+.review-tips{display:flex;flex-direction:column;gap:10px;margin:24px 0;}
+.tip{display:flex;gap:14px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:16px 18px;}
+.tip-num{width:30px;height:30px;background:var(--purple);border-radius:50%;color:white;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.tip-body{}
+.tip-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.tip-desc{font-size:13px;line-height:1.6;color:var(--gray-text);}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:#FFF1F1;border-color:#DC2626;color:#DC2626;}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:#FFF1F1;color:#DC2626;}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.contrast-block,.output-pair,.matrix-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 1.3 · AI Limitations in Healthcare · Optional Context</div>
+  <h1>The Difference Between AI Confidence and AI Accuracy</h1>
+  <p class="hero-sub">AI outputs always arrive sounding the same — polished, professional, and certain. This is one of the most subtle and dangerous features of AI in healthcare: it doesn't tell you when it's guessing. Understanding why AI sounds confident even when it's wrong is essential for anyone who reviews AI output.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>The Problem With Always Sounding Sure</h2>
+    <p>When a physician isn't sure about something, you can usually tell. They might say "I think it's probably X, but let's get a test to confirm." When a nurse is uncertain, they consult a resource or flag the issue before acting. Human communication naturally carries signals of certainty and doubt — and those signals help us calibrate how much to trust what we're hearing.</p>
+    <p>AI doesn't do this. A generative AI system produces text by predicting the most statistically likely next word — regardless of whether the underlying content is correct, uncertain, or completely fabricated. <mark>Every output arrives with the same tone, formatting, and apparent confidence</mark>, whether the AI is right 99% of the time on that topic or simply guessing.</p>
+    <p>This isn't a bug that will be fixed in the next software update. It's a fundamental characteristic of how these systems work — and understanding it changes how you should read every piece of AI output you ever review.</p>
+    <div class="pull-quote"><p>A human who doesn't know something usually sounds like they don't know. An AI that doesn't know something sounds exactly like an AI that does. That's the trap.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Human Uncertainty vs. AI Uncertainty — A Key Difference</h2>
+    <div class="contrast-block">
+      <div class="contrast-card human">
+        <div class="contrast-icon">🧑‍⚕️</div>
+        <div class="contrast-title">How Humans Signal Uncertainty</div>
+        <div class="contrast-item">Use hedging language: "I think," "probably," "I'm not certain, but..."</div>
+        <div class="contrast-item">Ask clarifying questions before making claims</div>
+        <div class="contrast-item">Change tone and pace when entering unfamiliar territory</div>
+        <div class="contrast-item">Explicitly say "I don't know" or "let me look that up"</div>
+        <div class="contrast-item">Seek a second opinion before acting on uncertain information</div>
+      </div>
+      <div class="contrast-card ai-card">
+        <div class="contrast-icon">🤖</div>
+        <div class="contrast-title">How AI "Signals" Uncertainty</div>
+        <div class="contrast-item">Uses the same confident, professional tone for correct and incorrect output</div>
+        <div class="contrast-item">Produces well-formatted sentences whether the content is accurate or invented</div>
+        <div class="contrast-item">May add generic disclaimers but still states wrong content confidently</div>
+        <div class="contrast-item">Cannot recognize the edges of its own knowledge in real time</div>
+        <div class="contrast-item">Always generates a response — never says "I genuinely don't know"</div>
+      </div>
+    </div>
+    <p>This difference has enormous practical implications in healthcare. When a colleague says something with confidence, years of working together help you calibrate whether that confidence is warranted. You have no such signal with AI. The polished formatting tells you nothing about accuracy.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>See It In Action: Same Confidence, Different Accuracy</h2>
+    <p>These examples show how AI outputs look and sound identical whether they're correct or wrong. Notice that without independent verification, you cannot tell which is which from the output alone:</p>
+    <div class="output-sim">
+      <div class="os-label">🔍 Confidence vs. Accuracy Simulator</div>
+      <div class="os-title">What AI Confidence Actually Looks Like</div>
+      <div class="os-sub">Click each scenario to compare a correct AI output and an incorrect one — and notice how similar they look on the surface.</div>
+      <div class="output-tabs">
+        <button class="ot-btn active" onclick="showOutput(0)">Medication Dosing</button>
+        <button class="ot-btn" onclick="showOutput(1)">Clinical Note Detail</button>
+        <button class="ot-btn" onclick="showOutput(2)">Drug Interaction</button>
+      </div>
+      <div id="outputContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Four Quadrants: Confidence × Accuracy</h2>
+    <p>Not all AI output is equally risky. The danger isn't just being wrong — it's being <em>confidently</em> wrong in a way that's hard to detect. This framework maps the four combinations you'll encounter:</p>
+    <div class="matrix-grid">
+      <div class="mq good">
+        <div class="mq-label">✅ Ideal</div>
+        <div class="mq-title">High Confidence + High Accuracy</div>
+        <div class="mq-desc">The AI is confident and correct. This is when AI is genuinely useful — and it's common for well-scoped tools on familiar, well-represented data.</div>
+        <div class="mq-example">Example: A sepsis alert fires and the patient does have early sepsis signs confirmed on assessment.</div>
+      </div>
+      <div class="mq dangerous">
+        <div class="mq-label">🚨 Most Dangerous</div>
+        <div class="mq-title">High Confidence + Low Accuracy</div>
+        <div class="mq-desc">The AI sounds certain but is wrong. This is the core trap — confident formatting creates trust, and the error may not be caught before it causes harm.</div>
+        <div class="mq-example">Example: An AI-drafted note confidently lists a medication the patient doesn't take — and it looks like every other line in the note.</div>
+      </div>
+      <div class="mq obvious">
+        <div class="mq-label">⚠️ Usually Caught</div>
+        <div class="mq-title">Low Confidence + Low Accuracy</div>
+        <div class="mq-desc">When AI adds heavy caveats or produces clearly incomplete output, reviewers are more likely to verify. These errors are more visible and therefore less dangerous.</div>
+        <div class="mq-example">Example: An AI that says "I'm not certain about this interaction — please confirm with a pharmacist."</div>
+      </div>
+      <div class="mq tricky">
+        <div class="mq-label">🟡 Underutilized</div>
+        <div class="mq-title">Low Confidence + High Accuracy</div>
+        <div class="mq-desc">The AI is actually right but hedges so heavily that users discount it. Less dangerous but wastes the AI's value — calibrated confidence matters both ways.</div>
+        <div class="mq-example">Example: A risk prediction model that gives wide probability ranges that clinicians find too vague to act on.</div>
+      </div>
+    </div>
+    <p>The most dangerous quadrant — high confidence, low accuracy — is exactly where hallucination lives. And it's the quadrant your review process must be designed to catch, because the AI will give you no warning that you're in it.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Practical Tips for Reviewing AI Output With This in Mind</h2>
+    <p>Knowing that AI confidence doesn't signal accuracy, here's how to build better habits when reviewing any AI-generated content in a healthcare setting:</p>
+    <div class="review-tips">
+      <div class="tip">
+        <div class="tip-num">1</div>
+        <div class="tip-body">
+          <div class="tip-title">Verify specific facts, not just general impressions</div>
+          <div class="tip-desc">It's easy to read an AI note and feel like "this seems right." Instead, verify specific claims: the medication name and dose, the patient's age and gender, the specific plan stated. Impressions can be wrong; individual facts can be checked.</div>
+        </div>
+      </div>
+      <div class="tip">
+        <div class="tip-num">2</div>
+        <div class="tip-body">
+          <div class="tip-title">Ask: "Could I source this independently?"</div>
+          <div class="tip-desc">For any AI-generated clinical fact — a drug dosage, a diagnosis code, a protocol step — ask whether you could verify it from an authoritative source. If the answer is yes, do it for anything that will inform patient care decisions.</div>
+        </div>
+      </div>
+      <div class="tip">
+        <div class="tip-num">3</div>
+        <div class="tip-body">
+          <div class="tip-title">Be more skeptical when the stakes are higher</div>
+          <div class="tip-desc">An AI scheduling suggestion carries different stakes than an AI-drafted clinical note or a drug interaction warning. Scale your scrutiny to the clinical impact of acting on the output incorrectly.</div>
+        </div>
+      </div>
+      <div class="tip">
+        <div class="tip-num">4</div>
+        <div class="tip-body">
+          <div class="tip-title">Trust discomfort — "something feels off" matters</div>
+          <div class="tip-desc">If an AI output makes you pause — even if you can't immediately articulate why — that feeling is worth following. Human intuition built from clinical experience is a legitimate quality check on AI output. Don't override it because the AI sounded confident.</div>
+        </div>
+      </div>
+      <div class="tip">
+        <div class="tip-num">5</div>
+        <div class="tip-body">
+          <div class="tip-title">Never let "it's what the AI said" end the conversation</div>
+          <div class="tip-desc">When a patient, colleague, or audit asks why something was documented a certain way, "the AI generated it" is not an acceptable answer. You are accountable for what you sign, forward, or act on — regardless of the source.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A nurse reviews an AI-drafted nursing note after morning rounds. The note is well-written, complete, and professionally formatted. She notices one sentence states that the patient "tolerated ambulation well." She actually didn't take the patient for a walk this morning — the AI appears to have generated this detail on its own. What does this situation best illustrate?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">A minor AI error that doesn't need correction since the patient likely could have ambulated fine</button>
+        <button class="qopt" onclick="cq(this,false)">Proof that AI documentation tools should never be used for nursing notes</button>
+        <button class="qopt" onclick="cq(this,true)">AI hallucination — the AI generated a plausible-sounding clinical detail that never happened, formatted identically to accurate content, which would have become a false official record if signed without review</button>
+        <button class="qopt" onclick="cq(this,false)">A transcription error that the AI will self-correct over time with more use</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI outputs always sound confident — whether they're accurate or completely wrong. Unlike humans, AI has no mechanism for signaling uncertainty through tone, pacing, or hedging language. The formatting gives you no information about accuracy.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The most dangerous quadrant is high confidence + low accuracy — where AI hallucination lives. This is exactly what your review process must be designed to catch, because the AI will never warn you that you're looking at a wrong answer.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Verify specific facts, not just general impressions. Scale your scrutiny to the clinical stakes. Trust your instincts when something feels off. And never let "the AI said it" be the end of a conversation — you are accountable for what you sign, forward, or act on.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const outputs=[
+  {
+    scenario:'A nurse asks an AI tool for the standard adult dosage of lisinopril for hypertension management to verify a new order.',
+    wrongLabel:'❌ AI Output — Sounds Correct, Contains Error',
+    wrongOutput:'"The standard starting dose of lisinopril for hypertension in adults is 20mg once daily, which may be titrated up to 80mg daily based on response and tolerability."',
+    wrongAnalysis:'The formatting, tone, and structure are indistinguishable from a correct answer. But the starting dose stated is wrong — standard starting dose is 10mg (sometimes 5mg in certain populations), not 20mg. The maximum dose figure is also higher than standard guidelines. A nurse who accepted this without verification could flag the correct 10mg order as too low.',
+    rightLabel:'✅ AI Output — Correct Version',
+    rightOutput:'"The standard starting dose of lisinopril for hypertension in adults is 10mg once daily. Doses may be titrated based on blood pressure response, typically up to 40mg daily. Always verify against current formulary and patient-specific factors."',
+    rightAnalysis:'This output is accurate and appropriately encourages independent verification. Notice it reads identically in terms of confidence level and formatting to the wrong version — you cannot tell which is correct from the style alone.',
+    lesson:'💡 Key takeaway: Both outputs look identical in terms of confidence and formatting. The only way to know which is correct is to independently verify against a current clinical reference — not to trust the output because it sounds authoritative.'
+  },
+  {
+    scenario:'An ambient AI tool drafts a clinical note section after a physician visit. The physician reviews quickly before signing.',
+    wrongLabel:'❌ AI Output — Plausible but Fabricated Detail',
+    wrongOutput:'"Patient reports significant improvement in sleep quality since starting the new medication regimen. She denies any new side effects and states she has been taking all medications as prescribed without any missed doses."',
+    wrongAnalysis:'This sounds like a perfectly normal clinical note sentence. But the patient never mentioned sleep quality during the visit — the AI generated a detail it inferred would be clinically appropriate, based on patterns in its training. If signed, this becomes a false statement in the official medical record that could influence future providers\' assessments.',
+    rightLabel:'✅ AI Output — Accurately Captured',
+    rightOutput:'"Patient reports her blood pressure readings at home have been consistently under 130/80 since the medication change. She denies chest pain, shortness of breath, or dizziness. No new complaints today."',
+    rightAnalysis:'This accurately reflects what was discussed during the visit. It looks and sounds exactly like the wrong version — same professional tone, same formatting, same level of apparent confidence. The only way to catch the difference is to actively compare the output against your memory of the encounter.',
+    lesson:'💡 Key takeaway: AI notes that seem complete and well-written are not necessarily accurate. Reading the output against your own memory of what was actually said is a non-negotiable step before signing.'
+  },
+  {
+    scenario:'A pharmacist asks an AI assistant whether combining metformin and a new antibiotic is safe for a patient with normal kidney function.',
+    wrongLabel:'❌ AI Output — Fabricated Interaction Warning',
+    wrongOutput:'"There is a clinically significant interaction between metformin and ciprofloxacin. Ciprofloxacin can inhibit metformin clearance and increase the risk of lactic acidosis. Consider dose reduction or temporary discontinuation of metformin during the course of antiprofloxacin therapy."',
+    wrongAnalysis:'This response sounds authoritative, cites a specific mechanism, and gives a clinical recommendation. However, this interaction is not well-established in clinical literature for patients with normal renal function — and "antiprofloxacin" is not a real word (the AI invented a typo within its own fabrication). A pharmacist who accepted this could unnecessarily change a patient\'s diabetes management.',
+    rightLabel:'✅ AI Output — Accurate Assessment',
+    rightOutput:'"Metformin and ciprofloxacin can be used together in patients with normal kidney function without dose adjustment in most cases. Fluoroquinolones like ciprofloxacin can affect blood glucose levels (both hyper- and hypoglycemia), so patients on diabetes medications should be counseled to monitor glucose. Always verify with current drug interaction databases for patient-specific factors."',
+    rightAnalysis:'This is accurate and appropriately nuanced. It also recommends verification — a good sign, though not a guarantee of accuracy. Notice it reads with the same authority and confidence as the wrong version.',
+    lesson:'💡 Key takeaway: AI drug interaction information must always be verified against authoritative references like Lexicomp, Micromedex, or current package inserts — regardless of how confident and detailed the AI response sounds.'
+  }
+];
+
+function showOutput(i){
+  document.querySelectorAll('.ot-btn').forEach((b,bi)=>b.classList.toggle('active',bi===i));
+  const o=outputs[i];
+  document.getElementById('outputContainer').innerHTML=`
+  <div class="output-panel active">
+    <div class="output-scenario"><strong>📋 Scenario:</strong> ${o.scenario}</div>
+    <div class="output-pair">
+      <div class="output-box wrong">
+        <div class="ob-label">${o.wrongLabel}</div>
+        <div class="ob-output">${o.wrongOutput}</div>
+        <div class="ob-analysis">${o.wrongAnalysis}</div>
+      </div>
+      <div class="output-box right">
+        <div class="ob-label">${o.rightLabel}</div>
+        <div class="ob-output">${o.rightOutput}</div>
+        <div class="ob-analysis">${o.rightAnalysis}</div>
+      </div>
+    </div>
+    <div class="output-lesson">${o.lesson}</div>
+  </div>`;
+}
+showOutput(0);
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. This is a textbook example of AI hallucination — the AI generated a clinically plausible sentence about ambulation that was never grounded in what actually happened during the nurse\'s rounds. It\'s formatted identically to every accurate sentence in the note. Without active review comparing the output to memory of the actual encounter, this false statement would have entered the official patient record. For any future provider or audit, it would look like documented clinical fact.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('AI hallucination'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ This is AI hallucination — one of the most important concepts in this entire certification. The AI generated a false clinical statement that sounds exactly like a true one. It won\'t self-correct; it will confidently produce similar fabrications in future notes. The correction needed is simple: the nurse deletes the false sentence and does not sign inaccurate content. But the bigger lesson is why review exists — to catch exactly this kind of confident, plausible-sounding error before it becomes an official record.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

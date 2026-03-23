@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why AI Can't Diagnose — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.reason-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:24px 0;}
+.reason{display:flex;gap:18px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px;}
+.reason-num{width:40px;height:40px;border-radius:50%;background:var(--purple);color:white;font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.reason-title{font-size:16px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.reason-desc{font-size:14px;line-height:1.7;color:var(--gray-text);}
+.reason-note{background:var(--purple-pale);border-radius:8px;padding:8px 12px;font-size:13px;color:var(--purple-dark);margin-top:8px;line-height:1.6;}
+.vs-table{width:100%;border-collapse:collapse;margin:24px 0;border-radius:14px;overflow:hidden;border:1.5px solid var(--purple-mid);}
+.vs-table th{background:var(--purple);color:white;padding:11px 14px;font-size:12px;font-weight:600;text-align:left;}
+.vs-table td{padding:10px 14px;font-size:13px;border-bottom:1px solid var(--purple-mid);vertical-align:top;line-height:1.55;}
+.vs-table tr:last-child td{border-bottom:none;}
+.vs-table tr:nth-child(even) td{background:var(--gray-soft);}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 1.3 · AI Limitations in Healthcare</div>
+  <h1>Why AI Can't Diagnose: No License, No Judgment, No Accountability</h1>
+  <p class="hero-sub">AI can analyze medical images faster than any radiologist. It can identify patterns across millions of patient records. It can flag abnormalities with impressive accuracy. And yet, it cannot diagnose. Understanding why — at a deep level — is essential for every healthcare worker.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>What Diagnosis Actually Is</h2>
+    <p>A diagnosis is more than a pattern match. It is a clinical determination — a professional judgment that integrates data, patient history, physical examination findings, patient-reported experience, clinical context, and the physician's training and expertise — to reach a conclusion that carries both medical and legal weight.</p>
+    <p>When a physician diagnoses a patient with pneumonia, they're not just saying "the imaging pattern looks like pneumonia." They're saying: <mark>I, a licensed professional with legal accountability for this determination, have evaluated this patient and conclude they have this condition, and here is my plan.</mark></p>
+    <p>AI can do the first part — pattern matching — brilliantly. It cannot do the rest. And without the rest, you don't have a diagnosis.</p>
+    <div class="pull-quote"><p>Diagnosis isn't a noun — it's an act. It's something a licensed clinician does. AI can inform that act. AI cannot perform it.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Five Reasons AI Cannot Diagnose</h2>
+    <div class="reason-grid">
+      <div class="reason">
+        <div class="reason-num">1</div>
+        <div>
+          <div class="reason-title">No License — No Legal Authority</div>
+          <div class="reason-desc">Medical diagnosis is a licensed activity. Physicians, nurse practitioners, and other qualifying providers hold licenses that grant them the legal authority to make diagnoses — and expose them to legal accountability for those decisions. AI holds no license. It has no legal authority to make diagnoses. An AI output labeled "diagnosis" would be practicing medicine without a license — which is illegal.</div>
+          <div class="reason-note">🏥 In practice: This is why AI tools in radiology produce "findings" or "flagged areas" — not diagnoses. The radiologist's signed report is the diagnosis. The AI is the assistant.</div>
+        </div>
+      </div>
+      <div class="reason">
+        <div class="reason-num">2</div>
+        <div>
+          <div class="reason-title">No Physical Examination</div>
+          <div class="reason-desc">Diagnosis integrates what you can measure (labs, imaging, vitals) with what you can observe directly — the patient's appearance, their affect, how they carry themselves, whether they look worse than their numbers suggest. AI sees only data. It doesn't see the patient who looks far sicker than their chart suggests, or the one whose chart looks concerning but who appears completely well and tells you why.</div>
+          <div class="reason-note">🏥 In practice: A sepsis alert AI might not fire for a patient whose numbers are borderline but who an experienced nurse can see is deteriorating rapidly. The clinical eye sees what the algorithm can't measure.</div>
+        </div>
+      </div>
+      <div class="reason">
+        <div class="reason-num">3</div>
+        <div>
+          <div class="reason-title">No Patient Relationship or Context</div>
+          <div class="reason-desc">Diagnosis happens in relationship — between a provider and a specific patient, in a specific moment, with access to history and context that may not exist in any database. The patient who tells you "this feels exactly like the kidney stones I had in 2019" is giving you diagnostic information that no AI can access or weight appropriately.</div>
+          <div class="reason-note">🏥 In practice: An AI risk model might flag a patient as low-risk based on their data — while the patient is telling their nurse something that immediately changes the clinical picture. The conversation is diagnostic data the AI doesn't have.</div>
+        </div>
+      </div>
+      <div class="reason">
+        <div class="reason-num">4</div>
+        <div>
+          <div class="reason-title">No Accountability</div>
+          <div class="reason-desc">If a physician misdiagnoses a patient, they can be held accountable — professionally, legally, financially. This accountability is what drives the thoroughness of the diagnostic process. AI cannot be held accountable. It cannot be sued, suspended, or disciplined. Without accountability, there is no one responsible for the error — unless a human clinician takes ownership. And they can only take ownership if they made the determination, not the AI.</div>
+          <div class="reason-note">🏥 In practice: When a provider signs off on an AI flag as a diagnosis without their own clinical evaluation, they're taking on accountability for a determination they didn't make — a legally and ethically problematic position.</div>
+        </div>
+      </div>
+      <div class="reason">
+        <div class="reason-num">5</div>
+        <div>
+          <div class="reason-title">No Regulatory Authorization for Most Clinical Decisions</div>
+          <div class="reason-desc">The FDA regulates AI medical devices. An AI tool must be specifically authorized for a specific clinical use before it can legally support clinical decisions in that area. "AI can analyze X-rays" doesn't mean any AI can diagnose anything from an X-ray — it means specifically authorized AI tools can assist licensed radiologists in specific, defined ways.</div>
+          <div class="reason-note">🏥 In practice: Before trusting an AI tool for any clinical purpose, your facility should be able to tell you what the tool is authorized to do. If that authorization is unclear, so should your reliance on the tool's outputs.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What AI Can Do — And Why That's Still Valuable</h2>
+    <table class="vs-table">
+      <thead><tr><th>Task</th><th>AI can do this</th><th>Requires licensed clinician</th></tr></thead>
+      <tbody>
+        <tr><td>Scan an X-ray for abnormal patterns</td><td>✓ Yes — often faster and at high volume</td><td>✓ Radiologist must confirm any finding and make the diagnostic determination</td></tr>
+        <tr><td>Flag a patient as high sepsis risk</td><td>✓ Yes — based on patterns in vitals and labs</td><td>✓ Clinician must assess the patient and make the treatment decision</td></tr>
+        <tr><td>Identify a drug interaction</td><td>✓ Yes — rule-based systems do this reliably</td><td>✓ Prescriber decides whether to change the order based on clinical context</td></tr>
+        <tr><td>Draft a differential diagnosis list from symptoms</td><td>✓ Yes — generative AI can suggest possibilities</td><td>✓ Clinician evaluates, eliminates, and determines the actual diagnosis</td></tr>
+        <tr><td>Tell a patient what's wrong with them</td><td>✗ No — this is diagnosis and clinical communication</td><td>✓ Always — this is the core of clinical care</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A patient asks their nurse: "The AI symptom checker I used before coming in said I probably have appendicitis. Is that my diagnosis?" What is the most accurate and appropriate response?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Confirm it — if the AI said appendicitis, that's probably what it is</button>
+        <button class="qopt" onclick="cq(this,false)">Dismiss it — AI symptom checkers are always wrong and shouldn't be used</button>
+        <button class="qopt" onclick="cq(this,true)">Explain that the AI identified appendicitis as a possibility based on the symptoms described, but a diagnosis requires evaluation by a licensed provider — which is exactly what's happening now</button>
+        <button class="qopt" onclick="cq(this,false)">Tell the patient the AI's output will be documented as the working diagnosis</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI cannot diagnose because diagnosis requires a license (legal authority), physical examination, patient relationship and context, professional accountability, and regulatory authorization — none of which AI possesses.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI can identify patterns, flag risks, suggest possibilities, and assist licensed clinicians — all of which is enormously valuable. But the diagnostic determination belongs to the licensed human professional, always.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>When patients arrive having used AI symptom checkers, they deserve an honest and accurate explanation: the AI identified possibilities based on their symptoms, but the actual diagnosis requires clinical evaluation. That evaluation is the core of what healthcare workers provide.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. This response is both accurate and reassuring. It validates what the patient did — using a symptom checker to prepare for their visit — while clearly explaining that a diagnosis is what happens next, not what happened on the app. It sets appropriate expectations and positions the clinical team correctly. Confirming an AI suggestion as a diagnosis would be clinically inappropriate and potentially dangerous. Dismissing the tool entirely dismisses the patient\'s effort to be informed.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('requires evaluation'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ AI symptom checkers produce possibilities, not diagnoses. Confirming an AI output as a diagnosis is inappropriate and bypasses the clinical evaluation process. Documenting AI output as a working diagnosis is clinically and legally incorrect. The right response acknowledges what the tool did — identified a possibility — and explains that clinical evaluation is what produces an actual diagnosis.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
