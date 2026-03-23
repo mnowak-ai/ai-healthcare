@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technical and Health IT Roles — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.career-paths{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
+.career-path{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:18px;overflow:hidden;cursor:pointer;transition:border-color .2s;}
+.career-path:hover,.career-path.open{border-color:var(--purple);}
+.cp-header{display:flex;align-items:center;gap:14px;padding:16px 20px;}
+.cp-icon{font-size:22px;flex-shrink:0;}
+.cp-meta{flex:1;}
+.cp-title{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:2px;}
+.cp-context{font-size:12px;color:var(--gray-muted);}
+.cp-salary{font-size:13px;font-weight:600;color:var(--green);}
+.cp-arrow{font-size:14px;color:var(--gray-muted);transition:transform .2s;}
+.career-path.open .cp-arrow{transform:rotate(180deg);}
+.cp-body{display:none;padding:0 20px 18px;border-top:1px solid var(--purple-mid);}
+.career-path.open .cp-body{display:block;}
+.cp-desc{font-size:14px;line-height:1.75;color:var(--gray-text);margin:10px 0;}
+.cp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.cp-box{background:var(--gray-soft);border-radius:8px;padding:10px 12px;}
+.cp-box-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.08em;margin-bottom:6px;}
+.cp-item{font-size:13px;line-height:1.55;margin-bottom:4px;color:var(--gray-text);display:flex;gap:6px;}
+.cp-item::before{content:'→';color:var(--purple);font-weight:700;flex-shrink:0;}
+.cp-path{background:var(--purple-pale);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--purple-dark);line-height:1.65;}
+.why-it-matters{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:24px 0;}
+.wim-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:18px;}
+.wim-icon{font-size:24px;margin-bottom:8px;}
+.wim-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.wim-desc{font-size:13px;line-height:1.6;color:var(--gray-text);}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:#FFF1F1;border-color:#DC2626;color:#DC2626;}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:#FFF1F1;color:#DC2626;}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.cp-grid,.why-it-matters{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 1.4 · Roles Impacted by AI in Healthcare</div>
+  <h1>Technical and Health IT Roles: The People Who Build, Maintain, and Improve Healthcare AI Systems</h1>
+  <p class="hero-sub">Most people in healthcare interact with AI tools — but a smaller group actually builds, implements, and governs them. Health IT is one of the fastest-growing career paths in healthcare, and AI has made it even more in demand. This article opens that door for anyone considering a technical healthcare career path.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>The People Behind the AI</h2>
+    <p>Every AI tool deployed in a hospital has a team of people responsible for it — not just the vendor who built it, but the health system staff who implemented it, trained staff on it, monitor its performance, and decide whether it's working well enough to keep. These are health IT roles — and AI has dramatically expanded what those roles require and how much they pay.</p>
+    <p>You don't need to be a software engineer to work in health IT. <mark>Many of the most important health IT roles require deep healthcare knowledge first, and technology skills second.</mark> If you've ever thought "I understand healthcare and I'm good with technology," health IT may be the career path this certification opens for you.</p>
+    <div class="pull-quote"><p>The hardest person to find in healthcare AI isn't a machine learning engineer. It's someone who understands both clinical workflows and technology systems well enough to translate between them. That person is worth their weight in gold.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Health IT Career Paths — Click to Explore</h2>
+    <div class="career-paths" id="careerPaths"></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Why Health IT Is Growing — Three Reasons</h2>
+    <div class="why-it-matters">
+      <div class="wim-card"><div class="wim-icon">📈</div><div class="wim-title">AI requires ongoing human governance</div><div class="wim-desc">AI tools don't run themselves. Every deployed model needs performance monitoring, recalibration, vendor management, and feedback loops. That requires people — and the people doing it need healthcare knowledge.</div></div>
+      <div class="wim-card"><div class="wim-icon">🔒</div><div class="wim-title">Privacy and security demands are growing</div><div class="wim-desc">As more AI tools touch patient data, the need for people who understand both HIPAA requirements and technology systems is intensifying. Healthcare cybersecurity and privacy compliance are high-demand specialties.</div></div>
+      <div class="wim-card"><div class="wim-icon">🌐</div><div class="wim-title">Every organization is going digital</div><div class="wim-desc">Even small clinics are implementing EHRs, patient portals, and now AI-assisted tools. The implementation, training, and support needs have created demand for health IT professionals at every level of the healthcare system.</div></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A Clinical Informatics Specialist is reviewing monthly performance data for the hospital's sepsis early warning AI. She notices that the model's sensitivity (ability to detect true sepsis cases) has dropped from 82% to 71% over the past three months. What is the most appropriate next step?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Nothing — a 71% sensitivity rate is still above 50%, so the model is performing adequately</button>
+        <button class="qopt" onclick="cq(this,false)">Immediately turn off the AI tool until the problem is resolved</button>
+        <button class="qopt" onclick="cq(this,true)">Investigate the cause of the performance drop — has the patient population changed? Have clinical workflows changed? Has the data feeding the model changed? — then determine whether recalibration, retraining, or vendor escalation is needed</button>
+        <button class="qopt" onclick="cq(this,false)">Report the finding to clinical staff and ask them to rely less on the AI alerts</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Health IT roles — Clinical Informatics Specialist, Healthcare Data Analyst, EHR Implementation Specialist, Health IT Security — are among the fastest-growing in healthcare and are increasingly centered on AI governance, performance monitoring, and implementation.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The most valuable health IT professionals combine healthcare knowledge with technology skills — they can translate between clinical workflows and technical systems. Healthcare experience is often the harder credential to replace; technology skills can be learned.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI governance — monitoring AI tool performance, investigating degradation, managing vendor relationships, and training clinical staff — is itself a full-time job that requires humans with healthcare context. This is a growing career category with strong compensation.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const paths=[
+  {icon:'📊',title:'Clinical Informatics Specialist',context:'Bridges clinical workflows and technology systems',salary:'Median $75,000–$110,000/year',desc:'Clinical Informatics Specialists ensure that health IT systems — including AI tools — are implemented in ways that actually work for clinical staff. They design workflows, train users, troubleshoot problems, and monitor performance. They\'re the translator between the technology team and the clinical team.',skills:['Healthcare workflow knowledge (clinical or administrative background helpful)','EHR proficiency (Epic, Cerner, or MEDITECH)','Data analysis and report generation','Training design and delivery','AI tool evaluation and performance monitoring'],path:'Entry path: Start in a clinical or administrative role, develop EHR expertise, pursue certifications (AHIMA, AMIA). Many Clinical Informatics Specialists start as nurses, MAs, or administrative coordinators and move laterally into IT.'},
+  {icon:'🔢',title:'Healthcare Data Analyst',context:'Turns healthcare data into actionable insights',salary:'Median $65,000–$95,000/year',desc:'Healthcare Data Analysts work with the data that AI is trained on and generates. They build dashboards, run queries, identify trends, and evaluate whether AI tools are performing as expected. As AI generates more data about patient populations and clinical outcomes, the demand for people who can make sense of that data has grown dramatically.',skills:['SQL and database querying','Healthcare data standards (HL7, FHIR, ICD-10)','Data visualization tools (Tableau, Power BI)','Statistical analysis basics','Understanding of clinical workflows to interpret data correctly'],path:'Entry path: A background in healthcare combined with data skills (SQL, Excel, statistics) is the most common combination. Many start in administrative roles and develop data skills, or come from data backgrounds and learn healthcare context.'},
+  {icon:'🔒',title:'Health IT Security & Privacy Analyst',context:'Protects patient data and ensures HIPAA compliance',salary:'Median $80,000–$120,000/year',desc:'As AI tools create new data flows and new privacy considerations, healthcare organizations need specialists who understand both cybersecurity and healthcare privacy law. This role monitors for potential breaches, evaluates AI tools for privacy compliance, and trains staff on appropriate technology use.',skills:['HIPAA regulations and healthcare privacy law','Cybersecurity fundamentals (certifications like CompTIA Security+ helpful)','Risk assessment and incident response','Understanding of how AI tools handle patient data','Policy development and staff training'],path:'Entry path: Cybersecurity background plus healthcare exposure, or healthcare background plus security certifications. HIPAA-focused certifications (CHC, CHPS) are valuable entry credentials.'},
+  {icon:'🚀',title:'EHR Implementation Specialist',context:'Deploys and optimizes EHR and AI tool configurations',salary:'Median $70,000–$100,000/year',desc:'Every time a healthcare organization implements a new AI tool or configures existing EHR AI features, an implementation specialist manages the project — configuring the system, building workflows, testing before go-live, and supporting staff through the transition. With AI tool adoption accelerating, this role has never been more active.',skills:['EHR system expertise (vendor certification programs available)','Project management basics','Workflow design and process mapping','Training delivery','Troubleshooting and problem-solving'],path:'Entry path: Vendor certification programs (Epic certification, for example) are a structured pathway. Many implementation specialists start as super-users in clinical or administrative roles, then formalize their expertise through certification.'}
+];
+
+const container=document.getElementById('careerPaths');
+paths.forEach((p,i)=>{
+  const el=document.createElement('div');el.className='career-path';
+  el.innerHTML=`<div class="cp-header" onclick="togglePath(${i})"><div class="cp-icon">${p.icon}</div><div class="cp-meta"><div class="cp-title">${p.title}</div><div class="cp-context">${p.context}</div></div><div class="cp-salary">${p.salary}</div><div class="cp-arrow">▼</div></div>
+  <div class="cp-body"><div class="cp-desc">${p.desc}</div>
+  <div class="cp-grid"><div class="cp-box"><div class="cp-box-label">Key skills</div>${p.skills.map(s=>`<div class="cp-item">${s}</div>`).join('')}</div>
+  <div class="cp-box"><div class="cp-box-label">Entry path</div><div style="font-size:13px;line-height:1.7;color:var(--gray-text);">${p.path}</div></div></div></div>`;
+  container.appendChild(el);
+});
+function togglePath(i){document.querySelectorAll('.career-path').forEach((el,idx)=>{if(idx===i)el.classList.toggle('open');else el.classList.remove('open');});}
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. A performance drop of this magnitude — 11 percentage points in sensitivity — is clinically significant for a sepsis detection tool. The right response is investigation: what changed? Patient population, clinical workflows, data inputs, or seasonal factors can all affect model performance. The informatics specialist\'s job is to diagnose the cause before deciding on the remedy — not to immediately turn the tool off or ignore it.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('Investigate the cause'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ A drop from 82% to 71% sensitivity in a sepsis detection model is significant — it means more real sepsis cases are being missed than before. Ignoring it is a patient safety issue. Turning it off immediately without investigation removes a tool that still has value. Telling clinical staff to rely less on alerts changes clinical behavior without fixing the underlying problem. The right answer is investigation and root-cause analysis, which is exactly what Clinical Informatics Specialists are trained to do.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

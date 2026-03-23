@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Day in the Life: How AI Changes Your Actual Workflow — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.role-selector{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0;}
+.role-btn{background:var(--white);border:2px solid var(--purple-mid);border-radius:16px;padding:18px;cursor:pointer;text-align:center;transition:all .2s;}
+.role-btn:hover,.role-btn.active{border-color:var(--purple);background:var(--purple-pale);}
+.role-icon{font-size:32px;margin-bottom:8px;}
+.role-name{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:3px;}
+.role-context{font-size:12px;color:var(--gray-muted);}
+.shift-view{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:20px;padding:28px;margin-top:4px;display:none;animation:fadeIn .3s ease;}
+.shift-view.show{display:block;}
+.shift-header{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--purple-mid);}
+.sh-icon{font-size:36px;}
+.sh-name{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--purple-dark);}
+.sh-context{font-size:13px;color:var(--gray-muted);}
+.shift-legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;}
+.sl-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gray-muted);}
+.sl-dot{width:10px;height:10px;border-radius:50%;}
+.sl-dot.human{background:var(--gray-muted);}
+.sl-dot.ai{background:var(--purple);}
+.sl-dot.alert{background:var(--orange);}
+.events{display:flex;flex-direction:column;gap:10px;}
+.event{display:flex;gap:14px;padding:12px 16px;border-radius:12px;border:1.5px solid;}
+.event.human{background:var(--white);border-color:var(--purple-mid);}
+.event.ai-assist{background:var(--purple-pale);border-color:var(--purple-mid);}
+.event.ai-alert{background:var(--orange-pale);border-color:#FDE68A;}
+.ev-time{font-size:12px;font-weight:700;color:var(--gray-muted);min-width:48px;padding-top:2px;}
+.ev-body{flex:1;}
+.ev-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:3px;}
+.ev-desc{font-size:13px;line-height:1.6;color:var(--gray-text);}
+.ev-ai{font-size:12px;color:var(--purple);font-weight:600;margin-top:5px;}
+.ev-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;text-transform:uppercase;letter-spacing:.06em;flex-shrink:0;align-self:flex-start;margin-top:2px;}
+.event.human .ev-badge{background:var(--gray-soft);color:var(--gray-muted);}
+.event.ai-assist .ev-badge{background:var(--purple);color:white;}
+.event.ai-alert .ev-badge{background:var(--orange);color:white;}
+.before-after{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.ba-card{border-radius:20px;padding:22px;border:2px solid;}
+.ba-card.before{background:#FFF7ED;border-color:#FDE68A;}
+.ba-card.after{background:var(--green-pale);border-color:#86EFAC;}
+.ba-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;}
+.ba-card.before .ba-label{color:var(--orange);}
+.ba-card.after .ba-label{color:var(--green);}
+.ba-title{font-size:15px;font-weight:700;margin-bottom:10px;}
+.ba-card.before .ba-title{color:#92400E;}
+.ba-card.after .ba-title{color:var(--green);}
+.ba-item{font-size:13px;line-height:1.65;margin-bottom:7px;padding-left:14px;position:relative;color:var(--gray-text);}
+.ba-item::before{content:'→';position:absolute;left:0;font-weight:700;}
+.ba-card.before .ba-item::before{color:var(--orange);}
+.ba-card.after .ba-item::before{color:var(--green);}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:#FFF1F1;border-color:#DC2626;color:#DC2626;}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:#FFF1F1;color:#DC2626;}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.role-selector{grid-template-columns:1fr;}.before-after{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 1.4 · Roles Impacted by AI in Healthcare</div>
+  <h1>A Day in the Life: How AI Changes the Actual Workflow of a Nurse, Medical Assistant, and Front Desk Coordinator</h1>
+  <p class="hero-sub">Knowing that "AI is changing healthcare" is one thing. Knowing exactly what that change looks like in your specific role on a specific Tuesday morning is something completely different. This article makes it concrete — shift by shift, task by task, decision by decision.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>The Difference Between "AI Changes Healthcare" and "AI Changes My Day"</h2>
+    <p>This entire certification has been building toward one practical question: <mark>what does all of this actually look like when you walk into work?</mark> Not in a hypothetical future — right now, in facilities that are already using these tools.</p>
+    <p>The answer is different depending on your role. A front desk coordinator's AI experience looks nothing like a nurse's, which looks nothing like a medical assistant's. This article walks through a realistic shift for three different roles — showing exactly when AI appears, what it does, what the human does with it, and what judgment remains entirely in human hands.</p>
+    <div class="pull-quote"><p>AI doesn't change your job all at once. It changes individual tasks — one by one — until the shape of your day looks noticeably different. The key is knowing which tasks it changes, and which ones only you can do.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Select a Role — Follow Their Full Shift</h2>
+    <p>Click a role below to see a realistic AI-integrated workday. Events marked <strong style="color:var(--purple)">AI-Assisted</strong> show where tools are active. <strong style="color:var(--orange)">AI Alert</strong> events show moments where AI flags something for human evaluation. Unmarked events are still entirely human-driven.</p>
+    <div class="role-selector">
+      <div class="role-btn" onclick="showShift(0)"><div class="role-icon">📋</div><div class="role-name">Front Desk Coordinator</div><div class="role-context">Administrative · Outpatient clinic</div></div>
+      <div class="role-btn" onclick="showShift(1)"><div class="role-icon">💉</div><div class="role-name">Medical Assistant</div><div class="role-context">Clinical support · Primary care</div></div>
+      <div class="role-btn" onclick="showShift(2)"><div class="role-icon">🩺</div><div class="role-name">Registered Nurse</div><div class="role-context">Clinical · Hospital med-surg floor</div></div>
+    </div>
+    <div class="shift-view" id="shiftView"></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Before AI vs. With AI — What Actually Changes</h2>
+    <p>For each of these roles, the shift from a pre-AI workflow to an AI-integrated one doesn't eliminate the job — it restructures where time goes. Here's what that looks like in practice:</p>
+    <div class="before-after">
+      <div class="ba-card before">
+        <div class="ba-label">📄 Before AI Integration</div>
+        <div class="ba-title">Where most of the time goes</div>
+        <div class="ba-item">Manually calling patients to confirm appointments and fill cancellations</div>
+        <div class="ba-item">Typing clinical notes from memory after every patient visit</div>
+        <div class="ba-item">Searching through charts manually for relevant history before a visit</div>
+        <div class="ba-item">Calculating fall risk and other scores by hand using reference sheets</div>
+        <div class="ba-item">Tracking patient flow on whiteboards or spreadsheets</div>
+        <div class="ba-item">Catching up on documentation during evenings ("pajama time")</div>
+      </div>
+      <div class="ba-card after">
+        <div class="ba-label">🤖 With AI Integration</div>
+        <div class="ba-title">Where that time goes instead</div>
+        <div class="ba-item">AI handles routine reminders — staff focus outreach on patients who need real human contact</div>
+        <div class="ba-item">AI drafts the note — staff spend time reviewing, correcting, and signing</div>
+        <div class="ba-item">AI surfaces relevant history automatically — staff verify and add clinical context</div>
+        <div class="ba-item">AI calculates scores continuously — staff evaluate what to do about each score</div>
+        <div class="ba-item">AI monitors patient flow in real time and flags bottlenecks — staff investigate and resolve</div>
+        <div class="ba-item">Documentation is largely complete before leaving — evenings freed for rest and family</div>
+      </div>
+    </div>
+    <p>The pattern is consistent: AI takes on the mechanical, repetitive layer of each task. Humans move upstream to the judgment layer — evaluating AI outputs, making decisions, and handling everything that requires genuine clinical thinking, empathy, or professional accountability.</p>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A medical assistant's clinic introduces an AI tool that automatically pre-populates the patient intake form with data pulled from the EHR before each visit. The MA's time previously spent entering this information manually is now freed up. What is the BEST use of that recovered time?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Use it to see more patients per hour — the efficiency gain is the point</button>
+        <button class="qopt" onclick="cq(this,false)">The time doesn't need to be reallocated — AI has simply eliminated that task</button>
+        <button class="qopt" onclick="cq(this,true)">Verify the AI-pre-populated information directly with the patient, spend more time on the clinical intake conversation, and catch any outdated or incorrect data before it affects the visit</button>
+        <button class="qopt" onclick="cq(this,false)">Use it for administrative tasks that were previously lower priority</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI changes healthcare workflows task by task — not all at once. For front desk coordinators, nurses, and medical assistants, the shift is from doing mechanical tasks to evaluating AI outputs and spending more time on judgment-intensive work.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Time freed by AI should move upstream — to reviewing AI outputs, strengthening patient relationships, handling complex situations, and exercising the judgment that AI cannot replicate. Efficiency gains that skip the review step create risk, not value.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>No matter the role, certain things don't change with AI: accountability for what you sign, empathy for the patient in front of you, clinical judgment when an alert fires, and the professional responsibility to catch errors before they reach patients.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const shifts=[
+  {icon:'📋',name:'Front Desk Coordinator',context:'8-hour shift · Busy outpatient primary care clinic · 60 patients scheduled',
+   events:[
+    {time:'7:45a',type:'ai-assist',badge:'AI-Assisted',title:'Overnight reminder log review',desc:'AI sent text and email reminders to tomorrow\'s patients automatically. Coordinator reviews which patients confirmed, which didn\'t respond, and which the AI flagged as high no-show risk.',ai:'🤖 AI tool: Automated reminder + no-show prediction. Human task: Decide which high-risk patients to call personally — the AI scores risk, the human decides on outreach strategy.'},
+    {time:'8:00a',type:'human',badge:'Human',title:'Doors open — patient check-in begins',desc:'Greets patients, verifies information, processes copays, and updates any changes to insurance or contact info. This interaction requires warmth, attention to patient cues, and adaptability — all human.'},
+    {time:'9:15a',type:'ai-assist',badge:'AI-Assisted',title:'Insurance verification flags reviewed',desc:'The EHR ran automated overnight insurance checks. Three patients have potential coverage issues flagged. Coordinator calls each to clarify before their appointment.',ai:'🤖 AI tool: Automated insurance verification. Human task: Interpret flags, make judgment calls when a patient arrives before the issue is resolved.'},
+    {time:'10:30a',type:'human',badge:'Human',title:'Handling a distressed patient',desc:'A patient arrives very upset — they were sent to the wrong location. Coordinator listens, apologizes, arranges transport assistance, and escalates the communication error to the practice manager. No AI in the room for this moment.'},
+    {time:'11:30a',type:'ai-assist',badge:'AI-Assisted',title:'Complex multi-provider scheduling',desc:'Provider needs a follow-up scheduled across three specialists within two weeks. Coordinator uses AI scheduling assist to find compatible slots.',ai:'🤖 AI tool: Multi-provider scheduling optimization. Human task: Confirm the suggested slots work for the patient\'s transportation situation and work schedule — context the AI doesn\'t have.'},
+    {time:'2:30p',type:'ai-alert',badge:'AI Alert',title:'No-show prediction alert — 4 afternoon patients',desc:'Scheduling AI flags four afternoon patients as high no-show risk. Coordinator reviews the list, calls two who haven\'t confirmed, and puts one on a callback list for the waitlist patient.',ai:'⚠️ AI flag: No-show risk scores. Human task: Decide who to call, how to prioritize, and whether to open slots to the waitlist.'},
+    {time:'4:30p',type:'human',badge:'Human',title:'End-of-day reconciliation and next-day prep',desc:'Reviews the day\'s encounter summary, flags any billing discrepancies, prints tomorrow\'s schedule, and briefs the closing staff on any open issues. Judgment and institutional knowledge required throughout.'}
+  ]},
+  {icon:'💉',name:'Medical Assistant',context:'8-hour shift · Primary care practice · Rooms 12–15 patients per day',
+   events:[
+    {time:'8:00a',type:'ai-assist',badge:'AI-Assisted',title:'Pre-visit chart prep — AI summary review',desc:'For each scheduled patient, the EHR AI surfaces a pre-visit summary: last visit reason, outstanding preventive care gaps, current medications, and recent labs.',ai:'🤖 AI tool: EHR pre-visit intelligence. Human task: Review the AI-generated summary for accuracy, flag anything that looks outdated or inconsistent with what the MA remembers about the patient.'},
+    {time:'8:30a',type:'human',badge:'Human',title:'Patient rooming — vital signs and intake',desc:'Rooms first patient, takes vitals (BP, HR, temp, O2 sat, weight), asks about reason for visit, reviews medication list directly with the patient. Direct patient interaction — not delegated to AI.'},
+    {time:'9:00a',type:'ai-alert',badge:'AI Alert',title:'Preventive care gap alert fires for patient in Room 2',desc:'The EHR flags that this patient is overdue for a colorectal cancer screening and a flu vaccine. MA notes the flags, mentions them to the patient, and documents patient\'s response for the provider.',ai:'⚠️ AI flag: Preventive care gap reminder. Human task: Communicate the gap to the patient in a way that feels helpful rather than like a checklist. Document the patient\'s actual preferences.'},
+    {time:'10:15a',type:'ai-assist',badge:'AI-Assisted',title:'Medication reconciliation support',desc:'Before provider enters, MA reviews the patient\'s medication list. EHR AI automatically flags three medications that don\'t appear in recent prescription records — possible non-adherence or list inaccuracy.',ai:'🤖 AI tool: Medication reconciliation flag. Human task: Ask the patient directly which medications they\'re actually taking — the AI flags a discrepancy, the MA investigates with the patient.'},
+    {time:'12:30p',type:'human',badge:'Human',title:'Vaccine administration',desc:'Administers two vaccines for a pediatric patient. Prepares the injection, administers with proper technique, comforts the child and parent, documents administration, observes the patient for 15 minutes post-vaccine. Fully human — requires clinical skill and interpersonal care.'},
+    {time:'2:00p',type:'ai-assist',badge:'AI-Assisted',title:'Lab results notification workflow',desc:'Abnormal lab results for three patients arrive. The EHR AI routes each to the correct provider and auto-drafts a patient notification message for provider review before sending.',ai:'🤖 AI tool: Results routing and draft patient notification. Human task: Provider reviews and personalizes each draft before it goes to the patient — the AI creates the starting point, the clinician ensures it\'s appropriate.'},
+    {time:'4:00p',type:'human',badge:'Human',title:'Documentation catch-up and supply restock',desc:'Completes any open documentation tasks, restocks exam rooms, flags supply needs to the office manager. Reviews end-of-day task list — some generated by AI workflow tools, completed by human action.'}
+  ]},
+  {icon:'🩺',name:'Registered Nurse',context:'12-hour shift (7a–7p) · Medical-surgical floor · Assigned 5 patients',
+   events:[
+    {time:'7:00a',type:'human',badge:'Human',title:'Shift handoff from night nurse',desc:'Receives verbal report on all 5 patients — current status, overnight events, pending orders, anything that needs immediate attention. Relationship, trust, and clinical context transferred human to human.'},
+    {time:'7:30a',type:'ai-assist',badge:'AI-Assisted',title:'Morning AI vitals trend review',desc:'Reviews AI-generated overnight vitals trend report for each patient before entering rooms. Identifies one patient whose blood pressure has been trending upward since 3am.',ai:'🤖 AI tool: Continuous vitals monitoring and trend analysis. Human task: Decide whether the trend warrants immediate assessment before routine rounding or can be addressed as part of normal rounds.'},
+    {time:'8:00a',type:'ai-alert',badge:'AI Alert',title:'Sepsis early warning alert — Room 412',desc:'The EHR early warning system flags Room 412 as elevated sepsis risk based on trending vitals and recent lactate result. Nurse goes to the bedside immediately, conducts full assessment, calls the attending.',ai:'⚠️ AI alert: Sepsis early warning score elevated. Human task: Assess the patient directly. The AI identifies the pattern — the nurse determines severity, initiates appropriate response, and communicates with the team.'},
+    {time:'9:00a',type:'human',badge:'Human',title:'Medication administration rounds',desc:'Administers morning medications to all 5 patients. Verifies each med against the order, checks for allergies, explains each medication to the patient. Requires focused clinical attention — cannot be delegated to AI.'},
+    {time:'10:30a',type:'ai-assist',badge:'AI-Assisted',title:'Discharge planning — AI-assisted checklist',desc:'Patient in Room 408 is being discharged. Uses EHR AI discharge checklist to verify all orders are complete, follow-up is scheduled, and education is documented.',ai:'🤖 AI tool: Discharge process automation. Human task: Have the actual discharge conversation — confirm the patient understands their instructions, has support at home, and has access to their medications.'},
+    {time:'12:00p',type:'ai-assist',badge:'AI-Assisted',title:'AI-drafted nursing note review',desc:'Reviews ambient AI-drafted nursing notes for the morning\'s assessments. Reads each carefully, corrects two errors (one wrong medication name, one assessment detail that misrepresented what she observed), then signs.',ai:'🤖 AI tool: Ambient documentation. Human task: Read every note before signing. The AI saves 60–90 minutes of documentation time — the nurse ensures accuracy before it becomes the official record.'},
+    {time:'2:00p',type:'ai-assist',badge:'AI-Assisted',title:'New admission — AI-assisted intake',desc:'New patient admitted from ED. EHR auto-populates history, flags medication interactions, and pre-fills the admission assessment form. Nurse verifies every field directly with the patient.',ai:'🤖 AI tool: Automated history pull and interaction checking. Human task: Confirm all auto-populated information. Multiple fields are outdated — catching them now prevents downstream errors.'},
+    {time:'6:30p',type:'human',badge:'Human',title:'End-of-shift handoff to night nurse',desc:'Gives verbal report to the incoming night nurse for all 5 patients — current status, what happened today, pending orders, anything needing close watching overnight. Clinical relationship and accountability transferred human to human.'}
+  ]}
+];
+
+function showShift(i){
+  document.querySelectorAll('.role-btn').forEach((b,bi)=>b.classList.toggle('active',bi===i));
+  const s=shifts[i];
+  const eventsHtml=s.events.map(e=>`
+    <div class="event ${e.type}">
+      <div class="ev-time">${e.time}</div>
+      <div class="ev-body">
+        <div class="ev-title">${e.title}</div>
+        <div class="ev-desc">${e.desc}</div>
+        ${e.ai?`<div class="ev-ai">${e.ai}</div>`:''}
+      </div>
+      <div class="ev-badge">${e.badge}</div>
+    </div>`).join('');
+  const sv=document.getElementById('shiftView');
+  sv.innerHTML=`
+    <div class="shift-header"><div class="sh-icon">${s.icon}</div><div><div class="sh-name">${s.name}</div><div class="sh-context">${s.context}</div></div></div>
+    <div class="shift-legend">
+      <div class="sl-item"><div class="sl-dot human"></div>Human only</div>
+      <div class="sl-item"><div class="sl-dot ai"></div>AI-Assisted</div>
+      <div class="sl-item"><div class="sl-dot alert"></div>AI Alert → Human Response</div>
+    </div>
+    <div class="events">${eventsHtml}</div>`;
+  sv.classList.add('show');
+}
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. When AI pre-populates intake information, the MA\'s job doesn\'t disappear — it shifts. Instead of typing, the MA now verifies. This is actually more clinically valuable: directly confirming with the patient that their medication list is current, that their allergies are still accurate, and that nothing has changed since their last visit is far better than just re-entering what\'s already in the system. AI-filled information is a starting point, not a finished product.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('Verify the AI-pre-populated'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ The efficiency gain shouldn\'t just mean seeing more patients faster — it should mean doing the existing work better. AI-populated intake forms often contain outdated information (medications changed at another facility, allergies not updated, incorrect dosages). The recovered time is most valuable when used to verify that information with the patient directly — catching errors before they affect the visit, and building the kind of patient relationship that makes the whole encounter better.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
