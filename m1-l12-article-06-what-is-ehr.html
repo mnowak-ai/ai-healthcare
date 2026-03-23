@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Is an EHR and How Does AI Connect to It? — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.ehr-sections{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;}
+.ehr-section{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:18px;cursor:pointer;transition:all .2s;}
+.ehr-section:hover,.ehr-section.active{border-color:var(--purple);background:var(--purple-pale);}
+.ehr-section-icon{font-size:24px;margin-bottom:6px;}
+.ehr-section-name{font-size:13px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.ehr-section-desc{font-size:12px;color:var(--gray-muted);line-height:1.4;}
+.ehr-detail{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:14px;padding:20px;margin-top:12px;display:none;animation:fadeIn .3s ease;}
+.ehr-detail.show{display:block;}
+.ehrd-title{font-size:16px;font-weight:700;color:var(--purple-dark);margin-bottom:8px;}
+.ehrd-body{font-size:14px;line-height:1.7;color:var(--gray-text);margin-bottom:10px;}
+.ehrd-ai{background:var(--purple-pale);border-left:3px solid var(--purple);padding:10px 14px;border-radius:0 8px 8px 0;font-size:13px;color:var(--purple-dark);line-height:1.6;}
+.ehr-vendors{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:24px 0;}
+.vendor-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:18px;}
+.vendor-name{font-size:16px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.vendor-share{font-size:13px;color:var(--purple);font-weight:600;margin-bottom:8px;}
+.vendor-desc{font-size:13px;line-height:1.55;color:var(--gray-text);margin-bottom:8px;}
+.vendor-ai{font-size:12px;color:var(--gray-muted);font-style:italic;}
+.ai-connection-list{display:flex;flex-direction:column;gap:10px;margin:24px 0;}
+.ai-conn{display:flex;gap:14px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:16px 18px;}
+.ai-conn-icon{font-size:24px;flex-shrink:0;}
+.ai-conn-body{}
+.ai-conn-title{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.ai-conn-desc{font-size:13px;line-height:1.6;color:var(--gray-text);}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:#FFF1F1;border-color:#DC2626;color:#DC2626;}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:#FFF1F1;color:#DC2626;}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.ehr-sections,.ehr-vendors{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 1.2 · Current Applications of AI in Healthcare</div>
+  <h1>What Is an EHR and How Does AI Connect to It?</h1>
+  <p class="hero-sub">Every AI tool in healthcare either reads from, writes to, or integrates with the Electronic Health Record. Understanding what an EHR is — and what data lives inside it — is the foundation for understanding how healthcare AI actually works in practice.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>The EHR: Healthcare's Central Nervous System</h2>
+    <p>An Electronic Health Record (EHR) is a digital system that stores a patient's complete medical information — diagnoses, medications, lab results, imaging reports, clinical notes, allergies, vital signs, and more. Every clinician who cares for a patient reads from and writes to this record.</p>
+    <p>Before EHRs, all of this information lived on paper — in physical folders, in filing rooms, in the physician's handwriting. EHRs made that information digital, searchable, and shareable. And by making it digital, they created the data that AI now learns from.</p>
+    <p><mark>Almost every AI tool in healthcare touches the EHR</mark> — either pulling data from it, writing results back into it, or using the data it contains to make predictions. If you don't understand the EHR, you can't fully understand healthcare AI.</p>
+    <div class="pull-quote"><p>The EHR isn't just a filing system. It's the record of what happened, the communication tool between care team members, the training dataset for AI, and the legal document that follows a patient for the rest of their life.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What's Inside an EHR — Click to Explore</h2>
+    <p>An EHR contains many different types of information. Each section serves a specific purpose — and AI tools interact with different sections in different ways. Click each section to learn what's there and how AI uses it:</p>
+    <div class="ehr-sections" id="ehrSections"></div>
+    <div class="ehr-detail" id="ehrDetail"></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Three Major EHR Systems You'll Encounter</h2>
+    <p>Not all EHRs are the same. Different health systems use different platforms — and each platform has its own approach to AI integration. Here are the three systems that dominate U.S. healthcare:</p>
+    <div class="ehr-vendors">
+      <div class="vendor-card">
+        <div class="vendor-name">Epic</div>
+        <div class="vendor-share">~35% of U.S. hospital market</div>
+        <div class="vendor-desc">Used by most major academic medical centers and large health systems. Known for comprehensive features and strong patient portal (MyChart). Very popular at systems like Kaiser Permanente, UCSF, and Cleveland Clinic.</div>
+        <div class="vendor-ai">AI integration: Epic has integrated ambient documentation, clinical decision support, and predictive analytics directly into the platform. Their AI strategy is called "Epic AI."</div>
+      </div>
+      <div class="vendor-card">
+        <div class="vendor-name">Oracle Cerner</div>
+        <div class="vendor-share">~25% of U.S. hospital market</div>
+        <div class="vendor-desc">Widely used in community hospitals, government facilities (including the VA and DoD), and international health systems. Oracle acquired Cerner in 2022 and is integrating AI through the Oracle Health platform.</div>
+        <div class="vendor-ai">AI integration: Oracle Health AI focuses on predictive analytics, clinical documentation support, and population health management tools.</div>
+      </div>
+      <div class="vendor-card">
+        <div class="vendor-name">MEDITECH</div>
+        <div class="vendor-share">~15% of U.S. hospital market</div>
+        <div class="vendor-desc">Popular in community hospitals and critical access hospitals (smaller facilities in rural or underserved areas). Known for being more affordable and accessible for smaller systems than Epic or Cerner.</div>
+        <div class="vendor-ai">AI integration: MEDITECH Expanse includes AI-powered clinical decision support and documentation features — important for understanding AI in smaller community hospital settings.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>How AI Connects to the EHR — Six Key Relationships</h2>
+    <div class="ai-connection-list">
+      <div class="ai-conn"><div class="ai-conn-icon">📥</div><div class="ai-conn-body"><div class="ai-conn-title">AI reads patient data FROM the EHR</div><div class="ai-conn-desc">Risk prediction tools, early warning systems, and clinical decision support all pull patient data from the EHR to make their assessments. The AI analyzes labs, vitals, notes, and history — all stored in the EHR — to generate predictions.</div></div></div>
+      <div class="ai-conn"><div class="ai-conn-icon">📤</div><div class="ai-conn-body"><div class="ai-conn-title">AI writes outputs INTO the EHR</div><div class="ai-conn-desc">When ambient documentation AI generates a clinical note, it writes it into the EHR (pending provider review). When an AI tool generates a risk score, that score may appear directly in the patient's chart. These AI-generated entries require human review before they become official.</div></div></div>
+      <div class="ai-conn"><div class="ai-conn-icon">🔔</div><div class="ai-conn-body"><div class="ai-conn-title">AI generates alerts WITHIN the EHR</div><div class="ai-conn-desc">Clinical decision support alerts — drug interaction warnings, abnormal lab flags, sepsis alerts — appear as pop-ups or notifications within the EHR workflow. These are AI-generated prompts that interrupt clinical staff when the system detects a concern.</div></div></div>
+      <div class="ai-conn"><div class="ai-conn-icon">🧠</div><div class="ai-conn-body"><div class="ai-conn-title">AI was TRAINED on EHR data</div><div class="ai-conn-desc">The AI models used in healthcare were built by training on historical EHR data from thousands or millions of patients. This is why understanding training data quality matters — the AI learned from real patient records, and any patterns or biases in those records are reflected in the AI's behavior.</div></div></div>
+      <div class="ai-conn"><div class="ai-conn-icon">🔗</div><div class="ai-conn-body"><div class="ai-conn-title">Third-party AI tools INTEGRATE with the EHR</div><div class="ai-conn-desc">Not all AI tools are built into the EHR itself. Many are third-party applications that connect via APIs (data-sharing protocols). Nuance DAX, for example, is a separate product that integrates with Epic and Cerner to deliver AI-drafted notes into the existing workflow.</div></div></div>
+      <div class="ai-conn"><div class="ai-conn-icon">📊</div><div class="ai-conn-body"><div class="ai-conn-title">EHR data FEEDS population health AI</div><div class="ai-conn-desc">At the population level, de-identified EHR data is used to identify trends, predict outbreak patterns, and evaluate care quality across patient groups. This is different from individual patient AI — it's AI working at the level of entire patient populations to improve health at scale.</div></div></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A hospital's EHR generates an automatic alert when a patient's lab results show a critically low potassium level. A nurse receives the alert during a busy shift and acknowledges it without checking the patient's current status. What is the problem?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">The EHR alert system is malfunctioning and needs to be reported to IT</button>
+        <button class="qopt" onclick="cq(this,false)">There is no problem — acknowledging an alert is the correct response</button>
+        <button class="qopt" onclick="cq(this,true)">Acknowledging an alert means the nurse has reviewed it and taken appropriate action — but the nurse hasn't actually assessed or treated the patient. Acknowledging without acting is a form of alert fatigue that creates patient safety risk.</button>
+        <button class="qopt" onclick="cq(this,false)">The lab result is probably a false positive and doesn't need immediate attention</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The EHR is the digital record of a patient's complete medical history — and virtually every AI tool in healthcare connects to it in some way, reading data from it, writing outputs into it, or using its historical data as training material.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The three major EHR systems — Epic, Oracle Cerner, and MEDITECH — each have their own AI integration strategies. Knowing which system your workplace uses helps you understand which AI tools you'll encounter and how they're built into the workflow.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>EHR alerts require human action — not just acknowledgment. Alert fatigue (clicking through alerts without reading them) is one of the most documented patient safety problems in healthcare. Every AI-generated alert in the EHR is a prompt for human evaluation, not a box to check.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const sections=[
+  {icon:'📋',name:'Clinical Notes',desc:'Provider documentation from every visit',body:'Clinical notes are the written record of patient-provider interactions — what was discussed, what was observed, what was assessed, and what was planned. Every physician note, nursing assessment, therapy evaluation, and social work consultation lives here.',ai:'🤖 AI connection: Ambient documentation AI (like Nuance DAX) generates clinical notes and writes them here pending provider review. NLP tools also read notes to extract diagnoses, medications, and symptoms for use in other AI applications.'},
+  {icon:'💊',name:'Medications',desc:'Current prescriptions and medication history',body:'The medication list includes every drug a patient is currently prescribed, at what dose, and how often. It also includes historical medications, discontinued drugs, and documented allergies. This section is critical for safety — knowing what a patient takes affects almost every clinical decision.',ai:'🤖 AI connection: Drug interaction checking AI reads this section every time a new medication is ordered — flagging dangerous combinations before they happen. Documentation AI that reads notes must accurately capture medication changes in this section.'},
+  {icon:'🧪',name:'Lab Results',desc:'Blood tests, cultures, urinalysis, and more',body:'Lab results include all diagnostic tests run on patient samples — complete blood counts, metabolic panels, cultures, drug levels, and more. Results arrive electronically and are automatically flagged as normal or abnormal. Trending lab values over time is crucial for detecting deterioration.',ai:'🤖 AI connection: AI flags critically abnormal lab values for immediate clinical attention. Predictive models for sepsis, deterioration, and chronic disease use lab trends as key inputs. AI documentation tools must accurately capture lab discussions from visit conversations.'},
+  {icon:'📊',name:'Vital Signs',desc:'Blood pressure, heart rate, temperature, O2 saturation',body:'Vitals are measured and recorded throughout every encounter — and for hospitalized patients, may be recorded continuously through monitoring equipment. Trends in vitals are among the most important early indicators of patient deterioration.',ai:'🤖 AI connection: Early warning systems (sepsis alerts, rapid response triggers) continuously analyze vital sign trends. Remote patient monitoring AI tracks vitals at home and alerts care teams when values exceed thresholds.'},
+  {icon:'🩺',name:'Diagnoses & Problem List',desc:'Active conditions and medical history',body:'The problem list is a structured summary of a patient\'s active diagnoses and significant medical history. This is the AI\'s starting point for understanding a patient\'s clinical complexity. It\'s only as good as the documentation — diagnoses that aren\'t added to the list are invisible to the AI.',ai:'🤖 AI connection: Risk stratification tools use the problem list to assess complexity. Billing and coding AI reads diagnoses to suggest appropriate codes. Clinical decision support fires based on specific diagnoses in the problem list.'},
+  {icon:'📷',name:'Imaging & Radiology',desc:'X-rays, CT scans, MRIs, and reports',body:'Imaging studies are stored and linked to the patient\'s EHR — including the actual images and the radiologist\'s written report. Clinicians across the care team can access images and reports from within the EHR without needing to visit the radiology department.',ai:'🤖 AI connection: Medical imaging AI analyzes the images themselves — not just the reports — and flags potential abnormalities for radiologist review. AI-generated preliminary reads may appear in the EHR before the official radiologist interpretation.'}
+];
+
+const sectionsEl=document.getElementById('ehrSections');
+sections.forEach((s,i)=>{
+  const el=document.createElement('div');el.className='ehr-section';
+  el.innerHTML=`<div class="ehr-section-icon">${s.icon}</div><div class="ehr-section-name">${s.name}</div><div class="ehr-section-desc">${s.desc}</div>`;
+  el.onclick=()=>{
+    document.querySelectorAll('.ehr-section').forEach((c,ci)=>c.classList.toggle('active',ci===i));
+    const detail=document.getElementById('ehrDetail');
+    detail.innerHTML=`<div class="ehrd-title">${s.icon} ${s.name}</div><div class="ehrd-body">${s.body}</div><div class="ehrd-ai">${s.ai}</div>`;
+    detail.classList.add('show');
+  };
+  sectionsEl.appendChild(el);
+});
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. Alert fatigue is one of the most documented and dangerous problems in healthcare IT. When nurses and other clinicians click through alerts without actually evaluating them — often because there are too many alerts and they\'ve learned that most are not immediately actionable — real critical alerts get missed. Acknowledging is a documentation action; assessing and acting is the clinical response. A critically low potassium requires immediate clinical evaluation, not a click.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('acknowledging without acting'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ Acknowledging an alert records that you saw it — it doesn\'t mean you responded clinically. A critically low potassium (hypokalemia) can cause life-threatening cardiac arrhythmias. Clicking "acknowledge" without checking on the patient creates a documented record that the nurse was aware of the alert — while the patient may be deteriorating without intervention. This is alert fatigue, and it\'s a documented patient safety issue.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

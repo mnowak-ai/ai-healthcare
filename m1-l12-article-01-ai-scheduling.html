@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI for Scheduling — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.capability-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;}
+.cap-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:20px;padding:22px;}
+.cap-icon{font-size:28px;margin-bottom:8px;}
+.cap-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.cap-desc{font-size:13px;line-height:1.6;color:var(--gray-text);}
+.sim-box{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.sim-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.sim-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.sim-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.scenario-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.sc-tab{padding:8px 14px;border-radius:10px;border:1.5px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.sc-tab.active{background:var(--purple);border-color:var(--purple);color:white;}
+.scenario-panel{display:none;animation:fadeIn .3s ease;}
+.scenario-panel.active{display:block;}
+.sc-situation{background:var(--white);border-left:4px solid var(--orange);padding:14px 18px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.7;margin-bottom:12px;}
+.sc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.sc-box{border-radius:12px;padding:14px;}
+.sc-box.ai{background:var(--purple-pale);}
+.sc-box.human{background:var(--green-pale);}
+.sc-box-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
+.sc-box.ai .sc-box-label{color:var(--purple);}
+.sc-box.human .sc-box-label{color:var(--green);}
+.sc-box-text{font-size:13px;line-height:1.6;color:var(--gray-text);}
+.sc-outcome{background:#FFF7ED;border:1.5px solid #FDE68A;border-radius:10px;padding:12px 16px;font-size:14px;color:#92400E;}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;}
+.stat-card{background:var(--purple-pale);border:2px solid var(--purple-mid);border-radius:20px;padding:22px;text-align:center;}
+.stat-num{font-family:'Fraunces',serif;font-size:38px;font-weight:900;color:var(--purple);line-height:1;margin-bottom:6px;}
+.stat-label{font-size:13px;font-weight:600;color:var(--purple-dark);line-height:1.4;}
+.limits-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.limit-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px;}
+.limit-icon{font-size:24px;margin-bottom:8px;}
+.limit-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.limit-desc{font-size:13px;line-height:1.6;color:var(--gray-text);}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:#FFF1F1;border-color:#DC2626;color:#DC2626;}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:#FFF1F1;color:#DC2626;}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.capability-grid,.stats-row{grid-template-columns:1fr;}.sc-grid,.limits-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 1.2 · Current Applications of AI in Healthcare</div>
+  <h1>AI for Scheduling: How Clinics Book, Remind, and Manage Patient Flow With Technology</h1>
+  <p class="hero-sub">Scheduling sounds simple — pick a time, book the appointment. But in a busy healthcare facility, scheduling is one of the most complex operational challenges that exists. AI is changing how it's done — and understanding how means you'll know exactly when to trust it, when to override it, and when something's gone wrong.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Why Scheduling Is Harder Than It Looks</h2>
+    <p>On the surface, booking a medical appointment seems straightforward. But consider everything that actually has to be coordinated for a single appointment to work: the right provider needs to be available, in the right room, with the right equipment, for the right amount of time, within a window that works for the patient, accepted by their insurance, with enough buffer before and after for the clinical team to prepare and document.</p>
+    <p>Now multiply that by 100 appointments a day across a dozen providers. Add in the reality that <mark>roughly 20% of patients don't show up</mark> for their appointments, that providers run late, that emergencies disrupt the schedule, and that some patients need interpreters, wheelchair access, or specific staff members. Scheduling is a complex optimization problem that healthcare facilities have struggled with for decades.</p>
+    <p>AI doesn't solve all of those challenges — but it handles the mathematical complexity far better than any human or paper system can.</p>
+    <div class="pull-quote"><p>Every empty appointment slot is a patient who didn't get care they needed. Every double-booked provider is a team under unnecessary stress. Scheduling AI exists because bad scheduling hurts people — and healthcare has too much of it.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What Scheduling AI Actually Does</h2>
+    <p>Modern AI scheduling tools aren't just digital calendars. They're systems that analyze patterns across thousands of appointments to make smarter decisions in real time:</p>
+    <div class="capability-grid">
+      <div class="cap-card">
+        <div class="cap-icon">📅</div>
+        <div class="cap-title">Appointment Optimization</div>
+        <div class="cap-desc">AI analyzes provider availability, appointment type, room needs, and equipment requirements to find the best slot — not just any open slot. It considers duration, prep time, and downstream scheduling impacts.</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon">🔔</div>
+        <div class="cap-title">Automated Reminders</div>
+        <div class="cap-desc">Sends personalized text, email, or phone reminders at optimal times — based on what reminder timing and format has historically produced the best confirmation rates for similar patients.</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon">📊</div>
+        <div class="cap-title">No-Show Prediction</div>
+        <div class="cap-desc">Uses patient history, appointment type, day of week, and other factors to predict which patients are most likely not to show up — allowing staff to proactively reach out or fill slots from a waitlist.</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon">⏱️</div>
+        <div class="cap-title">Wait Time Reduction</div>
+        <div class="cap-desc">Analyzes historical data on how long different appointment types actually take (vs. how long they're scheduled for) and adjusts slot lengths to reduce provider running-late ripple effects.</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon">📋</div>
+        <div class="cap-title">Waitlist Management</div>
+        <div class="cap-desc">When a cancellation occurs, AI automatically identifies the best patient from the waitlist based on clinical priority, availability, and geographic proximity — and notifies them immediately.</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon">🔗</div>
+        <div class="cap-title">Multi-Provider Coordination</div>
+        <div class="cap-desc">For complex patients who need multiple specialists, AI finds compatible slots across providers and facilities — something that would take a human coordinator hours to do manually.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Scheduling Scenarios — See AI and Humans in Action</h2>
+    <p>The real skill isn't just knowing that AI handles scheduling — it's knowing exactly where AI helps and where human judgment must take over. Click each scenario to see both in action:</p>
+    <div class="sim-box">
+      <div class="sim-label">🎯 Scenario Simulator</div>
+      <div class="sim-title">AI + Human Scheduling in Real Situations</div>
+      <div class="sim-sub">Select a scenario to see what the AI does, what the human does, and what can go wrong if either fails.</div>
+      <div class="scenario-tabs">
+        <button class="sc-tab active" onclick="showScenario(0)">No-Show Alert</button>
+        <button class="sc-tab" onclick="showScenario(1)">Complex Referral</button>
+        <button class="sc-tab" onclick="showScenario(2)">Last-Minute Cancellation</button>
+        <button class="sc-tab" onclick="showScenario(3)">Upset Patient Call</button>
+      </div>
+      <div id="scenarioContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Numbers Behind Scheduling AI</h2>
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num">20%</div>
+        <div class="stat-label">Average no-show rate at U.S. healthcare facilities — the problem AI is trying to solve</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">$150B</div>
+        <div class="stat-label">Estimated annual cost of no-shows and scheduling inefficiency to the U.S. healthcare system</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">30–40%</div>
+        <div class="stat-label">Reduction in no-show rates reported by some facilities after implementing AI reminder systems</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What Scheduling AI Cannot Do — And Why It Matters</h2>
+    <p>Understanding the limits of scheduling AI is just as important as understanding what it can do. These are the situations where human judgment must take over every time:</p>
+    <div class="limits-grid">
+      <div class="limit-card">
+        <div class="limit-icon">😟</div>
+        <div class="limit-title">Handling an Upset or Distressed Patient</div>
+        <div class="limit-desc">A patient who's scared, angry, or confused needs a human who can listen, empathize, and adapt. AI can send a reminder — it cannot de-escalate an emotional situation or make a frightened patient feel heard.</div>
+      </div>
+      <div class="limit-card">
+        <div class="limit-icon">🧩</div>
+        <div class="limit-title">Understanding Unstated Patient Needs</div>
+        <div class="limit-desc">If a patient needs a specific provider for cultural or trauma-related reasons but hasn't put it in the system, the AI has no way to know. Human coordinators pick up on these cues and act on them.</div>
+      </div>
+      <div class="limit-card">
+        <div class="limit-icon">⚡</div>
+        <div class="limit-title">Responding to Clinical Urgency</div>
+        <div class="limit-desc">AI schedules based on appointment type — it can't assess whether a patient's described symptoms mean they need to be seen today rather than next week. Clinical triage judgment always belongs to a human.</div>
+      </div>
+      <div class="limit-card">
+        <div class="limit-icon">🔄</div>
+        <div class="limit-title">Handling Exceptions and Edge Cases</div>
+        <div class="limit-desc">Complex situations — a patient who needs three specialists seen in a specific order before a procedure — may fall outside what the AI's patterns cover. Human coordinators have to step in and think creatively.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">An AI scheduling system flags that a patient has a 78% predicted no-show probability for their appointment tomorrow. The scheduling coordinator reviews the flag. What is the MOST appropriate next step?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Automatically cancel the appointment and fill the slot from the waitlist — the AI prediction is highly reliable</button>
+        <button class="qopt" onclick="cq(this,false)">Ignore the flag — AI no-show predictions are usually wrong</button>
+        <button class="qopt" onclick="cq(this,true)">Call or message the patient to confirm and address any barriers — the AI flag is a prompt for human outreach, not an automatic cancellation decision</button>
+        <button class="qopt" onclick="cq(this,false)">Ask the provider to see a different patient tomorrow instead</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Scheduling AI handles appointment optimization, automated reminders, no-show prediction, waitlist management, and multi-provider coordination — tasks that are mathematically complex and time-consuming when done manually.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI flags are prompts for human action — not automatic decisions. A no-show prediction means call the patient; it doesn't mean cancel their appointment. Human coordinators review AI outputs and decide what to do with them.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Scheduling AI cannot handle distressed patients, unstated needs, clinical urgency assessment, or complex exceptions that fall outside its training. Human coordinators remain essential for everything that requires empathy, judgment, and flexibility.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const scenarios=[
+  {
+    title:'No-Show Alert',
+    situation:'It\'s Monday morning. The AI scheduling system flags 6 patients with high no-show probability for this week\'s appointments. One patient — Mrs. Chen — has a 91% predicted no-show score. Her appointment is for a diabetes follow-up on Wednesday.',
+    ai:'Reviews Mrs. Chen\'s history: she\'s missed 3 of her last 5 appointments. Her last confirmed appointment was 4 months ago. Flags her as highest priority for outreach. Automatically queues a reminder text.',
+    human:'The coordinator sees the flag and calls Mrs. Chen directly rather than just relying on the automated text. Mrs. Chen answers and explains she has no transportation. The coordinator connects her with the clinic\'s patient transport service. Mrs. Chen attends her appointment.',
+    outcome:'⚖️ What this shows: The AI identified the risk. The human discovered the real reason — and solved it. If the coordinator had just trusted the AI reminder text, Mrs. Chen would have missed a clinically important follow-up.'
+  },
+  {
+    title:'Complex Referral',
+    situation:'A patient with a newly diagnosed cardiac condition needs to see a cardiologist, a cardiac imaging technician, and a nutritionist — ideally within the same week, in the right clinical sequence, at the same campus.',
+    ai:'Analyzes availability across three providers and three departments. Finds a sequence of slots on Tuesday and Thursday that satisfies all constraints. Generates a proposed multi-appointment schedule with a single confirmation link for the patient.',
+    human:'The coordinator reviews the AI-generated schedule and notices that the cardiac imaging appointment is scheduled before the cardiologist visit — but the cardiologist needs the imaging results before the consultation. The coordinator swaps the order. The schedule is sent to the patient.',
+    outcome:'⚖️ What this shows: The AI found the open slots — a task that would take a human coordinator 30+ minutes. But it didn\'t understand clinical sequencing. Human review caught an error that would have made the cardiologist consultation useless.'
+  },
+  {
+    title:'Last-Minute Cancellation',
+    situation:'At 8:15 AM, a patient cancels a 90-minute procedure slot for 10 AM. The slot is now empty. The clinic has a waitlist of 12 patients for this procedure type.',
+    ai:'Instantly analyzes the waitlist. Identifies 3 patients who are nearby, available today, have confirmed transportation, and whose insurance has already been verified. Sends automated "we have an opening today" messages to all three simultaneously.',
+    human:'Two patients respond. One can make it by 10 AM; one needs until 10:30. The coordinator calls both to confirm, chooses the 10 AM patient, updates the schedule, and sends a confirmation. The 10:30 patient is moved to top of waitlist for future openings.',
+    outcome:'⚖️ What this shows: The AI turned a 90-minute empty slot into a filled appointment in under 10 minutes — something that would have taken a coordinator significant time to manage manually. Human judgment made the final call between the two responding patients.'
+  },
+  {
+    title:'Upset Patient Call',
+    situation:'A patient calls furious. He received an automated reminder for an appointment he says he never made. He\'s taken time off work. He wants to speak to someone immediately.',
+    ai:'The AI reminder system sent the notification correctly based on what was in the scheduling database. The system has no ability to respond to an upset caller, detect emotional distress, or investigate a booking dispute.',
+    human:'The coordinator answers. Listens without interrupting. Pulls up the account and finds the appointment was booked by a family member without the patient\'s knowledge. Apologizes, removes the appointment, offers to book a new one at the patient\'s convenience. The patient calms down significantly.',
+    outcome:'⚖️ What this shows: The AI did its job correctly — it sent a reminder for a scheduled appointment. But the situation that resulted required human empathy, investigation, and de-escalation. No AI system can do this. This is where healthcare workers are absolutely irreplaceable.'
+  }
+];
+
+let scIdx=0;
+function showScenario(i){
+  scIdx=i;
+  document.querySelectorAll('.sc-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));
+  renderScenario();
+}
+function renderScenario(){
+  const s=scenarios[scIdx];
+  document.getElementById('scenarioContainer').innerHTML=`
+    <div class="scenario-panel active">
+      <div class="sc-situation"><strong>📋 Situation:</strong> ${s.situation}</div>
+      <div class="sc-grid">
+        <div class="sc-box ai"><div class="sc-box-label">🤖 What AI does</div><div class="sc-box-text">${s.ai}</div></div>
+        <div class="sc-box human"><div class="sc-box-label">👤 What the human does</div><div class="sc-box-text">${s.human}</div></div>
+      </div>
+      <div class="sc-outcome">${s.outcome}</div>
+    </div>`;
+}
+renderScenario();
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct! A no-show prediction — even a high-confidence one — is not a reason to cancel an appointment. It\'s a signal to reach out. The patient may have a real barrier (transportation, childcare, cost anxiety) that a human can help address. Automatically canceling would punish patients for predicted behavior and deny them care. The AI identifies risk; the human investigates and responds.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('prompt for human outreach'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ AI no-show predictions are based on real patterns and are generally more accurate than guessing — but even a 78% prediction is wrong 22% of the time. More importantly, even patients who are likely to no-show often have fixable barriers. The right response is human outreach, not automatic cancellation.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

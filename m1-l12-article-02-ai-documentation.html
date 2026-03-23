@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI for Documentation — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.tool-tabs{margin:24px 0;}
+.tool-nav{display:flex;gap:8px;border-bottom:2px solid var(--purple-mid);}
+.tool-tab{padding:12px 20px;font-size:14px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--gray-muted);border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;}
+.tool-tab.active{color:var(--purple);border-bottom-color:var(--purple);}
+.tool-panel{display:none;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:0 16px 16px 16px;padding:28px;animation:fadeIn .3s ease;}
+.tool-panel.active{display:block;}
+.tool-name{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.tool-maker{font-size:14px;color:var(--gray-muted);margin-bottom:14px;}
+.tool-how{background:var(--purple-pale);border-radius:12px;padding:16px;margin-bottom:14px;}
+.tool-how-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.1em;margin-bottom:8px;}
+.tool-how-text{font-size:14px;line-height:1.7;color:var(--gray-text);}
+.tool-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.tool-col{background:var(--gray-soft);border-radius:10px;padding:12px 14px;}
+.tool-col-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.08em;margin-bottom:6px;}
+.tool-col-item{font-size:13px;line-height:1.55;margin-bottom:5px;display:flex;gap:6px;}
+.tool-col-item::before{content:'→';color:var(--purple);font-weight:700;flex-shrink:0;}
+.tool-insight{background:var(--green-pale);border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.65;color:var(--green);}
+.note-review{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.nr-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.nr-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.nr-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.note-doc{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;margin-bottom:14px;}
+.note-header{font-weight:700;color:var(--purple-dark);margin-bottom:10px;font-family:'DM Sans',sans-serif;font-size:14px;}
+.note-line{margin-bottom:4px;color:var(--gray-text);}
+.note-error{background:#FFF1F1;border-bottom:2px solid #DC2626;cursor:pointer;position:relative;}
+.note-error-tooltip{display:none;position:absolute;left:0;top:100%;background:#DC2626;color:white;font-size:12px;padding:6px 10px;border-radius:6px;z-index:10;width:260px;font-family:'DM Sans',sans-serif;line-height:1.4;}
+.note-error:hover .note-error-tooltip{display:block;}
+.nr-instruction{background:var(--orange-pale);border:1.5px solid #FDE68A;border-radius:10px;padding:12px 16px;font-size:14px;color:#92400E;margin-bottom:12px;}
+.nr-score{background:var(--purple-pale);border-radius:12px;padding:14px 18px;font-size:14px;color:var(--purple-dark);margin-top:10px;display:none;}
+.nr-score.show{display:block;animation:fadeIn .3s ease;}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;}
+.stat-card{background:var(--purple-pale);border:2px solid var(--purple-mid);border-radius:20px;padding:22px;text-align:center;}
+.stat-num{font-family:'Fraunces',serif;font-size:38px;font-weight:900;color:var(--purple);line-height:1;margin-bottom:6px;}
+.stat-label{font-size:13px;font-weight:600;color:var(--purple-dark);line-height:1.4;}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:#FFF1F1;border-color:#DC2626;color:#DC2626;}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:#FFF1F1;color:#DC2626;}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.tool-cols,.stats-row{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 1.2 · Current Applications of AI in Healthcare</div>
+  <h1>AI for Documentation: How Tools Like Nuance DAX and Epic Are Changing Charting Forever</h1>
+  <p class="hero-sub">Documentation is one of the biggest sources of burnout in healthcare. Physicians spend more time on paperwork than on patients. Nurses chart for hours each shift. AI is now addressing this directly — but the tools require careful human oversight to be safe. This article names the real tools, explains how they work, and shows what your review job actually looks like.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>The Documentation Crisis in Healthcare</h2>
+    <p>Here's a striking fact: studies show that for every hour a physician spends with patients, they spend nearly <mark>two hours on documentation</mark>. Nurses report spending 25–35% of their shifts on charting. Medical assistants document before, during, and after every patient interaction.</p>
+    <p>This isn't anyone's fault — documentation serves critical functions. Clinical notes are the official record of what happened, the communication tool between care team members, and the basis for billing and quality measurement. But the burden has grown to a point where it's pulling healthcare workers away from the very thing they trained for: caring for patients.</p>
+    <p>This is why AI documentation tools have been one of the fastest-growing categories in healthcare AI. And they're already deployed at major health systems across the country — including tools you'll almost certainly encounter in your career.</p>
+    <div class="pull-quote"><p>Physicians who spend evenings catching up on charting call it "pajama time." AI documentation tools are the first technology in decades with a real shot at giving that time back — but only when used with careful human review.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Real Tools — What They Are and How They Work</h2>
+    <p>These aren't hypothetical future technologies — they're deployed today at health systems you may have heard of. Click each tool to learn what it does, who uses it, and what human oversight looks like:</p>
+    <div class="tool-tabs">
+      <div class="tool-nav">
+        <button class="tool-tab active" onclick="showTool(0)">Nuance DAX</button>
+        <button class="tool-tab" onclick="showTool(1)">Epic Ambient AI</button>
+        <button class="tool-tab" onclick="showTool(2)">Abridge</button>
+        <button class="tool-tab" onclick="showTool(3)">Suki AI</button>
+      </div>
+      <div id="toolContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Impact of AI Documentation — By the Numbers</h2>
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num">7hrs</div>
+        <div class="stat-label">Average time physicians spend on documentation per day — more than direct patient care</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">72%</div>
+        <div class="stat-label">Of physicians who used ambient AI tools reported reduced documentation burden in early studies</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">2min</div>
+        <div class="stat-label">Average time to review and sign an AI-drafted note vs. 8–15 minutes to write one from scratch</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Spot the Errors: Review This AI-Generated Note</h2>
+    <p>This is a simulated AI-generated clinical note from an ambient documentation tool. It contains <strong>3 errors</strong> that a human reviewer must catch before this note can be signed. <strong>Hover over the highlighted text</strong> to reveal each error and why it matters:</p>
+    <div class="note-review">
+      <div class="nr-label">🔍 Error-Spotting Simulation</div>
+      <div class="nr-title">Review This AI-Drafted Clinical Note</div>
+      <div class="nr-sub">This note was generated from a visit conversation. Three items are incorrect. Hover each highlighted section to see the error.</div>
+      <div class="nr-instruction">⚠️ In a real clinical setting, signing this note without review would make these errors part of the official patient record — potentially affecting future care decisions.</div>
+      <div class="note-doc">
+        <div class="note-header">VISIT NOTE — Primary Care · Dr. Reyes · June 12</div>
+        <div class="note-line"><strong>Chief Complaint:</strong> Follow-up for hypertension management</div>
+        <div class="note-line"><strong>Vitals:</strong> BP 138/86, HR 72, Temp 98.4°F, O2 Sat 98%</div>
+        <div class="note-line"><strong>HPI:</strong> Patient is a <span class="note-error">54-year-old male<div class="note-error-tooltip">❌ ERROR: Patient is a 54-year-old female. The AI misidentified the patient's gender — likely from an ambiguous pronoun during the visit. This error would affect how future providers approach this patient's care.</div></span> presenting for routine hypertension follow-up. Reports feeling well overall with no chest pain, shortness of breath, or dizziness.</div>
+        <div class="note-line"><strong>Current Medications:</strong> Lisinopril 10mg daily, <span class="note-error">Metformin 500mg twice daily<div class="note-error-tooltip">❌ ERROR: Patient does not take Metformin. The AI hallucinated this medication — it was not mentioned during the visit. Including a medication the patient doesn't take in the official record could cause dangerous confusion for future prescribers.</div></span>, Atorvastatin 20mg nightly</div>
+        <div class="note-line"><strong>Assessment:</strong> Hypertension, controlled. Blood pressure trending in acceptable range.</div>
+        <div class="note-line"><strong>Plan:</strong> Continue current medications. Patient instructed to <span class="note-error">increase Lisinopril to 20mg daily<div class="note-error-tooltip">❌ ERROR: Dr. Reyes discussed possibly adjusting the dose at the next visit if BP doesn't improve — not changing it today. The AI converted a future consideration into a current order. Acting on this plan would expose the patient to an unnecessary medication change.</div></span>. Follow up in 3 months. CBC and CMP ordered.</div>
+        <div class="note-line"><strong>Time spent:</strong> 20 minutes, counseling and coordination of care</div>
+      </div>
+      <div id="nrScore" class="nr-score">✅ Great review practice! In a real setting: Error 1 (wrong gender) affects clinical care and patient dignity. Error 2 (hallucinated medication) is a patient safety issue. Error 3 (wrong plan) could trigger an unnecessary medication change. All three require correction before signing — none are minor.</div>
+    </div>
+    <script>
+    setTimeout(()=>{document.getElementById('nrScore').classList.add('show');},3000);
+    </script>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Golden Rule of AI Documentation</h2>
+    <p>Every tool in this space operates on the same fundamental principle — and every healthcare worker who uses these tools must internalize it completely:</p>
+    <p style="background:var(--purple);color:white;padding:20px 24px;border-radius:16px;font-size:18px;font-weight:600;line-height:1.5;margin:16px 0;"><span style="font-size:22px;">📋</span> The AI produces a <em>draft</em>. The human produces the <em>record</em>. The moment you sign, you own everything in that note — regardless of what the AI wrote.</p>
+    <p>This isn't a technicality. Clinical notes are legal documents. They communicate with every future provider who cares for that patient. They're used in billing. They may be reviewed in legal proceedings. <mark>Your signature means you verified it</mark> — not that you trusted the AI and hoped for the best.</p>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A nurse uses an ambient documentation AI tool to draft her nursing notes after morning rounds. She's busy and trusts the tool, so she signs all five notes without reading them. One note incorrectly records that Patient in Room 3 was given a medication that was actually held. What is the primary problem with this situation?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">The AI tool malfunctioned and should be reported to the vendor immediately</button>
+        <button class="qopt" onclick="cq(this,false)">The nurse made a minor documentation error — these happen and are easily corrected</button>
+        <button class="qopt" onclick="cq(this,true)">The nurse signed a note without reviewing it, making an AI error her professional and legal responsibility — and creating a false medication record that could affect the patient's care going forward</button>
+        <button class="qopt" onclick="cq(this,false)">The AI tool should not have been used for medication documentation</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI documentation tools like Nuance DAX, Epic Ambient AI, Abridge, and Suki listen to patient-provider conversations and automatically draft clinical notes — reducing documentation time dramatically and helping address clinician burnout.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>These tools make errors — including wrong demographics, hallucinated medications, and mischaracterized clinical plans. Every AI-drafted note must be read and verified before signing. Common errors to check: patient demographics, medications, assessment details, and the plan.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Signing a note means you verified its accuracy — regardless of whether AI drafted it. The moment you sign, the content becomes your professional and legal responsibility. "The AI wrote it" is not a defense.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const tools=[
+  {name:'Nuance DAX (Dragon Ambient eXperience)',maker:'Made by Nuance Communications (a Microsoft company) · Used by 550+ health systems',how:'Nuance DAX uses ambient AI — it listens passively to the conversation between a provider and patient during a visit, then automatically generates a complete clinical note. The provider reviews the draft on their computer or mobile device before signing. No dictation required; no manual note-taking during the visit.',does:['Captures the full patient-provider conversation through a smartphone app or room microphone','Structures the conversation into a standard clinical note format (SOAP, H&P, etc.)','Integrates directly into Epic, Cerner, and other major EHR systems','Generates the draft within minutes of the visit ending'],oversight:['Provider must read and verify every section before signing','Check patient demographics, medication names and doses, assessment details, and the plan','The AI occasionally misidentifies who said what — verify clinical decisions came from the provider','Sensitive conversations (mental health, abuse disclosures) require careful review for appropriate documentation'],insight:'💡 Real-world use: DAX is deployed at Sutter Health, Providence, and hundreds of other health systems. Providers report saving 2–3 hours per day on documentation — time they redirect to patient care.'},
+  {name:'Epic Ambient AI (Epic Cheers / Salud)',maker:'Made by Epic Systems · Integrated into the Epic EHR platform used by 180M+ U.S. patients',how:'Epic has integrated ambient AI documentation directly into its EHR platform. Rather than a separate app, the AI is built into the existing Epic workflow — it listens during the visit and drafts notes within the same system clinicians already use for all other documentation tasks.',does:['Listens to the clinical encounter and drafts notes directly in the Epic chart','Allows providers to speak naturally without structured dictation commands','Surfaces draft notes for review without requiring providers to switch between systems','Updates based on reviewer feedback to improve accuracy over time at specific facilities'],oversight:['Same review requirements as other ambient tools — every field must be verified','Epic notes integrate directly with billing codes — errors in documentation can create billing compliance issues','The tool learns from corrections, but learning takes time — early deployments require extra scrutiny'],insight:'💡 Real-world use: Because Epic is already the dominant EHR at major U.S. health systems, integrating ambient AI into Epic reduces adoption friction significantly. Providers don\'t need to learn a new platform — the AI comes to them.'},
+  {name:'Abridge',maker:'Made by Abridge AI · Health system partnerships including UPMC, Duke Health, and others',how:'Abridge focuses specifically on the conversation between patient and provider — not just note generation, but creating a patient-friendly summary that can be shared directly with the patient through the patient portal. This creates two outputs: a clinical note for the provider and a plain-language summary for the patient.',does:['Records and transcribes the clinical conversation in real time','Generates a structured clinical note for the provider','Creates a separate plain-language summary for the patient (key takeaways, next steps, medications)','Both outputs are available for provider review before anything is finalized'],oversight:['Both the clinical note AND the patient summary must be reviewed before sharing','The patient summary must be checked for accuracy — patients will act on what they read','Any information in the patient summary that the provider didn\'t intend to communicate must be removed'],insight:'💡 Why it matters: Patients who receive a plain-language summary of their visit recall more, follow through on treatment plans better, and feel more engaged in their care. Abridge represents AI that improves the patient experience directly — not just workflow efficiency.'},
+  {name:'Suki AI',maker:'Made by Suki · Used by individual providers and multi-specialty groups',how:'Suki is a voice-powered AI assistant specifically designed for documentation. Unlike ambient tools that listen passively throughout a visit, Suki is activated when the provider is ready to document — either during or after the visit. It understands natural language and structures clinical content automatically.',does:['Activated by voice command or tap — provider speaks naturally about the encounter','Understands clinical language, abbreviations, and specialty-specific terminology','Completes structured documentation fields (diagnoses, medications, plans) from conversational input','Works across multiple EHR platforms through integration'],oversight:['Review for clinical accuracy — especially medication details and plan specifics','Verify that diagnosis codes suggested by the AI match the actual encounter','Check that any auto-populated fields from the patient\'s record are current and accurate'],insight:'💡 Why it matters: Suki is particularly useful for providers in smaller practices or specialties where ambient whole-visit recording feels intrusive — it gives documentation AI capabilities without requiring a microphone in the exam room for the entire visit.'}
+];
+
+function showTool(i){
+  document.querySelectorAll('.tool-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));
+  const t=tools[i];
+  document.getElementById('toolContainer').innerHTML=`
+  <div class="tool-panel active">
+    <div class="tool-name">${t.name}</div>
+    <div class="tool-maker">${t.maker}</div>
+    <div class="tool-how"><div class="tool-how-label">⚙️ How it works</div><div class="tool-how-text">${t.how}</div></div>
+    <div class="tool-cols">
+      <div class="tool-col"><div class="tool-col-label">🤖 What the AI does</div>${t.does.map(d=>`<div class="tool-col-item">${d}</div>`).join('')}</div>
+      <div class="tool-col"><div class="tool-col-label">👤 Human oversight required</div>${t.oversight.map(o=>`<div class="tool-col-item">${o}</div>`).join('')}</div>
+    </div>
+    <div class="tool-insight">${t.insight}</div>
+  </div>`;
+}
+showTool(0);
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. This is the core accountability principle of AI documentation: the nurse\'s signature transferred ownership of every word in that note — including the AI\'s error. The false medication record now exists in the official chart. The next nurse, the next prescriber, and potentially an emergency team will see it and may act on it. The error is recoverable — notes can be corrected — but it requires formal addendum documentation and creates real clinical risk in the meantime. This is exactly why review before signing is non-negotiable.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('professional and legal responsibility'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ This isn\'t a minor documentation error and it isn\'t primarily a vendor issue. By signing the note, the nurse took professional and legal ownership of its contents. A false medication record — especially one involving a held medication — creates real patient safety risk for every future provider who reads that chart. The AI made an error; the nurse made it official. Review before signing exists specifically to prevent this.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

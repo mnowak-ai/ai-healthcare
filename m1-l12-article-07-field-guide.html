@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Tools Field Guide — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.filter-btn{padding:8px 14px;border-radius:10px;border:1.5px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.filter-btn.active{background:var(--purple);border-color:var(--purple);color:white;}
+.tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0 0 24px;}
+.tool-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:18px;padding:20px;cursor:pointer;transition:all .2s;}
+.tool-card:hover{border-color:var(--purple);}
+.tool-card.hidden{display:none;}
+.tc-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.tc-icon{font-size:22px;}
+.tc-name{font-size:15px;font-weight:700;color:var(--purple-dark);}
+.tc-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.tc-tag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;text-transform:uppercase;letter-spacing:.06em;}
+.tc-tag.admin{background:var(--purple-pale);color:var(--purple);}
+.tc-tag.clinical{background:var(--green-pale);color:var(--green);}
+.tc-tag.patient{background:var(--orange-pale);color:var(--orange);}
+.tc-desc{font-size:13px;line-height:1.6;color:var(--gray-text);margin-bottom:10px;}
+.tc-human{font-size:12px;color:var(--gray-muted);border-top:1px solid var(--purple-mid);padding-top:8px;}
+.tc-human strong{color:var(--purple-dark);}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:#FFF1F1;border-color:#DC2626;color:#DC2626;}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:#FFF1F1;color:#DC2626;}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.tools-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 1.2 · Current Applications of AI in Healthcare</div>
+  <h1>AI Tools Do Different Jobs: A Field Guide to the Most Common Healthcare AI Applications</h1>
+  <p class="hero-sub">Healthcare AI isn't one thing — it's dozens of different tools designed for specific jobs. This field guide gives you a clear, filterable reference for the AI tools you're most likely to encounter in a healthcare career — what each one does, who uses it, and what human oversight looks like.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>Not One Tool — A Whole Toolkit</h2>
+    <p>One of the most common misconceptions about AI in healthcare is that it's a single thing — "the AI" — that does everything. In reality, healthcare AI is a collection of highly specialized tools, each designed for a specific function. <mark>Knowing which tool does what</mark> is a practical skill that will help you work more effectively and ask better questions when new technology arrives at your facility.</p>
+    <div class="pull-quote"><p>A doctor doesn't use the same instrument for everything. Neither does AI. Understanding which tool does which job — and what each tool can't do — is part of being a competent healthcare professional in the AI era.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Healthcare AI Field Guide</h2>
+    <p>Filter by category to explore the tools most relevant to your role, or browse all of them:</p>
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="filter('all')">All Tools</button>
+      <button class="filter-btn" onclick="filter('admin')">Administrative</button>
+      <button class="filter-btn" onclick="filter('clinical')">Clinical</button>
+      <button class="filter-btn" onclick="filter('patient')">Patient-Facing</button>
+    </div>
+    <div class="tools-grid" id="toolsGrid"></div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A hospital wants to reduce the number of patients who are readmitted within 30 days of discharge. Which category of AI tool is MOST directly designed for this goal?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Ambient documentation AI — to improve discharge note quality</button>
+        <button class="qopt" onclick="cq(this,false)">Scheduling AI — to get patients follow-up appointments faster</button>
+        <button class="qopt" onclick="cq(this,true)">Predictive analytics / readmission risk AI — which analyzes patient data to identify who is most likely to be readmitted, so targeted intervention can happen before discharge</button>
+        <button class="qopt" onclick="cq(this,false)">Billing AI — to ensure accurate documentation of discharge diagnoses</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Healthcare AI is a toolkit, not a single tool. Each application is designed for a specific function — scheduling, documentation, imaging, risk prediction, workflow, patient communication. Understanding which tool does which job is a practical career skill.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Every tool in this field guide has a human oversight requirement. No healthcare AI tool operates without needing someone to review its outputs, evaluate its flags, or make the final decisions. Knowing the oversight requirement for each tool helps you use them responsibly.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Administrative AI and clinical AI have different stakes and different oversight requirements. Matching the right level of scrutiny to each tool is part of being an effective and safe healthcare professional.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const tools=[
+  {icon:'📅',name:'Scheduling AI',tags:['admin'],desc:'Optimizes appointment booking, predicts no-shows, manages waitlists, and sends automated patient reminders.',human:'<strong>Human role:</strong> Review AI-suggested schedules, handle patient exceptions, make override decisions. Never cancel appointments based on no-show predictions alone.'},
+  {icon:'🎙️',name:'Ambient Documentation AI',tags:['admin','clinical'],desc:'Listens to patient-provider visits and generates clinical note drafts automatically. Examples: Nuance DAX, Abridge, Epic Ambient AI.',human:'<strong>Human role:</strong> Review every AI-drafted note before signing. Check demographics, medications, assessment, and plan. Signing = owning the content.'},
+  {icon:'📸',name:'Medical Imaging AI',tags:['clinical'],desc:'Analyzes X-rays, CT scans, and MRIs to flag potential abnormalities. Radiologist reviews all AI-flagged results. FDA-regulated as a medical device.',human:'<strong>Human role:</strong> Radiologist must review every AI-flagged image. AI identifies areas of concern; the radiologist makes the diagnostic determination.'},
+  {icon:'⚡',name:'Sepsis Early Warning AI',tags:['clinical'],desc:'Monitors patient vitals and labs in real time, generates escalating risk scores when sepsis patterns are detected. Alerts appear in the EHR.',human:'<strong>Human role:</strong> Assess the patient when an alert fires — the AI flag is a prompt for clinical evaluation, not a diagnosis. Document your assessment and response.'},
+  {icon:'🤸',name:'Fall Risk Prediction AI',tags:['clinical'],desc:'Calculates fall risk scores based on patient history, medications, and current status. Scores update as patient condition changes.',human:'<strong>Human role:</strong> Review risk scores during rounding. Implement fall precautions based on clinical judgment — the score informs your assessment, it doesn\'t replace it.'},
+  {icon:'💬',name:'Patient Chatbot / Symptom Checker',tags:['patient'],desc:'AI that interacts directly with patients — answering questions, guiding symptom assessment, scheduling appointments, and routing to appropriate care.',human:'<strong>Human role:</strong> Handle escalated conversations when chatbot recognizes clinical questions. Know what your facility\'s chatbot handles so you can set patient expectations accurately.'},
+  {icon:'⌚',name:'Remote Patient Monitoring AI',tags:['patient','clinical'],desc:'Analyzes data from wearables and home health devices — glucose monitors, BP cuffs, pulse oximeters — and alerts care teams when values are concerning.',human:'<strong>Human role:</strong> Triage AI alerts, determine which require same-day response, and review patient-reported data in context of their full clinical picture.'},
+  {icon:'🔄',name:'Workflow Optimization AI',tags:['admin'],desc:'Monitors patient flow, bed availability, and staff coordination in real time — detecting bottlenecks and flagging issues before they cascade.',human:'<strong>Human role:</strong> Receive alerts, investigate root causes, and decide how to respond. AI sees the pattern; humans fix the problem.'},
+  {icon:'💰',name:'Billing & Coding AI',tags:['admin'],desc:'Reads clinical documentation and suggests ICD-10 and CPT billing codes. Identifies missing documentation and potential compliance issues.',human:'<strong>Human role:</strong> Coders review and approve all AI-suggested codes. Final code selection and compliance responsibility remain with human staff.'},
+  {icon:'🧬',name:'Clinical Decision Support',tags:['clinical'],desc:'Rule-based and AI-powered alerts embedded in the EHR — drug interaction warnings, allergy alerts, diagnostic suggestions, and guideline reminders.',human:'<strong>Human role:</strong> Evaluate every alert in clinical context. Never override alerts without understanding why they fired. Alert fatigue is a real risk — review, don\'t dismiss.'},
+  {icon:'📊',name:'Readmission Risk AI',tags:['clinical'],desc:'Predicts which patients are most likely to be readmitted within 30 days of discharge, enabling targeted discharge planning and follow-up.',human:'<strong>Human role:</strong> Case managers and care coordinators use risk scores to prioritize discharge planning. Score informs intervention; clinical team decides what intervention is appropriate.'},
+  {icon:'📱',name:'Patient Portal AI',tags:['patient'],desc:'AI built into patient-facing portals — answering questions about test results, medication instructions, and appointment logistics. Triages secure messages.',human:'<strong>Human role:</strong> Review messages that AI flags as needing human response. Understand that patients may misapply AI-generated health education to their specific situation.'}
+];
+
+let currentFilter='all';
+function filter(type){
+  currentFilter=type;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderTools();
+}
+function renderTools(){
+  const grid=document.getElementById('toolsGrid');
+  grid.innerHTML='';
+  tools.forEach(t=>{
+    const show=currentFilter==='all'||t.tags.includes(currentFilter);
+    const el=document.createElement('div');
+    el.className='tool-card'+(show?'':' hidden');
+    const tagHtml=t.tags.map(tag=>`<span class="tc-tag ${tag}">${tag==='admin'?'Administrative':tag==='clinical'?'Clinical':'Patient-Facing'}</span>`).join('');
+    el.innerHTML=`<div class="tc-header"><div class="tc-icon">${t.icon}</div><div class="tc-name">${t.name}</div></div><div class="tc-tags">${tagHtml}</div><div class="tc-desc">${t.desc}</div><div class="tc-human">${t.human}</div>`;
+    grid.appendChild(el);
+  });
+}
+renderTools();
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct! Readmission risk AI is specifically designed to predict which patients are at highest risk of coming back to the hospital — often within 30 days of discharge. By flagging high-risk patients before they leave, care teams can target intensive discharge planning, follow-up scheduling, and medication reconciliation where it\'s most needed. Documentation AI improves notes; scheduling AI improves access; but neither directly addresses the readmission prediction problem that\'s at the heart of this question.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('Predictive analytics'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ The other tools play supporting roles — better notes may help, faster follow-up helps — but the tool specifically designed to identify and flag high readmission-risk patients is predictive analytics / readmission risk AI. It uses patient data to calculate individual risk scores so care teams can intervene proactively before the patient goes home.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

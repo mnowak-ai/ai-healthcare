@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patient-Facing AI — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.pf-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.pf-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:20px;padding:22px;cursor:pointer;transition:all .2s;}
+.pf-card:hover,.pf-card.active{border-color:var(--purple);background:var(--purple-pale);}
+.pf-icon{font-size:28px;margin-bottom:8px;}
+.pf-title{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.pf-teaser{font-size:13px;color:var(--gray-muted);}
+.pf-detail{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:16px;padding:24px;margin-top:12px;display:none;animation:fadeIn .3s ease;}
+.pf-detail.show{display:block;}
+.pfd-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--purple-dark);margin-bottom:10px;}
+.pfd-body{font-size:15px;line-height:1.75;color:var(--gray-text);margin-bottom:12px;}
+.pfd-examples{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.pfd-ex{background:var(--white);border-radius:10px;padding:12px;}
+.pfd-ex-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.08em;margin-bottom:6px;}
+.pfd-ex-text{font-size:13px;line-height:1.6;color:var(--gray-text);}
+.pfd-worker{background:var(--green-pale);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--green);line-height:1.65;}
+.patient-chatbot{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.pc-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.pc-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.pc-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.chat-window{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;overflow:hidden;}
+.chat-header{background:var(--purple);color:white;padding:12px 16px;font-size:14px;font-weight:600;}
+.chat-body{padding:16px;display:flex;flex-direction:column;gap:10px;max-height:320px;overflow-y:auto;}
+.chat-msg{max-width:78%;font-size:14px;line-height:1.6;padding:10px 14px;border-radius:14px;}
+.chat-msg.bot{background:var(--purple-pale);color:var(--gray-text);align-self:flex-start;border-radius:4px 14px 14px 14px;}
+.chat-msg.user{background:var(--purple);color:white;align-self:flex-end;border-radius:14px 4px 14px 14px;}
+.chat-annotation{background:var(--orange-pale);border:1.5px solid #FDE68A;border-radius:8px;padding:8px 12px;font-size:12px;color:#92400E;align-self:flex-start;max-width:85%;}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:#FFF1F1;border-color:#DC2626;color:#DC2626;}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:#FFF1F1;color:#DC2626;}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.pf-grid,.pfd-examples{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 1.2 · Current Applications of AI in Healthcare</div>
+  <h1>Patient-Facing AI: Chatbots, Portals, and Remote Monitoring Tools Patients Are Already Using</h1>
+  <p class="hero-sub">Most of this certification focuses on AI that healthcare workers use. But AI is also talking directly to patients — before visits, between appointments, and at home. Understanding patient-facing AI is essential because patients will ask you about it, and you need to know what these tools can and can't do.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>AI That Talks to Patients — Not Just Staff</h2>
+    <p>Most AI tools you'll hear about in healthcare are designed to support clinicians and administrative staff. But a rapidly growing category of healthcare AI talks directly to patients — answering questions, guiding them through symptom assessment, helping them manage chronic conditions, and monitoring their health between appointments.</p>
+    <p>This matters for your career because <mark>patients are already using these tools</mark> when they call or visit your facility — and they'll have questions, concerns, and sometimes misconceptions about what the AI told them. Being informed about what patient-facing AI does is part of being a well-rounded healthcare professional.</p>
+    <div class="pull-quote"><p>The patient who shows up for their appointment having already been through an AI symptom checker isn't a problem — they're more prepared than the patient who arrived with nothing but anxiety. Your job is to know what that tool can and can't do.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Four Types of Patient-Facing AI</h2>
+    <p>Click each category to learn what it does, see real examples, and understand what this means for healthcare workers:</p>
+    <div class="pf-grid" id="pfGrid">
+      <div class="pf-card" onclick="showPF(0)"><div class="pf-icon">💬</div><div class="pf-title">Symptom Checkers & Chatbots</div><div class="pf-teaser">AI that helps patients assess symptoms before seeking care</div></div>
+      <div class="pf-card" onclick="showPF(1)"><div class="pf-icon">📱</div><div class="pf-title">Patient Portal AI</div><div class="pf-teaser">AI built into the patient-facing side of health systems</div></div>
+      <div class="pf-card" onclick="showPF(2)"><div class="pf-icon">⌚</div><div class="pf-title">Remote Patient Monitoring</div><div class="pf-teaser">Wearables and home devices that track health between visits</div></div>
+      <div class="pf-card" onclick="showPF(3)"><div class="pf-icon">🖥️</div><div class="pf-title">Telehealth AI</div><div class="pf-teaser">AI that supports virtual care before, during, and after video visits</div></div>
+    </div>
+    <div class="pf-detail" id="pfDetail"></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>See How a Patient Chatbot Actually Works</h2>
+    <p>This is a simulated conversation between a patient and a healthcare system's AI chatbot. Notice what the AI does well — and where it correctly hands off to a human:</p>
+    <div class="patient-chatbot">
+      <div class="pc-label">💬 Chatbot Simulation</div>
+      <div class="pc-title">A Patient Interacting with a Healthcare AI Chatbot</div>
+      <div class="pc-sub">Read the conversation and the annotations to see what the AI is doing at each step — and what it's designed not to do.</div>
+      <div class="chat-window">
+        <div class="chat-header">🏥 Riverside Health — Patient Assistant</div>
+        <div class="chat-body">
+          <div class="chat-msg bot">Hi! I'm the Riverside Health virtual assistant. I can help you with scheduling, answer questions about your care, or guide you through a symptom check. What can I help you with today?</div>
+          <div class="chat-msg user">I've had a headache for 3 days and it's getting worse. Should I be worried?</div>
+          <div class="chat-annotation">⚙️ AI action: Activates symptom assessment flow. Prepares to ask structured follow-up questions.</div>
+          <div class="chat-msg bot">I'm sorry to hear you're dealing with that — a worsening headache over 3 days is worth taking seriously. I'll ask you a few quick questions to help figure out the right next step. First: on a scale of 1–10, how bad is the pain right now?</div>
+          <div class="chat-msg user">About a 7. It's behind my eyes mostly.</div>
+          <div class="chat-msg bot">Thank you. Are you experiencing any of these alongside the headache? (Select all that apply): Fever · Stiff neck · Vision changes · Sudden severe onset · Confusion or difficulty speaking</div>
+          <div class="chat-msg user">No fever. But I did notice some blurry vision this morning.</div>
+          <div class="chat-annotation">⚙️ AI action: Vision changes + worsening headache = escalation threshold met. Routing to urgent care recommendation.</div>
+          <div class="chat-msg bot">Based on what you've told me, I want to make sure you're seen by a provider today. A worsening headache with new vision changes needs to be evaluated in person — this isn't something I can assess further. I'm not able to tell you what's causing this, but I can help you schedule an urgent appointment or direct you to our urgent care. Would you like me to do that?</div>
+          <div class="chat-msg user">Yes, please help me book something today.</div>
+          <div class="chat-annotation">✅ AI did this right: It didn't diagnose. It didn't dismiss. It recognized a concerning combination of symptoms, explained it couldn't assess further, and immediately facilitated human care access.</div>
+          <div class="chat-msg bot">I'm booking you into our urgent care — 2:30 PM today at the Main Street location. You'll receive a confirmation text shortly. If your symptoms suddenly get worse before then — especially severe pain, confusion, or loss of vision — please call 911 immediately. Is there anything else I can help with?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A patient arrives for their appointment and mentions they used a symptom checker app before coming in, and it told them they "probably have a sinus infection." How should a healthcare worker respond to this?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Accept the AI's assessment — symptom checkers are generally accurate and it saves time</button>
+        <button class="qopt" onclick="cq(this,false)">Tell the patient to stop using symptom checker apps — they're dangerous</button>
+        <button class="qopt" onclick="cq(this,true)">Acknowledge what the patient found while conducting a full clinical assessment — the symptom checker gave the patient a starting point, not a diagnosis, and the provider's evaluation determines the actual plan</button>
+        <button class="qopt" onclick="cq(this,false)">Document that the AI diagnosed the patient with a sinus infection</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Patient-facing AI includes symptom checkers, patient portal AI, remote monitoring wearables, and telehealth support tools. Patients are already using these before, between, and after clinical visits — and they'll bring what the AI told them into your workplace.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Good patient-facing AI doesn't diagnose — it guides, supports, and routes patients toward appropriate care. When it encounters symptoms above its threshold, it hands off to human clinicians. That handoff design is intentional and important.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Healthcare workers are the human layer that patient-facing AI hands off to. Understanding what these tools do — and don't do — helps you work with patients who come in primed by AI interactions, answer their questions accurately, and make sure AI guidance didn't lead them astray.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const pfData=[
+  {icon:'💬',title:'Symptom Checkers & Chatbots',body:'Symptom checker AI tools ask patients structured questions about their symptoms and use pattern-matching to suggest possible causes and guide them toward appropriate care. They don\'t diagnose — they triage. Good symptom checkers always include a clear escalation pathway: if symptoms suggest something serious, they route the patient to emergency care rather than continuing the AI interaction.',realExamples:'Examples you may encounter: Ada Health, Babylon Health, and AI chatbots built into major health system patient portals (Epic MyChart AI, Cedars-Sinai\'s "Penny").',workerNote:'🏥 For healthcare workers: Patients arrive having used these tools — sometimes with a "likely diagnosis" they got from an app. Your job is to conduct a full clinical assessment regardless of what the app said. Acknowledge what they found ("it sounds like the app flagged X — we\'ll make sure we check for that") while completing your own evaluation.'},
+  {icon:'📱',title:'Patient Portal AI',body:'Health system patient portals (like MyChart by Epic) increasingly include AI features — chatbots that answer questions about test results, help patients understand their medications, schedule appointments, or message their care team. AI in portals handles the high volume of routine questions so human staff can focus on complex situations.',realExamples:'Examples: MyChart\'s AI assistant answers questions like "What does this lab result mean?" with general educational information — then directs clinical questions to the care team. AI also triages secure messages, flagging urgent ones for faster human response.',workerNote:'🏥 For healthcare workers: Portal AI handles routine questions that would otherwise fill your inbox. But patients may misread AI-generated information or apply general education to their specific situation incorrectly. When a patient calls confused about a portal message, the AI response may have contributed to the confusion.'},
+  {icon:'⌚',title:'Remote Patient Monitoring (RPM)',body:'Remote patient monitoring uses wearable devices and home health equipment connected to AI systems to track patient health between clinical visits. This category has expanded dramatically — from glucose monitors and blood pressure cuffs to smartwatches that can detect atrial fibrillation and pulse oximeters that track oxygen levels at home.',realExamples:'Examples: Apple Watch FDA-cleared AFib detection. Dexcom continuous glucose monitors with AI-powered trend alerts. Care team dashboards that show all RPM patient data with AI-flagged concerning trends.',workerNote:'🏥 For healthcare workers: RPM generates a lot of data — and AI triage determines what actually reaches clinical staff. Understanding that you\'re reviewing AI-filtered data (not raw data) is important. If a patient insists something was "flagged by their watch" that didn\'t appear in your dashboard, take it seriously.'},
+  {icon:'🖥️',title:'Telehealth AI Support',body:'AI enhances telehealth in several ways: before visits (AI intake questionnaires that pre-populate visit information), during visits (AI note-drafting in the background), and after visits (AI-generated patient summaries and follow-up reminders). Telehealth platforms like Teladoc and MDLive have integrated AI to handle the high volume of routine visits more efficiently.',realExamples:'Examples: AI intake tools ask patients about their symptoms before connecting with a provider, structuring the information so the provider can get to clinical assessment faster. After-visit AI summaries sent to patients improve follow-through on treatment plans.',workerNote:'🏥 For healthcare workers: If you work in a telehealth environment, AI intake information arrives before you connect with the patient. Review it as a starting point — not a complete picture. Patients often describe symptoms differently to an AI than they do to a human clinician.'}
+];
+
+function showPF(i){
+  document.querySelectorAll('.pf-card').forEach((c,ci)=>c.classList.toggle('active',ci===i));
+  const d=pfData[i];
+  document.getElementById('pfDetail').innerHTML=`
+    <div class="pfd-title">${d.icon} ${d.title}</div>
+    <div class="pfd-body">${d.body}</div>
+    <div class="pfd-examples">
+      <div class="pfd-ex"><div class="pfd-ex-label">🌐 Real examples</div><div class="pfd-ex-text">${d.realExamples}</div></div>
+      <div class="pfd-ex"><div class="pfd-ex-label">👤 For healthcare workers</div><div class="pfd-ex-text">${d.workerNote.replace('🏥 For healthcare workers: ','')}</div></div>
+    </div>`;
+  document.getElementById('pfDetail').classList.add('show');
+}
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct! Patient-facing AI gives patients a starting point — not a final answer. The clinical assessment your team conducts is what actually determines the plan. Acknowledging what the patient found ("that\'s a reasonable starting point, let\'s make sure we check for that") validates the patient\'s engagement with their health while making clear that clinical evaluation — not an app — drives their care.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('full clinical assessment'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ Symptom checkers aren\'t diagnoses — they\'re triage guides. "Probably a sinus infection" from an app is a probability, not a clinical determination. Accepting it without assessment creates risk. Dismissing the tool entirely alienates a patient who was trying to be informed. And definitely don\'t document an AI assessment as a diagnosis — that would be clinically and legally incorrect.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
