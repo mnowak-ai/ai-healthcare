@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How AI Actually Learns — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+/* Learning steps */
+.steps{display:flex;flex-direction:column;gap:0;margin:24px 0;position:relative;}
+.steps::before{content:'';position:absolute;left:21px;top:42px;bottom:42px;width:3px;background:var(--purple-mid);}
+.step{display:flex;gap:20px;padding-bottom:24px;position:relative;}
+.step-dot{width:44px;height:44px;border-radius:50%;background:var(--purple);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;position:relative;z-index:1;}
+.step-body{flex:1;padding-top:6px;}
+.step-num{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--purple);margin-bottom:4px;}
+.step-title{font-size:17px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.step-desc{font-size:14px;line-height:1.7;color:var(--gray-text);}
+.step-example{background:var(--purple-pale);border-radius:8px;padding:8px 12px;font-size:13px;color:var(--purple-dark);margin-top:8px;}
+/* Bias simulator */
+.bias-sim{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.bs-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.bs-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.bs-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.bias-scenarios{display:flex;flex-direction:column;gap:12px;}
+.bias-scenario{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;overflow:hidden;}
+.bs-header{padding:16px 20px;cursor:pointer;display:flex;align-items:center;gap:12px;}
+.bs-header:hover{background:var(--purple-pale);}
+.bs-scenario-label{background:var(--orange-pale);border:1.5px solid #FDE68A;color:var(--orange);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;text-transform:uppercase;flex-shrink:0;}
+.bs-scenario-title{font-size:15px;font-weight:600;color:var(--gray-text);flex:1;}
+.bs-arrow{font-size:14px;color:var(--gray-muted);transition:transform .2s;flex-shrink:0;}
+.bias-scenario.open .bs-arrow{transform:rotate(180deg);}
+.bs-body{display:none;padding:0 20px 16px;}
+.bias-scenario.open .bs-body{display:block;}
+.bs-training{background:var(--purple-pale);border-radius:8px;padding:10px 14px;margin:10px 0;font-size:13px;color:var(--purple-dark);line-height:1.6;}
+.bs-result{background:#FFF1F1;border:1.5px solid #FCA5A5;border-radius:8px;padding:10px 14px;margin:10px 0;font-size:13px;color:#DC2626;line-height:1.6;}
+.bs-lesson{background:var(--green-pale);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--green);line-height:1.6;}
+/* Data quality */
+.data-quality{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;}
+.dq-card{border-radius:20px;padding:22px;border:2px solid;}
+.dq-card.good{background:var(--green-pale);border-color:#86EFAC;}
+.dq-card.bad{background:#FFF1F1;border-color:#FCA5A5;}
+.dq-card.ugly{background:var(--orange-pale);border-color:#FDE68A;}
+.dq-icon{font-size:28px;margin-bottom:8px;}
+.dq-title{font-size:14px;font-weight:700;margin-bottom:6px;}
+.dq-card.good .dq-title{color:var(--green);}
+.dq-card.bad .dq-title{color:#DC2626;}
+.dq-card.ugly .dq-title{color:var(--orange);}
+.dq-desc{font-size:13px;line-height:1.6;color:var(--gray-text);}
+/* Quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:#FFF1F1;border-color:#DC2626;color:#DC2626;}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:#FFF1F1;color:#DC2626;}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.data-quality{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 1.1 · Introduction to AI in Healthcare</div>
+  <h1>How AI Actually Learns: Training Data, Patterns, and Why That Matters in Healthcare</h1>
+  <p class="hero-sub">You can't fully understand why AI sometimes fails — or how to catch those failures — without understanding how AI is built in the first place. This article walks you through the learning process step by step, with healthcare examples at every stage.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>Teaching a Machine to See What Experts See</h2>
+    <p>Imagine you're trying to teach someone to recognize pneumonia on a chest X-ray. You couldn't just give them a list of rules like "look for white patches." Experienced radiologists recognize pneumonia through something harder to describe — a developed sense built from seeing thousands of X-rays and learning what subtle combinations of features tend to mean.</p>
+    <p>AI learns the same way. Not from a list of rules, but from <mark>exposure to enormous numbers of examples</mark> — with feedback about which conclusions were right and which were wrong. Over time, the AI gets better at recognizing the patterns that predict a given outcome.</p>
+    <p>This process has a name: machine learning. And understanding it — even at a basic level — changes how you think about every AI tool you'll ever use in healthcare.</p>
+    <div class="pull-quote"><p>An AI is only as good as the data it learned from and the people who designed what it was trying to learn. Garbage in, garbage out — just at a scale and speed that can be hard to see.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>How AI Learning Works — Step by Step</h2>
+    <p>Here's the process that creates every AI tool in healthcare, broken down into plain language:</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-dot">📦</div>
+        <div class="step-body">
+          <div class="step-num">Step 1</div>
+          <div class="step-title">Collect the Training Data</div>
+          <div class="step-desc">Developers gather a large dataset of examples relevant to what they want the AI to learn. This could be thousands of X-rays, years of patient records, millions of clinical notes, or years of appointment history. The size and diversity of this data is critical.</div>
+          <div class="step-example">🏥 Healthcare example: To build a sepsis prediction AI, developers collect records from thousands of patients — some who developed sepsis and some who didn't — including their vitals, labs, medications, and clinical notes over time.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot">🏷️</div>
+        <div class="step-body">
+          <div class="step-num">Step 2</div>
+          <div class="step-title">Label the Data</div>
+          <div class="step-desc">Human experts go through the data and label each example with the correct answer. This is called annotation. It's slow, expensive, and requires domain expertise. The quality of these labels directly determines how well the AI learns — mislabeled data teaches the AI wrong lessons.</div>
+          <div class="step-example">🏥 Healthcare example: Radiologists review thousands of X-rays and mark each one: "pneumonia present" or "no pneumonia." These labels become the answers the AI trains against. If a radiologist labels something incorrectly, the AI learns that incorrect pattern.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot">🔁</div>
+        <div class="step-body">
+          <div class="step-num">Step 3</div>
+          <div class="step-title">Train the Model</div>
+          <div class="step-desc">The AI is shown example after example, makes a prediction for each one, checks it against the correct label, and adjusts its internal settings based on whether it was right or wrong. This happens millions of times. Gradually, the AI gets better at recognizing the patterns that predict the correct answer.</div>
+          <div class="step-example">🏥 Healthcare example: The sepsis AI sees patient record after patient record, predicts "sepsis" or "no sepsis," gets told whether it was right, and slowly updates its internal pattern-matching to become more accurate.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot">🧪</div>
+        <div class="step-body">
+          <div class="step-num">Step 4</div>
+          <div class="step-title">Test on New Data</div>
+          <div class="step-desc">Once trained, the AI is tested on data it has never seen before — to check whether it has truly learned generalizable patterns, or just memorized the training examples. This is called validation. A model that performs well on training data but poorly on new data has a problem called overfitting.</div>
+          <div class="step-example">🏥 Healthcare example: The sepsis AI is tested on patient records from a different hospital to see if its predictions still hold. If it only works at the original hospital's data, it has learned that hospital's specific quirks — not universal sepsis patterns.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot">🚀</div>
+        <div class="step-body">
+          <div class="step-num">Step 5</div>
+          <div class="step-title">Deploy and Monitor</div>
+          <div class="step-desc">The AI goes live in the real world — and this is where ongoing human oversight becomes critical. Real-world data is messier than training data. Patients change. Populations shift. Diseases evolve. Without continuous monitoring, an AI that worked well at launch may quietly become less accurate over time.</div>
+          <div class="step-example">🏥 Healthcare example: After the sepsis AI is deployed, clinical informatics teams track whether its predictions are still accurate — comparing AI flags against actual patient outcomes. If accuracy drops, the model needs to be retrained or updated.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Data Problem: Why Training Data Shapes Everything</h2>
+    <p>The single most important factor in whether an AI tool is accurate, fair, and safe is the quality of its training data. Here's what good data, bad data, and problematic data look like:</p>
+    <div class="data-quality">
+      <div class="dq-card good">
+        <div class="dq-icon">✅</div>
+        <div class="dq-title">Good Training Data</div>
+        <div class="dq-desc">Large, diverse, accurately labeled, and representative of the patients the AI will eventually serve. Includes a wide range of ages, ethnicities, health conditions, and clinical settings.</div>
+      </div>
+      <div class="dq-card bad">
+        <div class="dq-icon">❌</div>
+        <div class="dq-title">Bad Training Data</div>
+        <div class="dq-desc">Small, narrow, inaccurately labeled, or outdated. An AI trained on bad data will produce bad predictions — and the errors may be invisible until something goes wrong with a real patient.</div>
+      </div>
+      <div class="dq-card ugly">
+        <div class="dq-icon">⚠️</div>
+        <div class="dq-title">Biased Training Data</div>
+        <div class="dq-desc">Data that over-represents some patient groups and under-represents others. The AI becomes accurate for the majority group in its training set and inaccurate — potentially dangerously so — for everyone else.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>When Training Data Goes Wrong: Real Healthcare Examples</h2>
+    <p>These aren't hypothetical — biased and incomplete training data has caused real problems in healthcare AI. Click each scenario to understand what went wrong and what it means for your work:</p>
+    <div class="bias-sim">
+      <div class="bs-label">⚠️ Bias Case Studies</div>
+      <div class="bs-title">When Training Data Fails Patients</div>
+      <div class="bs-sub">Click each case to see how training data problems created real-world AI failures in healthcare.</div>
+      <div class="bias-scenarios" id="biasScenarios"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What This Means for You on the Job</h2>
+    <p>You don't need to build AI to work with it effectively. But understanding how it learns gives you three practical superpowers:</p>
+    <p><strong>1. You can ask the right questions.</strong> "Was this AI trained on patients like ours?" is a question every healthcare worker should feel comfortable asking when a new AI tool is introduced. If no one can answer it, that's a red flag.</p>
+    <p><strong>2. You can spot potential bias.</strong> If an AI tool consistently produces different results for certain patient groups — or if something about its outputs feels off for specific populations — you now know why that might be happening and how to flag it.</p>
+    <p><strong>3. You understand why your review matters.</strong> AI outputs aren't facts. They're predictions based on patterns learned from data that may or may not represent your current patient. <mark>Your review isn't a formality — it's the safety layer</mark> between the AI's pattern-matching and the real patient in front of you.</p>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A hospital deploys a readmission risk AI that was trained on patient data from 2018–2020. It's now 2025, and clinical staff notice the AI seems to underestimate risk for patients with certain post-COVID conditions. What is the most likely explanation?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">The AI was programmed incorrectly and needs to be replaced immediately</button>
+        <button class="qopt" onclick="cq(this,false)">Post-COVID conditions are too rare for AI to ever handle accurately</button>
+        <button class="qopt" onclick="cq(this,true)">The training data predates the COVID-19 pandemic, so the AI has no patterns to learn from for post-COVID patient profiles — its predictions for this population are based on data that doesn't represent them</button>
+        <button class="qopt" onclick="cq(this,false)">The AI has forgotten its training and needs to be retrained from scratch</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI learns by processing large numbers of labeled examples, finding patterns, checking its predictions against correct answers, and gradually improving. The quality of the training data determines the quality of the AI.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Biased or incomplete training data creates biased AI — tools that work well for some patient groups and poorly for others. This has caused real, documented problems in healthcare AI that directly affected patient care.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Understanding how AI learns helps you ask the right questions about any AI tool, spot potential bias, and understand why your human review is the essential safety layer between the AI's predictions and real patient care.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const biasData=[
+  {title:'Pulse Oximeters and Skin Tone',scenario:'Pulse oximeters measure blood oxygen levels using light. For decades, these devices were validated primarily on patients with lighter skin tones.',training:'Training/validation data: Predominantly lighter-skinned patients.',result:'Studies published in 2020 found pulse oximeters significantly overestimated oxygen saturation in patients with darker skin — meaning some patients appeared to have acceptable oxygen levels when they were actually dangerously low. AI-assisted monitoring tools built on oximeter data inherited this same bias.',lesson:'✅ What this means for you: When an AI monitoring tool gives you a reading for a patient, the accuracy of that reading may depend on factors the AI was never tested on. Human clinical assessment remains essential — especially for populations that may be underrepresented in the AI\'s training data.'},
+  {title:'Skin Cancer Detection AI',scenario:'Researchers developed an AI to detect melanoma from photos of skin lesions — trained almost entirely on images of lighter-skinned patients.',training:'Training data: Overwhelmingly images from lighter-skinned populations.',result:'The AI performed significantly worse at detecting melanoma in patients with darker skin tones. Since melanoma is already harder to spot in darker skin and often detected later, this bias has serious clinical implications.',lesson:'✅ What this means for you: An AI that "works" doesn\'t mean it works equally for all your patients. Asking "who was this trained on?" is not a technical question — it\'s a patient safety question.'},
+  {title:'Commercial Risk Prediction Algorithm',scenario:'A widely used healthcare algorithm assigned patients a "risk score" to determine who needed additional care management. It was trained on historical healthcare cost data.',training:'Training data: Past healthcare spending patterns.',result:'Because Black patients had historically been given less healthcare access and therefore had lower costs, the algorithm systematically assigned them lower risk scores than equally sick white patients — directing fewer care resources to a population that needed them more. This bias affected millions of patients.',lesson:'✅ What this means for you: AI trained on historical data inherits historical inequalities. When you see AI-generated risk scores or recommendations, asking "what was this trained to optimize?" is a legitimate and important question.'},
+  {title:'Sepsis Prediction AI Performance Gaps',scenario:'Several sepsis prediction AI tools were trained primarily on patient data from large academic medical centers.',training:'Training data: Mostly patients from large urban academic hospitals.',result:'When these tools were deployed at community hospitals and rural clinics — where patient populations, staffing patterns, and data entry practices differ — their accuracy dropped significantly. The AI had learned patterns specific to academic hospital settings, not universal sepsis patterns.',lesson:'✅ What this means for you: Where an AI was trained matters as much as what it was trained on. An AI validated at a major research hospital may not perform the same way at a smaller community clinic. This is a real question to ask when new tools are introduced at your facility.'}
+];
+
+const container=document.getElementById('biasScenarios');
+biasData.forEach((b,i)=>{
+  const el=document.createElement('div');el.className='bias-scenario';
+  el.innerHTML=`<div class="bs-header" onclick="toggleBias(${i})">
+    <span class="bs-scenario-label">Case Study</span>
+    <span class="bs-scenario-title">${b.title}</span>
+    <span class="bs-arrow">▼</span>
+  </div>
+  <div class="bs-body">
+    <p style="font-size:14px;line-height:1.7;color:var(--gray-text);margin-bottom:8px;">${b.scenario}</p>
+    <div class="bs-training"><strong>🗄️ The data problem:</strong> ${b.training} ${b.result}</div>
+    <div class="bs-lesson">${b.lesson}</div>
+  </div>`;
+  container.appendChild(el);
+});
+function toggleBias(i){document.querySelectorAll('.bias-scenario').forEach((el,idx)=>{if(idx===i)el.classList.toggle('open');else el.classList.remove('open');});}
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct! This is called "data drift" or "distribution shift" — when the real-world patients the AI now encounters no longer match the patients it was trained on. COVID-19 created entirely new health patterns that didn\'t exist in 2018–2020 data. The AI isn\'t broken; it\'s being applied to a situation its training didn\'t prepare it for. This is exactly why ongoing monitoring and periodic retraining of deployed AI models is essential in healthcare.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('predates'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ AI doesn\'t "forget" its training — it continues applying the patterns it learned. The problem is that those patterns were learned from pre-COVID data. When the patient population includes post-COVID conditions the AI was never exposed to, its predictions for those patients are based on patterns that don\'t apply. This is a training data mismatch, not a technical malfunction.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

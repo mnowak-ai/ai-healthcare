@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mayo Clinic and AI: Real-World Spotlight — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+/* Org profile */
+.org-profile{background:var(--purple-pale);border:2px solid var(--purple-mid);border-radius:20px;padding:28px;margin:24px 0;display:flex;gap:20px;align-items:flex-start;}
+.org-badge{width:56px;height:56px;background:var(--purple);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;}
+.org-info{}
+.org-name{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.org-stats{display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;}
+.org-stat{font-size:13px;color:var(--gray-muted);}
+.org-stat strong{color:var(--purple-dark);}
+/* AI initiative cards */
+.initiatives{display:flex;flex-direction:column;gap:14px;margin:24px 0;}
+.initiative{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:18px;overflow:hidden;cursor:pointer;transition:border-color .2s;}
+.initiative:hover,.initiative.open{border-color:var(--purple);}
+.init-header{display:flex;align-items:center;gap:14px;padding:18px 22px;}
+.init-icon{font-size:24px;flex-shrink:0;}
+.init-meta{flex:1;}
+.init-name{font-size:16px;font-weight:700;color:var(--purple-dark);margin-bottom:2px;}
+.init-type{font-size:12px;color:var(--gray-muted);}
+.init-tag{font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:.06em;flex-shrink:0;}
+.init-tag.admin{background:var(--purple-pale);color:var(--purple);}
+.init-tag.clinical{background:var(--green-pale);color:var(--green);}
+.init-tag.research{background:var(--orange-pale);color:var(--orange);}
+.init-arrow{font-size:14px;color:var(--gray-muted);transition:transform .2s;flex-shrink:0;}
+.initiative.open .init-arrow{transform:rotate(180deg);}
+.init-body{display:none;padding:0 22px 18px;border-top:1px solid var(--purple-mid);}
+.initiative.open .init-body{display:block;}
+.init-what{font-size:14px;line-height:1.7;color:var(--gray-text);margin:12px 0 10px;}
+.init-impact-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--green);letter-spacing:.08em;margin-bottom:6px;}
+.init-impact{background:var(--green-pale);border-radius:8px;padding:8px 12px;font-size:13px;color:var(--gray-text);line-height:1.6;margin-bottom:10px;}
+.init-human-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.08em;margin-bottom:6px;}
+.init-human{background:var(--purple-pale);border-radius:8px;padding:8px 12px;font-size:13px;color:var(--gray-text);line-height:1.6;}
+/* Lessons matrix */
+.lessons-table{width:100%;border-collapse:collapse;margin:24px 0;border-radius:14px;overflow:hidden;border:1.5px solid var(--purple-mid);}
+.lessons-table th{background:var(--purple);color:white;padding:11px 14px;font-size:12px;font-weight:600;text-align:left;}
+.lessons-table td{padding:10px 14px;font-size:13px;border-bottom:1px solid var(--purple-mid);vertical-align:top;line-height:1.55;}
+.lessons-table tr:last-child td{border-bottom:none;}
+.lessons-table tr:nth-child(even) td{background:var(--gray-soft);}
+/* Quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:#FFF1F1;border-color:#DC2626;color:#DC2626;}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:#FFF1F1;color:#DC2626;}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.org-profile{flex-direction:column;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 1.1 · Introduction to AI in Healthcare</div>
+  <h1>Mayo Clinic and AI: A Real-World Look at How a Major Health System Uses Technology</h1>
+  <p class="hero-sub">Mayo Clinic is one of the most respected healthcare organizations in the world — and one of the most advanced in its AI adoption. This deep dive goes beyond a single slide to show you what AI actually looks like when deployed at scale in a world-class health system.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>Why Mayo Clinic?</h2>
+    <p>Mayo Clinic isn't just a hospital — it's a research institution, a training ground for physicians, and one of the most influential organizations in how healthcare practices evolve globally. When Mayo Clinic adopts a new approach to AI, it tends to set the standard that other health systems follow.</p>
+    <p>More importantly for this certification: Mayo Clinic's approach to AI is transparent and well-documented. They've published extensively about what they're doing, why, and what they've learned. That makes them an ideal case study — not because they're perfect, but because <mark>you can see their thinking and learn from it directly.</mark></p>
+    <div class="org-profile">
+      <div class="org-badge">🏥</div>
+      <div class="org-info">
+        <div class="org-name">Mayo Clinic</div>
+        <p style="font-size:14px;color:var(--gray-muted);margin:4px 0 0;">Rochester, MN (with campuses in Arizona and Florida)</p>
+        <div class="org-stats">
+          <div class="org-stat"><strong>~75,000</strong> employees</div>
+          <div class="org-stat"><strong>1.4M+</strong> patients per year</div>
+          <div class="org-stat"><strong>Founded</strong> 1864</div>
+          <div class="org-stat"><strong>AI Platform:</strong> Mayo Clinic Platform (launched 2020)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Mayo Clinic's AI Initiatives — Explore Each One</h2>
+    <p>Click each initiative to see what it does, what impact it's had, and what role humans continue to play alongside it:</p>
+    <div class="initiatives" id="initiativesList"></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What Mayo Clinic Gets Right: The Human-AI Model</h2>
+    <p>Across every AI initiative at Mayo Clinic, one principle shows up consistently: <mark>AI surfaces information, humans make decisions.</mark> This isn't just a marketing statement — it's embedded in how their tools are designed and governed.</p>
+    <p>For example, Mayo's cardiac AI tools flag ECGs that may show signs of heart conditions. But the tool doesn't tell a patient they have a condition. It notifies a cardiologist that the pattern warrants review. The cardiologist then evaluates the full clinical picture — history, symptoms, other tests — and makes the determination.</p>
+    <p>This model reflects a fundamental truth about where AI is useful and where it isn't: AI is excellent at pattern recognition across large datasets. Humans are essential for contextual judgment, patient communication, ethical decision-making, and accountability. The Mayo Clinic approach builds both into every workflow.</p>
+    <div class="pull-quote"><p>Mayo Clinic's position on AI is not "AI will replace clinicians." It's "AI will allow our clinicians to spend less time on pattern-matching and more time on the judgment and care that only they can provide."</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Lessons From Mayo Clinic's Approach</h2>
+    <table class="lessons-table">
+      <thead><tr><th>Lesson</th><th>What Mayo does</th><th>Why it matters for you</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Validate before deploying</strong></td><td>Mayo rigorously tests AI tools on their own patient populations before deploying them broadly</td><td>An AI validated elsewhere may not perform the same at your facility — ask about local validation before trusting a new tool</td></tr>
+        <tr><td><strong>Build human review into the workflow</strong></td><td>Every AI output goes to a human for review — AI flags are prompts, not final answers</td><td>This is the standard you should expect from any AI tool you use — your review is part of the design, not an afterthought</td></tr>
+        <tr><td><strong>Monitor performance over time</strong></td><td>Mayo tracks whether their AI tools continue to perform accurately as patient populations and care practices evolve</td><td>A tool that worked last year may not perform the same today — ongoing monitoring by humans is essential</td></tr>
+        <tr><td><strong>Be transparent about limitations</strong></td><td>Mayo publishes research including studies that identify where their AI tools fall short</td><td>If an organization using AI can't tell you its limitations, that's a red flag. Good AI implementation includes honest assessment of what the tools can't do.</td></tr>
+        <tr><td><strong>Start with the patient benefit</strong></td><td>Every Mayo AI initiative is evaluated based on whether it improves patient outcomes — not just efficiency</td><td>When evaluating any AI tool, ask: does this actually help patients? Efficiency gains that come at the cost of care quality aren't worth it.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">Mayo Clinic's AI-ECG tool can detect signs of heart conditions years before symptoms appear. A patient comes in for a routine visit, the AI analyzes their ECG, and flags a possible early cardiac condition. What happens next?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">The patient is automatically notified of their cardiac condition by the AI system</button>
+        <button class="qopt" onclick="cq(this,false)">The AI flag is treated as a confirmed diagnosis and treatment begins immediately</button>
+        <button class="qopt" onclick="cq(this,true)">A cardiologist is notified to review the flagged ECG, evaluates the full clinical picture, and makes the determination — the AI flag is a prompt for expert human review, not a diagnosis</button>
+        <button class="qopt" onclick="cq(this,false)">The AI result replaces the need for a cardiologist review since it's more accurate than human analysis</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Mayo Clinic uses AI across scheduling, cardiac screening, early disease detection, clinical documentation, and research — always with human review built into every workflow. AI surfaces information; humans make decisions.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Mayo's approach includes rigorous local validation, ongoing performance monitoring, and transparent reporting of limitations — a model for how any healthcare organization should evaluate and deploy AI tools.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Even at one of the most AI-advanced health systems in the world, AI doesn't replace clinical judgment. It allows clinicians to spend less time on pattern-matching and more time on what only they can do — patient care, complex decisions, and human connection.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const initiatives=[
+  {icon:'📅',name:'AI-Powered Scheduling Optimization',type:'admin',typeLabel:'Administrative AI',what:'Mayo Clinic uses AI to manage the extraordinary complexity of scheduling across three campuses, 75,000 employees, and over a million patients per year. The AI accounts for patient needs, provider specialties, appointment lengths, equipment availability, and geographic logistics to minimize wait times and maximize access.',impact:'Mayo has used AI scheduling to significantly reduce appointment wait times for complex cases — some patients who previously waited weeks for multi-specialist appointments can now be scheduled in days.',human:'Scheduling coordinators review AI-generated schedules, handle exceptions, and make human judgment calls for patients with complex access needs. The AI handles logistics optimization; humans handle nuance and relationship.'},
+  {icon:'❤️',name:'ECG AI for Early Heart Disease Detection',type:'clinical',typeLabel:'Clinical AI',what:'Mayo developed an AI model that analyzes electrocardiograms (ECGs) — routine electrical readings of the heart — and can detect early signs of conditions like low ejection fraction and atrial fibrillation before patients show symptoms. This is a landmark application of AI in cardiology.',impact:'Studies found Mayo\'s ECG AI could identify patients at risk for conditions years before traditional detection methods would catch them. This creates opportunities for preventive intervention that were previously impossible.',human:'A cardiologist is always notified when the AI flags an ECG. The cardiologist reviews the flagged result in the context of the patient\'s full clinical history. The AI flag is a prompt for expert review — not a diagnosis or treatment recommendation.'},
+  {icon:'🔬',name:'AI for Rare Disease Identification',type:'clinical',typeLabel:'Clinical AI',what:'Mayo Clinic is using AI to help identify patients who may have rare diseases that are often misdiagnosed or missed for years. The AI analyzes patterns across symptoms, test results, and medical history to flag cases that match known rare disease profiles.',impact:'Rare diseases are often missed because no single provider sees enough cases to recognize the pattern. AI can analyze patterns across thousands of patients simultaneously — surfacing possible rare disease cases that human clinicians might not connect.',human:'Every AI-flagged rare disease case goes to specialist clinicians for evaluation. The AI identifies the possibility; expert physicians determine whether it\'s real, what tests to order, and how to communicate with the patient.'},
+  {icon:'📝',name:'Ambient Clinical Documentation',type:'admin',typeLabel:'Administrative AI (with clinical overlap)',what:'Mayo Clinic has piloted ambient documentation AI tools — systems that listen to patient-provider conversations during visits and automatically draft clinical notes. This addresses one of healthcare\'s biggest burnout drivers: the documentation burden.',impact:'Early pilots showed significant reductions in time physicians spent on after-hours documentation — often called "pajama time" because it happens after the clinical day ends. Some physicians reported reclaiming hours per week.',human:'Every AI-drafted note is reviewed and approved by the physician before it enters the official record. The AI produces a draft; the physician makes it accurate and signs it. Clinical accuracy remains the physician\'s professional responsibility.'},
+  {icon:'🧬',name:'Mayo Clinic Platform — AI for Research',type:'research',typeLabel:'Research AI',what:'Mayo launched the Mayo Clinic Platform as an infrastructure for AI-enabled health research — allowing researchers to analyze de-identified patient data at scale to discover patterns, validate AI models, and develop new diagnostic tools.',impact:'The platform enables research collaborations with hundreds of external organizations — dramatically accelerating the pace at which AI tools can be validated and refined.',human:'Research teams design studies, interpret findings, and make decisions about what research questions are worth pursuing. AI processes the data at scale; humans provide the scientific judgment and ethical oversight.'}
+];
+
+const list=document.getElementById('initiativesList');
+initiatives.forEach((init,i)=>{
+  const el=document.createElement('div');el.className='initiative';
+  el.innerHTML=`<div class="init-header" onclick="toggleInit(${i})">
+    <div class="init-icon">${init.icon}</div>
+    <div class="init-meta"><div class="init-name">${init.name}</div><div class="init-type">${init.typeLabel}</div></div>
+    <span class="init-tag ${init.type}">${init.type==='admin'?'Administrative':init.type==='clinical'?'Clinical':'Research'}</span>
+    <div class="init-arrow">▼</div>
+  </div>
+  <div class="init-body">
+    <div class="init-what">${init.what}</div>
+    <div class="init-impact-label">📊 Impact</div>
+    <div class="init-impact">${init.impact}</div>
+    <div class="init-human-label">👤 Human role</div>
+    <div class="init-human">${init.human}</div>
+  </div>`;
+  list.appendChild(el);
+});
+function toggleInit(i){document.querySelectorAll('.initiative').forEach((el,idx)=>{if(idx===i)el.classList.toggle('open');else el.classList.remove('open');});}
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct! This is exactly how Mayo\'s ECG AI works — and it\'s a model for how clinical AI should always function. The AI identifies a pattern that warrants expert attention. A cardiologist then applies their full clinical expertise to determine what it means for that specific patient. The AI flag is valuable — it might surface a condition that would otherwise go undetected. But "pattern detected" is not the same as "diagnosis confirmed." That distinction is the cardiologist\'s responsibility.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('prompt for expert'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ Mayo\'s AI never directly notifies patients of conditions or triggers treatment. It alerts the clinical team that a pattern warrants review. This matters enormously — an AI flag can be wrong (false positive), and even when it\'s right, the patient needs to receive that information from a qualified clinician who can explain it, answer questions, and help them understand what comes next. AI cannot do that.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
