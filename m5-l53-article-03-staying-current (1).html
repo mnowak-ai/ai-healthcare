@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Keep Learning When the Technology Keeps Changing — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,58px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* Resource categories */
+.resource-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0;}
+.resource-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px;}
+.rc-icon{font-size:24px;margin-bottom:8px;}
+.rc-type{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--purple);margin-bottom:6px;}
+.rc-title{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.rc-items{display:flex;flex-direction:column;gap:5px;}
+.rc-item{font-size:13px;color:var(--gray-text);line-height:1.5;display:flex;gap:8px;}
+.rc-item::before{content:'→';color:var(--purple);flex-shrink:0;}
+
+/* Reading a tool announcement */
+.announcement-reader{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.ar-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.ar-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ar-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.fake-headline{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:20px;margin-bottom:16px;}
+.fh-source{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-muted);margin-bottom:6px;}
+.fh-headline{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--gray-text);margin-bottom:8px;}
+.fh-excerpt{font-size:14px;line-height:1.7;color:var(--gray-muted);}
+.critical-questions{display:flex;flex-direction:column;gap:8px;}
+.cq-item{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;overflow:hidden;cursor:pointer;}
+.cq-item:hover{border-color:var(--purple);}
+.cq-item.open{border-color:var(--purple);}
+.cq-q{padding:12px 16px;font-size:14px;font-weight:600;color:var(--gray-text);display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.cq-arrow{font-size:12px;transition:transform .2s;flex-shrink:0;}
+.cq-item.open .cq-arrow{transform:rotate(180deg);}
+.cq-a{display:none;padding:0 16px 14px;border-top:1px solid var(--purple-mid);font-size:14px;line-height:1.65;color:var(--gray-text);}
+.cq-item.open .cq-a{display:block;animation:fadeIn .25s ease;}
+
+/* Learning habits */
+.habits{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
+.habit-item{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start;}
+.habit-num{width:32px;height:32px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:14px;font-weight:700;flex-shrink:0;}
+.habit-title{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.habit-desc{font-size:14px;line-height:1.6;color:var(--gray-text);}
+.habit-time{font-size:12px;font-weight:700;color:var(--purple);background:var(--purple-pale);border-radius:6px;padding:3px 10px;display:inline-block;margin-top:6px;}
+
+/* Quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.resource-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 5.3 · Career Growth & Lifelong Learning</div>
+  <h1>How to Keep Learning When the Technology Keeps Changing: A Practical Guide to Staying Current in Healthcare AI</h1>
+  <p class="hero-sub">The AI tools you learned about today will be different in two years. That's not a problem — it's the job. This article gives you the concrete habits, resources, and critical-thinking skills to stay current without spending every free hour reading tech news.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>The Right Mindset: You're Learning to Learn, Not Learning to Know Everything</h2>
+    <p>The biggest mistake healthcare workers make when approaching AI education is trying to know everything about AI. That's impossible — the field moves too fast. The right goal is different: <mark>develop the habits and critical-thinking skills to quickly evaluate new information, adopt useful tools, and recognize hype versus real capability.</mark></p>
+    <p>This is actually a strength healthcare workers already have. Good clinical thinkers already evaluate new evidence critically rather than accepting every new study at face value. The skill of "is this trustworthy? what are the limitations? what questions do I need to ask?" — that's exactly the skill you need for AI in healthcare. You just need to apply it to a new domain.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Your Learning Toolkit: Vetted Resources by Type</h2>
+    <p>Not all AI news is equal. Here's a curated set of sources organized by what they're best for — all accessible without a technical background:</p>
+    <div class="resource-grid">
+      <div class="resource-card">
+        <div class="rc-icon">📰</div>
+        <div class="rc-type">Newsletters — Read Weekly</div>
+        <div class="rc-title">Stay current without the noise</div>
+        <div class="rc-items">
+          <div class="rc-item">NEJM AI — clinical AI research translated for practitioners</div>
+          <div class="rc-item">Health Affairs Forefront — healthcare policy and AI implications</div>
+          <div class="rc-item">STAT News Daily Recap — healthcare technology news, balanced reporting</div>
+          <div class="rc-item">HIMSS SmartBrief — health information management and IT focus</div>
+        </div>
+      </div>
+      <div class="resource-card">
+        <div class="rc-icon">🏛️</div>
+        <div class="rc-type">Organizations to Follow</div>
+        <div class="rc-title">Authoritative voices in healthcare AI</div>
+        <div class="rc-items">
+          <div class="rc-item">American Medical Informatics Association (AMIA)</div>
+          <div class="rc-item">Healthcare Information and Management Systems Society (HIMSS)</div>
+          <div class="rc-item">American Health Information Management Association (AHIMA)</div>
+          <div class="rc-item">National Academy of Medicine — AI in Health</div>
+        </div>
+      </div>
+      <div class="resource-card">
+        <div class="rc-icon">📚</div>
+        <div class="rc-type">Certifications Worth Pursuing Next</div>
+        <div class="rc-title">Build your credentials over time</div>
+        <div class="rc-items">
+          <div class="rc-item">RHIT or RHIA — Health Information Management (AHIMA)</div>
+          <div class="rc-item">Certified Associate in Healthcare Information and Management Systems (CAHIMS)</div>
+          <div class="rc-item">CPHIMS — for health IT professionals with more experience</div>
+          <div class="rc-item">Google/Microsoft health AI courses — free, recognized, stackable</div>
+        </div>
+      </div>
+      <div class="resource-card">
+        <div class="rc-icon">🎙️</div>
+        <div class="rc-type">Podcasts for the Commute</div>
+        <div class="rc-title">Learn while you move</div>
+        <div class="rc-items">
+          <div class="rc-item">Healthcare Unbound — practical health technology discussions</div>
+          <div class="rc-item">The Digital Health Podcast — UK-based, global perspective</div>
+          <div class="rc-item">Outcomes Rocket — healthcare innovation for practitioners</div>
+          <div class="rc-item">AI in Healthcare — focused specifically on the clinical AI space</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>How to Read a New AI Tool Announcement Critically</h2>
+    <p>New AI tools in healthcare get announced constantly — with marketing language designed to impress rather than inform. Here's how to read these announcements like a thoughtful healthcare professional, not a passive consumer:</p>
+    <div class="announcement-reader">
+      <div class="ar-label">📰 Read It Like a Pro</div>
+      <div class="ar-title">Practice: Reading a Real-Style Announcement</div>
+      <div class="ar-sub">Here's a fictional but realistic AI tool announcement. Click the critical questions below to see what a thoughtful healthcare worker should be asking:</div>
+      <div class="fake-headline">
+        <div class="fh-source">Press Release · MedAI Solutions</div>
+        <div class="fh-headline">MedAI Solutions Launches ClarityDoc 3.0 — AI Documentation That's 94% Accurate and Cuts Charting Time by 60%</div>
+        <div class="fh-excerpt">ClarityDoc 3.0 uses proprietary large language model technology trained on over 2 million clinical encounters to generate accurate, complete clinical documentation in real time. In internal testing across 12 hospital sites, ClarityDoc reduced physician charting time by an average of 60% with 94% accuracy on structured data fields. The system integrates with all major EHR platforms. "This is the future of clinical documentation," said the company's CEO.</div>
+      </div>
+      <div class="critical-questions" id="criticalQs"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Five Learning Habits That Take Less Than an Hour a Week</h2>
+    <p>Staying current doesn't require quitting your life. These five habits compound over time and fit into a realistic schedule:</p>
+    <div class="habits">
+      <div class="habit-item"><div class="habit-num">1</div><div><div class="habit-title">The 10-Minute Tuesday Rule</div><div class="habit-desc">Every Tuesday, read one article from a vetted healthcare AI source. Not a press release — an article that describes a real implementation, a study outcome, or a policy development. Skim it for the three things that matter: what did the AI do, what did humans still have to do, and what went wrong or was uncertain.</div><div class="habit-time">10 minutes/week</div></div></div>
+      <div class="habit-item"><div class="habit-num">2</div><div><div class="habit-title">The "New Tool at Work" Protocol</div><div class="habit-desc">Every time your employer introduces a new AI tool, apply a standard set of questions before you start using it: What does it do? What's it not designed to do? Who approved it? Has a BAA been signed? What should I check in its outputs? This habit takes minutes and protects you from becoming the person who uses a tool without understanding it.</div><div class="habit-time">15 minutes per new tool</div></div></div>
+      <div class="habit-item"><div class="habit-num">3</div><div><div class="habit-title">The Error Log Habit</div><div class="habit-desc">Keep a simple note (even a phone note) of AI errors you catch in your work. Not to get anyone in trouble — to build pattern recognition. After a few months, you'll start to notice which types of errors are most common in which tools. This kind of systematic observation is exactly what healthcare organizations need from frontline staff.</div><div class="habit-time">2 minutes per error you catch</div></div></div>
+      <div class="habit-item"><div class="habit-num">4</div><div><div class="habit-title">The Conference/Webinar Habit</div><div class="habit-desc">HIMSS, AMIA, and most state-level health information management associations offer free or low-cost webinars several times a year. Attending one per quarter keeps you connected to where the field is heading and builds your professional network at the same time. Many offer CE credits toward certifications.</div><div class="habit-time">1 hour per quarter</div></div></div>
+      <div class="habit-item"><div class="habit-num">5</div><div><div class="habit-title">The "Explain It to a Colleague" Standard</div><div class="habit-desc">Every time you encounter something new — a new AI tool, a new policy, a new privacy development — practice explaining it in plain language to an imaginary colleague who knows nothing about AI. If you can't explain it simply, you don't understand it well enough yet. This keeps your knowledge honest and practical rather than just headline-deep.</div><div class="habit-time">5 minutes after learning something new</div></div></div>
+    </div>
+    <div class="pull-quote"><p>Staying current in AI isn't about knowing everything. It's about having a reliable process for evaluating what matters when something new appears.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A vendor announces that their new AI triage tool was tested at three hospitals and achieved "87% accuracy." What is the most important follow-up question a thoughtful healthcare worker should ask?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">What hospital systems does it integrate with?</button>
+        <button class="qopt" onclick="cq(this,false)">Who developed the underlying algorithm?</button>
+        <button class="qopt" onclick="cq(this,true)">87% accuracy on what, specifically — and what happened in the 13% of cases where it was wrong? In a triage context, where and how often an AI fails matters more than overall accuracy.</button>
+        <button class="qopt" onclick="cq(this,false)">How much does it cost to license?</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The goal isn't to know everything about AI — it's to develop the habits and critical thinking to evaluate new information quickly and accurately. The skill of critical evaluation you already use in healthcare transfers directly to evaluating AI tools and announcements.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Stay current with vetted resources: NEJM AI, STAT News, HIMSS, AMIA, and AHIMA. Avoid press releases and marketing content as primary sources of information about new tools.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Five practical habits — reading one article weekly, applying a standard protocol to new tools, logging errors, attending quarterly webinars, and practicing plain-language explanations — keep you current in under an hour a week.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+const criticalQs=[
+  {q:'"94% accurate" — on what, exactly?',a:'Accuracy claims need a denominator. 94% accurate on what task, measured how, over what time period? Did this include all data fields (including the easy ones like patient name) or just the clinical content? What counts as "accurate" — exact match, or close enough? These details change the meaning of 94% dramatically.'},
+  {q:'What happened in the other 6%?',a:'In healthcare, failure mode matters more than success rate. A 6% error rate on low-stakes fields is very different from a 6% error rate on medication names or dosages. Were errors random, or did they cluster in specific patient populations? Systematic bias in the 6% is a serious concern.'},
+  {q:'Who did the testing — the vendor or an independent party?',a:'"Internal testing" means the vendor ran the study themselves. That\'s not independent validation. Internal testing has significant conflicts of interest and tends to produce optimistic results. Look for independent peer-reviewed studies or real-world implementation reports from healthcare organizations with no financial relationship to the vendor.'},
+  {q:'What clinical settings were the test hospitals in?',a:'"12 hospital sites" tells you very little. Were they academic medical centers or community hospitals? Urban or rural? What patient populations? An AI trained and tested primarily on one demographic may perform very differently in a different setting. This is especially important for clinical AI tools.'},
+  {q:'What does "60% less charting time" actually mean for the clinical workflow?',a:'Time savings sound straightforward, but the details matter. Did physicians still spend time reviewing and correcting AI output? Was the 60% measured including or excluding review time? What happened to documentation quality — was it maintained, improved, or degraded? Efficiency gains that come with hidden quality costs aren\'t actually gains.'},
+];
+const cqContainer=document.getElementById('criticalQs');
+criticalQs.forEach(q=>{
+  const div=document.createElement('div');
+  div.className='cq-item';
+  div.innerHTML=`<div class="cq-q">🤔 ${q.q} <span class="cq-arrow">▼</span></div><div class="cq-a">${q.a}</div>`;
+  div.onclick=()=>{const was=div.classList.contains('open');document.querySelectorAll('.cq-item').forEach(i=>i.classList.remove('open'));if(!was)div.classList.add('open');};
+  cqContainer.appendChild(div);
+});
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. Aggregate accuracy statistics in healthcare AI are almost meaningless without understanding the failure mode. A triage tool that\'s wrong 13% of the time overall might be wrong 30% of the time for elderly patients, or wrong specifically when a patient has multiple conditions that look similar. Where and how an AI fails is the most important clinical information — not the headline accuracy number. This is exactly the critical-reading skill that distinguishes a thoughtful healthcare AI user from one who gets impressed by marketing.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('13% of cases'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ Integration and cost matter, but they\'re not the most clinically important questions. The developer question is relevant but secondary. In a triage tool, what matters most is where and how the system fails — because in triage, the consequences of a miss can be severe. 87% accuracy can mask systematic bias against specific patient groups, or errors that cluster in the highest-acuity presentations. That\'s what you need to understand before trusting a clinical tool.';}
+}
+</script>
+</body>
+</html>

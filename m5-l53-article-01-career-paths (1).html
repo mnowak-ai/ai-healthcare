@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Healthcare Career Paths Where AI Knowledge Is Already a Differentiator — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,58px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* Career path explorer */
+.career-explorer{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.ce-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.ce-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ce-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.career-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.career-tab{padding:8px 16px;border-radius:10px;border:1.5px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.career-tab.active{background:var(--purple);border-color:var(--purple);color:white;}
+.career-panel{display:none;animation:fadeIn .3s ease;}
+.career-panel.active{display:block;}
+.career-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:24px;}
+.cc-header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px;flex-wrap:wrap;}
+.cc-title-group{}
+.cc-role{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.cc-type{font-size:13px;color:var(--gray-muted);}
+.cc-salary{background:var(--green-pale);border:1.5px solid #86EFAC;border-radius:12px;padding:10px 16px;text-align:center;flex-shrink:0;}
+.cc-salary-num{font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:var(--green);display:block;}
+.cc-salary-label{font-size:11px;color:var(--green);font-weight:600;}
+.cc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.cc-cell{background:var(--gray-soft);border-radius:10px;padding:12px 14px;}
+.cc-cell-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-muted);margin-bottom:5px;}
+.cc-cell-text{font-size:13px;line-height:1.55;color:var(--gray-text);}
+.cc-ai-value{background:var(--purple-pale);border-radius:10px;padding:14px 16px;}
+.cc-ai-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:6px;}
+.cc-ai-text{font-size:14px;line-height:1.65;color:var(--purple-dark);}
+.cc-skills{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
+.cc-skill{background:var(--purple);color:white;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;}
+
+/* Career ladder visual */
+.career-ladder{margin:24px 0;}
+.cl-row{display:flex;gap:14px;align-items:stretch;margin-bottom:10px;}
+.cl-step{flex:1;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:16px 18px;}
+.cl-step.entry{border-color:var(--purple-mid);}
+.cl-step.mid{border-color:var(--purple);background:var(--purple-pale);}
+.cl-step.senior{border-color:var(--purple-dark);background:var(--purple);}
+.cl-level{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.cl-step.entry .cl-level{color:var(--gray-muted);}
+.cl-step.mid .cl-level{color:var(--purple);}
+.cl-step.senior .cl-level{color:rgba(255,255,255,.7);}
+.cl-title{font-size:14px;font-weight:700;margin-bottom:3px;}
+.cl-step.entry .cl-title{color:var(--gray-text);}
+.cl-step.mid .cl-title{color:var(--purple-dark);}
+.cl-step.senior .cl-title{color:white;}
+.cl-detail{font-size:12px;line-height:1.5;}
+.cl-step.entry .cl-detail{color:var(--gray-muted);}
+.cl-step.mid .cl-detail{color:var(--purple-dark);}
+.cl-step.senior .cl-detail{color:rgba(255,255,255,.8);}
+.cl-arrow{display:flex;align-items:center;font-size:20px;color:var(--purple-mid);}
+
+/* This cert maps to */
+.cert-map{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0;}
+.cm-item{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:16px 18px;display:flex;gap:12px;align-items:flex-start;}
+.cm-icon{font-size:22px;flex-shrink:0;}
+.cm-skill{font-size:13px;font-weight:700;color:var(--purple-dark);margin-bottom:3px;}
+.cm-maps{font-size:12px;color:var(--gray-muted);line-height:1.5;}
+
+/* Quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.cc-grid{grid-template-columns:1fr;}.cert-map{grid-template-columns:1fr;}.cc-header{flex-direction:column;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 5.3 · Career Growth & Lifelong Learning</div>
+  <h1>The Healthcare Career Paths Where AI Knowledge Is Already a Differentiator</h1>
+  <p class="hero-sub">You've done the work. Now the question is: what do you do with it? This article maps the specific roles where your AI knowledge — right now, at this level — directly translates to getting hired faster, promoted sooner, and trusted more.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>The Answer to "What Do I Do With This?"</h2>
+    <p>Every learner finishing a certification asks the same question: how does this translate to something real? For this certification, the answer is clearer than most. Healthcare is in the middle of a technology transformation, and <mark>the workers who understand AI — not just how to use specific tools, but how to evaluate them, work with them responsibly, and catch their mistakes — are already in demand.</mark></p>
+    <p>This isn't about becoming a tech expert. It's about being the healthcare professional in the room who understands what AI can and can't do, who can catch an error before it reaches a patient, who can explain a new tool to a skeptical colleague, and who can be trusted with the organization's growing investment in technology.</p>
+    <p>Below are five career paths where this certification's content directly applies — right now, at the entry level, with no additional technical experience required.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Explore Five High-Growth Healthcare Roles</h2>
+    <p>Click through each role to see what it involves, what it pays, and exactly how this certification's skills apply to it:</p>
+    <div class="career-explorer">
+      <div class="ce-label">💼 Career Path Explorer</div>
+      <div class="ce-title">Five Roles Where AI Fluency Is Already a Differentiator</div>
+      <div class="ce-sub">Each role is growing. Each one actively values the skills this certification builds.</div>
+      <div class="career-tabs">
+        <button class="career-tab active" onclick="showCareer(0)">Clinical Informatics</button>
+        <button class="career-tab" onclick="showCareer(1)">Health IT Analyst</button>
+        <button class="career-tab" onclick="showCareer(2)">Patient Experience</button>
+        <button class="career-tab" onclick="showCareer(3)">Workflow Specialist</button>
+        <button class="career-tab" onclick="showCareer(4)">Care Coordinator</button>
+      </div>
+      <div id="careerContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>How This Certification Connects to Real Job Requirements</h2>
+    <p>Here's a direct map between what you've learned and what these roles actively look for in candidates:</p>
+    <div class="cert-map">
+      <div class="cm-item"><div class="cm-icon">🔒</div><div><div class="cm-skill">HIPAA and Patient Privacy</div><div class="cm-maps">Maps to: "Understanding of healthcare data privacy regulations" — a requirement in nearly every clinical and administrative AI role</div></div></div>
+      <div class="cm-item"><div class="cm-icon">👁️</div><div><div class="cm-skill">Reviewing AI-Generated Documents</div><div class="cm-maps">Maps to: "Ability to critically evaluate AI output" — the highest-value AI skill healthcare employers are asking for</div></div></div>
+      <div class="cm-item"><div class="cm-icon">💬</div><div><div class="cm-skill">Communicating About AI to Patients</div><div class="cm-maps">Maps to: "Patient communication in technology-integrated environments" — increasingly listed in patient-facing role postings</div></div></div>
+      <div class="cm-item"><div class="cm-icon">⚖️</div><div><div class="cm-skill">Ethical Judgment Around AI</div><div class="cm-maps">Maps to: "Responsible AI use" and "AI ethics awareness" — showing up in senior roles and compliance-adjacent positions</div></div></div>
+      <div class="cm-item"><div class="cm-icon">📋</div><div><div class="cm-skill">Healthcare Documentation Standards</div><div class="cm-maps">Maps to: "Experience with AI-integrated documentation tools" — Nuance DAX, Suki, and EHR-embedded AI are now standard in many systems</div></div></div>
+      <div class="cm-item"><div class="cm-icon">🔍</div><div><div class="cm-skill">Evaluating New AI Tools</div><div class="cm-maps">Maps to: "Ability to assess and implement new health technology" — a skill explicitly listed in workflow specialist and informatics roles</div></div></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Career Ladder: What Growth Looks Like</h2>
+    <p>AI fluency isn't just an entry-level advantage — it compounds over time. Here's what a realistic career progression looks like for a healthcare professional who keeps building on this foundation:</p>
+    <div class="career-ladder">
+      <div class="cl-row">
+        <div class="cl-step entry">
+          <div class="cl-level">Years 0–2 · Entry</div>
+          <div class="cl-title">Medical Assistant / Front Desk / Care Coordinator</div>
+          <div class="cl-detail">Applies AI knowledge to daily workflow — reviewing AI outputs, handling patient questions about technology, following HIPAA rules around new tools. Builds reputation as the team member who understands AI.</div>
+        </div>
+        <div class="cl-arrow">→</div>
+        <div class="cl-step mid">
+          <div class="cl-level">Years 2–5 · Mid-Level</div>
+          <div class="cl-title">Workflow Specialist / Patient Experience Lead / Health IT Support</div>
+          <div class="cl-detail">Helps evaluate and implement AI tools at the department level. Trains colleagues. Bridges clinical staff and technology teams. Often earns 25–40% more than entry-level peers.</div>
+        </div>
+        <div class="cl-arrow">→</div>
+        <div class="cl-step senior">
+          <div class="cl-level">Years 5+ · Senior</div>
+          <div class="cl-title">Clinical Informatics Specialist / Health IT Analyst / AI Program Coordinator</div>
+          <div class="cl-detail">Shapes how the organization uses AI. Oversees tool selection, staff training, compliance, and outcomes measurement. High compensation, high influence.</div>
+        </div>
+      </div>
+    </div>
+    <div class="pull-quote"><p>The entry-level job isn't the destination — it's the foundation. The healthcare workers who build AI fluency early don't just get better jobs. They get to shape what their organizations do next.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A hiring manager at a regional hospital is reviewing two candidates for a Patient Experience Coordinator role. Both have similar clinical experience. One has completed an AI in Healthcare certification and can explain how they'd handle patient questions about AI tools. The other hasn't thought about this. Who gets the offer — and why?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">The candidate without AI training — clinical experience is more important than technology knowledge at this level</button>
+        <button class="qopt" onclick="cq(this,true)">The AI-fluent candidate — patient-facing roles increasingly require staff who can explain technology to patients confidently, and this is a rare skill that directly differentiates candidates with similar clinical backgrounds</button>
+        <button class="qopt" onclick="cq(this,false)">Neither — AI knowledge isn't relevant to patient experience roles</button>
+        <button class="qopt" onclick="cq(this,false)">It depends entirely on which candidate interviews better</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Five roles where AI fluency is already a hiring differentiator: Clinical Informatics Specialist, Health IT Analyst, Patient Experience Coordinator, Workflow Specialist, and Care Coordinator. All five are growing, all five pay well, and all five are actively looking for candidates who understand AI.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>This certification's content — HIPAA, AI output review, patient communication, documentation, ethical judgment — maps directly to requirements listed in real job postings in 2025. The connection isn't theoretical; it's in the job descriptions.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI fluency compounds over a career. The entry-level advantage of knowing this material becomes a mid-level advantage when you're the team member who trains others, and a senior advantage when you help shape how your organization uses AI.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+const careers=[
+  {role:'Clinical Informatics Specialist',type:'Hospital Systems · Health Networks · Academic Medical Centers',salary:'$62K–$95K',salaryLabel:'Median annual salary',education:'Associate\'s or Bachelor\'s + clinical experience',growth:'19% projected growth through 2032',aiValue:'This role literally exists because of AI and digital health. Clinical Informatics Specialists help select, implement, and evaluate the digital tools that clinical staff use every day — including AI documentation tools, EHR systems, and decision support. Understanding what AI can and can\'t do, how to evaluate outputs, and how to train staff is the core of this job.',skills:['AI output evaluation','Staff training','HIPAA compliance','Workflow analysis','EHR proficiency']},
+  {role:'Health IT Analyst',type:'Hospitals · Insurance Companies · Health Tech Vendors',salary:'$58K–$85K',salaryLabel:'Median annual salary',education:'Associate\'s degree or equivalent experience',growth:'15% projected growth through 2032',aiValue:'Health IT Analysts support the technology systems that run healthcare organizations — and AI is increasingly part of those systems. The ability to understand AI tools, flag compliance risks, communicate with non-technical clinical staff, and evaluate new vendor products makes a Health IT Analyst dramatically more valuable as AI becomes embedded in healthcare operations.',skills:['System troubleshooting','HIPAA & security','Vendor evaluation','Documentation review','Staff communication']},
+  {role:'Patient Experience Coordinator',type:'Clinics · Hospital Systems · Telehealth Platforms',salary:'$45K–$68K',salaryLabel:'Median annual salary',education:'High school diploma + experience (entry-level accessible)',growth:'12% projected growth through 2032',aiValue:'As AI tools become patient-facing — appointment reminders, patient portals, AI chat assistants — Patient Experience Coordinators are increasingly asked to explain these tools to patients, handle complaints about AI interactions, and ensure patients feel heard rather than processed. The ability to communicate about AI clearly and empathetically is directly valuable here.',skills:['Patient communication','AI explanation scripts','Complaint resolution','Privacy communication','Portal support']},
+  {role:'Workflow Specialist / Coordinator',type:'Large Clinics · Hospital Departments · Surgery Centers',salary:'$50K–$78K',salaryLabel:'Median annual salary',education:'Associate\'s degree or equivalent + 1–2 years experience',growth:'13% projected growth through 2032',aiValue:'Workflow Specialists redesign how clinical and administrative work gets done — and AI is changing almost every workflow. Understanding how AI fits into scheduling, documentation, referrals, and patient communication allows a Workflow Specialist to redesign processes intelligently rather than just implementing tools without understanding what they do.',skills:['Process design','AI tool evaluation','Staff training','Quality improvement','Documentation standards']},
+  {role:'Care Coordinator',type:'Primary Care · Chronic Disease Programs · ACOs',salary:'$44K–$65K',salaryLabel:'Median annual salary',education:'High school diploma + CNA or MA certification (accessible entry)',growth:'18% projected growth through 2032',aiValue:'Care Coordinators are increasingly supported by AI tools that flag high-risk patients, generate outreach lists, and draft follow-up communications. Understanding how these tools work — when to trust their outputs, when to question them, how to use them without violating patient privacy — makes a Care Coordinator significantly more effective and trustworthy to their organization.',skills:['AI risk flag review','Patient outreach','HIPAA compliance','Documentation accuracy','Empathetic communication']},
+];
+let careerIdx=0;
+function showCareer(i){careerIdx=i;document.querySelectorAll('.career-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));renderCareer();}
+function renderCareer(){
+  const c=careers[careerIdx];
+  document.getElementById('careerContainer').innerHTML=`<div class="career-panel active"><div class="career-card">
+    <div class="cc-header">
+      <div class="cc-title-group">
+        <div class="cc-role">${c.role}</div>
+        <div class="cc-type">${c.type}</div>
+      </div>
+      <div class="cc-salary"><span class="cc-salary-num">${c.salary}</span><span class="cc-salary-label">${c.salaryLabel}</span></div>
+    </div>
+    <div class="cc-grid">
+      <div class="cc-cell"><div class="cc-cell-label">Typical education</div><div class="cc-cell-text">${c.education}</div></div>
+      <div class="cc-cell"><div class="cc-cell-label">Job growth</div><div class="cc-cell-text">${c.growth}</div></div>
+    </div>
+    <div class="cc-ai-value">
+      <div class="cc-ai-label">🤖 Why AI fluency matters here</div>
+      <div class="cc-ai-text">${c.aiValue}</div>
+      <div class="cc-skills">${c.skills.map(s=>`<span class="cc-skill">${s}</span>`).join('')}</div>
+    </div>
+  </div></div>`;
+}
+renderCareer();
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. When clinical experience is comparable, additional differentiators decide the offer — and the ability to handle patient questions about AI confidently is one that hiring managers in patient-facing roles are actively prioritizing in 2025. It\'s rare, it\'s immediately useful, and it shows the candidate is prepared for where healthcare is already going. This is exactly the value this certification builds.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('rare skill'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ Patient Experience roles are increasingly technology-integrated, with AI powering appointment reminders, patient portals, and chat assistants. The coordinator who can explain these tools to a confused or skeptical patient — honestly, calmly, and confidently — is directly more valuable than one who can\'t. When clinical backgrounds are similar, this kind of differentiator is exactly what decides an offer.';}
+}
+</script>
+</body>
+</html>
