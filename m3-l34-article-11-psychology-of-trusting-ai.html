@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Psychology of Trusting AI — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+.section{padding:36px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* BIAS DEMO */
+.bias-demo{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.bd-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.bd-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.bd-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.bd-step{display:none;animation:fadeIn .35s ease;}
+.bd-step.active{display:block;}
+.ai-card{background:#1A1035;border-radius:14px;padding:22px;margin-bottom:16px;}
+.ai-card-label{font-size:10px;font-weight:700;text-transform:uppercase;color:rgba(255,255,255,.4);letter-spacing:.12em;margin-bottom:10px;}
+.ai-card-title{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:white;margin-bottom:8px;line-height:1.3;}
+.ai-card-detail{font-size:12px;color:rgba(255,255,255,.55);line-height:1.75;}
+.ai-confidence{display:flex;align-items:center;gap:10px;margin-top:10px;}
+.ai-conf-label{font-size:11px;color:rgba(255,255,255,.45);}
+.conf-bar{flex:1;height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden;}
+.conf-fill{height:100%;background:linear-gradient(90deg,#4ADE80,#22D3EE);border-radius:4px;}
+.conf-pct{font-size:13px;font-weight:700;color:#4ADE80;}
+.bd-prompt{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;padding:18px;margin-bottom:14px;}
+.bd-prompt-q{font-size:15px;font-weight:600;color:var(--purple-dark);margin-bottom:12px;}
+.bd-opts{display:flex;gap:10px;flex-wrap:wrap;}
+.bd-opt{padding:10px 18px;border-radius:10px;border:2px solid var(--purple-mid);background:var(--white);color:var(--gray-text);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.bd-opt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.bd-opt.selected-accept{background:var(--orange-pale);border-color:var(--orange);color:var(--orange);}
+.bd-opt.selected-verify{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.bd-reveal{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;padding:18px;display:none;animation:fadeIn .3s ease;}
+.bd-reveal.show{display:block;}
+.bd-next{background:var(--purple);color:white;border:none;border-radius:10px;padding:10px 22px;font-size:14px;font-weight:700;cursor:pointer;margin-top:12px;display:none;}
+.bd-next.show{display:inline-block;}
+
+/* BIAS CARDS */
+.bias-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:24px 0;}
+.bias-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px;}
+.bias-icon{font-size:28px;margin-bottom:8px;}
+.bias-name{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.bias-body{font-size:13px;line-height:1.65;color:var(--gray-text);}
+.bias-example{margin-top:8px;padding:8px 12px;background:var(--orange-pale);border-radius:8px;font-size:12px;line-height:1.6;color:var(--gray-text);}
+
+/* COUNTERMEASURES */
+.counter-items{display:flex;flex-direction:column;gap:10px;margin:24px 0;}
+.counter-item{display:flex;gap:14px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:16px 18px;}
+.counter-num{width:32px;height:32px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;color:white;font-size:13px;flex-shrink:0;}
+.counter-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.counter-body{font-size:13px;line-height:1.65;color:var(--gray-text);}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.bias-grid{grid-template-columns:1fr;}.bd-opts{flex-direction:column;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.4 · Critical Evaluation of AI</div>
+  <h1>The Psychology of Trusting AI: Why Humans Are Naturally Inclined to Accept Confident-Looking Output</h1>
+  <p class="hero-sub">Understanding why verification is hard is just as important as understanding how to verify. There is a documented human tendency — called automation bias — to trust algorithmic outputs over our own judgment, especially when the output looks official and confident. Understanding this tendency is the first step to counteracting it.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>The Honest Question This Lesson Hasn't Asked Yet</h2>
+    <p>Every article in this lesson has told you to verify AI recommendations before acting. That's correct and important. But there's a question worth asking directly: <em>why is it so hard to actually do that in practice?</em></p>
+    <p>It's not laziness. It's not lack of training. It's not that healthcare workers don't care. It's psychology — specifically, a well-documented cognitive tendency called <strong>automation bias</strong> that affects virtually all humans when interacting with authoritative-seeming algorithmic systems. Understanding this tendency makes you significantly better at counteracting it.</p>
+    <div class="pull-quote"><p>Knowing about automation bias doesn't make you immune to it. But it gives you the self-awareness to notice when it's operating — and that awareness is where the habit of verification begins.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Experience It First: A Quick Demonstration</h2>
+    <p>Before reading the explanation, experience the phenomenon directly. Work through these two brief scenarios and notice your own response.</p>
+    <div class="bias-demo">
+      <div class="bd-label">🧠 Automation Bias Demonstration</div>
+      <div class="bd-title">Two Scenarios — Notice Your Own Response</div>
+      <div class="bd-sub">This is not a test of what you know. It's an observation of how your mind responds to confident-looking AI output. Just notice your instinct.</div>
+
+      <!-- Step 1 -->
+      <div class="bd-step active" id="bdStep0">
+        <div class="ai-card">
+          <div class="ai-card-label">🤖 AI Staffing Recommendation</div>
+          <div class="ai-card-title">Reduce overnight nursing on Floor 3 from 5 nurses to 4 nurses for the next two weeks.</div>
+          <div class="ai-card-detail">Based on: 8-week rolling average overnight census of 20.3 patients. At current census levels, 4 nurses achieves a 1:5.1 ratio, within policy guidelines. Historical data: 12 weeks stable low-census overnight pattern. External validation: consistent with regional benchmarks for similar units.</div>
+          <div class="ai-confidence">
+            <div class="ai-conf-label">Model confidence</div>
+            <div class="conf-bar"><div class="conf-fill" style="width:91%"></div></div>
+            <div class="conf-pct">91%</div>
+          </div>
+        </div>
+        <div class="bd-prompt">
+          <div class="bd-prompt-q">Before doing anything else — what is your immediate instinct when you see this recommendation?</div>
+          <div class="bd-opts">
+            <button class="bd-opt" onclick="selectBD(0,'accept')">Accept it — the confidence is high, the data looks solid, the rationale is detailed</button>
+            <button class="bd-opt" onclick="selectBD(0,'verify')">Investigate before acting — I want to verify the data behind this first</button>
+          </div>
+          <div class="bd-reveal" id="bdReveal0"></div>
+          <button class="bd-next" id="bdNext0" onclick="nextBD(1)">See Scenario 2 →</button>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="bd-step" id="bdStep1">
+        <div class="ai-card">
+          <div class="ai-card-label">🤖 AI Staffing Recommendation</div>
+          <div class="ai-card-title">Reduce overnight nursing on Floor 3 from 5 nurses to 4 nurses for the next two weeks.</div>
+          <div class="ai-card-detail" style="color:#F87171;">⚠️ Warning: This recommendation is based on training data that does not include the new post-surgical program that launched last month. The model has not been updated to reflect the expected 20-30% increase in post-operative patients on Floor 3. Proceed with verification.</div>
+          <div class="ai-confidence">
+            <div class="ai-conf-label">Model confidence</div>
+            <div class="conf-bar"><div class="conf-fill" style="width:91%"></div></div>
+            <div class="conf-pct">91%</div>
+          </div>
+        </div>
+        <div class="bd-prompt">
+          <div class="bd-prompt-q">This is the same recommendation — same number, same confidence. But with one added sentence. What is your instinct now?</div>
+          <div class="bd-opts">
+            <button class="bd-opt" onclick="selectBD(1,'accept')">Still accept — the confidence is still 91%, the core data is the same</button>
+            <button class="bd-opt" onclick="selectBD(1,'verify')">Definitely investigate — that warning sentence changes everything</button>
+          </div>
+          <div class="bd-reveal" id="bdReveal1"></div>
+          <button class="bd-next" id="bdNext1" onclick="nextBD(2)">See What This Demonstrates →</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Reveal -->
+      <div class="bd-step" id="bdStep2">
+        <div style="background:var(--purple-pale);border-radius:14px;padding:22px;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.1em;margin-bottom:8px;">What This Demonstrates</div>
+          <p style="font-size:15px;line-height:1.75;color:var(--purple-dark);margin-bottom:12px;">The recommendation in both scenarios is identical — same staffing change, same confidence score, same data summary. The only difference is whether the system itself surfaced a warning about its own limitations.</p>
+          <p style="font-size:15px;line-height:1.75;color:var(--purple-dark);margin-bottom:12px;">Most people feel significantly more comfortable accepting the first version and more compelled to investigate the second — even though the actual recommendation data is the same in both cases. <strong>That difference in response is automation bias in action.</strong></p>
+          <p style="font-size:15px;line-height:1.75;color:var(--purple-dark);margin-bottom:0;">The concern: most AI systems in healthcare operations do NOT include that warning sentence. The contextual information that should trigger verification — the new surgical program, the outdated training data — exists in your operational knowledge, not in the AI's output. Automation bias makes it harder to apply that knowledge unless something external (like the warning) forces the question.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What Automation Bias Is — And Why It Affects Everyone</h2>
+    <p>Automation bias is the documented human tendency to over-rely on automated systems — to accept their outputs with less scrutiny than we would apply to human recommendations, and to fail to notice when automated outputs are wrong. It was first formally identified in aviation research in the 1990s, when researchers found that pilots were less likely to catch instrument errors when the errors were displayed by automated systems versus when they would have caught them through manual cross-checking.</p>
+    <p><mark>Automation bias is not a character flaw. It is a predictable response to authoritative-seeming information sources that is virtually universal across humans, regardless of intelligence, training, or expertise.</mark> Understanding it is not about self-criticism — it's about designing habits that counteract a known limitation.</p>
+
+    <div class="bias-grid">
+      <div class="bias-card">
+        <div class="bias-icon">📊</div>
+        <div class="bias-name">The Authority Effect</div>
+        <div class="bias-body">AI outputs formatted like official reports — with confidence percentages, data citations, and structured layouts — trigger the same cognitive deference we show to authority figures. Our brains treat "91% confidence" as something like an expert's opinion.</div>
+        <div class="bias-example">In healthcare: a nurse manager approves a staffing reduction partly because the AI's recommendation looks like a formal report, not a rough estimate that requires the same scrutiny she'd apply to a colleague's suggestion.</div>
+      </div>
+      <div class="bias-card">
+        <div class="bias-icon">⚡</div>
+        <div class="bias-name">The Effort Asymmetry</div>
+        <div class="bias-body">Verification requires effort. Acceptance requires almost none. When we're busy — which is almost always in healthcare — our brains naturally economize by deferring to outputs that appear reliable. The high confidence score is processed as "someone already checked this."</div>
+        <div class="bias-example">In healthcare: a billing coordinator approves AI-flagged claims during a busy end-of-month push without reviewing each code, reasoning that the AI's flagging process is itself the review.</div>
+      </div>
+      <div class="bias-card">
+        <div class="bias-icon">🔄</div>
+        <div class="bias-name">Trust Accumulation</div>
+        <div class="bias-body">Every time an AI recommendation turns out to be correct, our trust in the system increases — and our verification vigilance decreases. The longer a system has been reliable, the stronger the bias toward accepting its outputs without checking.</div>
+        <div class="bias-example">In healthcare: "We've been using this scheduling system for 18 months and it's almost always right — I don't really check it anymore unless something jumps out." This is exactly when a systematic error would go undetected longest.</div>
+      </div>
+      <div class="bias-card">
+        <div class="bias-icon">😶</div>
+        <div class="bias-name">Comission Bias Reluctance</div>
+        <div class="bias-body">People are often reluctant to override an algorithmic recommendation, even when they have good reasons. Overriding feels like taking responsibility for the outcome — which means accepting blame if the override turns out to be wrong. Accepting the AI's recommendation diffuses that accountability.</div>
+        <div class="bias-example">In healthcare: a coordinator knows a scheduling recommendation doesn't fit next Tuesday's context but approves it anyway because "if something goes wrong, I was following the system" feels safer than "I overrode it and then something went wrong."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Why Healthcare Is Particularly High-Risk for Automation Bias</h2>
+    <p>Automation bias exists across many domains — aviation, finance, law. Healthcare operations face a combination of factors that make the bias especially consequential:</p>
+    <p><strong>High cognitive load.</strong> Healthcare workers are typically managing many tasks simultaneously. High cognitive load is one of the strongest predictors of automation bias — when mental bandwidth is consumed by other demands, the brain economizes by deferring to automated outputs.</p>
+    <p><strong>Time pressure.</strong> Staffing decisions, scheduling changes, and billing submissions often have urgent deadlines. Time pressure increases deference to automated systems — there isn't always time to feel like thorough verification is possible.</p>
+    <p><strong>Sophisticated-looking outputs.</strong> Healthcare AI tools are often built to look official — formatted dashboards, confidence scores, data citations, regional benchmarks. The more authoritative the output looks, the stronger the automation bias effect.</p>
+    <p><strong>High stakes create risk aversion.</strong> Ironically, high-stakes decisions can increase automation bias — because the consequences of being wrong feel so serious that deferring to a "data-based system" feels like the safer choice. This is backwards: high stakes are exactly where independent verification matters most.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Five Countermeasures That Actually Work</h2>
+    <div class="counter-items">
+      <div class="counter-item">
+        <div class="counter-num">1</div>
+        <div>
+          <div class="counter-title">Articulate your independent prediction before reading the AI output</div>
+          <div class="counter-body">Before opening the AI staffing recommendation, briefly note what you expect it to say based on your operational knowledge. Even a rough prediction — "I'd expect 5 nurses overnight given current census" — creates an independent anchor that you then compare to the AI's output. When they differ, the discrepancy is visible rather than absorbed.</div>
+        </div>
+      </div>
+      <div class="counter-item">
+        <div class="counter-num">2</div>
+        <div>
+          <div class="counter-title">Ask "what would have to be true for this recommendation to be wrong?"</div>
+          <div class="counter-body">This single question shifts your cognitive mode from accepting to evaluating. Instead of asking "does this look right?" — which automation bias makes easy to answer yes — ask "what would make this wrong?" For every AI recommendation, there is an answer. Finding it is the verification task.</div>
+        </div>
+      </div>
+      <div class="counter-item">
+        <div class="counter-num">3</div>
+        <div>
+          <div class="counter-title">Treat confidence scores as "this is what the model believes about itself" — not as accuracy guarantees</div>
+          <div class="counter-body">A 91% confidence score means the model has high internal consistency — its prediction is consistent with the patterns in its training data. It does not mean 91% probability of being right for this specific situation. Reminding yourself of this distinction reduces the authority effect of confidence percentages.</div>
+        </div>
+      </div>
+      <div class="counter-item">
+        <div class="counter-num">4</div>
+        <div>
+          <div class="counter-title">Build verification into your workflow as a scheduled step — not an optional add-on</div>
+          <div class="counter-body">Automation bias thrives when verification is treated as something you do "if you have time" or "if something looks wrong." Building verification as a required step — even a brief 60-second one for low-stakes recommendations — removes the cognitive decision about whether to verify and makes it automatic.</div>
+        </div>
+      </div>
+      <div class="counter-item">
+        <div class="counter-num">5</div>
+        <div>
+          <div class="counter-title">Make overrides explicit and normalized within your team</div>
+          <div class="counter-body">Comission bias reluctance decreases when overrides are routine and expected — not unusual events that draw attention. Teams where managers regularly say "I modified the AI's recommendation today because..." create norms where override is a normal part of professional judgment, not an act of defiance against the system.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz fade-in">
+    <div class="quiz-label">🧠 Quick Check</div>
+    <div class="quiz-q">A scheduling coordinator has been using an AI no-show prediction tool for 8 months. The tool has been accurate about 80% of the time. She has gradually stopped checking the predictions against recent patient data because "it's almost always right." Last week the tool significantly overestimated no-show rates for a holiday-adjacent Monday, leading to overbooking. Which automation bias mechanism most directly explains what happened?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="cq(this,false)">The authority effect — she was treating the AI like an expert whose judgment she deferred to</button>
+      <button class="qopt" onclick="cq(this,false)">Comission bias reluctance — she was afraid of the consequences of overriding a recommendation</button>
+      <button class="qopt" onclick="cq(this,true)">Trust accumulation — 8 months of mostly-accurate predictions built a trust pattern that gradually reduced her verification vigilance, which is exactly when a systematic error would go undetected longest</button>
+      <button class="qopt" onclick="cq(this,false)">The effort asymmetry — she was too busy to verify during a holiday week</button>
+    </div>
+    <div class="qfb" id="qfb"></div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Key Takeaways</div>
+    <h2>What to Remember From This Article</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Automation bias is the documented tendency to over-rely on algorithmic outputs — accepting them with less scrutiny than we'd apply to human recommendations. It affects virtually all humans and is not a character flaw. Understanding it is the first step to counteracting it.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The four mechanisms: the authority effect (official-looking outputs trigger deference), the effort asymmetry (acceptance is easier than verification), trust accumulation (reliability builds complacency), and comission bias reluctance (overriding feels like accepting blame). All four are active in healthcare operations contexts.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The most practical countermeasure: build verification into your workflow as a scheduled, required step rather than an optional add-on. When you decide to verify only "if something looks wrong," automation bias will make most things look right — including the ones that aren't.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+var bdSelections = [null, null];
+
+function selectBD(step, choice) {
+  if (bdSelections[step] !== null) return;
+  bdSelections[step] = choice;
+  var opts = document.querySelectorAll('#bdStep' + step + ' .bd-opt');
+  opts.forEach(function(o) { o.disabled = true; });
+  var clickedOpts = document.querySelectorAll('#bdStep' + step + ' .bd-opt');
+  clickedOpts.forEach(function(o) {
+    if ((choice === 'accept' && o.textContent.indexOf('Accept') > -1) ||
+        (choice === 'verify' && o.textContent.indexOf('Investigate') > -1)) {
+      o.classList.add('selected-' + choice);
+    }
+  });
+  var reveal = document.getElementById('bdReveal' + step);
+  reveal.classList.add('show');
+  if (step === 0) {
+    if (choice === 'accept') {
+      reveal.innerHTML = '<div style="background:var(--orange-pale);border-radius:8px;padding:12px 14px;font-size:13px;line-height:1.65;color:var(--gray-text);"><strong style="color:var(--orange);">Automation bias at work.</strong> Most people feel comfortable accepting this recommendation. It looks detailed, the confidence is high, the rationale is comprehensive. Notice that impulse — and notice that you haven\'t actually checked anything yet. Move to Scenario 2 to see what changes when one piece of context is added.</div>';
+    } else {
+      reveal.innerHTML = '<div style="background:var(--green-pale);border-radius:8px;padding:12px 14px;font-size:13px;line-height:1.65;color:var(--gray-text);"><strong style="color:var(--green);">Good instinct.</strong> You resisted the pull toward automatic acceptance even with a high confidence score. That resistance is what verification habits look like. Now see Scenario 2 — the same recommendation with one added sentence.</div>';
+    }
+  } else {
+    if (choice === 'verify') {
+      reveal.innerHTML = '<div style="background:var(--green-pale);border-radius:8px;padding:12px 14px;font-size:13px;line-height:1.65;color:var(--gray-text);"><strong style="color:var(--green);">Notice what changed your response.</strong> The recommendation is identical — same staffing change, same confidence score. But the explicit warning about the missing surgical program data made verification feel urgent. The key insight: that warning information often exists in your operational knowledge even when the AI doesn\'t surface it. Verification habits are what bring that knowledge to bear.</div>';
+    } else {
+      reveal.innerHTML = '<div style="background:var(--orange-pale);border-radius:8px;padding:12px 14px;font-size:13px;line-height:1.65;color:var(--gray-text);"><strong style="color:var(--orange);">The same confidence score doesn\'t mean the same reliability.</strong> In Scenario 2, the AI explicitly told you its training data doesn\'t include the new surgical program. Accepting this recommendation would risk understaffing a floor with more post-operative patients than the AI expects. The 91% confidence reflects the model\'s internal consistency — not its accuracy for this new operational reality.</div>';
+    }
+  }
+  document.getElementById('bdNext' + step).classList.add('show');
+}
+
+function nextBD(step) {
+  document.querySelectorAll('.bd-step').forEach(function(s, i) { s.classList.toggle('active', i === step); });
+}
+
+function cq(btn, correct) {
+  if (document.querySelector('.qopt.correct') || document.querySelector('.qopt.wrong')) return;
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) document.querySelectorAll('.qopt').forEach(function(o) { if (o.textContent.indexOf('Trust accumulation') > -1) o.classList.add('correct'); });
+  var fb = document.getElementById('qfb');
+  fb.className = 'qfb show ' + (correct ? 'cfb' : 'wfb');
+  fb.textContent = correct
+    ? 'Correct. Trust accumulation is the most precise explanation here. Eight months of mostly-accurate predictions built a trust pattern that gradually replaced verification with assumption. This is not laziness — it is a predictable psychological response to a reliable system. The mechanism is particularly dangerous because the reduction in verification vigilance is invisible and gradual. By the time a systematic error occurs, the verification habit has been almost entirely displaced by the trust pattern.'
+    : 'Trust accumulation is the most specific mechanism here. Eight months of high accuracy built a trust pattern that gradually eliminated verification — not because she was afraid of override consequences or deferring to authority, but because repeated reliability had made the verification step feel unnecessary. This is the mechanism that explains why AI systems with long track records of accuracy are often the ones whose failures go undetected longest.';
+}
+
+window.addEventListener('scroll', function() { var e = document.documentElement; document.getElementById('pb').style.width = ((e.scrollTop / (e.scrollHeight - e.clientHeight)) * 100) + '%'; });
+var obs = new IntersectionObserver(function(entries) { entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(function(el) { obs.observe(el); });
+</script>
+</body>
+</html>

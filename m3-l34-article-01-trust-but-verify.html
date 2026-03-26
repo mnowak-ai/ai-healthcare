@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trust But Verify — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+.section{padding:36px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* THREE QUESTIONS */
+.three-q{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;}
+.tq-card{border-radius:18px;padding:22px;}
+.tq-card:nth-child(1){background:var(--purple-pale);border:2px solid var(--purple-mid);}
+.tq-card:nth-child(2){background:var(--orange-pale);border:2px solid #FDE68A;}
+.tq-card:nth-child(3){background:var(--green-pale);border:2px solid #86EFAC;}
+.tq-num{font-family:'Fraunces',serif;font-size:36px;font-weight:900;line-height:1;margin-bottom:8px;}
+.tq-card:nth-child(1) .tq-num{color:var(--purple);}
+.tq-card:nth-child(2) .tq-num{color:var(--orange);}
+.tq-card:nth-child(3) .tq-num{color:var(--green);}
+.tq-q{font-size:14px;font-weight:700;color:var(--gray-text);margin-bottom:6px;}
+.tq-detail{font-size:13px;line-height:1.65;color:var(--gray-text);}
+
+/* VERIFICATION SIMULATION */
+.verify-sim{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.vs-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.vs-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.vs-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.vs-progress{display:flex;gap:8px;margin-bottom:20px;}
+.vs-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border:2px solid var(--purple-mid);color:var(--gray-muted);transition:all .3s;}
+.vs-dot.done{background:var(--green);border-color:var(--green);color:white;}
+.vs-dot.active{background:var(--purple);border-color:var(--purple);color:white;}
+.ai-output-card{background:#1A1035;border-radius:14px;padding:18px;margin-bottom:16px;}
+.aoc-badge{background:var(--purple);color:white;font-size:10px;font-weight:700;padding:3px 8px;border-radius:100px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;display:inline-block;}
+.aoc-rec{font-family:'Fraunces',serif;font-size:17px;font-weight:700;color:white;margin-bottom:8px;line-height:1.3;}
+.aoc-data{font-size:12px;color:rgba(255,255,255,.55);line-height:1.7;}
+.vs-q-area{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:20px;}
+.vsq-step-label{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.1em;margin-bottom:6px;}
+.vsq-text{font-size:15px;font-weight:600;color:var(--purple-dark);margin-bottom:14px;line-height:1.4;}
+.vs-opts{display:flex;flex-direction:column;gap:8px;}
+.vs-opt{background:var(--gray-soft);border:2px solid var(--purple-mid);border-radius:10px;padding:12px 16px;cursor:pointer;font-size:14px;transition:all .2s;text-align:left;}
+.vs-opt:hover:not(:disabled){border-color:var(--purple);background:var(--purple-pale);}
+.vs-opt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.vs-opt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.vs-opt:disabled{cursor:default;}
+.vs-fb{font-size:13px;line-height:1.65;padding:12px 16px;border-radius:10px;margin-top:10px;display:none;}
+.vs-fb.show{display:block;animation:fadeIn .3s ease;}
+.vs-fb.ok{background:var(--green-pale);color:var(--green);}
+.vs-fb.bad{background:var(--red-pale);color:var(--red);}
+.vs-next{background:var(--purple);color:white;border:none;border-radius:10px;padding:10px 22px;font-size:14px;font-weight:700;cursor:pointer;margin-top:12px;display:none;}
+.vs-next.show{display:inline-block;}
+.vs-complete{background:var(--purple-dark);border-radius:14px;padding:22px;text-align:center;color:white;display:none;}
+.vs-complete.show{display:block;animation:fadeIn .4s ease;}
+.vs-complete-title{font-family:'Fraunces',serif;font-size:22px;font-weight:900;margin-bottom:6px;}
+
+/* ESCALATION GUIDE */
+.escalation{background:var(--red-pale);border:1.5px solid #FCA5A5;border-radius:20px;padding:28px;margin:28px 0;}
+.esc-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--red);letter-spacing:.12em;margin-bottom:8px;}
+.esc-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--gray-text);margin-bottom:14px;}
+.esc-items{display:flex;flex-direction:column;gap:8px;}
+.esc-item{display:flex;gap:10px;align-items:flex-start;background:white;border-radius:10px;padding:12px 14px;}
+.esc-icon{font-size:16px;flex-shrink:0;}
+.esc-text{font-size:13px;line-height:1.6;color:var(--gray-text);}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.three-q{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.4 · Critical Evaluation of AI</div>
+  <h1>Trust But Verify: A Practical Framework for Evaluating Any AI Output in Healthcare</h1>
+  <p class="hero-sub">AI outputs in healthcare can look authoritative, detailed, and confident — even when they're wrong. This article gives you a three-question verification framework you'll use every day, plus a simulation to practice it on three real AI outputs before you need it in a real job.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>Why "Trust But Verify" Is the Only Safe Default</h2>
+    <p>In healthcare operations, acting on an AI recommendation without verification isn't just a professional risk — it's a potential patient safety issue. An AI scheduling tool that underbooks a high-volume day leaves patients without care. An AI staffing tool that recommends too-low nurse ratios based on outdated patterns creates dangerous conditions. An AI billing tool that miscodes claims exposes the organization to regulatory action.</p>
+    <p>None of these failures happen because the AI was obviously wrong. They happen because the AI was <em>plausibly</em> right — the output looked reasonable, the numbers made sense at a glance, and nobody ran it through a verification check before acting. <mark>The most dangerous AI errors in healthcare operations are the ones that look correct until someone actually checks.</mark></p>
+    <p>This article gives you the framework for that check — a set of three questions you ask about every AI output before deciding whether to act on it, escalate it, or investigate further.</p>
+    <div class="pull-quote"><p>Verification isn't distrust of AI. It's professional responsibility. A pilot doesn't distrust their instruments by also looking out the window. They're using both sources of information to make a safer decision.</p></div>
+  </div>
+  <div class="section fade-in">
+    <h2>The Three Questions — Applied to Every AI Output</h2>
+    <p>These aren't optional checks for suspicious outputs. They're the default practice for every AI recommendation you receive, regardless of how confident it looks.</p>
+    <div class="three-q">
+      <div class="tq-card">
+        <div class="tq-num">Q1</div>
+        <div class="tq-q">Does this make sense given what I know?</div>
+        <div class="tq-detail">Compare the AI output to your operational knowledge. Does the recommendation match what you would expect given current conditions? If it surprises you, that's a signal — not necessarily that the AI is wrong, but that investigation is warranted before acting. Your experience is a verification tool. Use it.</div>
+      </div>
+      <div class="tq-card">
+        <div class="tq-num">Q2</div>
+        <div class="tq-q">Is the data behind this current and complete?</div>
+        <div class="tq-detail">Ask what data the AI used and when it was collected. Has anything changed since then? Did a new program launch? Did patient demographics shift? Did a staffing structure change? AI recommendations are only as current as their training data. If the data is stale, the recommendation may be confidently wrong.</div>
+      </div>
+      <div class="tq-card">
+        <div class="tq-num">Q3</div>
+        <div class="tq-q">Who might be affected by this, and how?</div>
+        <div class="tq-detail">Think beyond the metric the AI is optimizing. A staffing recommendation that looks right on the ratio numbers may not account for the specific patients on the floor today, or staff who are approaching burnout. A scheduling recommendation that maximizes fill rate may not account for the patients who can't accept short-notice appointments. Ask: who bears the consequence of this recommendation being wrong?</div>
+      </div>
+    </div>
+  </div>
+  <div class="section fade-in">
+    <h2>Practice: Run Three AI Outputs Through the Framework</h2>
+    <p>Below are three real AI outputs from healthcare operations tools. Work through each one using the three-question framework — identify what needs verification and what the right response is.</p>
+    <div class="verify-sim">
+      <div class="vs-label">🔍 Verification Simulation</div>
+      <div class="vs-title">Three AI Outputs — Apply the Framework</div>
+      <div class="vs-sub">Each scenario shows you an AI recommendation. Work through the verification questions and choose the correct next action.</div>
+      <div class="vs-progress" id="vsProgress"></div>
+      <div id="vsContent"></div>
+    </div>
+  </div>
+  <div class="section fade-in">
+    <h2>When to Escalate — Not Just Verify</h2>
+    <p>Verification is something you do yourself. Escalation is when you bring in a supervisor, a clinician, or IT because the concern is beyond your authority or expertise to resolve alone. Know the difference:</p>
+    <div class="escalation">
+      <div class="esc-label">🚨 Escalate — Don't Just Verify — When:</div>
+      <div class="esc-title">These situations require more than a self-check</div>
+      <div class="esc-items">
+        <div class="esc-item"><div class="esc-icon">⚠️</div><div class="esc-text">The AI recommendation, if wrong, could directly affect patient safety — and you cannot independently verify whether it's right</div></div>
+        <div class="esc-item"><div class="esc-icon">📋</div><div class="esc-text">The recommendation conflicts with a policy, regulation, or clinical protocol you're aware of</div></div>
+        <div class="esc-item"><div class="esc-icon">🔄</div><div class="esc-text">You've seen this type of AI error before and believe it may be a systematic problem, not a one-off</div></div>
+        <div class="esc-item"><div class="esc-icon">💰</div><div class="esc-text">The recommendation involves a financial, legal, or compliance decision above your authorization level</div></div>
+        <div class="esc-item"><div class="esc-icon">❓</div><div class="esc-text">You've run your verification checks and still aren't confident — uncertainty itself is a signal to escalate</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="quiz fade-in">
+    <div class="quiz-label">🧠 Quick Check</div>
+    <div class="quiz-q">An AI scheduling tool recommends reducing Tuesday's appointment slots by 15% based on a "predicted low-volume Tuesday." You review Tuesday's schedule and notice it's the day after a long holiday weekend — historically a high-demand day as patients book appointments they postponed. What is the right action?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="cq(this,false)">Follow the AI recommendation — the system has more data than you do about Tuesdays</button>
+      <button class="qopt" onclick="cq(this,true)">Q1 check fails: this does not make sense given what you know. Post-holiday Tuesdays are historically high-volume, which directly contradicts the AI's "low-volume" prediction. Before reducing slots, investigate what data the AI is using — if it's not accounting for post-holiday patterns, the recommendation is wrong for this specific Tuesday.</button>
+      <button class="qopt" onclick="cq(this,false)">Escalate immediately to a supervisor — any conflict between AI and your knowledge requires manager approval</button>
+      <button class="qopt" onclick="cq(this,false)">Split the difference — reduce slots by 7% instead of 15% as a compromise</button>
+    </div>
+    <div class="qfb" id="qfb"></div>
+  </div>
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Key Takeaways</div>
+    <h2>What to Remember From This Article</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The three verification questions: Does this make sense given what I know? Is the data behind this current and complete? Who might be affected and how? Apply these to every AI output — not just suspicious ones.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Your operational knowledge is a verification tool. When an AI recommendation surprises you, that surprise is meaningful information — it signals investigation, not necessarily rejection. But it always signals investigation.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Verification and escalation are different. Verification is what you do when you can resolve the question yourself. Escalation is what you do when the stakes are beyond your authority, the concern may be systematic, or you've checked and still aren't confident.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+var scenarios = [
+  {
+    badge: 'AI Output 1: Staffing',
+    rec: 'Reduce overnight nursing staff on Floor 4 from 3 nurses to 2 nurses for the next 4 weeks.',
+    data: 'Based on: 6-week rolling average of Floor 4 overnight census. Average overnight patients: 12. Target ratio: 1:6. Current ratio at 3 nurses: 1:4. Recommendation confidence: 84%.',
+    qStep: 'Q1 — Does this make sense given what you know?',
+    q: 'You manage Floor 4. Last week, the hospital announced a new cardiac surgery program launching in 3 weeks, which will significantly increase Floor 4 overnight post-surgical patients. What is the right verification response?',
+    opts: [
+      'Accept the recommendation — 84% confidence is high and the 6-week rolling data is solid',
+      'The 6-week rolling data does not include the new cardiac program\'s patient volume impact. Q1 check fails: this recommendation will be wrong in 3 weeks when the program launches. Do not act on it without first asking whether the AI model has been updated to reflect the new program.',
+      'Reduce to 2 nurses now and revisit when the program launches',
+      'Escalate immediately — any staffing reduction requires supervisor approval'
+    ],
+    correct: 1,
+    fbOk: 'Exactly right. This is the "missing context" failure mode in action. The AI\'s 6-week rolling data is accurate for current conditions. But it doesn\'t know about the new cardiac program. Q1 (does this make sense?) fails the moment you apply your knowledge about the upcoming program. The recommendation should be paused pending a model update or manual adjustment.',
+    fbBad: 'Q1 check: does this make sense given what you know? You know a new cardiac surgery program launches in 3 weeks, significantly increasing Floor 4 overnight patients. The AI does not know this. Its recommendation is accurate for current conditions and wrong for future conditions. Acting on it without flagging this gap is a verification failure.'
+  },
+  {
+    badge: 'AI Output 2: Scheduling',
+    rec: 'Thursday afternoon clinic is projected at 71% fill rate. Recommend activating waitlist outreach for 6 open slots.',
+    data: 'Based on: current booking status, 4-week historical fill rate for Thursday afternoon (avg 79%), and waitlist depth of 14 patients. Recommendation confidence: 91%.',
+    qStep: 'Q2 — Is the data current and complete?',
+    q: 'The AI is recommending waitlist outreach for Thursday. You check the booking system and see that 4 of the 6 "open" slots were actually booked by a physician referral batch this morning — before the AI ran its analysis. What does this tell you about the recommendation?',
+    opts: [
+      'Nothing — the AI is correct that outreach is needed, even if the numbers are slightly off',
+      'Q2 check reveals the data isn\'t current: the AI ran on this morning\'s pre-referral booking data. Only 2 slots are actually open, not 6. The recommendation is directionally right (some outreach is needed) but factually wrong in scope. Verify slot availability in real time before contacting waitlist patients.',
+      'The physician referral batch is the AI\'s fault for not having real-time data access',
+      'Cancel Thursday\'s schedule and rebuild it from scratch'
+    ],
+    correct: 1,
+    fbOk: 'Right. This is the classic "outdated data" problem. The AI ran its analysis before the referral batch was processed. Q2 (is the data current?) immediately surfaces the issue. The recommendation to do some outreach is still valid — but reaching out for 6 slots when only 2 are open wastes coordination effort and risks booking conflicts. Always verify real-time slot status before acting on a fill-rate recommendation.',
+    fbBad: 'Q2 (is the data current and complete?) is the key check here. The AI generated its recommendation using this morning\'s pre-referral data. The referral batch processed since then, filling 4 of the 6 "open" slots. The recommendation is now factually wrong in scope — only 2 slots need outreach, not 6. Verifying real-time slot availability before acting is exactly what Q2 exists to catch.'
+  },
+  {
+    badge: 'AI Output 3: Supply',
+    rec: 'Reorder nitrile examination gloves: 4 boxes (standard reorder quantity). Current stock: 2.8 days remaining. Lead time: 2 days.',
+    data: 'Based on: rolling 30-day average daily usage of 1.4 boxes. Stock threshold trigger: under 3 days. Recommendation confidence: 96%.',
+    qStep: 'Q3 — Who might be affected, and how?',
+    q: 'This looks like a routine supply reorder recommendation. You are about to approve it when you check the procedure calendar and notice a high-volume surgical day is scheduled for tomorrow — a day that historically uses 4-5x the normal daily glove supply. What does Q3 reveal?',
+    opts: [
+      'The recommendation is still fine — the AI accounts for usage averages and 4 boxes is the standard quantity',
+      'Approve but flag it for next week\'s review',
+      'Q3 reveals the people affected: tomorrow\'s surgical team. At 4-5x normal usage tomorrow, 2.8 days of current stock is really closer to 0.6 days of effective stock. The standard 4-box reorder won\'t arrive in time and won\'t cover tomorrow\'s demand. This requires an emergency same-day order for a larger quantity.',
+      'The AI is wrong — it should be using procedure calendars as a data source'
+    ],
+    correct: 2,
+    fbOk: 'Excellent. Q3 (who might be affected and how?) immediately surfaces the problem: the surgical team tomorrow faces a potential glove shortage if you act on this recommendation without adjustment. The AI\'s "2.8 days remaining" is calculated on average daily usage. Tomorrow is not an average day. The recommendation is technically correct for normal days and dangerously wrong for tomorrow. Q3 exists precisely to catch this kind of consequence the AI isn\'t modeling.',
+    fbBad: 'Q3 (who might be affected and how?) is the check that catches this. The AI calculates "2.8 days remaining" using average daily usage. But tomorrow\'s surgical day uses 4-5x that average — meaning effective stock is less than 1 day. The standard reorder won\'t arrive in time and won\'t be enough. The people affected are tomorrow\'s surgical team facing a mid-procedure supply shortage. Q3 exists to force this consequence thinking before acting.'
+  }
+];
+
+var currentScenario = 0;
+
+function renderProgress() {
+  var p = document.getElementById('vsProgress');
+  p.innerHTML = scenarios.map(function(_, i) {
+    var cls = i < currentScenario ? 'done' : i === currentScenario ? 'active' : '';
+    return '<div class="vs-dot ' + cls + '">' + (i < currentScenario ? '✓' : (i + 1)) + '</div>';
+  }).join('');
+}
+
+function renderScenario() {
+  if (currentScenario >= scenarios.length) {
+    document.getElementById('vsContent').innerHTML = '';
+    var comp = document.createElement('div');
+    comp.className = 'vs-complete show';
+    comp.innerHTML = '<div class="vs-complete-title">✅ All Three Verified</div><div style="font-size:14px;opacity:.85;margin-top:6px;line-height:1.6;">You applied all three verification questions to real AI outputs and identified what needed investigation in each case. That is the Trust But Verify framework in action — applied before acting, not after something goes wrong.</div>';
+    document.getElementById('vsContent').appendChild(comp);
+    return;
+  }
+  renderProgress();
+  var s = scenarios[currentScenario];
+  var optsHtml = s.opts.map(function(o, oi) {
+    return '<button class="vs-opt" onclick="answerVS(' + oi + ')">' + o + '</button>';
+  }).join('');
+  document.getElementById('vsContent').innerHTML =
+    '<div class="ai-output-card">' +
+      '<div class="aoc-badge">' + s.badge + '</div>' +
+      '<div class="aoc-rec">' + s.rec + '</div>' +
+      '<div class="aoc-data">' + s.data + '</div>' +
+    '</div>' +
+    '<div class="vs-q-area">' +
+      '<div class="vsq-step-label">' + s.qStep + '</div>' +
+      '<div class="vsq-text">' + s.q + '</div>' +
+      '<div class="vs-opts">' + optsHtml + '</div>' +
+      '<div class="vs-fb" id="vsFb"></div>' +
+      '<button class="vs-next" id="vsNext" onclick="nextVS()">Next Scenario →</button>' +
+    '</div>';
+}
+
+function answerVS(optIdx) {
+  var s = scenarios[currentScenario];
+  var opts = document.querySelectorAll('.vs-opt');
+  if ([].some.call(opts, function(o) { return o.classList.contains('correct') || o.classList.contains('wrong'); })) return;
+  [].forEach.call(opts, function(o) { o.disabled = true; });
+  var correct = optIdx === s.correct;
+  opts[optIdx].classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) opts[s.correct].classList.add('correct');
+  var fb = document.getElementById('vsFb');
+  fb.className = 'vs-fb show ' + (correct ? 'ok' : 'bad');
+  fb.textContent = correct ? s.fbOk : s.fbBad;
+  document.getElementById('vsNext').classList.add('show');
+}
+
+function nextVS() {
+  currentScenario++;
+  renderScenario();
+}
+
+renderScenario();
+
+function cq(btn, correct) {
+  if (document.querySelector('.qopt.correct') || document.querySelector('.qopt.wrong')) return;
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) document.querySelectorAll('.qopt').forEach(function(o) { if (o.textContent.indexOf('Q1 check fails') > -1) o.classList.add('correct'); });
+  var fb = document.getElementById('qfb');
+  fb.className = 'qfb show ' + (correct ? 'cfb' : 'wfb');
+  fb.textContent = correct
+    ? 'Correct. This is Q1 in action: does this make sense given what you know? Your knowledge that post-holiday Tuesdays are historically high-demand directly contradicts the AI\'s "low-volume" prediction. Before reducing slots — which affects patient access — you investigate what data the AI is using. If it does not account for post-holiday patterns, the recommendation is wrong for this specific Tuesday and should not be implemented.'
+    : 'Q1 (does this make sense given what you know?) is the check that surfaces this problem. Your operational experience tells you that post-holiday Tuesdays are high-demand. The AI is predicting low volume. That contradiction is meaningful and requires investigation before reducing appointment slots — a decision that directly affects how many patients can be seen.';
+}
+
+window.addEventListener('scroll', function() { var e = document.documentElement; document.getElementById('pb').style.width = ((e.scrollTop / (e.scrollHeight - e.clientHeight)) * 100) + '%'; });
+var obs = new IntersectionObserver(function(entries) { entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(function(el) { obs.observe(el); });
+</script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Double-Check Protocol — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+.section{padding:36px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+/* Protocol steps */
+.protocol-steps{display:flex;flex-direction:column;gap:0;margin:28px 0;}
+.ps-item{display:flex;gap:0;cursor:pointer;}
+.ps-left{display:flex;flex-direction:column;align-items:center;width:56px;flex-shrink:0;}
+.ps-circle{width:48px;height:48px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:18px;font-weight:900;color:white;transition:all .2s;}
+.ps-item.active .ps-circle{background:var(--purple-dark);box-shadow:0 0 0 6px var(--purple-pale);}
+.ps-line{width:3px;flex:1;background:var(--purple-mid);min-height:12px;margin:3px 0;}
+.ps-item:last-child .ps-line{display:none;}
+.ps-right{flex:1;padding:4px 0 24px 16px;}
+.ps-title{font-size:16px;font-weight:700;color:var(--purple-dark);margin-bottom:3px;}
+.ps-sub{font-size:13px;color:var(--gray-muted);margin-bottom:0;}
+.ps-detail{font-size:14px;line-height:1.75;color:var(--gray-text);margin-top:10px;background:var(--purple-pale);border-radius:12px;padding:14px 16px;display:none;animation:fadeIn .3s ease;}
+.ps-item.active .ps-detail{display:block;}
+.ps-how{background:var(--white);border-radius:8px;padding:10px 14px;margin-top:8px;font-size:13px;line-height:1.65;}
+.ps-how-label{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.1em;margin-bottom:4px;}
+/* Interactive checklist */
+.protocol-checklist{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.pcl-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.pcl-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.pcl-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.pcl-section{margin-bottom:20px;}
+.pcl-section-label{font-size:12px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.1em;margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--purple-mid);}
+.check-item{display:flex;gap:12px;padding:13px 16px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;cursor:pointer;transition:all .2s;align-items:flex-start;margin-bottom:6px;}
+.check-item:hover{border-color:var(--purple);}
+.check-item.checked{background:var(--green-pale);border-color:var(--green);}
+.check-box{width:22px;height:22px;border:2px solid var(--purple-mid);border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;margin-top:1px;}
+.check-item.checked .check-box{background:var(--green);border-color:var(--green);}
+.check-label{font-size:13px;font-weight:600;color:var(--purple-dark);}
+.check-detail{font-size:12px;color:var(--gray-muted);margin-top:2px;line-height:1.5;}
+.pcl-progress{background:var(--purple-mid);border-radius:4px;height:8px;margin:16px 0 6px;overflow:hidden;}
+.pcl-progress-fill{height:100%;background:var(--purple);border-radius:4px;transition:width .4s ease;}
+.pcl-progress-label{font-size:12px;color:var(--gray-muted);}
+.pcl-complete{background:var(--green);border-radius:12px;padding:14px 20px;text-align:center;color:white;font-weight:700;font-size:14px;margin-top:12px;display:none;}
+/* Scenario drill */
+.scenario-drill{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.sd-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.sd-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.sd-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.sd-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.sd-tab{padding:8px 16px;border-radius:100px;border:2px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.sd-tab.active{background:var(--purple);border-color:var(--purple);color:white;}
+.sd-panel{display:none;animation:fadeIn .3s ease;}.sd-panel.active{display:block;}
+.sd-rec{background:var(--white);border-left:4px solid var(--orange);border-radius:0 12px 12px 0;padding:14px 18px;font-size:14px;line-height:1.7;color:var(--gray-text);margin-bottom:14px;}
+.sd-checks{display:flex;flex-direction:column;gap:8px;}
+.sd-check{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.5;}
+.sd-check-q{font-weight:600;color:var(--purple-dark);margin-bottom:4px;}
+.sd-check-a{color:var(--gray-text);}
+/* Quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.4 · Critical Evaluation of AI</div>
+  <h1>The Double-Check Protocol: How to Verify AI Recommendations Against Real Data Before Acting</h1>
+  <p class="hero-sub">Verification is a skill, not an attitude. This article turns "always double-check" into a specific, step-by-step protocol you can apply to any AI recommendation in healthcare operations — and includes an interactive checklist you can actually use in the field.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>The Problem With "Just Double-Check It"</h2>
+    <p>Healthcare workers are often told to verify AI outputs before acting on them. What they're rarely told is exactly what that means operationally. "Double-check it" sounds clear — but what are you checking? Against what? Using what sources? In what order? How long should it take? What do you do when the check raises a concern?</p>
+    <p>Without answers to these questions, "verify the AI output" becomes a vague instruction that different people interpret differently — and some interpret as "scan it quickly and move on." <mark>The Double-Check Protocol transforms verification from a vague standard into a repeatable, specific, learnable skill.</mark></p>
+  </div>
+  <div class="section fade-in">
+    <h2>The Four-Step Double-Check Protocol</h2>
+    <p>Click each step to expand the full guidance — including exactly what "compare with real data" means operationally and which specific questions to bring to a supervisor.</p>
+    <div class="protocol-steps" id="protocolSteps"></div>
+  </div>
+  <div class="section fade-in">
+    <h2>Your Field Checklist — Use This Before Acting on Any AI Recommendation</h2>
+    <p>This is a working tool. Click each item to check it off as you complete it. Use it the first few dozen times you verify AI recommendations — until the process becomes automatic.</p>
+    <div class="protocol-checklist">
+      <div class="pcl-label">✅ Double-Check Protocol Checklist</div>
+      <div class="pcl-title">Before Acting on an AI Recommendation</div>
+      <div class="pcl-sub">Work through all items before implementing any significant AI recommendation. Check each one as you complete it.</div>
+      <div id="checklistContent"></div>
+      <div class="pcl-progress"><div class="pcl-progress-fill" id="progressFill" style="width:0%"></div></div>
+      <div class="pcl-progress-label" id="progressLabel">0 of 12 checks complete</div>
+      <div class="pcl-complete" id="checklistComplete">✅ Full protocol complete — ready to act with documented verification.</div>
+    </div>
+  </div>
+  <div class="section fade-in">
+    <h2>Protocol in Practice: Three Scenario Drills</h2>
+    <p>See how the double-check protocol applies to three common AI recommendation types. Click each scenario tab:</p>
+    <div class="scenario-drill">
+      <div class="sd-label">🎯 Protocol Application Drills</div>
+      <div class="sd-title">How the Protocol Applies in Practice</div>
+      <div class="sd-sub">Click each scenario to see how the four protocol steps apply to that specific type of AI recommendation.</div>
+      <div class="sd-tabs">
+        <button class="sd-tab active" onclick="showDrill(0)">Staffing Recommendation</button>
+        <button class="sd-tab" onclick="showDrill(1)">Scheduling Recommendation</button>
+        <button class="sd-tab" onclick="showDrill(2)">Supply Reorder</button>
+      </div>
+      <div id="drillContainer"></div>
+    </div>
+  </div>
+  <div class="quiz fade-in">
+    <div class="quiz-label">🧠 Quick Check</div>
+    <div class="quiz-q">A nurse manager is double-checking an AI staffing recommendation. For Step 2 (compare with real data), which comparison is most appropriate?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="cq(this,false)">Compare the AI recommendation to last year's staffing levels for the same week</button>
+      <button class="qopt" onclick="cq(this,false)">Ask a colleague if the recommendation seems reasonable based on their experience</button>
+      <button class="qopt" onclick="cq(this,true)">Compare the AI's predicted patient census for the shift to the current actual census, confirmed admissions, and scheduled discharges — then check whether the recommended staffing level matches the ratio target for that actual patient count</button>
+      <button class="qopt" onclick="cq(this,false)">Check whether the recommendation was approved without modification in previous similar weeks</button>
+    </div>
+    <div class="qfb" id="qfb"></div>
+  </div>
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Key Takeaways</div>
+    <h2>What to Remember From This Article</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The four protocol steps: (1) Apply the three verification questions, (2) Compare with real current data, (3) Review relevant policies, (4) Escalate or document. In order, every time. The sequence matters — real data comes before policy review because data inconsistencies often surface concerns that change what you bring to a policy check.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>"Compare with real data" is specific, not general. For staffing: compare predicted census to actual current census and confirmed admissions/discharges. For scheduling: compare predicted fill rate to actual booked appointments in real time. For supply: compare predicted days-remaining to actual confirmed usage patterns for this specific period.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Documentation is part of the protocol, not an afterthought. The record that you verified — and what you found — is what demonstrates professional judgment and creates the audit trail that helps identify systematic AI errors over time.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+var protocolData = [
+  {num:'1', title:'Apply the Three Verification Questions',
+   sub:'Does it make sense? Is the data current? Who might be affected?',
+   detail:'Before touching any data source, run the three questions from the Trust But Verify framework through your head: (1) Does this recommendation make sense given what I know about current operations? (2) Is the data the AI used to generate this recommendation current and complete? (3) Who would be affected if this recommendation is wrong, and how? These questions take 60-90 seconds and filter out the recommendations that don\'t pass a basic logic check before you spend time on deeper verification.',
+   how:'For most routine recommendations that pass all three questions without concern, verification can proceed quickly. For any recommendation where one of the three questions raises a flag, slow down and investigate before moving to Step 2.'},
+  {num:'2', title:'Compare With Real Current Data',
+   sub:'Pull the actual numbers — do not rely on the AI\'s view of the data',
+   detail:'This is the most operationally specific step. "Compare with real data" means pulling the actual current figures from your operational systems and comparing them to what the AI used. For staffing recommendations: pull the actual current census, confirmed admissions, and discharge list — then verify the AI\'s predicted patient count matches. For scheduling: check real-time slot availability in the booking system, not just the AI\'s snapshot. For supply: verify current physical stock levels, not just the database count (which may not reflect recent high-usage periods).',
+   how:'The key is "current" — not yesterday\'s data, not last week\'s report. Pull the most recent real-time figures available. If they match what the AI is predicting, that\'s a positive signal. If they differ meaningfully, that is the gap to investigate before acting.'},
+  {num:'3', title:'Review Relevant Policies and Guidelines',
+   sub:'Does this recommendation comply with policy, regulatory requirements, and professional standards?',
+   detail:'Some AI recommendations need policy checking — not because the data is wrong, but because the recommended action may conflict with organizational policy, regulatory requirements, or professional guidelines. For staffing: does the recommended ratio comply with state staffing requirements and organizational policy? For billing: does the recommended code comply with payer guidelines and clinical documentation? For discharge: does the recommendation account for the discharge criteria in your facility\'s clinical policy?',
+   how:'You don\'t need to memorize every policy. You need to know which policies are most relevant to your role\'s common AI recommendations — and where to find them quickly when a recommendation raises a question. A 2-minute policy check is fast when you know where to look.'},
+  {num:'4', title:'Escalate or Document — Then Act',
+   sub:'Close the loop: either escalate the concern or document your verification',
+   detail:'After Steps 1-3, you have two possible paths. Path A: Everything checks out — the recommendation is consistent, data-current, and policy-compliant. Document your verification briefly: "AI recommended X. Verified against [specific data source]. Consistent with current census/fill rate/stock level. Policy check: compliant. Implementing." Path B: Something doesn\'t check out. Escalate to your supervisor, documenting what you found and why you have a concern. The escalation documentation is your professional record that you caught a potential problem.',
+   how:'Documentation doesn\'t require a novel. A one-sentence record of what you checked and what you found is sufficient for routine verifications. For significant modifications or escalations, a few sentences explaining the concern and what was done. The record exists; that\'s what matters.'}
+];
+
+var stepsContainer = document.getElementById('protocolSteps');
+protocolData.forEach(function(s, i) {
+  var el = document.createElement('div');
+  el.className = 'ps-item' + (i===0?' active':'');
+  el.innerHTML = '<div class="ps-left"><div class="ps-circle">' + s.num + '</div><div class="ps-line"></div></div>' +
+    '<div class="ps-right"><div class="ps-title">' + s.title + '</div><div class="ps-sub">' + s.sub + '</div>' +
+    '<div class="ps-detail">' + s.detail + '<div class="ps-how"><div class="ps-how-label">🎯 How to do it</div>' + s.how + '</div></div></div>';
+  el.onclick = function() {
+    document.querySelectorAll('.ps-item').forEach(function(x) { x.classList.remove('active'); });
+    el.classList.add('active');
+  };
+  stepsContainer.appendChild(el);
+});
+
+var checklistSections = [
+  {label:'Step 1: Three Verification Questions', items:[
+    {label:'Q1 checked: Does this recommendation make sense given what I currently know?', detail:'If something feels off, investigate before moving on.'},
+    {label:'Q2 checked: Is the data behind this recommendation current and complete?', detail:'Ask when the AI last updated its data and whether anything has changed since.'},
+    {label:'Q3 checked: Have I considered who is affected if this recommendation is wrong?', detail:'Name the specific people affected. This makes the stakes concrete.'}
+  ]},
+  {label:'Step 2: Real Data Comparison', items:[
+    {label:'Pulled current operational data independently (not relying on AI\'s data view)', detail:'Go to the source: actual census, actual slot bookings, actual stock levels.'},
+    {label:'Compared AI prediction to current actual figures', detail:'Do the numbers match? If there\'s a meaningful gap, investigate.'},
+    {label:'Noted any discrepancies between AI data and current reality', detail:'Even small discrepancies are worth noting. Patterns emerge over time.'}
+  ]},
+  {label:'Step 3: Policy Review', items:[
+    {label:'Checked whether the recommendation complies with relevant organizational policy', detail:'Staffing ratios, scheduling guidelines, billing requirements — whichever apply here.'},
+    {label:'Checked whether the recommendation complies with any regulatory requirements', detail:'State staffing laws, Medicare/Medicaid billing rules, Joint Commission standards.'},
+    {label:'No policy conflicts identified, or conflicts noted for escalation', detail:'A policy conflict is always an escalation trigger, not an override authorization.'}
+  ]},
+  {label:'Step 4: Documentation & Action', items:[
+    {label:'Documented what I verified and what I found', detail:'One sentence is enough for routine verifications.'},
+    {label:'Escalated to supervisor if any step raised a concern I could not resolve', detail:'Uncertainty itself is a signal to escalate, not to push through.'},
+    {label:'Ready to act (or have escalated) — verification complete', detail:'The record exists. The loop is closed.'}
+  ]}
+];
+
+var totalItems = checklistSections.reduce(function(t, s) { return t + s.items.length; }, 0);
+var checkedCount = 0;
+var clContent = document.getElementById('checklistContent');
+
+checklistSections.forEach(function(section) {
+  var secDiv = document.createElement('div');
+  secDiv.className = 'pcl-section';
+  secDiv.innerHTML = '<div class="pcl-section-label">' + section.label + '</div>';
+  section.items.forEach(function(item) {
+    var el = document.createElement('div');
+    el.className = 'check-item';
+    el.innerHTML = '<div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="display:none" class="cbSvg"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="check-label">' + item.label + '</div><div class="check-detail">' + item.detail + '</div></div>';
+    el.onclick = function() {
+      var wasChecked = el.classList.contains('checked');
+      el.classList.toggle('checked');
+      el.querySelector('.cbSvg').style.display = el.classList.contains('checked') ? 'block' : 'none';
+      checkedCount += el.classList.contains('checked') ? 1 : -1;
+      var pct = Math.round((checkedCount / totalItems) * 100);
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressLabel').textContent = checkedCount + ' of ' + totalItems + ' checks complete';
+      document.getElementById('checklistComplete').style.display = checkedCount === totalItems ? 'block' : 'none';
+    };
+    secDiv.appendChild(el);
+  });
+  clContent.appendChild(secDiv);
+});
+
+var drills = [
+  {label:'Staffing',
+   rec:'AI recommends: Reduce overnight nursing on Floor 3 from 4 nurses to 3 nurses based on projected low census (avg 14 patients). Current census: 19 patients.',
+   checks:[
+     {q:'Step 1: Does this pass the Q1 check?', a:'No — immediately. The AI predicts 14 patients as the basis for its recommendation, but current census is already 19. Before even running the protocol, Q1 (does this make sense?) fails. Do not proceed to implementation without investigating this gap.'},
+     {q:'Step 2: Compare with real data — what is the actual census right now?', a:'Check the patient census system: 19 patients confirmed. Check pending admissions from ER: 2 patients in transit. Check confirmed discharges: 3 patients. Net projected overnight census: 18 patients. The AI\'s "14 patient" baseline does not match current reality. At 18 patients, a 1:4.5 ratio (3 nurses) is below safe thresholds.'},
+     {q:'Step 3: Does the recommendation comply with staffing policy?', a:'At 18 patients, reducing to 3 nurses would result in a 1:6 ratio, which violates the unit\'s 1:5 maximum policy and state guidelines for medical-surgical floors. Policy check fails. Escalation required.'},
+     {q:'Step 4: What action and documentation?', a:'Escalate to supervisor with documentation: "AI recommended reducing to 3 nurses based on projected census of 14. Actual current census 19, projected overnight 18. Reduction would violate ratio policy. Escalated to [supervisor name] for decision on additional float coverage."'}
+   ]},
+  {label:'Scheduling',
+   rec:'AI recommends: Overbook Wednesday 2PM by 1 patient. Historical Wednesday 2PM no-show rate: 29%. Confidence: 82%.',
+   checks:[
+     {q:'Step 1: Does this pass the three verification questions?', a:'Q1: Check passes tentatively — 29% is a meaningful no-show rate. Q2: When was this model last updated? Is the reminder system that launched 3 months ago reflected in the data? Q3: Who is affected if all patients show — the extra booked patient will wait 30-45 minutes. Flag Q2 for investigation.'},
+     {q:'Step 2: Compare with real data — what is the actual recent no-show rate for Wednesday 2PM?', a:'Pull the last 4 weeks of actual no-show data for Wednesday 2PM. If your new reminder system has been running for 3 months, check whether the actual rate has dropped. If actual rate is now 14%, the AI\'s 29% prediction is outdated and overbooking is not warranted.'},
+     {q:'Step 3: Is there a policy on overbooking approval?', a:'Check whether your organization requires supervisor approval for overbooking decisions. Many practices do — specifically because overbooking decisions have direct patient impact. If approval is required, escalate before implementing.'},
+     {q:'Step 4: What action and documentation?', a:'If actual recent no-show rate confirms ~29%: approve overbooking and document "Verified: actual 4-week no-show rate for this slot = 31%. Policy check: compliant. Overbooking approved." If actual rate shows lower: modify recommendation and document the actual rate data that changed the decision.'}
+   ]},
+  {label:'Supply',
+   rec:'AI recommends: Reorder nitrile gloves, standard quantity (4 boxes). Current stock: 2.1 days remaining at average daily usage.',
+   checks:[
+     {q:'Step 1: Does this pass the three verification questions?', a:'Q3 requires attention: who is affected if stock runs out? If tomorrow includes a high-procedure day with 4x normal glove usage, "2.1 days remaining" at average usage is actually less than 1 day at tomorrow\'s usage. Check the procedure calendar before accepting this as a routine reorder.'},
+     {q:'Step 2: Compare with real data — check the procedure calendar', a:'Check tomorrow\'s procedure schedule: 3 surgical cases confirmed, typically using 3.5x normal daily glove supply. At that rate, current stock covers less than 18 hours — not 2.1 days. Standard reorder (4 boxes) arrives in 2 days. Gap identified: stock will run out before reorder arrives.'},
+     {q:'Step 3: Is there a policy for emergency supply situations?', a:'Check your supply shortage protocol: Can you place an emergency same-day order? Is there a vendor who can provide partial supply today? Can another department loan supplies? Policy check is about finding the available options, not just confirming the problem.'},
+     {q:'Step 4: What action and documentation?', a:'Place emergency same-day order for 8 boxes (not standard 4), note the procedure calendar as the trigger. Document: "Standard AI reorder of 4 boxes insufficient given tomorrow\'s surgical schedule. Emergency order of 8 boxes placed to [vendor]. Rationale: 3x normal usage expected, 2.1 days standard stock insufficient."'}
+   ]}
+];
+
+function showDrill(i) {
+  document.querySelectorAll('.sd-tab').forEach(function(t, ti) { t.classList.toggle('active', ti === i); });
+  var d = drills[i];
+  var checksHtml = d.checks.map(function(c) {
+    return '<div class="sd-check"><div class="sd-check-q">' + c.q + '</div><div class="sd-check-a">' + c.a + '</div></div>';
+  }).join('');
+  document.getElementById('drillContainer').innerHTML =
+    '<div class="sd-panel active">' +
+    '<div class="sd-rec"><strong>AI Recommendation:</strong> ' + d.rec + '</div>' +
+    '<div class="sd-checks">' + checksHtml + '</div></div>';
+}
+showDrill(0);
+
+function cq(btn, correct) {
+  if (document.querySelector('.qopt.correct') || document.querySelector('.qopt.wrong')) return;
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) document.querySelectorAll('.qopt').forEach(function(o) { if (o.textContent.indexOf('current actual census') > -1) o.classList.add('correct'); });
+  var fb = document.getElementById('qfb');
+  fb.className = 'qfb show ' + (correct ? 'cfb' : 'wfb');
+  fb.textContent = correct
+    ? 'Correct. Step 2 for staffing verification is pulling the actual real-time census data and confirmed admission/discharge figures — then checking whether the AI\'s predicted patient count matches. "Compare with real data" is specific: go to the actual system, pull the actual current numbers, and verify that the AI\'s prediction reflects reality. This is meaningfully different from asking a colleague or checking historical figures from last year.'
+    : '"Compare with real data" in a staffing context means pulling the actual current operational figures: what is the census right now, what admissions are confirmed, what discharges are scheduled? Then verify that the AI\'s recommended staffing level produces an appropriate ratio for those actual patient numbers — not historical averages, not a colleague\'s impression, and not last year\'s data for the same week.';
+}
+
+window.addEventListener('scroll', function() { var e = document.documentElement; document.getElementById('pb').style.width = ((e.scrollTop / (e.scrollHeight - e.clientHeight)) * 100) + '%'; });
+var obs = new IntersectionObserver(function(entries) { entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(function(el) { obs.observe(el); });
+</script>
+</body>
+</html>

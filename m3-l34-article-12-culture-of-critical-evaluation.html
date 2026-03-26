@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Building a Culture of Critical Evaluation — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+.section{padding:36px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* COMPARISON TABLE */
+.compare-table{width:100%;border-collapse:collapse;border-radius:16px;overflow:hidden;border:1.5px solid var(--purple-mid);margin:24px 0;}
+.compare-table th{padding:12px 16px;font-size:13px;font-weight:700;text-align:left;}
+.compare-table th:first-child{background:var(--gray-soft);color:var(--gray-muted);}
+.compare-table th.bad-col{background:var(--red-pale);color:var(--red);}
+.compare-table th.good-col{background:var(--green-pale);color:var(--green);}
+.compare-table td{padding:11px 16px;font-size:13px;border-bottom:1px solid var(--purple-mid);vertical-align:top;line-height:1.55;}
+.compare-table tr:last-child td{border-bottom:none;}
+.compare-table tr:nth-child(even) td{background:var(--gray-soft);}
+.compare-table td.situation{font-weight:600;color:var(--gray-text);}
+.compare-table td.bad-cell{color:var(--red);}
+.compare-table td.good-cell{color:var(--green);}
+
+/* PILLAR CARDS */
+.pillars{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
+.pillar{border:1.5px solid var(--purple-mid);border-radius:16px;overflow:hidden;cursor:pointer;}
+.pillar-header{display:flex;gap:14px;align-items:center;padding:18px 20px;background:var(--white);}
+.pillar-num{width:36px;height:36px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;color:white;font-size:14px;flex-shrink:0;}
+.pillar-title{font-size:15px;font-weight:700;color:var(--purple-dark);flex:1;}
+.pillar-expand{font-size:18px;color:var(--purple-mid);transition:transform .3s;}
+.pillar.open .pillar-expand{transform:rotate(180deg);}
+.pillar-body{display:none;padding:0 20px 20px;background:var(--white);}
+.pillar.open .pillar-body{display:block;animation:fadeIn .3s ease;}
+.pillar-what{background:var(--gray-soft);border-radius:10px;padding:12px 16px;font-size:13px;line-height:1.7;color:var(--gray-text);margin-bottom:8px;}
+.pillar-how{background:var(--purple-pale);border-radius:10px;padding:12px 16px;font-size:13px;line-height:1.7;color:var(--purple-dark);}
+.pillar-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.pillar-what .pillar-label{color:var(--gray-muted);}
+.pillar-how .pillar-label{color:var(--purple);}
+
+/* SCENARIO EXPLORER */
+.scenario-explorer{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.se-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.se-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.se-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.se-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.se-tab{padding:8px 16px;border-radius:100px;border:2px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.se-tab.active{background:var(--purple);border-color:var(--purple);color:white;}
+.se-panel{display:none;animation:fadeIn .3s ease;}.se-panel.active{display:block;}
+.se-situation{background:var(--white);border-left:4px solid var(--orange);border-radius:0 10px 10px 0;padding:13px 16px;font-size:14px;line-height:1.7;color:var(--gray-text);margin-bottom:14px;}
+.se-comparison{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.se-col{border-radius:12px;padding:16px;}
+.se-col.bad{background:var(--red-pale);border:1.5px solid #FCA5A5;}
+.se-col.good{background:var(--green-pale);border:1.5px solid #86EFAC;}
+.se-col-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.se-col.bad .se-col-label{color:var(--red);}
+.se-col.good .se-col-label{color:var(--green);}
+.se-col-text{font-size:13px;line-height:1.75;color:var(--gray-text);}
+
+/* SELF ASSESSMENT */
+.self-assess{background:var(--purple-dark);border-radius:20px;padding:28px 32px;margin:28px 0;color:white;}
+.sa-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;opacity:.6;margin-bottom:8px;}
+.sa-title{font-family:'Fraunces',serif;font-size:22px;font-weight:900;margin-bottom:16px;}
+.sa-items{display:flex;flex-direction:column;gap:8px;}
+.sa-item{display:flex;gap:12px;padding:12px 16px;background:rgba(255,255,255,.08);border-radius:10px;cursor:pointer;transition:all .2s;align-items:flex-start;}
+.sa-item:hover{background:rgba(255,255,255,.14);}
+.sa-item.checked{background:rgba(74,222,128,.15);}
+.sa-box{width:20px;height:20px;border:2px solid rgba(255,255,255,.3);border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;margin-top:1px;}
+.sa-item.checked .sa-box{background:var(--green);border-color:var(--green);}
+.sa-text{font-size:13px;color:rgba(255,255,255,.85);line-height:1.55;}
+.sa-result{margin-top:16px;padding:14px 18px;border-radius:12px;font-size:14px;line-height:1.65;display:none;}
+.sa-result.show{display:block;background:rgba(255,255,255,.1);color:white;}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.se-comparison{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.4 · Critical Evaluation of AI</div>
+  <h1>Building a Culture of Critical Evaluation: What It Looks Like When a Healthcare Team Takes AI Oversight Seriously</h1>
+  <p class="hero-sub">Individual verification habits matter. But the environment around you matters just as much. This article is for anyone who sees themselves in a leadership or supervisory role — or who wants to understand what a genuinely well-functioning AI oversight culture looks like from the outside.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>Why Individual Habits Aren't Enough</h2>
+    <p>Everything in this lesson so far has focused on what individual healthcare workers should do when they receive an AI recommendation. That foundation is essential — no culture of critical evaluation survives without individuals who are committed to genuine verification.</p>
+    <p>But individuals operate in environments. Those environments either support rigorous AI oversight or undermine it. A scheduling coordinator who wants to do careful verification but is working in an organization where "we just approve what the AI says" is the implicit norm will face constant friction. A nurse manager committed to thorough review who works in a culture where there's no time allocated for that review will cut corners out of necessity, not negligence.</p>
+    <p><mark>Culture is the collection of norms, expectations, practices, and incentives that shape what people do when nobody is watching. Building a culture of critical AI evaluation means designing those norms intentionally.</mark></p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Two Teams — Same AI Tool, Different Cultures</h2>
+    <p>The same AI staffing tool, deployed in two different team cultures, can produce dramatically different oversight quality. See the contrast:</p>
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Situation</th>
+            <th class="bad-col">❌ Team A — Compliance Culture</th>
+            <th class="good-col">✅ Team B — Critical Evaluation Culture</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="situation">Morning review of AI staffing recommendations</td><td class="bad-cell">Manager scans dashboard and approves all recommendations in under 2 minutes. "It's almost always right."</td><td class="good-cell">Manager reads each recommendation against census report, notes two days that need verification, approves three, marks two for morning check-in.</td></tr>
+          <tr><td class="situation">A staff nurse questions an AI staffing recommendation</td><td class="bad-cell">"That's what the system says — I'm sure the data is right." Question is dismissed.</td><td class="good-cell">"Good catch — what specifically concerns you? Let's look at the data behind it together."</td></tr>
+          <tr><td class="situation">AI recommendation turns out to be wrong</td><td class="bad-cell">Blame is placed on the AI tool. No process review. Resume using the tool the same way.</td><td class="good-cell">Team debriefs: what verification step would have caught this? Is this a systematic error or one-time miss? Does the model need to be updated?</td></tr>
+          <tr><td class="situation">New team member joins</td><td class="bad-cell">Taught to "use the dashboard" and "approve what the system recommends unless something looks way off."</td><td class="good-cell">Walks through the verification protocol, learns the specific checks used for each recommendation type, shown examples of modifications the team has made and why.</td></tr>
+          <tr><td class="situation">AI override rate over time</td><td class="bad-cell">Near 0% — nobody questions the system. Seen as proof the AI is working well.</td><td class="good-cell">15-30% modification rate, with documentation. Seen as evidence that human judgment is adding value to AI recommendations.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Six Pillars of a Critical Evaluation Culture — Click Each to Explore</h2>
+    <div class="pillars" id="pillarsContainer"></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What It Sounds Like Day-to-Day</h2>
+    <p>Culture lives in language. Here are three scenarios showing what critical evaluation culture sounds like in ordinary team interactions:</p>
+    <div class="scenario-explorer">
+      <div class="se-label">💬 Culture in Practice</div>
+      <div class="se-title">The Same Situation — Two Team Cultures</div>
+      <div class="se-sub">Click each scenario to see how compliance culture and critical evaluation culture respond differently to the same moment.</div>
+      <div class="se-tabs">
+        <button class="se-tab active" onclick="showSE(0)">AI Override Moment</button>
+        <button class="se-tab" onclick="showSE(1)">Staff Raises a Concern</button>
+        <button class="se-tab" onclick="showSE(2)">New Tool Introduction</button>
+      </div>
+      <div id="seContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>For Students Who Will Be in Leadership Roles</h2>
+    <p>If your career path involves supervisory or management responsibilities — even in a small clinic with 4 staff — these are the highest-leverage actions you can take to build critical evaluation culture:</p>
+    <div style="background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:24px;margin:20px 0;">
+      <p style="font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:12px;">The three things managers do that shape AI oversight culture most:</p>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;gap:12px;"><div style="font-size:20px;flex-shrink:0;">🗣️</div><div><div style="font-size:14px;font-weight:700;color:var(--gray-text);margin-bottom:3px;">Model verification out loud, regularly</div><div style="font-size:13px;line-height:1.65;color:var(--gray-text);">When you review an AI recommendation, narrate what you're checking and why — even briefly. "I'm looking at Thursday's recommendation against the census count from this morning" or "I'm modifying this because..." Staff absorb norms from watching managers, not just from being told what to do.</div></div></div>
+        <div style="display:flex;gap:12px;"><div style="font-size:20px;flex-shrink:0;">✅</div><div><div style="font-size:14px;font-weight:700;color:var(--gray-text);margin-bottom:3px;">Celebrate good catches — including catches that turn out not to need correction</div><div style="font-size:13px;line-height:1.65;color:var(--gray-text);">When a staff member flags a concern about an AI recommendation — even if the flag turns out to be unfounded — recognize it as good practice, not unnecessary friction. "Good catch to double-check that" creates a different norm than "it was fine, you didn't need to worry about it."</div></div></div>
+        <div style="display:flex;gap:12px;"><div style="font-size:20px;flex-shrink:0;">📊</div><div><div style="font-size:14px;font-weight:700;color:var(--gray-text);margin-bottom:3px;">Track and discuss AI accuracy metrics as a team</div><div style="font-size:13px;line-height:1.65;color:var(--gray-text);">Monthly: compare AI predictions to actual outcomes for staffing, scheduling, and supply. When the model is accurate, the team knows why to trust it. When the model is drifting, the team spots it before it compounds. Treating AI accuracy as a team metric — not IT's problem — embeds oversight into normal work.</div></div></div>
+      </div>
+    </div>
+    <div class="pull-quote"><p>The organizations that use AI most effectively are not the ones that trust it most. They are the ones that verify it most consistently — and make that verification a team norm, not an individual burden.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Where Are You Now? A Quick Self-Assessment</h2>
+    <p>Even as a student or early-career professional, you can assess the culture of any organization you join. Check off which of these you would be comfortable doing on your first month in a new healthcare operations role:</p>
+    <div class="self-assess">
+      <div class="sa-label">🔍 Personal Readiness Check</div>
+      <div class="sa-title">Critical Evaluation Readiness</div>
+      <div class="sa-items" id="saItems"></div>
+      <div class="sa-result" id="saResult"></div>
+    </div>
+  </div>
+
+  <div class="quiz fade-in">
+    <div class="quiz-label">🧠 Quick Check</div>
+    <div class="quiz-q">A new healthcare administrator joins a clinic. On her second week, she notices that the team approves all AI scheduling recommendations without review — "we've been doing it this way for a year, it works great." She believes the practice is risky. What is the most effective first step she can take?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="cq(this,false)">Send a team-wide email explaining why the current practice is risky and what should change</button>
+      <button class="qopt" onclick="cq(this,false)">Escalate immediately to hospital leadership — this is a compliance risk that needs formal action</button>
+      <button class="qopt" onclick="cq(this,true)">Start modeling the verification behavior herself in her own work, and look for a low-stakes moment to ask a genuine question about an AI recommendation in a team setting — creating a natural opening for discussion without criticizing the existing culture</button>
+      <button class="qopt" onclick="cq(this,false)">Implement a formal verification protocol immediately, starting with the next AI recommendation the team receives</button>
+    </div>
+    <div class="qfb" id="qfb"></div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Key Takeaways</div>
+    <h2>What to Remember From This Article</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Culture shapes individual behavior more powerfully than individual intention. A team where "we just approve what the AI says" is the implicit norm will produce rubber-stamping even from individuals committed to verification. Building culture means designing the norms intentionally.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The six pillars: psychological safety for questioning AI, verification as a visible practice, normalized override with documentation, regular accuracy feedback loops, clear escalation paths, and time allocated for actual verification. These aren't rules — they're design decisions about what the environment reinforces.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The most effective first step for anyone entering a new role is modeling the behavior yourself — narrating your verification out loud, celebrating catches, asking genuine questions about AI recommendations. Culture changes through repeated visible behavior more reliably than through policy announcements.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+var pillarsData = [
+  {title:'Psychological Safety for Questioning AI Recommendations',
+   what:'In a critical evaluation culture, staff at every level feel completely safe asking "does this recommendation make sense?" without it being interpreted as challenging the tool, challenging leadership, or creating friction. If questioning an AI output is seen as unusual, disruptive, or risky for the person asking — the human oversight layer will be silent even when it shouldn\'t be.',
+   how:'Managers create this by explicitly and regularly inviting questions about AI recommendations in team settings. The phrase "What does anyone notice that might affect this recommendation?" asked regularly, with genuine curiosity about the answers, establishes the norm that questioning is expected.'},
+  {title:'Verification as a Visible, Routine Practice',
+   what:'In a critical evaluation culture, verification isn\'t something that happens silently in the background or only when something looks wrong. It happens visibly and routinely — managers narrate what they\'re checking, teams have brief review discussions before acting on significant recommendations, and the process itself is normalized as standard professional practice.',
+   how:'The tool is the brief morning check where the manager compares AI census predictions to actual numbers before finalizing staffing. The habit that produces this is managers doing it out loud — "I\'m looking at the AI\'s overnight recommendation against the census count from 6AM" — so that the team absorbs it as standard process.'},
+  {title:'Override Is Normalized and Documented',
+   what:'In a critical evaluation culture, modifying or rejecting an AI recommendation is routine professional judgment — not an unusual event that draws attention. Staff who override document their reasoning as a matter of course, and the team treats a healthy modification rate as evidence that human judgment is actively adding value, not that the AI is failing.',
+   how:'Managers lead by documenting their own overrides clearly and sharing the reasoning in team settings: "I modified Thursday\'s staffing because the post-holiday census pattern didn\'t fit the model\'s historical baseline." This normalizes override as professional judgment, not system rebellion.'},
+  {title:'Regular AI Accuracy Feedback Loops',
+   what:'In a critical evaluation culture, the team regularly compares AI predictions to actual outcomes — not to criticize the tool, but to calibrate their trust appropriately. A model that\'s been highly accurate for 3 months warrants more baseline trust than one that\'s been off consistently. Regular feedback makes this calibration conscious rather than intuitive.',
+   how:'A monthly 15-minute team review: how accurate were this month\'s staffing predictions vs. actual census? How did scheduling fill rates compare to AI predictions? Were there consistent gaps in specific areas? This session creates shared data literacy and keeps the human oversight layer informed about the tool\'s current reliability.'},
+  {title:'Clear Escalation Paths That People Actually Use',
+   what:'A critical evaluation culture makes it easy to escalate concerns about AI recommendations to the right person. If the escalation path is unclear, too bureaucratic, or informally discouraged, concerns will be swallowed rather than surfaced. Concerns that aren\'t surfaced are exactly the ones that compound into larger problems.',
+   how:'Clear escalation means: every team member knows who to tell if an AI recommendation seems systematically off, that person is responsive, and raising concerns is recognized as professional responsibility, not squeaky-wheel behavior. Even a simple "bring it directly to me" from a manager is an escalation path if the team trusts it.'},
+  {title:'Time Is Actually Allocated for Verification',
+   what:'A critical evaluation culture doesn\'t just tell people to verify — it allocates time for verification. If every minute of a nurse manager\'s morning is filled with tasks before the AI recommendations even need to be reviewed, genuine verification is structurally impossible regardless of individual commitment. Culture without structural support is aspiration, not practice.',
+   how:'For most healthcare operations roles, appropriate verification doesn\'t require hours — it requires 5-15 minutes of protected morning time for reviewing significant recommendations. Organizations that take AI oversight seriously protect this time in schedule design, not just in policy documents.'}
+];
+
+var container = document.getElementById('pillarsContainer');
+pillarsData.forEach(function(p, i) {
+  var div = document.createElement('div');
+  div.className = 'pillar';
+  div.id = 'pl' + i;
+  div.innerHTML =
+    '<div class="pillar-header" onclick="togglePillar(\'pl' + i + '\')">' +
+    '<div class="pillar-num">' + (i+1) + '</div>' +
+    '<div class="pillar-title">' + p.title + '</div>' +
+    '<div class="pillar-expand">▼</div></div>' +
+    '<div class="pillar-body">' +
+    '<div class="pillar-what"><div class="pillar-label">📋 What This Looks Like</div>' + p.what + '</div>' +
+    '<div class="pillar-how"><div class="pillar-label">🎯 How to Build It</div>' + p.how + '</div>' +
+    '</div>';
+  container.appendChild(div);
+});
+
+function togglePillar(id) {
+  document.getElementById(id).classList.toggle('open');
+  var exp = document.getElementById(id).querySelector('.pillar-expand');
+  exp.textContent = document.getElementById(id).classList.contains('open') ? '▲' : '▼';
+}
+
+var seScenarios = [
+  {label:'AI Override Moment',
+   situation:'A nurse manager reviews the AI staffing recommendation and decides to add a nurse to Thursday night — because she knows a high-acuity patient is being transferred in Thursday afternoon and the AI doesn\'t have that information yet.',
+   bad:'She makes the change quietly without explanation. No documentation. When a colleague asks why Thursday night has an extra nurse, the response is "just a gut feeling." The team doesn\'t learn from this, and the override doesn\'t get tracked.',
+   good:'"I\'m adding a nurse to Thursday night. The AI is recommending 3 based on the rolling census, but we have an ICU step-down transfer coming in Thursday afternoon — that changes the picture. I\'m documenting the reason so we can see if transfers like this consistently require this kind of adjustment."'},
+  {label:'Staff Raises a Concern',
+   situation:'A scheduling coordinator flags to her manager that the AI scheduling tool seems to be generating overbooking recommendations that are consistently higher than actual no-show rates for Thursday afternoon slots.',
+   bad:'"The system knows the historical patterns — if it\'s recommending overbooking, the no-show rates must be there. Let\'s just keep using it as it is." Concern is dismissed. The pattern continues unexamined.',
+   good:'"That\'s a really important observation. Let\'s pull the last 6 weeks of Thursday afternoon data and compare actual no-show rates to what the AI predicted. If there\'s a consistent gap, we have either a data currency issue or a model calibration problem — and we need to flag it to IT for review. Great catch."'},
+  {label:'New Tool Introduction',
+   situation:'A practice is rolling out a new AI-assisted billing review tool. The manager is introducing it to the billing team for the first time.',
+   bad:'"Starting Monday, we\'re using this new billing assistant. It reviews claims before submission and flags issues. Go through the flags and approve or reject. It\'s pretty good — should save you a lot of time." No verification protocol discussed. No policy check process described. No escalation path for concerns established.',
+   good:'"Starting Monday we\'re piloting this billing tool. Here\'s how we\'ll use it: you review the AI\'s code suggestions against the clinical documentation for each claim before submission — the tool is a first pass, not a final answer. I\'ll share a 5-question check to run for each flagged claim. For anything that looks like a systematic issue, bring it straight to me. We\'ll review together after the first two weeks to see how it\'s performing."'}
+];
+
+function showSE(i) {
+  document.querySelectorAll('.se-tab').forEach(function(t, ti) { t.classList.toggle('active', ti === i); });
+  var s = seScenarios[i];
+  document.getElementById('seContainer').innerHTML =
+    '<div class="se-panel active">' +
+    '<div class="se-situation"><strong>The situation:</strong> ' + s.situation + '</div>' +
+    '<div class="se-comparison">' +
+    '<div class="se-col bad"><div class="se-col-label">❌ Compliance Culture</div><div class="se-col-text">' + s.bad + '</div></div>' +
+    '<div class="se-col good"><div class="se-col-label">✅ Critical Evaluation Culture</div><div class="se-col-text">' + s.good + '</div></div>' +
+    '</div></div>';
+}
+showSE(0);
+
+var saChecks = [
+  'Ask my manager what verification process the team uses for AI staffing or scheduling recommendations',
+  'Flag a concern about an AI recommendation to my supervisor without worrying about seeming difficult',
+  'Document my reasoning when I modify or override an AI recommendation',
+  'Notice when an AI tool\'s predictions seem consistently off — and say something about it',
+  'Articulate the three verification questions from this module without looking them up',
+  'Describe one specific example of an AI failure in healthcare operations and what the verification gap was'
+];
+var saChecked = 0;
+var saContainer = document.getElementById('saItems');
+saChecks.forEach(function(c, i) {
+  var div = document.createElement('div');
+  div.className = 'sa-item';
+  div.innerHTML = '<div class="sa-box"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" style="display:none" class="sasvg"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="sa-text">' + c + '</div>';
+  div.onclick = function() {
+    var wasChecked = div.classList.contains('checked');
+    div.classList.toggle('checked');
+    div.querySelector('.sasvg').style.display = div.classList.contains('checked') ? 'block' : 'none';
+    saChecked += div.classList.contains('checked') ? 1 : -1;
+    var r = document.getElementById('saResult');
+    if (saChecked >= 5) {
+      r.className = 'sa-result show';
+      r.textContent = 'Strong readiness. You have the habits and knowledge to engage critically with AI tools from day one — and to recognize when a team culture doesn\'t support that. The most valuable thing you can do is model these behaviors visibly from your first week.';
+    } else if (saChecked >= 3) {
+      r.className = 'sa-result show';
+      r.textContent = 'Solid foundation. A few of these items may benefit from more practice — particularly the ones around documentation and flagging systematic concerns. Focus on making those habitual before starting a new role.';
+    } else if (saChecked >= 1) {
+      r.className = 'sa-result show';
+      r.textContent = 'Keep building. Revisiting the verification articles in this lesson and practicing the specific language and process described there will strengthen your readiness significantly before you need to apply these in a real context.';
+    } else {
+      r.style.display = 'none';
+    }
+  };
+  saContainer.appendChild(div);
+});
+
+function cq(btn, correct) {
+  if (document.querySelector('.qopt.correct') || document.querySelector('.qopt.wrong')) return;
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) document.querySelectorAll('.qopt').forEach(function(o) { if (o.textContent.indexOf('modeling the verification') > -1) o.classList.add('correct'); });
+  var fb = document.getElementById('qfb');
+  fb.className = 'qfb show ' + (correct ? 'cfb' : 'wfb');
+  fb.textContent = correct
+    ? 'Correct. Culture changes most effectively through visible behavior modeling, not announcements. Sending an email about risk or immediately implementing a formal protocol — before earning trust and understanding the team dynamics — is likely to create defensiveness rather than genuine change. Modeling the behavior herself creates a visible example that opens natural conversations. The low-stakes question in a team setting creates space for the team to engage with verification without feeling criticized for past practice.'
+    : 'The most effective culture change happens through visible behavior modeling, not formal announcements. A team-wide email on her second week is likely to feel like criticism of the existing practice and the people who established it. Immediate escalation to leadership treats a norm problem as a compliance violation before she has enough context. The most effective first step is modeling the behavior she wants to see — in her own work, visibly — and creating a natural opening for conversation rather than a formal confrontation.';
+}
+
+window.addEventListener('scroll', function() { var e = document.documentElement; document.getElementById('pb').style.width = ((e.scrollTop / (e.scrollHeight - e.clientHeight)) * 100) + '%'; });
+var obs = new IntersectionObserver(function(entries) { entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(function(el) { obs.observe(el); });
+</script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Suggestions Are Not Instructions — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}.section{padding:36px 0 0;}h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:24px 0;}.card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px;}.card-icon{font-size:28px;margin-bottom:8px;}.card-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}.card-body{font-size:13px;line-height:1.65;color:var(--gray-text);}
+.story-case{border:1.5px solid var(--purple-mid);border-radius:20px;overflow:hidden;margin-bottom:16px;cursor:pointer;}
+.sc-header{display:flex;gap:14px;align-items:center;padding:18px 22px;background:var(--white);}.sc-icon{font-size:24px;}.sc-meta{flex:1;}.sc-title{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:2px;}.sc-tag{font-size:11px;color:var(--gray-muted);font-weight:600;}.sc-exp{font-size:18px;color:var(--purple-mid);transition:transform .3s;}.story-case.open .sc-exp{transform:rotate(180deg);}
+.sc-body{display:none;background:var(--white);padding:0 22px 20px;}.story-case.open .sc-body{display:block;animation:fadeIn .3s ease;}
+.sc-section{border-radius:10px;padding:12px 16px;margin-bottom:8px;font-size:13px;line-height:1.7;}
+.sc-what{background:var(--gray-soft);}.sc-skipped{background:var(--red-pale);}.sc-lesson{background:var(--green-pale);}
+.sc-slabel{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;color:var(--gray-muted);}
+.sc-skipped .sc-slabel{color:var(--red);}.sc-lesson .sc-slabel{color:var(--green);}
+.checklist-container{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.cl-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.cl-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.cl-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.check-item{display:flex;gap:12px;padding:14px 18px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;cursor:pointer;transition:all .2s;align-items:flex-start;margin-bottom:8px;}
+.check-item:hover{border-color:var(--purple);}.check-item.checked{background:var(--green-pale);border-color:var(--green);}
+.check-box{width:22px;height:22px;border:2px solid var(--purple-mid);border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;margin-top:2px;}
+.check-item.checked .check-box{background:var(--green);border-color:var(--green);}
+.check-label{font-size:14px;font-weight:600;color:var(--purple-dark);}.check-detail{font-size:13px;color:var(--gray-muted);margin-top:2px;line-height:1.5;}
+.tab-nav{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.tab-btn{padding:9px 16px;border-radius:100px;border:2px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.tab-btn.active{background:var(--purple);border-color:var(--purple);color:white;}
+.tab-panel{display:none;animation:fadeIn .3s ease;}.tab-panel.active{display:block;}
+.panel-content{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:20px;}
+.panel-header{font-size:12px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.1em;margin-bottom:10px;}
+.validation-flow{display:flex;flex-direction:column;gap:8px;margin:20px 0;}
+.vf-step{display:flex;gap:12px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;padding:14px 16px;cursor:pointer;transition:all .2s;}
+.vf-step:hover{border-color:var(--purple);}.vf-step.open{border-color:var(--purple);background:var(--purple-pale);}
+.vf-num{width:28px;height:28px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;color:white;font-size:12px;flex-shrink:0;}
+.vf-title{font-size:14px;font-weight:700;color:var(--purple-dark);}.vf-detail{font-size:13px;line-height:1.65;color:var(--gray-text);margin-top:8px;display:none;}
+.vf-step.open .vf-detail{display:block;}
+.scenario-tabs{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.override-framework{display:flex;flex-direction:column;gap:10px;margin:24px 0;}
+.of-item{border-radius:14px;overflow:hidden;border:1.5px solid var(--purple-mid);cursor:pointer;}
+.of-header{display:flex;gap:12px;align-items:center;padding:16px 18px;background:var(--white);}
+.of-icon{font-size:22px;}.of-title{font-size:14px;font-weight:700;color:var(--purple-dark);flex:1;}.of-exp{font-size:14px;color:var(--purple);font-weight:700;}
+.of-body{display:none;padding:0 18px 16px;background:var(--white);}
+.of-item.open .of-body{display:block;animation:fadeIn .3s ease;}
+.of-when{background:var(--orange-pale);border-radius:8px;padding:10px 14px;font-size:13px;line-height:1.65;margin-bottom:8px;}
+.of-how{background:var(--green-pale);border-radius:8px;padding:10px 14px;font-size:13px;line-height:1.65;}
+.of-when-label{font-size:10px;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.of-how-label{font-size:10px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.prio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0;}
+.prio-card{border-radius:14px;padding:18px;text-align:center;}
+.prio-card.high{background:var(--red-pale);border:2px solid #FCA5A5;}
+.prio-card.med{background:var(--orange-pale);border:2px solid #FDE68A;}
+.prio-card.low{background:var(--green-pale);border:2px solid #86EFAC;}
+.prio-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;}
+.prio-card.high .prio-label{color:var(--red);}.prio-card.med .prio-label{color:var(--orange);}.prio-card.low .prio-label{color:var(--green);}
+.prio-title{font-size:14px;font-weight:700;color:var(--gray-text);margin-bottom:6px;}
+.prio-desc{font-size:12px;line-height:1.55;color:var(--gray-text);}
+.bias-example{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:20px;margin-bottom:12px;}
+.be-header{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.be-body{font-size:13px;line-height:1.65;color:var(--gray-text);margin-bottom:8px;}
+.be-impact{background:var(--orange-pale);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--gray-text);}
+.reflection-activity{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.ra-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.ra-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ra-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.ai-schedule-card{background:#1A1035;border-radius:14px;padding:20px;margin-bottom:16px;}
+.asc-label{font-size:10px;font-weight:700;text-transform:uppercase;color:rgba(255,255,255,.45);letter-spacing:.12em;margin-bottom:12px;}
+.asc-day{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;padding:8px 10px;background:rgba(255,255,255,.06);border-radius:8px;}
+.asc-day-label{font-size:11px;font-weight:700;color:rgba(255,255,255,.6);width:36px;flex-shrink:0;}
+.asc-rec{font-size:12px;color:rgba(255,255,255,.8);flex:1;line-height:1.4;}
+.asc-flag{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;flex-shrink:0;}
+.flag-red{background:rgba(220,38,38,.3);color:#F87171;}
+.flag-yellow{background:rgba(217,119,6,.3);color:#FCD34D;}
+.flag-green{background:rgba(39,103,73,.3);color:#4ADE80;}
+.review-q-list{display:flex;flex-direction:column;gap:8px;}
+.review-q{display:flex;gap:10px;padding:12px 14px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:10px;cursor:pointer;transition:all .2s;}
+.review-q:hover{border-color:var(--purple);}.review-q.answered{border-color:var(--green);background:var(--green-pale);}
+.rq-icon{font-size:16px;flex-shrink:0;}.rq-text{font-size:13px;flex:1;line-height:1.5;color:var(--gray-text);}
+.rq-answer{font-size:13px;line-height:1.65;padding:10px 14px;border-radius:8px;background:var(--purple-pale);color:var(--purple-dark);margin-top:8px;display:none;}
+.review-q.answered .rq-answer{display:block;}
+.psych-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:24px 0;}
+.pg-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px;}
+.pg-icon{font-size:26px;margin-bottom:8px;}.pg-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}.pg-body{font-size:13px;line-height:1.65;color:var(--gray-text);}
+.culture-pillars{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
+.cp-item{display:flex;gap:14px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:16px 18px;}
+.cp-num{width:34px;height:34px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;color:white;font-size:14px;flex-shrink:0;}
+.cp-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}.cp-body{font-size:13px;line-height:1.65;color:var(--gray-text);}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}.qfb.show{display:block;animation:fadeIn .35s ease;}.qfb.cfb{background:var(--green-pale);color:var(--green);}.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}.sdot svg{width:12px;height:12px;}.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.card-grid{grid-template-columns:1fr;}.prio-grid{grid-template-columns:1fr;}.psych-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.4 · Critical Evaluation of AI</div>
+  <h1>AI Suggestions Are Not Instructions: Understanding Your Professional Responsibility When Using AI Tools</h1>
+  <p class="hero-sub">One of the most important career concepts in this entire certification. What professional accountability means in healthcare, what happens when you act on AI output without verification, and a clear framework for understanding your responsibility every time you use an AI tool at work.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+<div class="section fade-in">
+<h2>What "Professional Responsibility" Actually Means</h2>
+<p>In healthcare, professional responsibility is not abstract. It means that when something goes wrong — a patient is harmed, a regulation is violated, a financial error occurs — a specific human being is accountable for the decision that led to it. That person is not the AI. It is not the vendor who sold the AI tool. It is the healthcare professional who acted on the AI's output without sufficient verification.</p>
+<p>"Acting on AI output without verification" sounds like a minor process failure. In healthcare contexts, it is a professional liability issue. When acting on an unverified AI recommendation contributes to a patient safety event, you are not shielded by the fact that the AI told you to. <mark>Professional accountability in healthcare is non-delegable — including to AI systems.</mark></p>
+</div>
+<div class="section fade-in">
+<h2>The Liability Framework Healthcare Workers Need to Understand</h2>
+<div class="card-grid">
+<div class="card" style="border-left:4px solid var(--red);">
+<div class="card-icon">⚖️</div>
+<div class="card-title">The AI is not a licensed professional</div>
+<div class="card-body">Healthcare regulatory frameworks — state licensing boards, The Joint Commission, CMS — require that clinical and safety-relevant decisions be made by qualified, licensed human professionals. An AI system has no license. It cannot be held professionally accountable. The human who acts on its recommendation can be.</div>
+</div>
+<div class="card" style="border-left:4px solid var(--red);">
+<div class="card-icon">📋</div>
+<div class="card-title">"The AI said to" is not a defense</div>
+<div class="card-body">In documented cases of AI recommendation failures in healthcare, "I was following the AI's recommendation" has not been an acceptable defense in professional review, regulatory investigation, or litigation. Acting on an AI recommendation without verification is still acting — and you own the decision.</div>
+</div>
+<div class="card" style="border-left:4px solid var(--orange);">
+<div class="card-icon">🔍</div>
+<div class="card-title">Documentation is protection</div>
+<div class="card-body">When you verify an AI recommendation before acting, document it. When you override an AI recommendation, document the reason. A record that shows: "AI recommended X, I verified against [baseline/data/policy], I modified to Y because [specific reason]" demonstrates professional judgment — which is exactly what you're accountable for exercising.</div>
+</div>
+<div class="card" style="border-left:4px solid var(--orange);">
+<div class="card-icon">🤝</div>
+<div class="card-title">Responsibility scales with authority</div>
+<div class="card-body">A front desk coordinator approving a scheduling recommendation has less personal liability than a nurse manager approving a staffing recommendation. But both have professional responsibility for the verification step appropriate to their role. "I'm not in a senior position" is not an exemption from appropriate verification — it just means the stakes and verification depth differ.</div>
+</div>
+</div>
+</div>
+<div class="section fade-in">
+<h2>Five Situations Where You Must Override — Not Just Verify</h2>
+<p>Knowing when to override an AI recommendation — and how to do it professionally — is as important as knowing when to follow one. Click each situation to see when it applies and how to handle it:</p>
+<div class="override-framework"><div class="of-item" id="of_0">
+  <div class="of-header" onclick="toggleOF('of_0')">
+    <div class="of-icon">📋</div>
+    <div class="of-title">When the recommendation contradicts recent information you have</div>
+    <div class="of-exp">+ Details</div>
+  </div>
+  <div class="of-body">
+    <div class="of-when"><div class="of-when-label">⚠️ When This Applies</div>The AI recommendation was generated before you received a piece of information that changes the picture — a physician's verbal update, a staff situation, an operational change not yet in the system.</div>
+    <div class="of-how"><div class="of-how-label">✅ How to Handle It</div>Act on your information. Document clearly: 'Override of AI recommendation because [specific reason]. Action taken: [what you did instead]. Supervisor notified: yes/no.'</div>
+  </div>
+</div><div class="of-item" id="of_1">
+  <div class="of-header" onclick="toggleOF('of_1')">
+    <div class="of-icon">📅</div>
+    <div class="of-title">When the data source appears outdated</div>
+    <div class="of-exp">+ Details</div>
+  </div>
+  <div class="of-body">
+    <div class="of-when"><div class="of-when-label">⚠️ When This Applies</div>You have reason to believe the AI's recommendation is based on data that doesn't reflect current conditions — the model hasn't been updated since a major operational change.</div>
+    <div class="of-how"><div class="of-how-label">✅ How to Handle It</div>Pause, escalate to supervisor, and request IT review of model currency. Do not implement the recommendation until you understand what data it's based on.</div>
+  </div>
+</div><div class="of-item" id="of_2">
+  <div class="of-header" onclick="toggleOF('of_2')">
+    <div class="of-icon">👤</div>
+    <div class="of-title">When the recommendation affects people in ways the data doesn't reflect</div>
+    <div class="of-exp">+ Details</div>
+  </div>
+  <div class="of-body">
+    <div class="of-when"><div class="of-when-label">⚠️ When This Applies</div>The recommendation looks correct on the metrics but ignores human factors: a staff member's personal situation, a patient's specific circumstances, a team dynamic the data can't capture.</div>
+    <div class="of-how"><div class="of-how-label">✅ How to Handle It</div>Apply your professional judgment and document the specific human factor that made the recommendation inappropriate for this specific situation.</div>
+  </div>
+</div><div class="of-item" id="of_3">
+  <div class="of-header" onclick="toggleOF('of_3')">
+    <div class="of-icon">📜</div>
+    <div class="of-title">When your supervisor or policy says something different</div>
+    <div class="of-exp">+ Details</div>
+  </div>
+  <div class="of-body">
+    <div class="of-when"><div class="of-when-label">⚠️ When This Applies</div>The AI recommendation conflicts with explicit policy, a supervisor's directive, or a regulatory requirement. Data-based recommendations never override policy or legal requirements.</div>
+    <div class="of-how"><div class="of-how-label">✅ How to Handle It</div>Follow policy. The AI recommendation is irrelevant when it conflicts with a clear policy or legal requirement. Document the conflict and flag it to IT for model review.</div>
+  </div>
+</div><div class="of-item" id="of_4">
+  <div class="of-header" onclick="toggleOF('of_4')">
+    <div class="of-icon">⚠️</div>
+    <div class="of-title">When your instinct signals something is wrong</div>
+    <div class="of-exp">+ Details</div>
+  </div>
+  <div class="of-body">
+    <div class="of-when"><div class="of-when-label">⚠️ When This Applies</div>Something about the recommendation feels wrong but you cannot articulate exactly why. Experienced healthcare workers develop operational intuition that catches things data alone misses.</div>
+    <div class="of-how"><div class="of-how-label">✅ How to Handle It</div>Pause before acting. Articulate what specifically feels wrong — even imperfectly. A vague concern is worth investigating before implementation. Escalate if you cannot resolve the concern independently.</div>
+  </div>
+</div></div>
+</div>
+<div class="section fade-in">
+<div class="pull-quote"><p>The question is never whether you trusted the AI. The question is whether you exercised the professional judgment your role requires — before acting on what the AI told you.</p></div>
+</div><div class="quiz fade-in">
+<div class="quiz-label">🧠 Quick Check</div>
+<div class="quiz-q">A scheduling coordinator approves an AI recommendation to overbook Thursday afternoon by 2 patients based on a 28% historical no-show rate. On Thursday, all scheduled patients show up plus the 2 overbooked ones — creating a 45-minute average wait and several patient complaints. Who bears professional responsibility for the overbooking decision?</div>
+<div class="qopts">
+<button class="qopt" onclick="cq(this,false,'coordinator who approved')">The AI vendor — the system produced an inaccurate no-show prediction</button>
+<button class="qopt" onclick="cq(this,true,'coordinator who approved')">The coordinator who approved the recommendation. The AI provided a historical probability estimate. The coordinator made the judgment call to implement overbooking. The prediction being wrong in one instance doesn't eliminate the coordinator's accountability for the decision to overbook — it just means the outcome was unfavorable. Documenting the verification performed and the reasoning is what demonstrates professional judgment.</button>
+<button class="qopt" onclick="cq(this,false,'coordinator who approved')">The clinic manager who approved the overbooking policy in general</button>
+<button class="qopt" onclick="cq(this,false,'coordinator who approved')">Nobody — this is a known risk of overbooking strategies and patients accept wait times</button>
+</div>
+<div class="qfb" id="qfb"></div>
+</div><div class="summary fade-in"><div class="summary-label">📌 Key Takeaways</div><h2>What to Remember From This Article</h2><div class="spoints"><div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Professional accountability in healthcare is non-delegable. When an AI recommendation contributes to a harmful outcome, the human who acted on it without adequate verification is accountable — not the AI, and not the vendor.</p></div><div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Documentation is professional protection. When you verify an AI recommendation before acting, document it. When you override one, document the reason. This record demonstrates professional judgment — exactly what you're accountable for.</p></div><div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Knowing when to override is as important as knowing when to follow. The five override triggers — contradicting recent information, outdated data, human factors the data misses, policy conflicts, and professional instinct — give you a framework for when to act on your judgment rather than the AI's recommendation.</p></div></div></div>
+</div>
+<script>
+function toggleOF(id){
+  var el=document.getElementById(id);
+  el.classList.toggle('open');
+  var btn=el.querySelector('.of-exp');
+  btn.textContent=el.classList.contains('open')?'− Collapse':'+ Details';
+}
+window.__fb_ok='Correct. The AI provided historical data. The coordinator made the judgment call — a legitimate one, given the data. The AI prediction being wrong on this specific Thursday does not retroactively make the decision wrong. But the coordinator owns the overbooking decision and its consequences. Documenting the verification performed and the reasoning behind the overbooking decision is what demonstrates that professional judgment was exercised. If the 28% historical rate had been checked against the specific Thursday context (is it a holiday week? post-holiday? is anything unusual about this Thursday?), that verification would either confirm or flag the recommendation before acting.';
+window.__fb_bad='The AI provided data — a probability estimate. The coordinator made the decision to implement overbooking based on that data. The prediction being wrong in one instance does not transfer accountability to the vendor. The coordinator exercised a professional judgment (implement overbooking) using AI data as an input. That decision, and its consequences, belong to the coordinator. The AI is a tool. The decision is human.';
+</script>
+<script>
+function cq(btn,correct,correctSnip){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  if(!correct&&correctSnip){document.querySelectorAll('.qopt').forEach(function(o){if(o.textContent.indexOf(correctSnip)>-1)o.classList.add('correct');});}
+  var fb=document.getElementById('qfb');
+  fb.className='qfb show '+(correct?'cfb':'wfb');
+  fb.textContent=correct?window.__fb_ok:window.__fb_bad;
+}
+window.addEventListener('scroll',function(){var e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(function(el){obs.observe(el);});
+</script>
+</body>
+</html>

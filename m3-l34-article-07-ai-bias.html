@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Bias in Operational Healthcare Data — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}.section{padding:36px 0 0;}h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:24px 0;}.card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px;}.card-icon{font-size:28px;margin-bottom:8px;}.card-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}.card-body{font-size:13px;line-height:1.65;color:var(--gray-text);}
+.expandable{border:1.5px solid var(--purple-mid);border-radius:16px;overflow:hidden;margin-bottom:10px;cursor:pointer;}
+.exp-header{display:flex;gap:12px;align-items:center;padding:16px 18px;background:var(--white);}.exp-icon{font-size:22px;}.exp-title{font-size:14px;font-weight:700;color:var(--purple-dark);flex:1;}.exp-toggle{font-size:13px;color:var(--purple);font-weight:700;}
+.exp-body{display:none;padding:0 18px 16px;background:var(--white);}.expandable.open .exp-body{display:block;animation:fadeIn .3s ease;}
+.highlight-box{border-radius:10px;padding:12px 16px;margin-bottom:8px;font-size:13px;line-height:1.65;}
+.hb-purple{background:var(--purple-pale);color:var(--purple-dark);}.hb-green{background:var(--green-pale);color:var(--gray-text);}.hb-orange{background:var(--orange-pale);color:var(--gray-text);}.hb-red{background:var(--red-pale);color:var(--gray-text);}
+.hb-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.hb-purple .hb-label{color:var(--purple);}.hb-green .hb-label{color:var(--green);}.hb-orange .hb-label{color:var(--orange);}.hb-red .hb-label{color:var(--red);}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0;}
+.col-card{border-radius:14px;padding:16px;text-align:center;}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}.qfb.show{display:block;animation:fadeIn .35s ease;}.qfb.cfb{background:var(--green-pale);color:var(--green);}.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}.sdot svg{width:12px;height:12px;}.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.card-grid{grid-template-columns:1fr;}.three-col{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.4 · Critical Evaluation of AI</div>
+  <h1>AI Bias in Operational Healthcare Data: When the Algorithm Learns the Wrong Lesson</h1>
+  <p class="hero-sub">Bias in AI isn't just a clinical problem. When AI staffing systems learn from historically inequitable operational data, they perpetuate those inequities. When scheduling AI optimizes for historical patient patterns that reflect disparate access to care, it optimizes for disparity. Understanding operational AI bias is a critical evaluation skill.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+<div class="section fade-in">
+<h2>What Bias Means in an Operational Context</h2>
+<p>When people talk about AI bias in healthcare, they usually mean clinical bias — models that perform worse for certain demographic groups in diagnosis or treatment recommendations. That's critically important. But operational AI tools have their own bias problem that's less discussed and equally consequential.</p>
+<p>Operational AI learns from operational data — staffing patterns, appointment utilization, supply usage, patient flow. If that historical data reflects inequitable practices, underfunding, or systemic disparities in how care was delivered, <mark>the AI doesn't see bias — it sees "how things work." And it optimizes to reproduce that.</mark></p>
+</div>
+<div class="section fade-in">
+<h2>Three Operational Bias Patterns — Click to Explore</h2>
+<div id="biasItems"></div>
+</div>
+<div class="section fade-in">
+<h2>How to Spot Operational Bias in Your AI Tools</h2>
+<div class="card-grid">
+<div class="card"><div class="card-icon">📊</div><div class="card-title">Ask who trained the model — and on what data</div><div class="card-body">Before trusting an AI staffing or scheduling tool, find out what data it was trained on. Was it one hospital system's historical data? Multiple systems? Across what time period? What operational practices were standard during that period? The answers tell you a lot about what biases may be baked in.</div></div>
+<div class="card"><div class="card-icon">🔍</div><div class="card-title">Watch for consistent gaps between predictions and outcomes for specific groups</div><div class="card-body">If an AI scheduling tool consistently underestimates demand in clinics serving lower-income patients, or consistently recommends lower staffing for certain units, those patterns are worth investigating. Consistent directional errors for specific contexts are a bias signal.</div></div>
+<div class="card"><div class="card-icon">⚖️</div><div class="card-title">Evaluate recommendations against equity goals, not just efficiency metrics</div><div class="card-body">An AI that optimizes for efficiency may be optimizing for the efficiency of the current — inequitable — system. Ask: does this recommendation maintain or reduce existing disparities in care access or staffing quality across different departments or patient populations?</div></div>
+<div class="card"><div class="card-icon">🗣️</div><div class="card-title">Listen to staff who work in the most affected areas</div><div class="card-body">Staff who work in historically understaffed departments or with underserved patient populations often have direct experiential knowledge of patterns that data doesn't capture. Their concerns about AI recommendations should be taken seriously as potential bias signals.</div></div>
+</div>
+</div>
+<div class="quiz fade-in">
+<div class="quiz-label">🧠 Quick Check</div>
+<div class="quiz-q">An AI staffing system recommends staffing levels for two units with similar patient census. Unit A (serving predominantly insured, higher-income patients) is recommended to have 5 nurses. Unit B (serving predominantly uninsured or underinsured patients) is recommended to have 3 nurses. The AI was trained on 5 years of historical staffing data. What is the most important question to ask?</div>
+<div class="qopts">
+<button class="qopt" onclick="cq(this,false,'Was Unit B historically understaffed')">The recommendation seems reasonable — different patient populations have different care needs</button>
+<button class="qopt" onclick="cq(this,true,'Was Unit B historically understaffed')">Was Unit B historically understaffed relative to appropriate safe ratios? If so, the AI has learned from that inequitable baseline and is now recommending its perpetuation — not as a clinical judgment, but as a reflection of what the historical data shows as "normal."</button>
+<button class="qopt" onclick="cq(this,false,'Was Unit B historically understaffed')">The AI recommendation should be overridden — AI tools should not make staffing recommendations that differ by patient demographics</button>
+<button class="qopt" onclick="cq(this,false,'Was Unit B historically understaffed')">The insurance status of patients is not a relevant factor in staffing decisions</button>
+</div>
+<div class="qfb" id="qfb"></div>
+</div><div class="summary fade-in"><div class="summary-label">📌 Key Takeaways</div><h2>What to Remember</h2><div class="spoints"><div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Operational AI bias occurs when models learn from historically inequitable operational data and reproduce those inequities as recommendations. The AI isn't making a biased judgment — it's accurately learning from a biased baseline.</p></div><div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Three key operational bias patterns: staffing models that perpetuate historical underinvestment in specific units, scheduling models that optimize for patients with greater care access (potentially excluding those with less access), and supply models that reflect historical inequities in resource allocation.</p></div><div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Spotting operational bias requires asking what the training data reflects, watching for consistent directional errors in specific contexts, evaluating recommendations against equity goals as well as efficiency metrics, and taking seriously the concerns of staff who work in historically underresourced areas.</p></div></div></div>
+<script>
+var biasItems=[
+  {icon:'👥',title:'Staffing Bias: When Models Learn From Understaffed Baselines',
+   what:'An AI staffing model trained on 5 years of data from a hospital that chronically understaffed its psychiatric unit will learn that "appropriate staffing" for psychiatric units looks like what that understaffed unit had. It will recommend perpetuating the unsafe ratio — not as a safety judgment, but because the historical data doesn't know those ratios were inadequate.',
+   impact:'The model's recommendation reflects history, not safety standards. A verification step that compares recommendations to evidence-based staffing guidelines — not just historical baselines — is what catches this bias before it perpetuates.'},
+  {icon:'📅',title:'Scheduling Bias: When Access Patterns Reflect Disparities',
+   what:'A scheduling optimization tool trained on appointment utilization data learns which time slots have historically high demand and which have low no-show rates. If historically underserved populations have lower appointment utilization rates (due to transportation barriers, work schedule conflicts, or systemic access issues), the AI learns to allocate fewer slots to those patient populations — because historically, those slots were less "efficiently" used.',
+   impact:'The tool optimizes for the patients who already had the most access. This can shrink appointment availability for the populations who have the most need but the most historical barriers — perpetuating, rather than correcting, access disparities.'},
+  {icon:'📦',title:'Supply Bias: When Historical Allocation Shapes Future Allocation',
+   what:'Supply management AI trained on historical usage data in a system where some departments were chronically undersupplied will learn those usage patterns as "normal" and recommend maintaining similar allocation levels. A department that historically improvised because supplies were short will appear to need fewer supplies than a better-resourced department — even when patient acuity is identical.',
+   impact:'Without checking whether historical usage data reflects appropriate or merely actual supply levels, an AI supply tool may recommend continuing historical inequities in resource allocation across departments or facilities.'}
+];
+var container=document.getElementById('biasItems');
+biasItems.forEach(function(b,i){
+  var div=document.createElement('div');
+  div.className='expandable';
+  div.id='bi'+i;
+  div.innerHTML='<div class="exp-header" onclick="toggleExp('bi'+i+'')"><div class="exp-icon">'+b.icon+'</div><div class="exp-title">'+b.title+'</div><div class="exp-toggle">+ Expand</div></div><div class="exp-body"><div class="highlight-box hb-purple"><div class="hb-label">📋 The Pattern</div>'+b.what+'</div><div class="highlight-box hb-orange"><div class="hb-label">⚠️ The Impact</div>'+b.impact+'</div></div>';
+  container.appendChild(div);
+});
+window._fbOk='Correct. The most important question is whether the historical staffing levels for Unit B actually met appropriate safe ratios — or whether the AI has learned from a baseline of systematic underinvestment. If Unit B was historically understaffed relative to its patient acuity and safety requirements, the AI recommendation reproduces that inequity, not corrects it. A verification step that compares recommendations to evidence-based safe staffing ratios — not just historical averages — is what catches this.';
+window._fbBad='The key issue is not whether different units can have different staffing — they can, based on patient acuity and care needs. The key issue is whether the AI's lower recommendation for Unit B reflects appropriate staffing for that unit's actual patient needs, or reflects a historically inequitable baseline. If Unit B was chronically understaffed in the training data, the AI will recommend perpetuating that understaffing as "normal."';
+</script>

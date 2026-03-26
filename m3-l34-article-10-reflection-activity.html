@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reflection Activity: Review This AI Staffing Suggestion — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+.section{padding:36px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.activity-banner{background:var(--purple-dark);border-radius:20px;padding:28px 32px;margin-bottom:28px;display:flex;gap:20px;align-items:center;}
+.ab-icon{font-size:48px;flex-shrink:0;}
+.ab-content{}
+.ab-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;opacity:.6;color:white;margin-bottom:4px;}
+.ab-title{font-family:'Fraunces',serif;font-size:22px;font-weight:900;color:white;margin-bottom:6px;}
+.ab-desc{font-size:14px;color:rgba(255,255,255,.8);line-height:1.55;margin-bottom:12px;}
+.ab-badges{display:flex;gap:8px;flex-wrap:wrap;}
+.ab-badge{background:rgba(255,255,255,.15);color:white;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;}
+/* Schedule display */
+.ai-schedule{background:#1A1035;border-radius:18px;padding:24px;margin:20px 0;}
+.ais-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;}
+.ais-title{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:white;}
+.ais-subtitle{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px;}
+.ais-badge{background:var(--purple);color:white;font-size:10px;font-weight:700;padding:4px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:.1em;}
+.ais-day{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:rgba(255,255,255,.06);border-radius:10px;margin-bottom:8px;}
+.ais-day-label{font-size:11px;font-weight:700;color:rgba(255,255,255,.5);width:40px;flex-shrink:0;padding-top:2px;}
+.ais-recs{flex:1;}
+.ais-rec-item{font-size:12px;color:rgba(255,255,255,.8);line-height:1.5;margin-bottom:4px;}
+.ais-flags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;}
+.flag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;}
+.flag-red{background:rgba(220,38,38,.3);color:#F87171;}
+.flag-yellow{background:rgba(217,119,6,.3);color:#FCD34D;}
+.flag-green{background:rgba(39,103,73,.3);color:#4ADE80;}
+.flag-info{background:rgba(123,47,190,.3);color:#C4B5FD;}
+/* Day-by-day review */
+.day-review-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.drt-btn{padding:8px 14px;border-radius:100px;border:2px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.drt-btn:hover{border-color:var(--purple);color:var(--purple);}
+.drt-btn.active{background:var(--purple);border-color:var(--purple);color:white;}
+.drt-btn.complete{background:var(--green);border-color:var(--green);color:white;}
+.day-panel{display:none;animation:fadeIn .3s ease;}.day-panel.active{display:block;}
+.day-panel-inner{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:22px;}
+.day-panel-header{font-size:13px;font-weight:700;color:var(--purple-dark);margin-bottom:8px;}
+.day-rec{background:var(--gray-soft);border-radius:8px;padding:10px 14px;font-size:13px;line-height:1.65;color:var(--gray-text);margin-bottom:14px;}
+.review-questions{display:flex;flex-direction:column;gap:8px;}
+.rq{border-radius:10px;overflow:hidden;border:1.5px solid var(--purple-mid);}
+.rq-header{display:flex;gap:10px;align-items:center;padding:12px 14px;cursor:pointer;background:var(--white);}
+.rq-num{width:24px;height:24px;background:var(--purple-mid);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--purple);flex-shrink:0;}
+.rq.answered .rq-num{background:var(--green);color:white;}
+.rq-text{font-size:13px;font-weight:600;color:var(--gray-text);flex:1;}
+.rq-answer{display:none;padding:0 14px 12px;background:var(--white);font-size:13px;line-height:1.65;color:var(--gray-text);}
+.rq.answered .rq-answer{display:block;}
+.rq-answer-inner{background:var(--purple-pale);border-radius:8px;padding:10px 14px;color:var(--purple-dark);}
+.day-next{background:var(--purple);color:white;border:none;border-radius:10px;padding:10px 22px;font-size:14px;font-weight:700;cursor:pointer;margin-top:16px;display:block;width:100%;transition:all .2s;}
+.day-next:hover{background:var(--purple-dark);}
+.completion{background:var(--purple-dark);border-radius:18px;padding:30px;text-align:center;margin:20px 0;display:none;}
+.completion.show{display:block;animation:fadeIn .5s ease;}
+.completion-title{font-family:'Fraunces',serif;font-size:28px;font-weight:900;color:white;margin-bottom:8px;}
+.completion-body{font-size:14px;color:rgba(255,255,255,.8);line-height:1.65;max-width:480px;margin:0 auto;}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}.sdot svg{width:12px;height:12px;}.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.activity-banner{flex-direction:column;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.4 · Activity</div>
+  <h1>Reflection Activity: Review This AI Staffing Suggestion and Tell Us What You'd Verify</h1>
+  <p class="hero-sub">This is the capstone activity for Lesson 3.4. You receive a full 5-day AI staffing schedule with the data behind it. Your job: go through it systematically, identify what looks right, what needs verification, what information is missing, and what you'd ask before acting on each recommendation.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <div class="activity-banner">
+      <div class="ab-icon">🏥</div>
+      <div class="ab-content">
+        <div class="ab-label">🎯 Capstone Activity — Lesson 3.4</div>
+        <div class="ab-title">Millbrook Regional Medical Center — Week of Nov 18</div>
+        <div class="ab-desc">You are the operations coordinator reviewing this week's AI staffing recommendations for the Medical-Surgical unit. You have the recommendations, the data behind them, and your operational knowledge. Your job: systematically evaluate what to verify before acting.</div>
+        <div class="ab-badges"><span class="ab-badge">📅 5 Days to Review</span><span class="ab-badge">🔍 Systematic Verification</span><span class="ab-badge">⏱️ ~20 minutes</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="section fade-in">
+    <h2>Step 1: Read the Full Week's Recommendations</h2>
+    <p>Read the entire week before diving into individual days. Look for patterns, flags, and anything that immediately raises questions.</p>
+    <div class="ai-schedule">
+      <div class="ais-header">
+        <div><div class="ais-title">Med-Surg Unit · AI Staffing Recommendations</div><div class="ais-subtitle">Week of November 18 · Generated Sunday 11PM · Confidence: 77%</div></div>
+        <div class="ais-badge">🤖 AI Output</div>
+      </div>
+      <div class="ais-day">
+        <div class="ais-day-label">MON 11/18</div>
+        <div class="ais-recs">
+          <div class="ais-rec-item">Day shift: 6 nurses (ratio 1:4.2 at predicted census of 25 patients)</div>
+          <div class="ais-rec-item">Night shift: 4 nurses (ratio 1:5.0 at predicted census of 20 patients)</div>
+          <div class="ais-flags"><span class="flag flag-green">Low risk</span><span class="flag flag-info">Standard week</span></div>
+        </div>
+      </div>
+      <div class="ais-day">
+        <div class="ais-day-label">TUE 11/19</div>
+        <div class="ais-recs">
+          <div class="ais-rec-item">Day shift: 6 nurses (ratio 1:4.2 at predicted census of 25 patients)</div>
+          <div class="ais-rec-item">Night shift: 4 nurses (ratio 1:4.8 at predicted census of 19 patients)</div>
+          <div class="ais-flags"><span class="flag flag-green">Low risk</span></div>
+        </div>
+      </div>
+      <div class="ais-day">
+        <div class="ais-day-label">WED 11/20</div>
+        <div class="ais-recs">
+          <div class="ais-rec-item">Day shift: 5 nurses (ratio 1:4.4 at predicted census of 22 patients)</div>
+          <div class="ais-rec-item">Night shift: 3 nurses (ratio 1:5.7 at predicted census of 17 patients)</div>
+          <div class="ais-flags"><span class="flag flag-yellow">Monitor</span><span class="flag flag-info">Predicted discharge wave Wed PM</span></div>
+        </div>
+      </div>
+      <div class="ais-day">
+        <div class="ais-day-label">THU 11/21</div>
+        <div class="ais-recs">
+          <div class="ais-rec-item">Day shift: 5 nurses (ratio 1:3.8 at predicted census of 19 patients)</div>
+          <div class="ais-rec-item">Night shift: 4 nurses (ratio 1:4.0 at predicted census of 16 patients)</div>
+          <div class="ais-flags"><span class="flag flag-green">Low risk</span><span class="flag flag-info">Pre-holiday: lower predicted admissions</span></div>
+        </div>
+      </div>
+      <div class="ais-day">
+        <div class="ais-day-label">FRI 11/22</div>
+        <div class="ais-recs">
+          <div class="ais-rec-item">Day shift: 4 nurses (ratio 1:3.5 at predicted census of 14 patients)</div>
+          <div class="ais-rec-item">Night shift: 3 nurses (ratio 1:4.7 at predicted census of 14 patients)</div>
+          <div class="ais-flags"><span class="flag flag-red">Reduced staffing</span><span class="flag flag-info">Pre-Thanksgiving: historically lowest volume week of year</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section fade-in">
+    <h2>Step 2: Review Each Day Systematically</h2>
+    <p>Click each day tab to see the full data behind that day's recommendation and work through the verification questions. Click each question to reveal the analysis.</p>
+    <div class="day-review-tabs" id="dayTabs"></div>
+    <div id="dayPanels"></div>
+    <div class="completion" id="activityComplete">
+      <div class="completion-title">✅ Verification Complete</div>
+      <div class="completion-body">You worked through all 5 days systematically — identifying what the AI knows, what it doesn't know, what needs verification, and what questions to ask. Wednesday night (1:5.7 ratio if discharge wave doesn't materialize) and Friday (pre-Thanksgiving assumptions applied to a week that includes a hospital board visit) were the highest-risk days. That's what systematic verification catches.</div>
+    </div>
+  </div>
+  <div class="summary fade-in">
+    <div class="summary-label">📌 What This Activity Practiced</div>
+    <h2>The Skills You Just Applied</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Reading a full week's recommendations as a whole before analyzing individual days — looking for patterns, flags, and consistency across the schedule.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Applying the three verification questions to each day's specific context — not as a generic checklist, but as tools for surfacing the specific concerns relevant to that day's recommendation.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Identifying what information is missing from the AI recommendation — and articulating specifically what you would need to know before acting. This is the human judgment layer in practice.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+var days = [
+  {label:'MON', complete:false,
+   rec:'6 day nurses (1:4.2 predicted ratio at 25 patients). 4 night nurses (1:5.0 at 20 patients). Flagged: Low risk, standard week.',
+   data:'Based on: 8-week rolling Monday average (27 patients day, 21 night). Current Monday actual average: 25.3 day, 20.1 night. Model confidence: 81%.',
+   questions:[
+     {q:'Q1: Does this recommendation make sense given what you know?',
+      a:'Generally yes — Monday averages are well-documented and 8 weeks of rolling data is a solid basis. The 1:4.2 and 1:5.0 ratios are within safe range. No immediate red flags from Q1.'},
+     {q:'Q2: Is the data behind this current? Is there anything unusual about this specific Monday?',
+      a:'Key check: November 18th is the Monday before Thanksgiving week. Is the AI accounting for pre-holiday volume patterns? Patients often seek care before the holiday period. The model says "standard week" — verify whether the holiday-week context changes expected census.'},
+     {q:'What would you need to know before approving Monday\'s recommendation?',
+      a:'Check whether Monday Nov 18 historically shows elevated volume as a pre-Thanksgiving day. If yes, the "standard" recommendation may be slightly understaffed. Verify current census trajectory from Sunday\'s actual figures to see whether Monday morning is starting at or above the 25-patient prediction.'}
+   ]},
+  {label:'TUE', complete:false,
+   rec:'6 day nurses (1:4.2 at 25 patients). 4 night nurses (1:4.8 at 19 patients). Low risk flag.',
+   data:'Based on: 8-week rolling Tuesday average. Consistent with Monday prediction. Model note: no operational flags identified.',
+   questions:[
+     {q:'Q1: Does Tuesday\'s recommendation make sense?',
+      a:'Yes — consistent with Monday and within safe ratios. The shift from 20 to 19 patients overnight Tuesday is a small difference and the ratio remains acceptable.'},
+     {q:'Q2: Is there anything about this specific Tuesday to verify?',
+      a:'Check: Are any major procedures scheduled for Tuesday that would affect post-procedure admission patterns? Any staff on scheduled leave that the model may not have captured? The "no flags" classification is a positive signal but not a substitute for the quick real-data check.'},
+     {q:'What is your overall verdict on Tuesday?',
+      a:'Tuesday looks reasonable. The main verification step is confirming no unplanned events (staff absences, unexpected admissions from ER) before the shift starts. This is a medium-stakes day — Q1-Q2 check plus a real-time census confirmation in the morning.'}
+   ]},
+  {label:'WED', complete:false,
+   rec:'Day: 5 nurses (1:4.4 at 22 patients). Night: 3 nurses (1:5.7 at 17 patients). Monitor flag — "predicted discharge wave Wed PM."',
+   data:'The 1:5.7 night ratio is based on the discharge wave materializing. If 5+ patients discharge Wednesday afternoon as predicted, night census drops to ~17. If the discharge wave is delayed to Thursday, night census could be 22+ patients — making the 1:5.7 ratio unsafe.',
+   questions:[
+     {q:'Q1: What immediately stands out about Wednesday night?',
+      a:'The 1:5.7 night ratio is concerning. This is above the 1:5 threshold for medical-surgical units. The AI is explicitly flagging it as conditional — it only works if the discharge wave materializes Wednesday afternoon. That conditionality is the key concern.'},
+     {q:'Q2: What would you need to verify about the discharge wave?',
+      a:'Talk to the clinical team Wednesday morning: How firm are the planned discharges? Are physicians confirming discharge orders? Are there any patients whose discharge could be delayed (awaiting test results, family coordination issues, post-discharge placement not confirmed)? The staffing recommendation should not be finalized until discharge confidence is established.'},
+     {q:'What should you do if the discharge wave is uncertain?',
+      a:'Request a float nurse or on-call coverage for Wednesday night as a contingency — not as a confirmed assignment, but as a backup to activate if discharges don\'t materialize as planned. The 1:5.7 ratio with an uncertain discharge wave is too high a risk to leave without a backup plan.'}
+   ]},
+  {label:'THU', complete:false,
+   rec:'Day: 5 nurses (1:3.8 at 19 patients). Night: 4 nurses (1:4.0 at 16 patients). Low risk — "pre-holiday: lower predicted admissions."',
+   data:'Model is applying a "pre-Thanksgiving" pattern it identified from historical data showing admission rates drop ~25% the day before major holidays. Confidence: 74% (lower than other days — model notes higher variance on pre-holiday days).',
+   questions:[
+     {q:'Q1: The model flags lower confidence (74%) for Thursday. Why might that be?',
+      a:'Pre-holiday patterns have higher variance — some years show the predicted drop, others show last-minute surges as people rush to be seen before the holiday. 74% confidence means the model is less certain this particular Thursday will follow the typical pre-holiday pattern. This is worth noting.'},
+     {q:'Q2: What specific information would help you validate Thursday\'s prediction?',
+      a:'Check: Are there any unusually high-volume procedure completions expected Thursday that would generate post-operative admissions? Is the ER tracking any unusual volume patterns Thursday morning? What does current census look like as of Wednesday night? The lower confidence score warrants a closer real-time check.'},
+     {q:'Overall: how would you approach Thursday\'s recommendation?',
+      a:'The ratios are good (1:3.8 and 1:4.0 are well within safe range), which gives you some buffer even if the pre-holiday prediction is slightly off. I would approve Thursday\'s recommendation but note the 74% confidence and flag it for a morning check before locking in the staffing — if Wednesday\'s census is still elevated, revisit the Thursday prediction.'}
+   ]},
+  {label:'FRI', complete:false,
+   rec:'Day: 4 nurses (1:3.5 at 14 patients). Night: 3 nurses (1:4.7 at 14 patients). Red flag: Reduced staffing. "Pre-Thanksgiving: historically lowest volume week of year."',
+   data:'AI is applying full pre-Thanksgiving pattern. Model confidence: 68% — lowest of the week. Data note: this week\'s historical pattern shows high variance — some years volume drops 35%, others only 10%. Nurse-to-patient ratios at predicted census are within policy.',
+   questions:[
+     {q:'Q1: Three flags should catch your attention on Friday. What are they?',
+      a:'(1) The red "reduced staffing" flag — this is the lowest nurse count of the week. (2) The 68% model confidence — the lowest of any day this week. (3) The data note showing high variance in this historical pattern (35% drop vs. 10% drop in different years). All three together say: this is the riskiest staffing recommendation of the week.'},
+     {q:'Q2: What critical piece of operational context might the AI not know about this specific Friday?',
+      a:'This Friday is November 22nd. Check whether there are any scheduled events, hospital board meetings, inspections, or high-profile clinical cases that might affect staffing needs beyond normal volume. Also: is the emergency department running any special programs this week that might change admission patterns? The AI knows historical volume — it doesn\'t know this week\'s operational calendar.'},
+     {q:'What is your recommended action for Friday\'s staffing?',
+      a:'Do not approve Friday\'s reduced staffing recommendation without: (1) confirming the pre-Thanksgiving volume drop is materializing based on Thursday\'s actual census, and (2) checking this week\'s operational calendar for anything that might increase staffing needs. Have a contingency float nurse on standby given the 68% confidence and high variance. This is the day most likely to require a real-time adjustment.'}
+   ]}
+];
+
+var completedDays = 0;
+
+function renderTabs() {
+  var tabContainer = document.getElementById('dayTabs');
+  tabContainer.innerHTML = '';
+  days.forEach(function(d, i) {
+    var btn = document.createElement('button');
+    btn.className = 'drt-btn' + (i===0?' active':'') + (d.complete?' complete':'');
+    btn.textContent = (d.complete ? '✓ ' : '') + d.label;
+    btn.id = 'tab' + i;
+    btn.onclick = function() { showDay(i); };
+    tabContainer.appendChild(btn);
+  });
+}
+
+function showDay(idx) {
+  document.querySelectorAll('.drt-btn').forEach(function(b, bi) { b.classList.toggle('active', bi===idx); });
+  document.querySelectorAll('.day-panel').forEach(function(p, pi) { p.classList.toggle('active', pi===idx); });
+}
+
+function renderPanels() {
+  var container = document.getElementById('dayPanels');
+  container.innerHTML = '';
+  days.forEach(function(d, di) {
+    var panel = document.createElement('div');
+    panel.className = 'day-panel' + (di===0?' active':'');
+    panel.id = 'dp' + di;
+    var qsHtml = d.questions.map(function(q, qi) {
+      return '<div class="rq" id="rq_' + di + '_' + qi + '">' +
+        '<div class="rq-header" onclick="toggleRQ(' + di + ',' + qi + ')">' +
+        '<div class="rq-num">' + (qi+1) + '</div>' +
+        '<div class="rq-text">' + q.q + '</div></div>' +
+        '<div class="rq-answer"><div class="rq-answer-inner">' + q.a + '</div></div></div>';
+    }).join('');
+    panel.innerHTML = '<div class="day-panel-inner">' +
+      '<div class="day-panel-header">' + d.label + ' — AI Recommendation</div>' +
+      '<div class="day-rec"><strong>Recommendation:</strong> ' + d.rec + '<br><br><strong>Data behind it:</strong> ' + d.data + '</div>' +
+      '<div class="review-questions">' + qsHtml + '</div>' +
+      '<button class="day-next" onclick="completeDay(' + di + ')">Mark This Day Reviewed' + (di < days.length-1 ? ' → Next Day' : ' → View Summary') + '</button>' +
+      '</div>';
+    container.appendChild(panel);
+  });
+}
+
+function toggleRQ(di, qi) {
+  document.getElementById('rq_' + di + '_' + qi).classList.toggle('answered');
+}
+
+function completeDay(di) {
+  days[di].complete = true;
+  completedDays++;
+  renderTabs();
+  if (di < days.length - 1) {
+    showDay(di + 1);
+  } else {
+    document.getElementById('activityComplete').classList.add('show');
+    document.getElementById('activityComplete').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+}
+
+renderTabs();
+renderPanels();
+
+window.addEventListener('scroll', function() { var e=document.documentElement; document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%'; });
+var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(function(el){obs.observe(el);});
+</script>
+</body>
+</html>
