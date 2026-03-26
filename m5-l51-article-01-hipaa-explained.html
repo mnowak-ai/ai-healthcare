@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIPAA Explained Simply — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,58px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* The three pillars */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;}
+.pillar{border-radius:20px;padding:22px;text-align:center;}
+.pillar-icon{font-size:32px;margin-bottom:10px;}
+.pillar-name{font-size:14px;font-weight:700;margin-bottom:6px;}
+.pillar-desc{font-size:13px;line-height:1.6;color:var(--gray-text);}
+.pillar.p{background:var(--purple-pale);border:2px solid var(--purple-mid);}
+.pillar.p .pillar-name{color:var(--purple);}
+.pillar.s{background:var(--green-pale);border:2px solid #86EFAC;}
+.pillar.s .pillar-name{color:var(--green);}
+.pillar.b{background:var(--orange-pale);border:2px solid #FDE68A;}
+.pillar.b .pillar-name{color:var(--orange);}
+
+/* Who must follow HIPAA */
+.covered-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0;}
+.covered-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:18px;display:flex;gap:12px;align-items:flex-start;}
+.covered-icon{font-size:24px;flex-shrink:0;}
+.covered-name{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.covered-example{font-size:13px;color:var(--gray-muted);line-height:1.5;}
+.not-covered{background:var(--gray-soft);border:1.5px dashed var(--purple-mid);border-radius:14px;padding:16px 20px;margin:16px 0;}
+.not-covered-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-muted);margin-bottom:8px;}
+.not-covered-text{font-size:14px;line-height:1.65;color:var(--gray-text);}
+
+/* Penalty simulator */
+.penalty-sim{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.ps-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.ps-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ps-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.penalty-tiers{display:flex;flex-direction:column;gap:10px;}
+.penalty-tier{border-radius:14px;padding:18px 20px;cursor:pointer;border:2px solid transparent;transition:all .25s;}
+.penalty-tier.t1{background:#FFFBEB;border-color:#FDE68A;}
+.penalty-tier.t2{background:#FFF7ED;border-color:#FDBA74;}
+.penalty-tier.t3{background:#FFF1F1;border-color:#FECACA;}
+.penalty-tier.t4{background:#fef2f2;border-color:#DC2626;}
+.tier-header{display:flex;justify-content:space-between;align-items:center;}
+.tier-name{font-size:14px;font-weight:700;}
+.tier-range{font-family:'Fraunces',serif;font-size:18px;font-weight:700;}
+.tier-detail{font-size:13px;line-height:1.6;margin-top:10px;display:none;}
+.penalty-tier.open .tier-detail{display:block;}
+.tier-arrow{font-size:14px;transition:transform .2s;}
+.penalty-tier.open .tier-arrow{transform:rotate(180deg);}
+
+/* The 5 rights */
+.rights-list{display:flex;flex-direction:column;gap:10px;margin:24px 0;}
+.right-item{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start;}
+.right-num{width:32px;height:32px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:700;flex-shrink:0;}
+.right-body{}
+.right-name{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.right-desc{font-size:14px;line-height:1.6;color:var(--gray-text);}
+.right-ai-note{font-size:12px;color:var(--purple);font-weight:600;margin-top:6px;background:var(--purple-pale);border-radius:6px;padding:4px 10px;display:inline-block;}
+
+/* Scenario chooser */
+.scenario-box{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.sb-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.sb-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.sb-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.scenario-cards{display:flex;flex-direction:column;gap:10px;}
+.scenario-card{background:var(--white);border:2px solid var(--purple-mid);border-radius:14px;padding:16px 20px;cursor:pointer;transition:all .2s;}
+.scenario-card:hover{border-color:var(--purple);background:var(--purple-pale);}
+.scenario-card.revealed-violation{border-color:var(--red);background:var(--red-pale);}
+.scenario-card.revealed-ok{border-color:var(--green);background:var(--green-pale);}
+.sc-text{font-size:15px;line-height:1.6;color:var(--gray-text);margin-bottom:0;}
+.sc-fb{font-size:14px;line-height:1.65;margin-top:10px;display:none;}
+.scenario-card.revealed-violation .sc-fb,.scenario-card.revealed-ok .sc-fb{display:block;}
+.sc-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;margin-bottom:6px;}
+.scenario-card.revealed-violation .sc-badge{background:var(--red);color:white;}
+.scenario-card.revealed-ok .sc-badge{background:var(--green);color:white;}
+
+/* Quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.pillars{grid-template-columns:1fr;}.covered-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 5.1 · Privacy Basics</div>
+  <h1>HIPAA Explained Simply: What Every Healthcare Worker Must Know Before Using Any AI Tool</h1>
+  <p class="hero-sub">HIPAA is the most important law in healthcare privacy — and one of the most misunderstood. Before you use any AI tool at work, you need to understand what HIPAA actually requires, who it protects, and what happens when it gets violated.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>What Is HIPAA and Why Does It Exist?</h2>
+    <p>HIPAA stands for the <strong>Health Insurance Portability and Accountability Act</strong>. It became law in 1996 and has been updated several times since. The basic idea is simple: <mark>patients have a right to privacy about their health information, and the people who handle that information have a legal obligation to protect it.</mark></p>
+    <p>Before HIPAA, there were no consistent national rules about who could access your medical records, who they could share them with, or what happened if they were leaked. A hospital could share your diagnosis with your employer. An insurance company could sell your health history to a marketing firm. HIPAA was designed to stop that.</p>
+    <p>Today, HIPAA affects every single healthcare worker — whether you're a doctor, a front desk coordinator, a medical assistant, a billing specialist, or an IT technician. If you have any access to patient health information, HIPAA applies to you. And if you use AI tools that might touch patient information, HIPAA applies to those tools too.</p>
+    <div class="pull-quote"><p>HIPAA isn't bureaucratic paperwork. It's the legal foundation of the trust that makes healthcare work.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>HIPAA Has Three Main Parts</h2>
+    <p>People often talk about "HIPAA" as if it's one rule. It's actually a set of rules organized into three main areas. Understanding all three helps you see the full picture:</p>
+    <div class="pillars">
+      <div class="pillar p">
+        <div class="pillar-icon">🔏</div>
+        <div class="pillar-name">Privacy Rule</div>
+        <div class="pillar-desc">Controls who can access and share patient health information. Defines what "protected" means and what patients have the right to know and control about their own data.</div>
+      </div>
+      <div class="pillar s">
+        <div class="pillar-icon">🛡️</div>
+        <div class="pillar-name">Security Rule</div>
+        <div class="pillar-desc">Requires technical safeguards to protect electronic health information. Covers things like encryption, login credentials, and ensuring that only authorized people can access digital records.</div>
+      </div>
+      <div class="pillar b">
+        <div class="pillar-icon">📢</div>
+        <div class="pillar-name">Breach Notification Rule</div>
+        <div class="pillar-desc">Requires healthcare organizations to notify patients, the government, and sometimes the media when a privacy breach occurs — and within strict time limits.</div>
+      </div>
+    </div>
+    <p>For most healthcare workers, the <strong>Privacy Rule</strong> is what matters most in day-to-day work. The Security Rule is primarily the responsibility of IT and leadership. But every worker needs to understand enough about both to avoid accidentally creating a problem.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Who Has to Follow HIPAA?</h2>
+    <p>HIPAA uses specific legal terms for who is covered. Two categories matter most:</p>
+    <div class="covered-grid">
+      <div class="covered-card">
+        <div class="covered-icon">🏥</div>
+        <div>
+          <div class="covered-name">Covered Entities</div>
+          <div class="covered-example">Healthcare providers (hospitals, clinics, doctors, dentists), health insurance plans, and healthcare clearinghouses. These are the primary organizations HIPAA applies to.</div>
+        </div>
+      </div>
+      <div class="covered-card">
+        <div class="covered-icon">🤝</div>
+        <div>
+          <div class="covered-name">Business Associates</div>
+          <div class="covered-example">Third-party companies that handle patient data on behalf of a covered entity — including many AI tool vendors, billing companies, and cloud storage providers.</div>
+        </div>
+      </div>
+      <div class="covered-card">
+        <div class="covered-icon">👤</div>
+        <div>
+          <div class="covered-name">Individual Employees</div>
+          <div class="covered-example">Every staff member who works for a covered entity is bound by HIPAA through their employer. This includes you — regardless of your role, if you access patient information, HIPAA applies.</div>
+        </div>
+      </div>
+      <div class="covered-card">
+        <div class="covered-icon">🤖</div>
+        <div>
+          <div class="covered-name">AI Tools Used at Work</div>
+          <div class="covered-example">If an AI tool processes, stores, or transmits patient data, it must comply with HIPAA. This is why you can't simply use a free consumer AI tool with patient data — it likely hasn't signed a HIPAA compliance agreement.</div>
+        </div>
+      </div>
+    </div>
+    <div class="not-covered">
+      <div class="not-covered-label">⚠️ Common Misconception</div>
+      <div class="not-covered-text">Consumer apps and free AI tools — like ChatGPT, Google Bard, or consumer versions of AI writing tools — are generally <strong>not</strong> HIPAA-compliant by default. Entering patient information into these tools is almost always a HIPAA violation, even if you're just trying to be efficient. More on this in the next article.</div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What Patients Have the Right to Under HIPAA</h2>
+    <p>HIPAA isn't just about what organizations must protect — it's about what patients can demand. Every healthcare worker should know these five rights, because patients will ask about them, and because AI tools must be used in a way that preserves them:</p>
+    <div class="rights-list">
+      <div class="right-item">
+        <div class="right-num">1</div>
+        <div class="right-body">
+          <div class="right-name">Right to Access Their Own Records</div>
+          <div class="right-desc">Patients can request a copy of their medical records. Organizations must provide them, usually within 30 days.</div>
+          <div class="right-ai-note">🤖 AI note: If AI tools are generating or storing parts of a patient's record, that data is still subject to this right.</div>
+        </div>
+      </div>
+      <div class="right-item">
+        <div class="right-num">2</div>
+        <div class="right-body">
+          <div class="right-name">Right to Request Corrections</div>
+          <div class="right-desc">If a patient believes their record contains an error, they can request a correction. The organization can decline but must document why.</div>
+          <div class="right-ai-note">🤖 AI note: AI-generated notes and documentation errors are especially important here — patients can challenge AI output that's wrong.</div>
+        </div>
+      </div>
+      <div class="right-item">
+        <div class="right-num">3</div>
+        <div class="right-body">
+          <div class="right-name">Right to Know How Their Information Is Used</div>
+          <div class="right-desc">Patients must be given a Notice of Privacy Practices explaining how their data is used. They can request a record of who their data has been shared with.</div>
+          <div class="right-ai-note">🤖 AI note: If AI tools analyze patient data, patients may have the right to know about this — a growing area of healthcare law.</div>
+        </div>
+      </div>
+      <div class="right-item">
+        <div class="right-num">4</div>
+        <div class="right-body">
+          <div class="right-name">Right to Request Restrictions</div>
+          <div class="right-desc">Patients can request that certain information not be shared with specific people or for certain purposes (though organizations don't always have to comply).</div>
+          <div class="right-ai-note">🤖 AI note: Patients can request restrictions on how their data is used — including potentially in AI training or analytics, depending on the context.</div>
+        </div>
+      </div>
+      <div class="right-item">
+        <div class="right-num">5</div>
+        <div class="right-body">
+          <div class="right-name">Right to File a Complaint</div>
+          <div class="right-desc">Patients can file a complaint with the organization or directly with the U.S. Department of Health and Human Services (HHS) if they believe HIPAA was violated. There's no cost to file.</div>
+          <div class="right-ai-note">🤖 AI note: Complaints about AI misuse of patient data are an emerging and growing category of HIPAA complaints.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What Happens When HIPAA Gets Violated</h2>
+    <p>HIPAA violations aren't just slaps on the wrist. The penalties are designed to be serious enough that organizations — and individuals — think very carefully before cutting corners. Click each tier to see the details:</p>
+    <div class="penalty-sim">
+      <div class="ps-label">⚖️ HIPAA Penalty Tiers</div>
+      <div class="ps-title">The Cost of a Violation Depends on What Happened</div>
+      <div class="ps-sub">Penalties range from fines to criminal charges — based on whether the violation was accidental, negligent, or intentional.</div>
+      <div class="penalty-tiers">
+        <div class="penalty-tier t1" onclick="togglePenalty(this)">
+          <div class="tier-header"><div><div class="tier-name" style="color:#B45309">Tier 1: Unknowing Violation</div><div style="font-size:13px;color:var(--gray-muted);margin-top:3px;">You didn't know and had no reason to know it was a violation</div></div><div style="display:flex;align-items:center;gap:8px;"><div class="tier-range" style="color:#B45309">$100–$50,000</div><div class="tier-arrow">▼</div></div></div>
+          <div class="tier-detail" style="color:#78350F"><strong>Example:</strong> A new employee shares a patient's appointment time with what they thought was an authorized person, but wasn't. They genuinely didn't know the rules yet.<br><br><strong>What it means for you:</strong> Even if you didn't know, you can still be fined. "I didn't know" reduces the penalty but doesn't eliminate it — which is why training like this certification matters legally.</div>
+        </div>
+        <div class="penalty-tier t2" onclick="togglePenalty(this)">
+          <div class="tier-header"><div><div class="tier-name" style="color:#C2410C">Tier 2: Reasonable Cause</div><div style="font-size:13px;color:var(--gray-muted);margin-top:3px;">You should have known better, even if you didn't mean harm</div></div><div style="display:flex;align-items:center;gap:8px;"><div class="tier-range" style="color:#C2410C">$1,000–$50,000</div><div class="tier-arrow">▼</div></div></div>
+          <div class="tier-detail" style="color:#7C2D12"><strong>Example:</strong> An employee uses their personal phone to photograph patient files to work from home, not realizing this violates security rules. They should have checked before doing this.<br><br><strong>What it means for you:</strong> This is the most common tier for healthcare workers. "I meant well" is not a legal defense. Ignorance after adequate training is considered reasonable cause.</div>
+        </div>
+        <div class="penalty-tier t3" onclick="togglePenalty(this)">
+          <div class="tier-header"><div><div class="tier-name" style="color:#B91C1C">Tier 3: Willful Neglect — Corrected</div><div style="font-size:13px;color:var(--gray-muted);margin-top:3px;">Knew it was wrong, ignored it, but fixed it when caught</div></div><div style="display:flex;align-items:center;gap:8px;"><div class="tier-range" style="color:#B91C1C">$10,000–$50,000</div><div class="tier-arrow">▼</div></div></div>
+          <div class="tier-detail" style="color:#7F1D1D"><strong>Example:</strong> A clinic knowingly uses an unsecured messaging app for patient communications because it's convenient, despite being told it's not compliant. When audited, they switch to a compliant system.<br><br><strong>What it means for you:</strong> "I knew it was probably wrong but did it anyway" — even if fixed later — carries significant fines. For individual workers, this range can be career-ending.</div>
+        </div>
+        <div class="penalty-tier t4" onclick="togglePenalty(this)">
+          <div class="tier-header"><div><div class="tier-name" style="color:#991B1B">Tier 4: Willful Neglect — Not Corrected</div><div style="font-size:13px;color:var(--gray-muted);margin-top:3px;">Knew it was wrong, ignored it, didn't fix it</div></div><div style="display:flex;align-items:center;gap:8px;"><div class="tier-range" style="color:#991B1B">$50,000+ / Criminal</div><div class="tier-arrow">▼</div></div></div>
+          <div class="tier-detail" style="color:#450A0A"><strong>Example:</strong> An employee intentionally accesses a celebrity patient's records out of curiosity and shares information. Criminal charges are possible, including jail time.<br><br><strong>What it means for you:</strong> Intentional violations can result in federal criminal charges. Healthcare workers have lost their licenses and gone to prison for this. The most common individual criminal case: curiosity browsing of a famous patient's records.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Spot the HIPAA Issue: Real-World Scenarios</h2>
+    <p>HIPAA isn't just about big dramatic breaches. Most violations are small, everyday situations that well-meaning workers stumble into. Click each scenario to see whether it's a violation and why:</p>
+    <div class="scenario-box">
+      <div class="sb-label">🔍 Scenario Spotter</div>
+      <div class="sb-title">HIPAA Violation or Not?</div>
+      <div class="sb-sub">Click each scenario to reveal the answer. Pay attention to the ones that might surprise you.</div>
+      <div class="scenario-cards" id="scenarioContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A medical assistant has completed HIPAA training. They use a free AI chatbot to quickly draft a follow-up message for a patient named James Moreno, including details about his recent diabetes diagnosis. Is this a HIPAA violation?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">No — the message is for the patient's own care, so sharing the information is permitted</button>
+        <button class="qopt" onclick="cq(this,false)">No — AI tools are covered by HIPAA as long as the employee has completed training</button>
+        <button class="qopt" onclick="cq(this,true)">Yes — entering a patient's name and diagnosis into a non-HIPAA-compliant AI tool is a privacy violation, regardless of the purpose</button>
+        <button class="qopt" onclick="cq(this,false)">Only if the AI tool actually stores the information long-term</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>HIPAA has three parts — the Privacy Rule (who can access and share data), the Security Rule (how electronic data must be protected), and the Breach Notification Rule (what to do when something goes wrong). All three apply to AI tools that handle patient data.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Every healthcare worker who handles patient information is bound by HIPAA — not just nurses and doctors. Front desk staff, medical assistants, billing specialists, and anyone using AI tools that touch patient data must comply.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Consumer AI tools are almost never HIPAA-compliant. Entering patient names, diagnoses, dates of birth, or any identifying health information into a free or consumer AI tool is a HIPAA violation — even if your intention is to help the patient.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Penalties range from $100 to criminal charges depending on whether the violation was accidental, negligent, or intentional. "I didn't know" reduces the fine — it does not eliminate it. This certification is now part of your knowledge record.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+function togglePenalty(el){
+  const wasOpen=el.classList.contains('open');
+  document.querySelectorAll('.penalty-tier').forEach(t=>t.classList.remove('open'));
+  if(!wasOpen)el.classList.add('open');
+}
+
+const scenarios=[
+  {text:'A nurse mentions to a coworker in the hallway: "Room 12 is being discharged today — diabetes management issue." A visitor overhears.',violation:true,badge:'⚠️ HIPAA Violation',fb:'Even though the nurse was sharing for care coordination, discussing patient information in a public area where others can overhear is a HIPAA violation. Patient conversations should happen in private or semi-private spaces.'},
+  {text:'A front desk coordinator looks up a patient\'s insurance information to help them understand their coverage before their appointment.',violation:false,badge:'✅ Permitted',fb:'This is a legitimate use for treatment and care coordination — exactly what HIPAA permits. The coordinator is accessing the minimum necessary information for a valid work purpose.'},
+  {text:'A medical assistant types a patient\'s name, age, and medication list into ChatGPT to quickly draft a care summary.',violation:true,badge:'⚠️ HIPAA Violation',fb:'ChatGPT is not a HIPAA-covered AI tool. Entering any identifying patient information — name, medications, diagnosis — into a non-compliant AI tool is a direct HIPAA violation, regardless of the intent.'},
+  {text:'A billing specialist accesses a patient\'s full medical history to verify one billing code.',violation:true,badge:'⚠️ HIPAA Violation',fb:'HIPAA requires the "minimum necessary" standard — you should only access the information you actually need for your work purpose. Accessing a full medical history to verify one billing code exceeds what\'s needed.'},
+  {text:'A healthcare worker tells a patient\'s spouse the patient\'s diagnosis, after the patient has verbally confirmed consent for their spouse to receive health information.',violation:false,badge:'✅ Permitted',fb:'With the patient\'s explicit consent, sharing health information with a family member for care coordination is permitted under HIPAA. Patient authorization is the key factor here.'},
+  {text:'An employee looks up the medical records of a coworker they\'re curious about, just to see.',violation:true,badge:'🚨 Serious Violation',fb:'This is one of the most common intentional HIPAA violations — and one that regularly results in termination and criminal referrals. Having system access does not mean having the right to view any record. You may only access records for legitimate work purposes for patients under your care.'},
+];
+
+const container=document.getElementById('scenarioContainer');
+scenarios.forEach((s,i)=>{
+  const el=document.createElement('div');
+  el.className='scenario-card';
+  el.innerHTML=`<div class="sc-text">${s.text}</div>
+    <div class="sc-fb">
+      <span class="sc-badge">${s.badge}</span>
+      <div>${s.fb}</div>
+    </div>`;
+  el.onclick=()=>{
+    if(el.classList.contains('revealed-violation')||el.classList.contains('revealed-ok'))return;
+    el.classList.add(s.violation?'revealed-violation':'revealed-ok');
+  };
+  container.appendChild(el);
+});
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. HIPAA compliance is about the tool being used, not the purpose of the use. A consumer AI tool hasn\'t signed a Business Associate Agreement (BAA) with the healthcare organization, which means it\'s not authorized to receive protected health information — period. The employee\'s good intentions and completed training don\'t change this. The next article covers exactly what "HIPAA-compliant AI" means and how to tell the difference.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('regardless of the purpose'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ HIPAA compliance depends on what tool is being used, not what the employee intended or what training they\'ve completed. Consumer AI tools are not authorized to receive protected health information regardless of the user\'s purpose. Even care-related tasks must use only HIPAA-compliant, approved tools. Training tells you what\'s allowed — it doesn\'t make non-compliant tools compliant.';}
+}
+</script>
+</body>
+</html>

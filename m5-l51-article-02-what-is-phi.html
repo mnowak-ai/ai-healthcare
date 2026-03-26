@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Is Protected Health Information (PHI)? — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,58px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* The 18 identifiers interactive grid */
+.identifiers-intro{background:var(--purple-pale);border:2px solid var(--purple-mid);border-radius:16px;padding:20px 24px;margin:24px 0;}
+.identifiers-intro p{font-size:15px;margin:0;color:var(--purple-dark);}
+.id-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:24px 0;}
+.id-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;padding:14px 16px;cursor:pointer;transition:all .2s;position:relative;}
+.id-card:hover{border-color:var(--purple);background:var(--purple-pale);}
+.id-card.flipped{background:var(--purple);border-color:var(--purple-dark);}
+.id-num{font-size:11px;font-weight:700;color:var(--gray-muted);margin-bottom:4px;}
+.id-card.flipped .id-num{color:rgba(255,255,255,.6);}
+.id-name{font-size:13px;font-weight:600;color:var(--gray-text);line-height:1.4;}
+.id-card.flipped .id-name{color:white;}
+.id-example{font-size:12px;color:var(--gray-muted);margin-top:4px;line-height:1.4;display:none;}
+.id-card.flipped .id-example{display:block;color:rgba(255,255,255,.8);}
+.id-grid-hint{font-size:13px;color:var(--gray-muted);text-align:center;margin-bottom:12px;font-style:italic;}
+
+/* PHI formula */
+.phi-formula{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:20px;padding:28px;margin:24px 0;text-align:center;}
+.formula-parts{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin:16px 0;}
+.formula-part{background:var(--white);border:2px solid var(--purple-mid);border-radius:14px;padding:14px 20px;text-align:center;min-width:140px;}
+.formula-part.highlight{background:var(--purple);border-color:var(--purple-dark);}
+.fp-icon{font-size:24px;margin-bottom:6px;}
+.fp-label{font-size:13px;font-weight:700;color:var(--purple-dark);}
+.formula-part.highlight .fp-label{color:white;}
+.fp-sub{font-size:12px;color:var(--gray-muted);margin-top:3px;}
+.formula-part.highlight .fp-sub{color:rgba(255,255,255,.75);}
+.formula-op{font-size:24px;font-weight:900;color:var(--purple);}
+.formula-result{margin-top:14px;font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--purple-dark);}
+
+/* Context simulator — the "it depends" engine */
+.context-sim{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.cs-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.cs-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.cs-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.context-rows{display:flex;flex-direction:column;gap:12px;}
+.context-row{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;overflow:hidden;}
+.cr-header{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;}
+.cr-cell{padding:12px 16px;font-size:13px;font-weight:600;text-align:center;border-right:1px solid var(--purple-mid);}
+.cr-cell:last-child{border-right:none;}
+.cr-cell.phi{background:var(--red-pale);color:var(--red);}
+.cr-cell.not-phi{background:var(--green-pale);color:var(--green);}
+.cr-cell.label{background:var(--gray-soft);color:var(--gray-text);font-weight:400;font-size:12px;}
+.cr-explanation{padding:10px 16px;font-size:13px;line-height:1.6;color:var(--gray-muted);border-top:1px solid var(--purple-mid);background:var(--gray-soft);}
+.cr-col-head{text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-muted);padding:8px 12px;background:var(--gray-soft);border-bottom:1px solid var(--purple-mid);}
+.cr-col-heads{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:2px solid var(--purple-mid);}
+
+/* PHI in AI context */
+.ai-phi-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0;}
+.ai-phi-card{border-radius:16px;padding:20px;}
+.ai-phi-card.danger{background:var(--red-pale);border:2px solid #FECACA;}
+.ai-phi-card.safe{background:var(--green-pale);border:2px solid #86EFAC;}
+.apc-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;}
+.ai-phi-card.danger .apc-label{color:var(--red);}
+.ai-phi-card.safe .apc-label{color:var(--green);}
+.apc-title{font-size:15px;font-weight:700;margin-bottom:8px;}
+.ai-phi-card.danger .apc-title{color:#991B1B;}
+.ai-phi-card.safe .apc-title{color:var(--green);}
+.apc-items{display:flex;flex-direction:column;gap:6px;}
+.apc-item{font-size:13px;line-height:1.5;display:flex;gap:8px;}
+
+/* Quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.id-grid{grid-template-columns:1fr 1fr;}.ai-phi-cards{grid-template-columns:1fr;}.formula-parts{flex-direction:column;}.cr-col-heads,.cr-header{grid-template-columns:1fr;}.cr-cell{border-right:none;border-bottom:1px solid var(--purple-mid);}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 5.1 · Privacy Basics</div>
+  <h1>What Is Protected Health Information (PHI)? The Complete Guide With Real Examples</h1>
+  <p class="hero-sub">PHI is the core of HIPAA protection. But most people have a much narrower idea of what counts as PHI than the law actually requires. Knowing the full picture — especially how it applies to AI — is essential before you start any healthcare role.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>PHI Isn't Just Medical Records</h2>
+    <p>When most people think of "protected health information," they picture a patient's medical chart. But PHI is a much broader category than that. Under HIPAA, PHI is defined as <mark>any information that could identify a specific person AND relates to their health, healthcare, or payment for healthcare.</mark></p>
+    <p>That definition has two parts — and both parts matter. Health data alone isn't necessarily PHI. A name alone isn't PHI. But when they're linked — even indirectly — they become PHI, and HIPAA applies.</p>
+    <p>This distinction becomes critically important with AI tools, because AI can often link data that humans wouldn't think to connect. An AI that knows someone's zip code, age, gender, and employer — even without a name — may be able to identify specific individuals. This is part of why healthcare privacy in the AI era is more complex than it used to be.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What PHI Is Made Of: The Two-Part Formula</h2>
+    <div class="phi-formula">
+      <p style="font-size:15px;color:var(--gray-muted);margin-bottom:0;">PHI exists when BOTH of these are true:</p>
+      <div class="formula-parts">
+        <div class="formula-part">
+          <div class="fp-icon">🏥</div>
+          <div class="fp-label">Health Information</div>
+          <div class="fp-sub">Diagnosis, treatment, test results, medications, mental health, payment history</div>
+        </div>
+        <div class="formula-op">+</div>
+        <div class="formula-part">
+          <div class="fp-icon">🪪</div>
+          <div class="fp-label">Identifying Information</div>
+          <div class="fp-sub">Any of the 18 identifiers that could link the health info to a specific person</div>
+        </div>
+        <div class="formula-op">=</div>
+        <div class="formula-part highlight">
+          <div class="fp-icon">🔒</div>
+          <div class="fp-label">PHI</div>
+          <div class="fp-sub">Protected Health Information — HIPAA applies</div>
+        </div>
+      </div>
+      <div class="formula-result">Remove either part → no longer PHI. Keep both together → always PHI.</div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The 18 Official Identifiers — Click to Explore</h2>
+    <p>HIPAA law specifies exactly 18 types of information that can turn health data into PHI. Many of these will surprise you. Click each card to see the real-world example:</p>
+    <p class="id-grid-hint">👆 Click each identifier card to see a real example</p>
+    <div class="id-grid" id="idGrid"></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Context Changes Everything: When the Same Data Is or Isn't PHI</h2>
+    <p>One of the trickiest things about PHI is that whether something counts as PHI can depend entirely on context. The same piece of data can be PHI in one situation and not PHI in another. This is especially important when using AI tools that process data at scale:</p>
+    <div class="context-sim">
+      <div class="cs-label">🔄 Context Matters</div>
+      <div class="cs-title">PHI or Not PHI? It Depends on Context</div>
+      <div class="cs-sub">The same data point can cross the line depending on what it's paired with.</div>
+      <div class="context-rows">
+        <div class="cr-col-heads">
+          <div class="cr-col-head">The Data</div>
+          <div class="cr-col-head">Context A</div>
+          <div class="cr-col-head">Context B</div>
+        </div>
+        <div class="context-row">
+          <div class="cr-header">
+            <div class="cr-cell label">A person's age (45)</div>
+            <div class="cr-cell not-phi">✅ NOT PHI — "45-year-old patients in our study had better outcomes" (population statistic, no individual linked)</div>
+            <div class="cr-cell phi">🔒 PHI — "Patient John Smith, age 45, was treated for…" (age linked to name and diagnosis)</div>
+          </div>
+          <div class="cr-explanation">Age alone is not PHI. Age combined with a name and health information is PHI — HIPAA fully applies.</div>
+        </div>
+        <div class="context-row">
+          <div class="cr-header">
+            <div class="cr-cell label">A zip code</div>
+            <div class="cr-cell not-phi">✅ NOT PHI — "78% of patients in zip code 90210 completed their follow-ups" (no individual identified)</div>
+            <div class="cr-cell phi">🔒 PHI — The last 3 digits of a zip code paired with date of birth and gender can uniquely identify up to 87% of people in the U.S.</div>
+          </div>
+          <div class="cr-explanation">This is the famous "87% re-identification" finding. Even limited demographic data can identify specific individuals — which is why AI de-identification is more complex than it appears.</div>
+        </div>
+        <div class="context-row">
+          <div class="cr-header">
+            <div class="cr-cell label">A photo</div>
+            <div class="cr-cell not-phi">✅ NOT PHI — A stock photo of a hospital waiting room with no identifiable patients</div>
+            <div class="cr-cell phi">🔒 PHI — A photo of a patient in a clinical setting, even without their name, because the image itself identifies them</div>
+          </div>
+          <div class="cr-explanation">Full-face photos are one of the 18 PHI identifiers. This matters for AI tools that process or analyze medical imaging or clinical photos.</div>
+        </div>
+        <div class="context-row">
+          <div class="cr-header">
+            <div class="cr-cell label">A device serial number</div>
+            <div class="cr-cell not-phi">✅ NOT PHI — The serial number of a general-use hospital blood pressure cuff</div>
+            <div class="cr-cell phi">🔒 PHI — The serial number of an implanted pacemaker or CPAP machine assigned to a specific patient</div>
+          </div>
+          <div class="cr-explanation">Device identifiers are one of the 18 PHI identifiers when the device is personal health equipment assigned to an identifiable patient. This matters for wearables and connected health devices.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>PHI and AI: What You Can and Can't Do</h2>
+    <p>AI tools in healthcare often process data at a scale and speed that makes PHI risks harder to see. Here's a clear breakdown of what creates PHI risk with AI — and what doesn't:</p>
+    <div class="ai-phi-cards">
+      <div class="ai-phi-card danger">
+        <div class="apc-label">🚫 High PHI Risk — Avoid Without Compliance Review</div>
+        <div class="apc-title">Entering Any of These Into Non-Approved AI Tools</div>
+        <div class="apc-items">
+          <div class="apc-item" style="color:#7F1D1D">⛔ Patient name + any health info</div>
+          <div class="apc-item" style="color:#7F1D1D">⛔ Medical record numbers, even partial</div>
+          <div class="apc-item" style="color:#7F1D1D">⛔ "The patient born 3/15/1978 with diabetes who was seen Monday…"</div>
+          <div class="apc-item" style="color:#7F1D1D">⛔ Photos or images from clinical settings with patients visible</div>
+          <div class="apc-item" style="color:#7F1D1D">⛔ Any combination of demographics + diagnosis</div>
+          <div class="apc-item" style="color:#7F1D1D">⛔ Copying text from a patient's chart into an AI prompt</div>
+        </div>
+      </div>
+      <div class="ai-phi-card safe">
+        <div class="apc-label">✅ Lower PHI Risk — Generally Acceptable</div>
+        <div class="apc-title">Using AI Tools for These Purposes</div>
+        <div class="apc-items">
+          <div class="apc-item" style="color:#14532D">✔ Drafting general communication templates with no patient info</div>
+          <div class="apc-item" style="color:#14532D">✔ Learning about medical conditions in general terms ("how is Type 2 diabetes managed?")</div>
+          <div class="apc-item" style="color:#14532D">✔ Creating staff-facing educational content with no patient data</div>
+          <div class="apc-item" style="color:#14532D">✔ Using employer-approved, HIPAA-compliant AI tools with patient data</div>
+          <div class="apc-item" style="color:#14532D">✔ Analyzing completely de-identified datasets that meet HIPAA's Safe Harbor standard</div>
+        </div>
+      </div>
+    </div>
+    <div class="pull-quote"><p>When in doubt, ask: "Could this information be used to identify a specific patient?" If yes — it's PHI. Treat it accordingly.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A healthcare worker wants to use an AI tool to analyze patient no-show patterns. The data they plan to use includes: appointment dates, patient zip codes, ages, and insurance type — but NO names or medical record numbers. Is this PHI?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">No — there are no names or medical record numbers, so this is not PHI</button>
+        <button class="qopt" onclick="cq(this,true)">Potentially yes — zip code, age, and appointment dates combined can re-identify specific individuals, and the data relates to healthcare, making it likely PHI</button>
+        <button class="qopt" onclick="cq(this,false)">No — as long as there's no diagnosis information, the data isn't protected</button>
+        <button class="qopt" onclick="cq(this,false)">Only if the patients haven't consented to having their appointment data analyzed</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>PHI requires two things together: health information AND an identifier that could link it to a specific person. Remove either part and it may no longer be PHI. Keep both and HIPAA fully applies.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>HIPAA recognizes 18 official identifiers — including things most people don't expect, like zip codes, device serial numbers, photos, IP addresses, and even the description of rare conditions that can identify someone indirectly.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Context changes everything. The same data can be PHI or not PHI depending on what it's paired with. AI makes this harder because AI tools can re-identify data that seems anonymous by combining seemingly harmless fields.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The working test: before entering any information into an AI tool, ask "Could this be used to identify a specific patient?" If yes — treat it as PHI, use only approved tools, and when uncertain, ask your supervisor.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+const identifiers=[
+  {name:'Names',example:'First and last name, initials, any name variant tied to the person'},
+  {name:'Geographic data',example:'Street address, city, county, zip code — including just the first 3 digits of a zip for rare conditions'},
+  {name:'Dates',example:'Birth dates, admission/discharge dates, death dates, ages over 89 — even the year alone'},
+  {name:'Phone numbers',example:'Any telephone number associated with the patient'},
+  {name:'Fax numbers',example:'Fax numbers associated with the patient\'s file or residence'},
+  {name:'Email addresses',example:'Any email address that can be linked to the patient'},
+  {name:'Social Security numbers',example:'Full or partial SSN'},
+  {name:'Medical record numbers',example:'Any identifier assigned by a healthcare organization to a specific patient'},
+  {name:'Health plan beneficiary numbers',example:'Insurance ID numbers, member numbers'},
+  {name:'Account numbers',example:'Financial account numbers associated with the patient\'s care'},
+  {name:'Certificate/license numbers',example:'Driver\'s license, professional license, or other ID numbers'},
+  {name:'Vehicle identifiers',example:'License plate numbers, VINs — if tied to a specific patient'},
+  {name:'Device identifiers',example:'Serial numbers for implanted devices, pacemakers, CPAP machines, wearables'},
+  {name:'Web URLs',example:'URLs for patient-specific portals or records'},
+  {name:'IP addresses',example:'Computer IP addresses tied to a patient\'s device or account'},
+  {name:'Biometric identifiers',example:'Fingerprints, retinal scans, voice prints'},
+  {name:'Full-face photos',example:'Any photograph or image that shows an identifiable patient'},
+  {name:'Unique identifiers',example:'Any other number, code, or characteristic that could uniquely identify someone'},
+];
+
+const grid=document.getElementById('idGrid');
+identifiers.forEach((id,i)=>{
+  const el=document.createElement('div');
+  el.className='id-card';
+  el.innerHTML=`<div class="id-num">${String(i+1).padStart(2,'0')}</div><div class="id-name">${id.name}</div><div class="id-example">${id.example}</div>`;
+  el.onclick=()=>el.classList.toggle('flipped');
+  grid.appendChild(el);
+});
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. Even without names or medical record numbers, this combination of data is likely PHI. Zip code, age, and dates of service are three of the 18 HIPAA identifiers — and research has shown that just zip code, age, and gender can re-identify up to 87% of Americans. This is exactly why "de-identified" data must meet HIPAA\'s specific Safe Harbor standard (removing all 18 identifiers) before it\'s truly safe to use without HIPAA protections. Zip code + age + appointment dates does not meet that standard.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('re-identify'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ The absence of names doesn\'t make data safe. HIPAA protects 18 types of identifiers, and zip code, age, and dates are all on that list. When combined, these fields can re-identify specific individuals even without a name or record number — this is a well-documented privacy risk that AI tools can exploit far more easily than humans. Truly de-identified data must have all 18 identifiers removed or statistically suppressed according to HIPAA\'s Safe Harbor standard.';}
+}
+</script>
+</body>
+</html>

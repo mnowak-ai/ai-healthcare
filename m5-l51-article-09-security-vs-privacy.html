@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security vs. Privacy: Why Healthcare AI Needs Both — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,58px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* The core comparison */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.compare-card{border-radius:20px;padding:24px;}
+.compare-card.sec{background:var(--orange-pale);border:2px solid #FDE68A;}
+.compare-card.priv{background:var(--purple-pale);border:2px solid var(--purple-mid);}
+.cc-icon{font-size:32px;margin-bottom:10px;}
+.cc-name{font-size:16px;font-weight:700;margin-bottom:8px;}
+.compare-card.sec .cc-name{color:#92400E;}
+.compare-card.priv .cc-name{color:var(--purple-dark);}
+.cc-def{font-size:14px;line-height:1.65;color:var(--gray-text);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(0,0,0,.1);}
+.cc-q{font-size:14px;font-weight:600;font-style:italic;margin-bottom:6px;}
+.compare-card.sec .cc-q{color:#92400E;}
+.compare-card.priv .cc-q{color:var(--purple-dark);}
+.cc-examples{font-size:13px;line-height:1.7;color:var(--gray-text);}
+
+/* The Venn-style overlap */
+.overlap-box{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:20px;padding:24px;margin:24px 0;}
+.ob-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:16px;text-align:center;}
+.venn{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-bottom:16px;}
+.venn-sec{background:#FFFBEB;border:2px solid #FDE68A;border-right:none;border-radius:14px 0 0 14px;padding:16px;}
+.venn-both{background:var(--purple-pale);border:2px solid var(--purple-mid);padding:16px;text-align:center;}
+.venn-priv{background:var(--purple-pale);border:2px solid var(--purple-mid);border-left:none;border-radius:0 14px 14px 0;padding:16px;}
+.venn-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.venn-sec .venn-label{color:#92400E;}
+.venn-both .venn-label{color:var(--purple);}
+.venn-priv .venn-label{color:var(--purple-dark);}
+.venn-item{font-size:12px;line-height:1.5;margin-bottom:4px;color:var(--gray-text);}
+
+/* Scenario tester */
+.scenario-tester{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.st-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.st-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.st-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.st-scenarios{display:flex;flex-direction:column;gap:10px;}
+.st-item{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;overflow:hidden;}
+.st-q{padding:14px 18px;font-size:14px;font-weight:600;color:var(--gray-text);}
+.st-btns{display:flex;border-top:1px solid var(--purple-mid);}
+.st-btn{flex:1;padding:10px;font-size:13px;font-weight:600;cursor:pointer;border:none;background:var(--gray-soft);transition:all .2s;}
+.st-btn:first-child{border-right:1px solid var(--purple-mid);}
+.st-btn:last-child{border-right:1px solid var(--purple-mid);}
+.st-btn:hover{background:var(--purple-pale);}
+.st-btn.selected-sec{background:var(--orange-pale);color:#92400E;}
+.st-btn.selected-priv{background:var(--purple-pale);color:var(--purple-dark);}
+.st-btn.selected-both{background:var(--green-pale);color:var(--green);}
+.st-answer{padding:12px 18px;font-size:13px;line-height:1.6;display:none;border-top:1px solid var(--purple-mid);}
+.st-item.revealed .st-answer{display:block;}
+
+/* Worker responsibilities */
+.worker-resp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0;}
+.wr-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:18px;}
+.wr-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.wr-card.sec .wr-label{color:#92400E;}
+.wr-card.priv .wr-label{color:var(--purple);}
+.wr-card.sec{border-left:4px solid #FDE68A;}
+.wr-card.priv{border-left:4px solid var(--purple);}
+.wr-items{display:flex;flex-direction:column;gap:6px;}
+.wr-item{font-size:13px;line-height:1.5;display:flex;gap:8px;color:var(--gray-text);}
+
+/* Quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.compare{grid-template-columns:1fr;}.venn{grid-template-columns:1fr;}.venn-sec{border-right:2px solid #FDE68A;border-bottom:none;border-radius:14px 14px 0 0;}.venn-priv{border-left:2px solid var(--purple-mid);border-top:none;border-radius:0 0 14px 14px;}.worker-resp{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 5.1 · Privacy Basics</div>
+  <h1>The Difference Between Security and Privacy — And Why Healthcare AI Needs Both</h1>
+  <p class="hero-sub">Security and privacy are often used interchangeably. They're not the same thing — and confusing them creates dangerous blind spots, especially when AI is involved in patient care.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Two Different Problems, Two Different Solutions</h2>
+    <p>Here's a simple way to understand the difference: a hospital could have perfect cybersecurity — no hackers could ever break in — and still have serious privacy violations happening every day through authorized employees accessing records they have no business viewing.</p>
+    <p>Conversely, an organization could have excellent privacy policies and staff who follow all the rules — and still suffer a massive security breach because their systems weren't properly protected from external attack.</p>
+    <p><mark>Security is about protecting data from threats outside the rules. Privacy is about controlling how data is used within the rules.</mark> Healthcare AI needs both — they solve different problems and they can fail independently.</p>
+    <div class="compare">
+      <div class="compare-card sec">
+        <div class="cc-icon">🛡️</div>
+        <div class="cc-name">Security</div>
+        <div class="cc-def">Protecting data from unauthorized access, theft, or destruction. Focuses on technical controls and threat prevention.</div>
+        <div class="cc-q">"Who might try to steal or destroy this data — and how do we stop them?"</div>
+        <div class="cc-examples">Encryption, firewalls, multi-factor authentication, malware protection, audit logs, secure servers, breach detection systems</div>
+      </div>
+      <div class="compare-card priv">
+        <div class="cc-icon">🔏</div>
+        <div class="cc-name">Privacy</div>
+        <div class="cc-def">Controlling how data is collected, used, and shared in ways that respect individuals' rights. Focuses on governance, consent, and appropriate use.</div>
+        <div class="cc-q">"Who should have access to this data — and what are they allowed to do with it?"</div>
+        <div class="cc-examples">HIPAA compliance, BAAs, minimum necessary standard, patient consent, de-identification, access controls, purpose limitation</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Where They Overlap — and Where They Don't</h2>
+    <p>Some safeguards address both security and privacy. But many issues fall into only one category. Understanding where the overlap is — and where each concern is unique — helps you recognize what kind of problem you're actually dealing with:</p>
+    <div class="overlap-box">
+      <div class="ob-title">Security-Only vs. Privacy-Only vs. Both</div>
+      <div class="venn">
+        <div class="venn-sec">
+          <div class="venn-label">🛡️ Security Only</div>
+          <div class="venn-item">Ransomware attack on hospital servers</div>
+          <div class="venn-item">Phishing email compromise of a worker's login</div>
+          <div class="venn-item">Unencrypted patient files on a laptop that gets stolen</div>
+          <div class="venn-item">Server breach by external hackers</div>
+        </div>
+        <div class="venn-both">
+          <div class="venn-label">🔒 Both</div>
+          <div class="venn-item">Using an unapproved AI tool (security: unencrypted; privacy: no authorization)</div>
+          <div class="venn-item">BAA with an AI vendor (security: data handling; privacy: authorized use)</div>
+          <div class="venn-item">Audit logs (security: breach detection; privacy: unauthorized access tracking)</div>
+        </div>
+        <div class="venn-priv">
+          <div class="venn-label">🔏 Privacy Only</div>
+          <div class="venn-item">Worker accessing a record they have no care reason to view</div>
+          <div class="venn-item">Sharing patient info with an employer without consent</div>
+          <div class="venn-item">Using patient data to train an AI without authorization</div>
+          <div class="venn-item">Discussing a patient in a public hallway</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Test Yourself: Security Issue, Privacy Issue, or Both?</h2>
+    <p>For each scenario, decide whether it's primarily a security concern, a privacy concern, or both. Click your answer to see the explanation:</p>
+    <div class="scenario-tester">
+      <div class="st-label">🧪 Classify the Concern</div>
+      <div class="st-title">Security, Privacy, or Both?</div>
+      <div class="st-sub">Click the category you think applies to each scenario.</div>
+      <div class="st-scenarios" id="stContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What Healthcare Workers Are Responsible For</h2>
+    <p>Most security controls are the responsibility of IT and leadership — you can't personally install a firewall. But healthcare workers have direct responsibility for specific security and privacy practices every day:</p>
+    <div class="worker-resp">
+      <div class="wr-card sec">
+        <div class="wr-label">🛡️ Your Security Responsibilities</div>
+        <div class="wr-items">
+          <div class="wr-item">🔑 Never share your login credentials — even with a trusted coworker</div>
+          <div class="wr-item">📱 Lock your screen when leaving a workstation, even briefly</div>
+          <div class="wr-item">🎣 Recognize phishing emails and report them before clicking</div>
+          <div class="wr-item">💾 Never use personal USB drives or unauthorized cloud storage for patient data</div>
+          <div class="wr-item">📸 Never photograph patient records or screens with a personal device</div>
+        </div>
+      </div>
+      <div class="wr-card priv">
+        <div class="wr-label">🔏 Your Privacy Responsibilities</div>
+        <div class="wr-items">
+          <div class="wr-item">👁️ Only access records for patients under your direct care responsibility</div>
+          <div class="wr-item">🤖 Only use AI tools that are approved and have a signed BAA</div>
+          <div class="wr-item">📢 Never discuss patient information in public spaces or hallways</div>
+          <div class="wr-item">📋 Apply the minimum necessary standard — access only the information you actually need</div>
+          <div class="wr-item">🚨 Report unauthorized tool use or potential privacy incidents to your supervisor</div>
+        </div>
+      </div>
+    </div>
+    <div class="pull-quote"><p>A locked door keeps out intruders. Privacy rules determine who has a key. Healthcare AI needs both the door and the key policy — neither alone is sufficient.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">An AI diagnostic tool used by a hospital has excellent cybersecurity — it's encrypted, regularly audited, and has never been breached. However, it uses patient data to train its AI model without patient consent and without this use being disclosed in the Notice of Privacy Practices. Which statement is most accurate?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">This is fine — strong security is what HIPAA primarily requires</button>
+        <button class="qopt" onclick="cq(this,false)">This is a minor issue — as long as data is secure, the use doesn't matter</button>
+        <button class="qopt" onclick="cq(this,true)">This is a serious privacy violation even though security is excellent — HIPAA requires authorized, disclosed use of patient data, and using it to train AI without consent or disclosure violates the Privacy Rule regardless of how secure the system is</button>
+        <button class="qopt" onclick="cq(this,false)">This is only a concern if a breach eventually occurs</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Security protects data from external threats. Privacy controls how data is used by authorized parties. A system can be perfectly secure and still have serious privacy violations — they're separate concerns requiring separate safeguards.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Healthcare AI needs both. An AI tool that's technically secure but uses patient data without authorization violates HIPAA's Privacy Rule. An AI tool that's authorized but not properly secured violates the Security Rule. Both failures harm patients.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Healthcare workers have specific daily responsibilities for both: never share credentials, lock your screen, use only approved AI tools, access only what you need, and report concerns. These aren't IT's job alone — they're yours too.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+const stScenarios=[
+  {q:'A hacker breaks into a hospital\'s server and steals 50,000 patient records.',answer:'security',explain:'🛡️ <strong>Primarily Security.</strong> This is an external threat — unauthorized access by someone who has no legitimate access at all. The response involves technical safeguards: better encryption, intrusion detection, breach response. Privacy also becomes involved (patients must be notified), but the root cause and prevention are security issues.'},
+  {q:'A care coordinator accesses and reads the full medical history of a coworker who is a patient at the hospital, purely out of curiosity.',answer:'privacy',explain:'🔏 <strong>Primarily Privacy.</strong> The coordinator has legitimate system access — security isn\'t the problem. The problem is they used authorized access for an unauthorized purpose. This is purely a privacy violation: the minimum necessary standard and access-for-care-purposes rules were broken.'},
+  {q:'A clinic uses an AI scheduling tool that has excellent encryption but no signed BAA with the clinic.',answer:'both',explain:'✅ <strong>Both.</strong> The missing BAA creates a privacy problem (data shared with unauthorized vendor). Without organizational security controls covering the vendor, it\'s also a security risk. Using an unapproved tool almost always involves both concerns simultaneously.'},
+  {q:'A healthcare worker\'s laptop is left unlocked and unattended in a public waiting room.',answer:'security',explain:'🛡️ <strong>Primarily Security.</strong> The immediate risk is unauthorized physical access to the device — a security threat. If patient records are visible on the screen, it becomes a privacy concern too. But the root action (leaving a device unsecured) is primarily a security failure.'},
+  {q:'An AI documentation tool is authorized and properly secured — but it uses patient data to train its AI model, which wasn\'t disclosed to patients or included in the Notice of Privacy Practices.',answer:'privacy',explain:'🔏 <strong>Primarily Privacy.</strong> Security is fine. The problem is unauthorized use of patient data for a purpose patients didn\'t consent to and weren\'t informed about. This is a Privacy Rule violation regardless of how strong the security is.'},
+];
+
+const answered={};
+const container=document.getElementById('stContainer');
+stScenarios.forEach((s,i)=>{
+  const div=document.createElement('div');
+  div.className='st-item';div.id=`st-${i}`;
+  div.innerHTML=`<div class="st-q">${i+1}. ${s.q}</div>
+    <div class="st-btns">
+      <button class="st-btn" onclick="pickST(${i},'security',this)">🛡️ Security</button>
+      <button class="st-btn" onclick="pickST(${i},'both',this)">✅ Both</button>
+      <button class="st-btn" onclick="pickST(${i},'privacy',this)">🔏 Privacy</button>
+    </div>
+    <div class="st-answer" id="sta-${i}">${s.explain}</div>`;
+  container.appendChild(div);
+});
+
+function pickST(i,choice,btn){
+  if(answered[i])return;
+  answered[i]=true;
+  const s=stScenarios[i];
+  const correct=choice===s.answer;
+  btn.classList.add(`selected-${choice}`);
+  document.getElementById(`st-${i}`).classList.add('revealed');
+  if(!correct){
+    btn.closest('.st-btns').querySelectorAll('.st-btn').forEach(b=>{
+      if(b.onclick.toString().includes(`'${s.answer}'`))b.classList.add(`selected-${s.answer}`);
+    });
+  }
+}
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. This is the essential lesson of security vs. privacy: a system can be perfectly secure and still commit serious HIPAA violations. HIPAA\'s Privacy Rule governs how patient data is used — not just how it\'s protected. Using patient data to train AI without disclosure or consent violates the Privacy Rule regardless of the security posture. Both the Privacy Rule and Security Rule must be satisfied.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('serious privacy violation'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ Security and privacy are separate requirements — both must be satisfied. A system being secure doesn\'t make unauthorized data use compliant with HIPAA. The Privacy Rule governs what data can be used for, who it can be shared with, and what patients must be told. The Security Rule governs how it\'s protected. Both are required. Excellent security with poor privacy practices is still a HIPAA violation.';}
+}
+</script>
+</body>
+</html>

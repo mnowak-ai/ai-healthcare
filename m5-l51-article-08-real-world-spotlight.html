@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Real-World Spotlight: When Healthcare AI and Privacy Collide — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,58px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* Case navigator */
+.case-nav{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.cn-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.cn-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.cn-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.case-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.case-tab{padding:8px 16px;border-radius:10px;border:1.5px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.case-tab.active{background:var(--purple);border-color:var(--purple);color:white;}
+.case-panel{display:none;animation:fadeIn .3s ease;}
+.case-panel.active{display:block;}
+.case-card{background:var(--white);border-radius:16px;overflow:hidden;border:1.5px solid var(--purple-mid);}
+.case-banner{padding:20px 24px;display:flex;gap:16px;align-items:flex-start;}
+.case-banner.red{background:var(--red-pale);border-bottom:2px solid #FECACA;}
+.case-banner.orange{background:var(--orange-pale);border-bottom:2px solid #FDE68A;}
+.case-banner.blue{background:var(--purple-pale);border-bottom:2px solid var(--purple-mid);}
+.case-category{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.case-banner.red .case-category{color:var(--red);}
+.case-banner.orange .case-category{color:var(--orange);}
+.case-banner.blue .case-category{color:var(--purple);}
+.case-org{font-family:'Fraunces',serif;font-size:20px;font-weight:700;line-height:1.2;}
+.case-banner.red .case-org{color:#991B1B;}
+.case-banner.orange .case-org{color:#92400E;}
+.case-banner.blue .case-org{color:var(--purple-dark);}
+.case-year{font-size:13px;font-weight:600;margin-top:4px;color:var(--gray-muted);}
+.case-body{padding:20px 24px;}
+.case-section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-muted);margin-bottom:6px;margin-top:14px;}
+.case-section-label:first-child{margin-top:0;}
+.case-text{font-size:14px;line-height:1.7;color:var(--gray-text);margin-bottom:4px;}
+.case-stat{font-family:'Fraunces',serif;font-size:28px;font-weight:900;color:var(--red);margin:4px 0;}
+.case-lesson{background:var(--purple-pale);border-radius:10px;padding:12px 16px;margin-top:14px;font-size:14px;line-height:1.65;color:var(--purple-dark);}
+.case-lesson strong{color:var(--purple);}
+.case-worker-q{background:var(--gray-soft);border-radius:10px;padding:12px 16px;margin-top:10px;font-size:14px;line-height:1.65;color:var(--gray-text);}
+
+/* Pattern analysis */
+.pattern-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0;}
+.pattern-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:18px;}
+.pc-icon{font-size:26px;margin-bottom:8px;}
+.pc-name{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.pc-desc{font-size:13px;line-height:1.6;color:var(--gray-text);}
+.pc-cases{font-size:12px;color:var(--purple);font-weight:600;margin-top:8px;}
+
+/* Lessons learned list */
+.lessons-list{display:flex;flex-direction:column;gap:10px;margin:24px 0;}
+.lesson-item{display:flex;gap:14px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:16px 20px;align-items:flex-start;}
+.li-num{width:32px;height:32px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:700;flex-shrink:0;}
+.li-title{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.li-desc{font-size:14px;line-height:1.6;color:var(--gray-text);}
+
+/* Quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.pattern-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 5.1 · Privacy Basics</div>
+  <h1>Real-World Spotlight: When Healthcare AI and Privacy Collide</h1>
+  <p class="hero-sub">Theory is important. But real cases — what actually went wrong, who was affected, and what the consequences were — make privacy principles stick. These aren't warnings about a distant future. They already happened.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Why Real Cases Matter</h2>
+    <p>Privacy rules can feel abstract until you see what happens when they're broken. Behind every HIPAA fine or healthcare data scandal are real patients whose sensitive information was exposed — sometimes affecting their insurance, employment, relationships, or sense of safety. And behind most of those incidents are well-meaning healthcare workers and organizations who simply didn't have the knowledge to prevent what happened.</p>
+    <p><mark>Understanding real incidents builds the instincts that protect patients — and protect your career.</mark> After reading these cases, you'll recognize patterns that might otherwise be invisible in your daily work.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Case Studies: Explore Each Incident</h2>
+    <p>Click through four real-world incidents where healthcare AI and patient privacy collided. For each one, pay attention to the root cause — what decision or gap made this possible?</p>
+    <div class="case-nav">
+      <div class="cn-label">📰 Case Study Navigator</div>
+      <div class="cn-title">Real Incidents. Real Consequences.</div>
+      <div class="cn-sub">Each case is based on documented incidents. Click through to explore what happened, what it cost, and what you can take from it.</div>
+      <div class="case-tabs">
+        <button class="case-tab active" onclick="showCase(0)">Case 1</button>
+        <button class="case-tab" onclick="showCase(1)">Case 2</button>
+        <button class="case-tab" onclick="showCase(2)">Case 3</button>
+        <button class="case-tab" onclick="showCase(3)">Case 4</button>
+      </div>
+      <div id="caseContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Patterns Behind Every Incident</h2>
+    <p>Across hundreds of healthcare privacy incidents involving technology and AI, the same root causes appear again and again. Recognizing these patterns is how you prevent the next one:</p>
+    <div class="pattern-grid">
+      <div class="pattern-card">
+        <div class="pc-icon">🔌</div>
+        <div class="pc-name">Unauthorized Tool Use</div>
+        <div class="pc-desc">Staff use an AI or digital tool that was never reviewed or approved for healthcare use — often because it's free, fast, and seems harmless.</div>
+        <div class="pc-cases">Appears in Cases 1, 3, 4</div>
+      </div>
+      <div class="pattern-card">
+        <div class="pc-icon">🔗</div>
+        <div class="pc-name">Missing BAA / Vendor Review</div>
+        <div class="pc-desc">An organization adopts a tool without properly vetting the vendor's compliance posture or executing a BAA — often because the tool comes in through a non-IT department.</div>
+        <div class="pc-cases">Appears in Cases 2, 3</div>
+      </div>
+      <div class="pattern-card">
+        <div class="pc-icon">👁️</div>
+        <div class="pc-name">Curiosity / Inappropriate Access</div>
+        <div class="pc-desc">A worker accesses patient records they have no legitimate reason to view — a famous patient, a coworker, a family member — just to look.</div>
+        <div class="pc-cases">Appears in Cases 1, 4</div>
+      </div>
+      <div class="pattern-card">
+        <div class="pc-icon">📣</div>
+        <div class="pc-name">Inadvertent Disclosure</div>
+        <div class="pc-desc">A worker shares patient information in a context where it can be seen by unauthorized parties — a hallway, a personal device, a social media post, or an unencrypted email.</div>
+        <div class="pc-cases">Appears in all cases</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What Every Healthcare Worker Can Take From These Cases</h2>
+    <div class="lessons-list">
+      <div class="lesson-item"><div class="li-num">1</div><div><div class="li-title">Good intentions don't prevent violations</div><div class="li-desc">Almost none of the workers involved in these incidents intended to harm patients. They were trying to be efficient, helpful, or thorough. Intent doesn't determine HIPAA outcome — the action does.</div></div></div>
+      <div class="lesson-item"><div class="li-num">2</div><div><div class="li-title">The tool being popular doesn't make it compliant</div><div class="li-desc">Many incidents involved widely-used, well-reviewed technology. "Everyone uses it" or "it has great reviews" are not indicators of HIPAA compliance. Compliance is a separate question entirely.</div></div></div>
+      <div class="lesson-item"><div class="li-num">3</div><div><div class="li-title">Reporting concerns early costs far less than covering them up</div><div class="li-desc">In every case where organizations responded quickly and transparently, consequences were significantly lower than cases where issues were discovered externally. If you notice a potential problem, report it — every time.</div></div></div>
+      <div class="lesson-item"><div class="li-num">4</div><div><div class="li-title">The healthcare worker is the last line of defense</div><div class="li-desc">Technology policies, BAAs, and security systems reduce risk — but they don't eliminate it. The moment when a worker pauses and asks "should I be using this tool?" is the moment a violation gets prevented.</div></div></div>
+    </div>
+    <div class="pull-quote"><p>Every healthcare privacy incident that has ever happened had a moment when a different decision could have prevented it. You are that decision-maker.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">Across the real cases studied, what is the single most common root cause of healthcare AI privacy incidents?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Malicious hackers targeting hospital systems for patient data</button>
+        <button class="qopt" onclick="cq(this,false)">AI tools that were fundamentally insecure by design</button>
+        <button class="qopt" onclick="cq(this,true)">Well-meaning people making decisions without the knowledge to recognize the privacy risk in front of them — often using tools that were never properly reviewed or authorized</button>
+        <button class="qopt" onclick="cq(this,false)">Patients sharing their own health information inappropriately</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Real healthcare AI privacy incidents share consistent root causes: unauthorized tool use, missing vendor review, inappropriate access, and inadvertent disclosure. Recognizing these patterns is your early warning system.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Good intentions don't prevent violations. The cases studied involve people who were trying to help — the violations happened because knowledge was missing, not because character was.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The healthcare worker who pauses and asks "is this tool approved?" or "should I really be accessing this?" is the most important privacy control in any healthcare organization — more than any technology system.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+const cases=[
+  {
+    color:'red',category:'Unauthorized Access / Curiosity Browsing',org:'Large Regional Hospital Network',year:'2022 — Composite of documented incidents',
+    what:'A hospital network discovered that 14 employees had accessed the medical records of a local public figure who had been admitted for treatment. None of the employees were involved in the patient\'s care. Their access was flagged by the organization\'s audit system during a routine review.',
+    cost:'All 14 employees were terminated. Three faced referrals for potential criminal investigation. The hospital paid significant legal fees. The public figure\'s medical information had already been informally shared among staff.',
+    root:'Curiosity. Every one of the employees had system access — but not authorization to view this specific patient. Having login credentials is not the same as having a right to view any record.',
+    lesson:'HIPAA gives employees access to the records they need for their specific job — nothing more. Accessing any other patient\'s record, even briefly, even with no intent to share it, is a HIPAA violation. Hospital audit systems flag every access event. "I was just curious" has ended many healthcare careers.',
+    workerQ:'Before accessing any patient record, ask yourself: "Is this patient assigned to my care responsibilities today?" If the answer is no — don\'t open the record.'
+  },
+  {
+    color:'orange',category:'Vendor Without BAA / Third-Party Exposure',org:'Multi-Clinic Primary Care Group',year:'2023 — Composite of documented incidents',
+    what:'A primary care group adopted an AI scheduling and patient communication platform through their operations manager, who found the tool at a conference. The tool was deployed across all five clinic locations and used with patient data for eight months before the compliance officer discovered it had no signed BAA with the organization.',
+    cost:'The organization was required to notify over 12,000 patients. They paid for two years of credit monitoring for affected patients, faced a compliance review, and spent significant resources on a retroactive breach risk assessment. The operations manager received a formal disciplinary action.',
+    root:'A business decision (adopt a useful tool) was made without compliance involvement. No one asked the question: "Does this vendor have a BAA with us?"',
+    lesson:'In healthcare, any tool that touches patient data needs compliance review before deployment — not after. The operations manager wasn\'t malicious; they were trying to improve the patient experience. But the compliance step was skipped because it felt like unnecessary process. It wasn\'t.',
+    workerQ:'If you\'re considering recommending or adopting any new tool at your organization, the first call should be to your IT or compliance team — not after you\'ve started using it.'
+  },
+  {
+    color:'red',category:'AI Documentation Tool / Unauthorized Use',org:'Hospital System — Clinical Department',year:'2023 — Documented incident',
+    what:'Nursing staff in a hospital\'s cardiology unit began using a free AI summarization tool to quickly draft shift handoff notes from longer clinical documentation. The tool was faster and produced cleaner summaries than the official system. Over four months, hundreds of patient records were processed through the tool, which had no BAA and was storing conversation history on its servers.',
+    cost:'The hospital conducted a full breach investigation, notified affected patients, and implemented mandatory retraining for the entire nursing staff. Several nurses received formal warnings. The incident was reported to HHS.',
+    root:'Staff found a faster, better tool and used it — without asking whether it was approved. The intent was excellent. The privacy outcome was a reportable breach.',
+    lesson:'This is the most common AI-related HIPAA incident pattern. A genuinely helpful tool gets used without compliance review. The quality of the output is irrelevant to its compliance status. Efficiency gains don\'t justify using unauthorized tools with patient data.',
+    workerQ:'If you find an AI tool that would make your work significantly faster or better, the right move is to bring it to IT or compliance for review — not to start using it and hope nobody notices.'
+  },
+  {
+    color:'blue',category:'Social Media / Inadvertent Disclosure',org:'Community Hospital Emergency Department',year:'2021-2023 — Pattern across multiple incidents',
+    what:'Multiple emergency department workers across different hospitals shared work experiences on social media — sometimes including photos of workspaces, descriptions of unusual cases ("had the craziest patient today — came in saying…"), or details specific enough that patients recognized themselves or were recognized by people who knew them.',
+    cost:'Workers involved in these incidents faced termination, loss of professional licenses, and in some cases civil lawsuits from patients. The "I didn\'t say their name" defense did not protect workers — HIPAA doesn\'t require a name to be present for PHI to be disclosed. Unique details about a case can identify a specific person.',
+    root:'Workers didn\'t recognize that describing a specific unusual case, even without names, could constitute disclosure of identifiable health information.',
+    lesson:'HIPAA\'s PHI definition covers any information that could identify a specific person in connection with health information. "The 45-year-old man who came in last Tuesday with the snake bite from a pet cobra" may identify a specific person even without a name. Social media posts about specific patients — even fascinating or funny ones — are almost always HIPAA violations.',
+    workerQ:'A simple rule for social media: never describe a specific patient case, even vaguely. You can talk about your work in general terms, but not in ways that could identify any specific person you\'ve cared for.'
+  }
+];
+
+let caseIdx=0;
+function showCase(i){
+  caseIdx=i;
+  document.querySelectorAll('.case-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));
+  renderCase();
+}
+function renderCase(){
+  const c=cases[caseIdx];
+  document.getElementById('caseContainer').innerHTML=`
+    <div class="case-panel active">
+      <div class="case-card">
+        <div class="case-banner ${c.color}">
+          <div>
+            <div class="case-category">Case ${caseIdx+1}: ${c.category}</div>
+            <div class="case-org">${c.org}</div>
+            <div class="case-year">${c.year}</div>
+          </div>
+        </div>
+        <div class="case-body">
+          <div class="case-section-label">What Happened</div>
+          <div class="case-text">${c.what}</div>
+          <div class="case-section-label">The Cost</div>
+          <div class="case-text">${c.cost}</div>
+          <div class="case-section-label">The Root Cause</div>
+          <div class="case-text">${c.root}</div>
+          <div class="case-lesson">💡 <strong>The lesson:</strong> ${c.lesson}</div>
+          <div class="case-worker-q">🎯 <strong>Your takeaway as a healthcare worker:</strong> ${c.workerQ}</div>
+        </div>
+      </div>
+    </div>`;
+}
+renderCase();
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. The data is clear: the overwhelming majority of healthcare privacy incidents involving AI and technology are caused not by malicious external hackers but by internal workers — good people with knowledge gaps. Nurses using faster tools without checking compliance. Coordinators adopting a vendor without a BAA. Staff curious about a famous patient\'s records. These incidents are preventable with the right knowledge — which is exactly what this certification provides.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('without the knowledge'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ External hackers and insecure AI design are real threats — but they account for a minority of healthcare privacy incidents. The most common cause, documented consistently across breach reports, is internal: well-meaning staff making decisions without the knowledge to recognize the privacy risk involved. This is solvable through education and culture — which is why this certification exists.';}
+}
+</script>
+</body>
+</html>

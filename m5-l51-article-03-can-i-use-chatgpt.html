@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Can I Use ChatGPT for Work? — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,58px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* The big red warning box */
+.warning-box{background:var(--red-pale);border:2px solid var(--red);border-radius:20px;padding:28px;margin:24px 0;}
+.wb-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin-bottom:10px;}
+.wb-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:#991B1B;margin-bottom:10px;}
+.wb-text{font-size:15px;line-height:1.7;color:#7F1D1D;}
+
+/* Decision tree interactive */
+.decision-tree{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.dt-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.dt-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.dt-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.dt-step{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px 24px;margin-bottom:12px;display:none;}
+.dt-step.active{display:block;animation:fadeIn .3s ease;}
+.dt-q{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--purple-dark);margin-bottom:14px;}
+.dt-choices{display:flex;gap:10px;flex-wrap:wrap;}
+.dt-btn{padding:10px 18px;border-radius:10px;border:2px solid var(--purple-mid);background:var(--white);color:var(--gray-text);font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;}
+.dt-btn:hover{border-color:var(--purple);background:var(--purple-pale);}
+.dt-result{border-radius:14px;padding:18px 22px;margin-top:14px;display:none;}
+.dt-result.show{display:block;animation:fadeIn .3s ease;}
+.dt-result.safe{background:var(--green-pale);border:2px solid #86EFAC;}
+.dt-result.violation{background:var(--red-pale);border:2px solid var(--red);}
+.dt-result.caution{background:var(--orange-pale);border:2px solid #FDE68A;}
+.dt-result-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
+.dt-result.safe .dt-result-label{color:var(--green);}
+.dt-result.violation .dt-result-label{color:var(--red);}
+.dt-result.caution .dt-result-label{color:var(--orange);}
+.dt-result-text{font-size:14px;line-height:1.65;}
+.dt-reset{margin-top:14px;padding:8px 16px;border-radius:10px;border:1.5px solid var(--purple-mid);background:var(--white);color:var(--purple);font-size:13px;font-weight:600;cursor:pointer;}
+
+/* Tool comparison table */
+.tool-table{width:100%;border-collapse:collapse;margin:24px 0;border-radius:14px;overflow:hidden;border:1.5px solid var(--purple-mid);}
+.tool-table th{background:var(--purple);color:white;padding:12px 16px;font-size:12px;font-weight:600;text-align:left;}
+.tool-table td{padding:11px 16px;font-size:13px;border-bottom:1px solid var(--purple-mid);vertical-align:middle;line-height:1.5;}
+.tool-table tr:last-child td{border-bottom:none;}
+.tool-table tr:nth-child(even) td{background:var(--gray-soft);}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;}
+.badge.yes{background:var(--green-pale);color:var(--green);}
+.badge.no{background:var(--red-pale);color:var(--red);}
+.badge.depends{background:var(--orange-pale);color:var(--orange);}
+
+/* The three-question test */
+.three-q{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
+.tq-item{background:var(--white);border:2px solid var(--purple-mid);border-radius:14px;padding:18px 22px;display:flex;gap:14px;align-items:flex-start;}
+.tq-num{width:36px;height:36px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:15px;font-weight:700;flex-shrink:0;}
+.tq-q{font-size:16px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.tq-explain{font-size:14px;line-height:1.6;color:var(--gray-text);}
+.tq-rule{font-size:12px;font-weight:600;color:var(--purple);background:var(--purple-pale);border-radius:6px;padding:4px 10px;display:inline-block;margin-top:8px;}
+
+/* Realistic scenario simulation */
+.scenario-sim{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.ss2-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.ss2-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ss2-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.ss2-scenario{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:20px;margin-bottom:12px;}
+.ss2-context{font-size:13px;color:var(--gray-muted);text-transform:uppercase;font-weight:700;letter-spacing:.08em;margin-bottom:8px;}
+.ss2-text{font-size:15px;line-height:1.7;color:var(--gray-text);margin-bottom:12px;}
+.ss2-options{display:flex;gap:10px;flex-wrap:wrap;}
+.ss2-opt{padding:9px 16px;border-radius:10px;border:2px solid var(--purple-mid);background:var(--white);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.ss2-opt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.ss2-opt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.ss2-opt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.ss2-fb{font-size:14px;line-height:1.65;padding:12px 16px;border-radius:10px;margin-top:10px;display:none;}
+.ss2-fb.show{display:block;animation:fadeIn .3s ease;}
+.ss2-fb.good{background:var(--green-pale);color:var(--green);}
+.ss2-fb.bad{background:var(--red-pale);color:var(--red);}
+
+/* Quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.dt-choices{flex-direction:column;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 5.1 · Privacy Basics</div>
+  <h1>Can I Use ChatGPT for Work? A Healthcare Worker's Guide to AI Tools and Patient Privacy</h1>
+  <p class="hero-sub">This is the question every healthcare worker is already asking — and most haven't gotten a clear answer to. The honest answer is: sometimes yes, often no, and the difference matters enormously for your career.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>The Question Everyone Is Asking</h2>
+    <p>AI tools like ChatGPT, Claude, Gemini, and dozens of others are genuinely useful. They can draft emails, summarize information, answer questions, and help organize ideas in seconds. Healthcare workers see this and naturally wonder: can I use these tools to make my work faster and better?</p>
+    <p>The answer is not a simple yes or no. It depends entirely on <mark>what information you're entering into the tool, whether the tool is approved by your employer, and whether a proper compliance agreement is in place.</mark></p>
+    <div class="warning-box">
+      <div class="wb-label">🚨 Critical Rule</div>
+      <div class="wb-title">Consumer AI Tools Are Not HIPAA-Compliant By Default</div>
+      <div class="wb-text">The free or standard versions of ChatGPT, Claude, Google Gemini, and most other general-purpose AI tools have NOT signed a Business Associate Agreement (BAA) with your healthcare organization. This means they are not authorized to receive, process, or store Protected Health Information — regardless of your intentions, regardless of your training, and regardless of whether you think the data is "basically harmless." Entering patient information into these tools is a HIPAA violation.</div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What Makes an AI Tool HIPAA-Compliant?</h2>
+    <p>HIPAA compliance for an AI tool isn't automatic — it requires specific steps. Here's what separates a compliant tool from a risky one:</p>
+    <div style="overflow-x:auto;">
+      <table class="tool-table">
+        <thead><tr><th>Requirement</th><th>Consumer ChatGPT (free)</th><th>ChatGPT Enterprise (paid)</th><th>Employer-Approved Healthcare AI</th></tr></thead>
+        <tbody>
+          <tr><td>Business Associate Agreement (BAA) signed</td><td><span class="badge no">No</span></td><td><span class="badge depends">Available</span></td><td><span class="badge yes">Yes</span></td></tr>
+          <tr><td>Data encryption at rest and in transit</td><td><span class="badge depends">Partial</span></td><td><span class="badge yes">Yes</span></td><td><span class="badge yes">Yes</span></td></tr>
+          <tr><td>Data used for AI training</td><td><span class="badge no">Yes (default)</span></td><td><span class="badge yes">No (opt-out)</span></td><td><span class="badge yes">No</span></td></tr>
+          <tr><td>Audit logs of access</td><td><span class="badge no">No</span></td><td><span class="badge depends">Limited</span></td><td><span class="badge yes">Yes</span></td></tr>
+          <tr><td>Safe to use with patient data</td><td><span class="badge no">No</span></td><td><span class="badge depends">Only with BAA</span></td><td><span class="badge yes">Yes</span></td></tr>
+          <tr><td>Approved for use at your organization</td><td><span class="badge no">Almost never</span></td><td><span class="badge depends">Check with IT</span></td><td><span class="badge yes">Yes</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The key document is the <strong>Business Associate Agreement (BAA)</strong>. This is a legal contract that makes a vendor legally responsible for protecting PHI they receive. Without a BAA, no third-party tool can legally receive patient data — and most consumer AI tools have not signed one with your organization.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Three Questions to Ask Before Using Any AI Tool</h2>
+    <p>Before entering anything into an AI tool at work, run it through these three questions. If any answer is "no" or "I don't know," stop and check with your supervisor or IT department first:</p>
+    <div class="three-q">
+      <div class="tq-item">
+        <div class="tq-num">1</div>
+        <div>
+          <div class="tq-q">Is this tool approved by my employer for healthcare use?</div>
+          <div class="tq-explain">Your organization's IT or compliance team maintains a list of approved tools. If it's not on the list, don't use it with any patient-related information. "I didn't know it wasn't approved" doesn't protect you from consequences.</div>
+          <div class="tq-rule">Rule: Default to "no" until you verify "yes"</div>
+        </div>
+      </div>
+      <div class="tq-item">
+        <div class="tq-num">2</div>
+        <div>
+          <div class="tq-q">Does the information I'm entering include any PHI?</div>
+          <div class="tq-explain">Review the 18 PHI identifiers from the previous article. Names, dates, medical record numbers, diagnoses, zip codes combined with other data — any of these in combination with health information creates PHI. When in doubt, assume it's PHI.</div>
+          <div class="tq-rule">Rule: If it could identify a patient, treat it as PHI</div>
+        </div>
+      </div>
+      <div class="tq-item">
+        <div class="tq-num">3</div>
+        <div>
+          <div class="tq-q">Has a Business Associate Agreement been signed between my employer and this tool's vendor?</div>
+          <div class="tq-explain">You may not know this answer yourself — and that's fine. If you can't confirm it, ask your supervisor or IT department before proceeding. The BAA is what legally authorizes the tool to receive PHI.</div>
+          <div class="tq-rule">Rule: No BAA = no PHI in that tool, ever</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Use the Decision Tool: Should I Use This AI Tool?</h2>
+    <p>Walk through this decision guide for any AI tool you're considering using at work:</p>
+    <div class="decision-tree">
+      <div class="dt-label">🌿 Decision Guide</div>
+      <div class="dt-title">Is It Safe to Use This AI Tool?</div>
+      <div class="dt-sub">Answer each question to find out what you should do.</div>
+      <div id="dtContainer"></div>
+      <button class="dt-reset" onclick="resetDT()">↩ Start Over</button>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Practice: What Would You Do?</h2>
+    <p>These are realistic situations healthcare workers encounter. For each one, decide what the right action is:</p>
+    <div class="scenario-sim">
+      <div class="ss2-label">💼 Real-World Scenarios</div>
+      <div class="ss2-title">AI Tool Decisions at Work</div>
+      <div class="ss2-sub">Choose the best action for each situation.</div>
+      <div id="scenarioContainer2"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="pull-quote"><p>The rule is simple: no PHI in unapproved AI tools, ever. When you're unsure, the right move is always to ask before you act.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A healthcare worker's employer has deployed an AI documentation tool with a signed BAA. The worker also has a personal ChatGPT account they find very helpful. For a complex patient note, they want to use their personal ChatGPT because they're more comfortable with it. What should they do?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Use personal ChatGPT — they're just writing a note, not sharing sensitive data</button>
+        <button class="qopt" onclick="cq(this,false)">Use personal ChatGPT but delete the conversation immediately after</button>
+        <button class="qopt" onclick="cq(this,true)">Use only the employer-approved tool — personal ChatGPT has no BAA with the organization and cannot legally receive patient information, regardless of preference or convenience</button>
+        <button class="qopt" onclick="cq(this,false)">Ask the patient's permission before using personal ChatGPT</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Consumer AI tools (free ChatGPT, Google Gemini, etc.) are not HIPAA-compliant by default. They have not signed a Business Associate Agreement with your organization, which means entering any PHI into them is a HIPAA violation — full stop.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Before using any AI tool with work-related content, ask three questions: Is it employer-approved? Does my input include PHI? Has a BAA been signed? If any answer is "no" or "I don't know," check first.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>There are many things you can use general AI tools for at work — drafting general templates, researching medical topics without patient data, creating staff training content. The line is not "AI tools at work = always wrong." The line is "PHI in non-approved AI tools = always wrong."</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+const tree=[
+  {id:'start',q:'Is this AI tool on your organization\'s approved software list?',choices:[{label:'Yes, it\'s approved',next:'approved'},{label:'No / I\'m not sure',next:'not-approved'}]},
+  {id:'approved',q:'Does the content you want to enter include any patient information — names, dates, diagnoses, medical record numbers, or anything that could identify a patient?',choices:[{label:'Yes, it includes patient info',next:'approved-phi'},{label:'No, it\'s general content only',next:'safe-approved'}]},
+  {id:'not-approved',q:'Does the content you want to enter include any patient-related information at all?',choices:[{label:'Yes',next:'violation'},{label:'No — purely general content',next:'caution-not-approved'}]},
+  {id:'approved-phi',q:'Has your employer confirmed a Business Associate Agreement (BAA) is in place with this tool\'s vendor?',choices:[{label:'Yes, confirmed BAA exists',next:'safe-with-phi'},{label:'Not sure / No',next:'check-baa'}]},
+  {id:'safe-approved',result:'safe',label:'✅ Looks Good to Use',text:'This tool is employer-approved and you\'re not entering any PHI. This is a low-risk use case. Still follow your organization\'s general guidelines for AI tool use.'},
+  {id:'violation',result:'violation',label:'🚨 HIPAA Violation Risk',text:'An unapproved tool with patient information is almost certainly a HIPAA violation. Stop. Use only your employer-approved tools for any work involving patient data. If you\'ve already entered information, report it to your supervisor or compliance officer.'},
+  {id:'caution-not-approved',result:'caution',label:'⚠️ Proceed With Caution',text:'General AI use for non-patient content (drafting templates, learning about conditions) is lower risk — but using unapproved tools still violates most healthcare organizations\' policies. Ask your IT or compliance team whether this use case is permitted before continuing.'},
+  {id:'safe-with-phi',result:'safe',label:'✅ Permitted Use',text:'An employer-approved tool with a confirmed BAA and PHI is the authorized way to use AI with patient data in healthcare. Proceed, but follow all organizational guidelines and use only the minimum necessary information.'},
+  {id:'check-baa',result:'caution',label:'⚠️ Stop and Verify',text:'Even if a tool is on the approved list, you need BAA confirmation before entering PHI. Ask your supervisor or IT/compliance team to confirm the BAA status before proceeding. This isn\'t optional — it\'s the legal protection that authorizes the data to be there.'},
+];
+
+let currentStep='start';
+function renderDT(){
+  const step=tree.find(s=>s.id===currentStep);
+  const container=document.getElementById('dtContainer');
+  if(step.result){
+    container.innerHTML=`<div class="dt-result show ${step.result}"><div class="dt-result-label">${step.label}</div><div class="dt-result-text">${step.text}</div></div>`;
+  } else {
+    container.innerHTML=`<div class="dt-step active"><div class="dt-q">${step.q}</div><div class="dt-choices">${step.choices.map(c=>`<button class="dt-btn" onclick="goTo('${c.next}')">${c.label}</button>`).join('')}</div></div>`;
+  }
+}
+function goTo(id){currentStep=id;renderDT();}
+function resetDT(){currentStep='start';renderDT();}
+renderDT();
+
+const scenarios2=[
+  {context:'Situation 1',text:'A medical assistant wants to quickly draft a reminder email to patients about flu shot season. No patient names or data — just a general reminder for the whole clinic. She wants to use ChatGPT (personal account) to write the draft.',options:['Use ChatGPT — no patient data involved, so it\'s fine','Ask IT first before using any personal AI account for work tasks','This is always a HIPAA violation regardless of content'],correct:1,fbs:['Partially right on the content — general content without PHI is lower risk. But using a personal AI account for work tasks still likely violates your organization\'s IT policies, even without PHI. The right move is to ask IT first — many orgs have approved tools you should use instead.','✅ Correct. Even without PHI, using personal AI accounts for work content may violate IT policies. Check first — your organization likely has an approved tool or may permit this specific use. The habit of asking before using unapproved tools is the right professional habit.','Too absolute. General content without PHI is a lower privacy risk, but HIPAA violation depends on whether PHI is involved. The issue here is IT policy compliance, not HIPAA specifically.']},
+  {context:'Situation 2',text:'A care coordinator copies a paragraph from a patient\'s chart into ChatGPT (personal account) to ask for help summarizing the patient\'s recent care history. The paragraph includes the patient\'s name, diagnosis, and last three appointments.',options:['This is fine — the coordinator is using it to help the patient','This is a HIPAA violation — patient name + diagnosis + appointment data is PHI entered into a non-compliant tool','This is fine as long as the coordinator deletes the chat afterward'],correct:1,fbs:['Wrong. The patient benefiting from the outcome doesn\'t change the compliance status of the tool being used. PHI in an unapproved, non-BAA tool is a HIPAA violation regardless of intent.','✅ Correct. Patient name + diagnosis + appointment data is clearly PHI. Entering it into a personal ChatGPT account — which has no BAA with the organization — is a direct HIPAA violation. Intent doesn\'t matter. The tool being used matters.','Wrong. Deleting the chat doesn\'t undo the transmission. Once PHI is sent to a non-compliant system, it has already been exposed. HIPAA violations aren\'t undone by deleting evidence.']},
+  {context:'Situation 3',text:'A front desk coordinator wants to use the clinic\'s approved, HIPAA-compliant AI scheduling tool to help flag patients who are overdue for annual checkups. The tool is on the approved list and has a BAA. She plans to enter patient names and appointment histories.',options:['This is always wrong — patient names should never go into any AI tool','This is permitted — the tool is approved and has a BAA, making it authorized for PHI','This is only permitted if patients consent individually'],correct:1,fbs:['Wrong. This overcorrects. HIPAA-compliant, employer-approved tools with BAAs are specifically designed for exactly this kind of work. The entire healthcare AI infrastructure depends on the ability to use patient data in compliant systems.','✅ Correct. An employer-approved tool with a confirmed BAA is authorized to receive PHI for legitimate work purposes. This is the appropriate way to use AI with patient data — the compliance infrastructure is in place. The coordinator should still use the minimum necessary information and follow organizational guidelines.','Individual consent isn\'t required for treatment-related uses of patient data — that\'s covered by the patient\'s general consent to care. HIPAA permits using patient data for treatment, payment, and healthcare operations without obtaining additional consent for every specific use.']},
+];
+
+const container2=document.getElementById('scenarioContainer2');
+scenarios2.forEach((s,si)=>{
+  const div=document.createElement('div');
+  div.className='ss2-scenario';
+  div.innerHTML=`<div class="ss2-context">${s.context}</div><div class="ss2-text">${s.text}</div>
+    <div class="ss2-options">${s.options.map((o,oi)=>`<button class="ss2-opt" onclick="pickOpt(${si},${oi},this)">${o}</button>`).join('')}</div>
+    <div class="ss2-fb" id="sfb-${si}"></div>`;
+  container2.appendChild(div);
+});
+const answered2={};
+function pickOpt(si,oi,btn){
+  if(answered2[si])return;
+  answered2[si]=true;
+  const s=scenarios2[si];
+  btn.classList.add(oi===s.correct?'correct':'wrong');
+  if(oi!==s.correct){
+    btn.closest('.ss2-scenario').querySelectorAll('.ss2-opt')[s.correct].classList.add('correct');
+  }
+  const fb=document.getElementById(`sfb-${si}`);
+  fb.textContent=s.fbs[oi];
+  fb.className=`ss2-fb show ${oi===s.correct?'good':'bad'}`;
+}
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. The employer-approved tool exists specifically because it has the legal compliance framework (BAA, security requirements) that makes it authorized for patient information. Personal preference doesn\'t override legal compliance. The organization deployed the approved tool for a reason — using an unapproved alternative, even a better one in the worker\'s opinion, violates both HIPAA and organizational policy. Deleting the conversation doesn\'t undo a violation — the transmission already occurred.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('employer-approved tool'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ Patient consent and deleting a conversation don\'t make a non-compliant tool compliant. HIPAA compliance is about the legal and technical infrastructure of the tool itself — encryption, audit logs, Business Associate Agreements. A personal ChatGPT account has none of these in place with the organization. The moment PHI is sent to an unauthorized system, the violation has occurred.';}
+}
+</script>
+</body>
+</html>
