@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Words Matter in Healthcare — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;
+  --white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;
+  --green:#276749;--green-pale:#F0FFF4;--red:#DC2626;--red-pale:#FFF1F1;
+  --orange:#D97706;--orange-pale:#FFFBEB;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;transition:width .1s;}
+
+/* HERO */
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.module-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.module-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+
+/* PULL QUOTE */
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* STAT BANNER */
+.stat-banner{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;}
+.stat-card{background:var(--purple-pale);border:2px solid var(--purple-mid);border-radius:20px;padding:24px 20px;text-align:center;}
+.stat-num{font-family:'Fraunces',serif;font-size:42px;font-weight:900;color:var(--purple-dark);line-height:1;}
+.stat-label{font-size:13px;color:var(--gray-muted);margin-top:6px;line-height:1.4;}
+.stat-source{font-size:11px;color:var(--gray-muted);margin-top:4px;font-style:italic;}
+
+/* SCENARIO EXPLORER */
+.scenario-box{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.scenario-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.scenario-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.scenario-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.scenario-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.scenario-tab{padding:8px 16px;border-radius:10px;border:1.5px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.scenario-tab.active{background:var(--purple);border-color:var(--purple);color:white;}
+.scenario-panel{display:none;animation:fadeIn .3s ease;}
+.scenario-panel.active{display:block;}
+.doc-compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.doc-version{border-radius:14px;padding:18px;}
+.doc-version.bad{background:var(--red-pale);border:2px solid #FCA5A5;}
+.doc-version.good{background:var(--green-pale);border:2px solid #86EFAC;}
+.doc-version-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;}
+.doc-version.bad .doc-version-label{color:var(--red);}
+.doc-version.good .doc-version-label{color:var(--green);}
+.doc-text{font-size:14px;line-height:1.7;color:var(--gray-text);font-family:monospace;background:rgba(255,255,255,.6);border-radius:8px;padding:12px;}
+.doc-consequence{border-radius:10px;padding:12px 16px;font-size:14px;line-height:1.6;margin-top:12px;}
+.doc-consequence.bad-con{background:#FFF1F1;color:#991B1B;border:1px solid #FCA5A5;}
+.doc-consequence.good-con{background:var(--green-pale);color:var(--green);border:1px solid #86EFAC;}
+
+/* THE RIPPLE EFFECT */
+.ripple{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.ripple-steps{display:flex;flex-direction:column;gap:0;}
+.ripple-step{display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--purple-mid);}
+.ripple-step:last-child{border-bottom:none;}
+.ripple-icon{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.ripple-step.r1 .ripple-icon{background:var(--purple-pale);}
+.ripple-step.r2 .ripple-icon{background:#FFF7ED;}
+.ripple-step.r3 .ripple-icon{background:var(--red-pale);}
+.ripple-step.r4 .ripple-icon{background:var(--green-pale);}
+.ripple-body h4{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.ripple-body p{font-size:14px;line-height:1.6;color:var(--gray-text);margin:0;}
+.ripple-connector{width:2px;height:20px;background:var(--purple-mid);margin-left:21px;}
+
+/* WHO READS */
+.readers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0;}
+.reader-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:18px;}
+.reader-icon{font-size:28px;margin-bottom:8px;}
+.reader-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.reader-concern{font-size:13px;line-height:1.55;color:var(--gray-muted);}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+
+/* SUMMARY */
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:640px){
+  .hero,.content{padding-left:24px;padding-right:24px;}
+  .stat-banner{grid-template-columns:1fr;}
+  .doc-compare{grid-template-columns:1fr;}
+  .readers{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+
+<div class="hero">
+  <div class="module-tag">Module 2 · Positioning Article</div>
+  <h1>Why Words Matter in Healthcare</h1>
+  <p class="hero-sub">Most people think documentation is paperwork. In healthcare, it's something else entirely — it's the invisible thread that connects every person on a care team to the patient in the bed. When that thread breaks, people get hurt.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>This Isn't About Writing. It's About Safety.</h2>
+    <p>When you write a professional document in most jobs, the worst thing that usually happens if you make a mistake is someone gets confused, or a meeting gets rescheduled. In healthcare, unclear documentation can cause <mark>the wrong medication to be given</mark>, a known allergy to be missed, a critical follow-up appointment to never happen, or a care team to make decisions based on completely wrong information.</p>
+    <p>That's not an exaggeration. Healthcare professionals write thousands of notes, messages, memos, and summaries every year — and every single one of them becomes part of a patient's record that other people will rely on to make real decisions. The quality of your writing is part of the quality of care.</p>
+    <div class="pull-quote"><p>Bad documentation doesn't just create confusion. In healthcare, it creates risk — for patients, for your colleagues, and for your career.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Numbers Behind the Problem</h2>
+    <p>Poor communication — including written documentation errors — is one of the leading causes of preventable harm in healthcare settings. Here's what the research shows:</p>
+    <div class="stat-banner">
+      <div class="stat-card">
+        <div class="stat-num">80%</div>
+        <div class="stat-label">of serious medical errors involve miscommunication during patient handoffs</div>
+        <div class="stat-source">Joint Commission on Accreditation</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">$1.7B</div>
+        <div class="stat-label">in malpractice costs tied to communication failures over a 5-year period</div>
+        <div class="stat-source">CRICO Strategies</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">#1</div>
+        <div class="stat-label">root cause of sentinel events (serious unexpected patient harm) is communication breakdown</div>
+        <div class="stat-source">The Joint Commission</div>
+      </div>
+    </div>
+    <p>These numbers aren't meant to scare you — they're meant to show you that the writing skills you'll develop in this module are not soft skills. They are <mark>patient safety skills.</mark></p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>See It in Action: How One Sentence Changes Everything</h2>
+    <p>The difference between good and bad healthcare documentation is often just a few words. Click each scenario to see how a small writing choice creates a big real-world difference:</p>
+    <div class="scenario-box">
+      <div class="scenario-label">📝 Documentation Impact Explorer</div>
+      <div class="scenario-title">Same Information. Very Different Outcomes.</div>
+      <div class="scenario-sub">Compare how unclear vs. clear documentation affects what happens next.</div>
+      <div class="scenario-tabs">
+        <button class="scenario-tab active" onclick="showScenario(0)">Medication Note</button>
+        <button class="scenario-tab" onclick="showScenario(1)">Allergy Record</button>
+        <button class="scenario-tab" onclick="showScenario(2)">Follow-Up Task</button>
+        <button class="scenario-tab" onclick="showScenario(3)">Handoff Summary</button>
+      </div>
+      <div id="scenarioContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Ripple Effect of One Bad Note</h2>
+    <p>It can be hard to see how one unclear sentence in a memo or note leads to real harm. Here's how the chain actually works in a typical healthcare setting:</p>
+    <div class="ripple">
+      <div class="ripple-steps">
+        <div class="ripple-step r1">
+          <div class="ripple-icon">✍️</div>
+          <div class="ripple-body">
+            <h4>Step 1: The Note Is Written Unclearly</h4>
+            <p>A medical assistant documents "patient took medication" without specifying which medication, what dose, or at what time. Seems minor. Takes 3 seconds to fix — but it doesn't get fixed.</p>
+          </div>
+        </div>
+        <div class="ripple-connector"></div>
+        <div class="ripple-step r2">
+          <div class="ripple-icon">👁️</div>
+          <div class="ripple-body">
+            <h4>Step 2: The Next Person Assumes</h4>
+            <p>The nurse reviewing the chart assumes "medication" means the scheduled blood pressure medication. She checks it off as administered. She doesn't ask because the note seemed clear enough.</p>
+          </div>
+        </div>
+        <div class="ripple-connector"></div>
+        <div class="ripple-step r3">
+          <div class="ripple-icon">⚠️</div>
+          <div class="ripple-body">
+            <h4>Step 3: A Safety Event Occurs</h4>
+            <p>The patient actually took an over-the-counter pain reliever that interacts with the blood pressure medication. Now she receives a double dose. Her blood pressure drops dangerously.</p>
+          </div>
+        </div>
+        <div class="ripple-connector"></div>
+        <div class="ripple-step r4">
+          <div class="ripple-icon">📋</div>
+          <div class="ripple-body">
+            <h4>Step 4: The Investigation Points Back to the Note</h4>
+            <p>An incident report is filed. Investigators trace the error back to the original unclear documentation. Everyone involved faces review. A patient was harmed by three words that could have been eight: <em>"Patient took Tylenol 500mg at 2pm."</em></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Your Words Have More Than One Reader</h2>
+    <p>One thing that makes healthcare documentation unique: the same document often gets read by many different people, each looking for something different. <mark>You write once. Multiple people act on it.</mark></p>
+    <div class="readers">
+      <div class="reader-card">
+        <div class="reader-icon">🩺</div>
+        <div class="reader-title">The Next Clinician</div>
+        <div class="reader-concern">Needs to know exactly what happened, what was decided, and what to do next — often in under 60 seconds at a busy shift change.</div>
+      </div>
+      <div class="reader-card">
+        <div class="reader-icon">⚖️</div>
+        <div class="reader-title">A Legal Reviewer</div>
+        <div class="reader-concern">If something goes wrong, your notes become legal documents. Vague language gets interpreted in the least favorable way possible.</div>
+      </div>
+      <div class="reader-card">
+        <div class="reader-icon">🏥</div>
+        <div class="reader-title">The Insurance Reviewer</div>
+        <div class="reader-concern">Decides whether a procedure gets covered based entirely on how well it's documented. Unclear notes mean denied claims — costing the patient money.</div>
+      </div>
+      <div class="reader-card">
+        <div class="reader-icon">👤</div>
+        <div class="reader-title">The Patient</div>
+        <div class="reader-concern">Increasingly has access to their own records. Confusing or cold documentation erodes trust and affects how they engage with their own care.</div>
+      </div>
+      <div class="reader-card">
+        <div class="reader-icon">📊</div>
+        <div class="reader-title">Quality & Compliance Teams</div>
+        <div class="reader-concern">Review documentation to ensure regulatory standards are met. Missing or sloppy records can trigger facility-wide audits.</div>
+      </div>
+      <div class="reader-card">
+        <div class="reader-icon">🤖</div>
+        <div class="reader-title">The AI System</div>
+        <div class="reader-concern">Increasingly, AI tools process and summarize notes. Unclear documentation confuses the AI and produces unreliable summaries — which then mislead the humans who read them.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A nurse writes in a handoff note: "Patient seemed uncomfortable earlier, we addressed it." The incoming nurse reads this and assumes the pain was handled. Later, the patient reports they've been in severe pain for three hours. What is the core documentation problem here?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">The outgoing nurse was too busy — documentation always suffers during busy shifts</button>
+        <button class="qopt" onclick="cq(this,true)">The note used vague language ("seemed," "earlier," "addressed") that allowed the reader to assume a resolution that never actually happened — the documentation failed to communicate the actual patient status</button>
+        <button class="qopt" onclick="cq(this,false)">The incoming nurse should have asked more questions before relying on the note</button>
+        <button class="qopt" onclick="cq(this,false)">This is a minor issue — unclear notes are normal in a fast-paced environment</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Where AI Fits Into This Picture</h2>
+    <p>AI tools are increasingly helping healthcare workers write faster — drafting notes, summarizing records, generating routine communications. That's genuinely helpful. But here's the critical thing to understand before you start Module 2:</p>
+    <p><mark>AI can write quickly. It cannot write responsibly on its own.</mark> AI doesn't know your patient. It doesn't know what was actually said in the room. It doesn't understand the difference between a confirmed diagnosis and a possibility that was mentioned and ruled out. It will produce confident-sounding text that may contain errors you can't afford to miss.</p>
+    <p>The skills in this module — understanding what good documentation looks like, knowing the rules, and being able to edit AI output critically — are exactly what makes AI a useful tool instead of a liability. You bring the judgment. AI brings the speed.</p>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Healthcare documentation is not just paperwork — it's a direct link in the chain of patient care. Unclear documentation causes real harm: wrong medications, missed allergies, incorrect decisions.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>80% of serious medical errors involve communication failures at handoffs. Your documentation will be read by clinicians, legal reviewers, insurers, patients, and AI systems — all interpreting it differently.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI can speed up documentation but cannot replace the human judgment needed to make it accurate and safe. Your job in Module 2 is to develop that judgment — so you can work with AI effectively and catch what it misses.</p></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const scenarios = [
+  {
+    bad: {
+      label: "❌ Unclear Version",
+      text: "Patient was given medication this morning.\n— J. Rivera, MA",
+      consequence: "⚠️ The next clinician doesn't know which medication, what dose, or what time. She checks records but can't find a match. She re-administers — and the patient receives a double dose."
+    },
+    good: {
+      label: "✅ Clear Version",
+      text: "Patient received Lisinopril 10mg orally at 08:15 per Dr. Chen's order. No adverse reactions noted.\n— J. Rivera, MA",
+      consequence: "✅ The next clinician immediately sees exactly what was given, when, and by whose order. No guessing. No risk of duplication."
+    }
+  },
+  {
+    bad: {
+      label: "❌ Unclear Version",
+      text: "Allergies: patient has some drug allergies.\nSee old chart.",
+      consequence: "⚠️ In an emergency, there is no time to find 'old chart.' The care team doesn't know what to avoid. A medication with a known allergen is administered."
+    },
+    good: {
+      label: "✅ Clear Version",
+      text: "ALLERGIES:\n• Penicillin → anaphylaxis (confirmed)\n• Sulfa drugs → hives (reported)\nLast updated: 06/01/2024 by Dr. Kim",
+      consequence: "✅ Allergy information is specific, actionable, and immediately visible. Every clinician who opens this record knows exactly what to avoid."
+    }
+  },
+  {
+    bad: {
+      label: "❌ Unclear Version",
+      text: "Someone needs to follow up with patient about test results when they're ready.\n— Admin",
+      consequence: "⚠️ No one is named. No deadline exists. Everyone assumes someone else is doing it. Three weeks later the patient calls asking about results that were never communicated."
+    },
+    good: {
+      label: "✅ Clear Version",
+      text: "ACTION REQUIRED: Maria Chen (Front Desk) to call patient re: MRI results by June 10th. Results available in EHR under Imaging tab.\n— Dr. Lopez, 06/05",
+      consequence: "✅ One person is responsible. There's a deadline. The information is easy to find. The follow-up happens."
+    }
+  },
+  {
+    bad: {
+      label: "❌ Unclear Version",
+      text: "Pt had a rough night. Vitals were a bit off but seemed better by morning. Next team should keep an eye on things.",
+      consequence: "⚠️ 'Rough night,' 'a bit off,' 'seemed better,' and 'keep an eye' are not clinical information. The incoming team has no idea what to monitor, what the actual numbers were, or what threshold should trigger action."
+    },
+    good: {
+      label: "✅ Clear Version",
+      text: "Night shift summary: Pt. experienced O2 sats dropping to 89% at 2am; supplemental O2 @ 2L applied, sats stabilized to 96% by 4am. BP stable throughout. Dr. Park notified. Continue O2 monitoring Q2hr.",
+      consequence: "✅ The incoming team knows exactly what happened, what was done, who was notified, and what to watch for. They can act immediately without hunting for information."
+    }
+  }
+];
+
+let currentScenario = 0;
+function showScenario(i) {
+  currentScenario = i;
+  document.querySelectorAll('.scenario-tab').forEach((t,ti) => t.classList.toggle('active', ti === i));
+  renderScenario();
+}
+function renderScenario() {
+  const s = scenarios[currentScenario];
+  document.getElementById('scenarioContainer').innerHTML = `
+    <div class="doc-compare">
+      <div class="doc-version bad">
+        <div class="doc-version-label">${s.bad.label}</div>
+        <div class="doc-text">${s.bad.text.replace(/\n/g,'<br>')}</div>
+        <div class="doc-consequence bad-con">${s.bad.consequence}</div>
+      </div>
+      <div class="doc-version good">
+        <div class="doc-version-label">${s.good.label}</div>
+        <div class="doc-text">${s.good.text.replace(/\n/g,'<br>')}</div>
+        <div class="doc-consequence good-con">${s.good.consequence}</div>
+      </div>
+    </div>`;
+}
+renderScenario();
+
+function cq(btn, correct) {
+  if (document.querySelector('.qopt.correct') || document.querySelector('.qopt.wrong')) return;
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  const fb = document.getElementById('qfb');
+  if (correct) {
+    fb.className = 'qfb show cfb';
+    fb.textContent = '✅ Correct! Vague language is the most common — and most dangerous — documentation failure. Words like "seemed," "earlier," and "addressed it" feel complete to the writer but leave critical gaps for the reader. Good healthcare documentation is specific: what exactly happened, when exactly it happened, and what exactly was done about it. The incoming nurse had no way of knowing the pain was unresolved because the language implied it wasn\'t.';
+  } else {
+    document.querySelectorAll('.qopt').forEach(o => { if(o.textContent.includes('vague language')) o.classList.add('correct'); });
+    fb.className = 'qfb show wfb';
+    fb.textContent = '❌ While busy shifts and communication between clinicians both matter, the core problem is in the documentation itself. A busy shift doesn\'t excuse vague writing — it makes specific writing even more important. And the incoming nurse shouldn\'t have to interrogate every note to find out whether a patient is currently suffering. The note failed its job: communicating exactly what is true right now so the next person can act.';
+  }
+}
+
+window.addEventListener('scroll', () => {
+  const e = document.documentElement;
+  document.getElementById('pb').style.width = ((e.scrollTop / (e.scrollHeight - e.clientHeight)) * 100) + '%';
+});
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), {threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

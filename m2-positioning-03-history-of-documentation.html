@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From Handwritten Charts to AI Assistants — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;
+  --white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;
+  --green:#276749;--green-pale:#F0FFF4;--red:#DC2626;--red-pale:#FFF1F1;
+  --orange:#D97706;--orange-pale:#FFFBEB;--blue:#1D4ED8;--blue-pale:#EFF6FF;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.module-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.module-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* INTERACTIVE TIMELINE */
+.timeline-explorer{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.tl-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.tl-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.tl-sub{font-size:15px;color:var(--gray-muted);margin-bottom:24px;}
+.tl-nav{display:flex;gap:0;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;overflow:hidden;margin-bottom:20px;}
+.tl-btn{flex:1;padding:12px 8px;text-align:center;cursor:pointer;border:none;background:transparent;font-size:12px;font-weight:600;color:var(--gray-muted);transition:all .2s;border-right:1px solid var(--purple-mid);}
+.tl-btn:last-child{border-right:none;}
+.tl-btn.active{background:var(--purple);color:white;}
+.tl-panel{display:none;animation:fadeIn .3s ease;}
+.tl-panel.active{display:block;}
+.tl-era{display:flex;gap:20px;align-items:flex-start;}
+.tl-era-icon{font-size:48px;flex-shrink:0;}
+.tl-era-content{}
+.tl-era-year{font-size:12px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+.tl-era-name{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--purple-dark);margin-bottom:10px;}
+.tl-era-desc{font-size:14px;line-height:1.7;color:var(--gray-text);margin-bottom:14px;}
+.tl-features{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.tl-feature{background:var(--white);border-radius:10px;padding:10px 12px;font-size:13px;line-height:1.5;}
+.tl-feature.pro{border-left:3px solid var(--green);}
+.tl-feature.con{border-left:3px solid var(--red);}
+.tl-feature-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.tl-feature.pro .tl-feature-label{color:var(--green);}
+.tl-feature.con .tl-feature-label{color:var(--red);}
+.tl-transition{background:var(--purple-pale);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--purple-dark);margin-top:12px;font-style:italic;}
+
+/* AI IS DIFFERENT */
+.difference-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;}
+.diff-card{border-radius:18px;padding:20px;}
+.diff-card.prev{background:var(--blue-pale);border:2px solid #BFDBFE;}
+.diff-card.now{background:var(--purple-pale);border:2px solid var(--purple-mid);}
+.diff-card.concern{background:var(--orange-pale);border:2px solid #FDE68A;}
+.diff-icon{font-size:26px;margin-bottom:10px;}
+.diff-title{font-size:14px;font-weight:700;margin-bottom:8px;}
+.diff-card.prev .diff-title{color:var(--blue);}
+.diff-card.now .diff-title{color:var(--purple);}
+.diff-card.concern .diff-title{color:var(--orange);}
+.diff-desc{font-size:13px;line-height:1.55;color:var(--gray-text);}
+
+/* SAME CHALLENGE, DIFFERENT ERA */
+.challenges{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
+.challenge-row{display:grid;grid-template-columns:1fr 40px 1fr;gap:12px;align-items:center;}
+.challenge-era{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:14px 16px;}
+.challenge-era-label{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--gray-muted);margin-bottom:6px;letter-spacing:.08em;}
+.challenge-era-text{font-size:13px;line-height:1.6;color:var(--gray-text);}
+.challenge-era.old{border-left:4px solid #94A3B8;}
+.challenge-era.new{border-left:4px solid var(--purple);}
+.challenge-arrow{text-align:center;font-size:18px;color:var(--purple);}
+.challenge-theme{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.1em;text-align:center;margin-bottom:4px;}
+
+/* WHAT HASN'T CHANGED */
+.unchanged{background:var(--green-pale);border:2px solid #86EFAC;border-radius:20px;padding:24px;margin:24px 0;}
+.unchanged-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--green);margin-bottom:16px;letter-spacing:.1em;}
+.unchanged-items{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.unchanged-item{display:flex;gap:10px;align-items:flex-start;}
+.unchanged-dot{width:20px;height:20px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.unchanged-dot svg{width:10px;height:10px;}
+.unchanged-text{font-size:14px;line-height:1.6;color:var(--gray-text);}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+
+/* SUMMARY */
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:640px){
+  .hero,.content{padding-left:24px;padding-right:24px;}
+  .tl-features{grid-template-columns:1fr;}
+  .difference-grid{grid-template-columns:1fr;}
+  .challenge-row{grid-template-columns:1fr;}
+  .challenge-arrow{display:none;}
+  .unchanged-items{grid-template-columns:1fr;}
+  .tl-nav{flex-wrap:wrap;}
+  .tl-btn{min-width:30%;}
+}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+
+<div class="hero">
+  <div class="module-tag">Module 2 · Positioning Article</div>
+  <h1>From Handwritten Charts to AI Assistants</h1>
+  <p class="hero-sub">Healthcare documentation has changed dramatically over the past 50 years. Understanding that history helps you understand where AI fits in — and why the fundamental skills of clear, accurate writing have never mattered more.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Technology Has Always Changed Healthcare Writing</h2>
+    <p>Here's something easy to forget when you're learning about AI tools: the people who trained you were probably trained on computers, but the generation before them was trained on paper. And the generation before that used carbon paper and typewriters. Every era of healthcare has wrestled with new documentation technology — and every era had the same core challenge: <mark>how do we make information travel safely from one person to another?</mark></p>
+    <p>AI is the newest answer to that question. But it's not the first new answer, and it won't be the last. Understanding the history makes the AI moment feel less like a disruption and more like a continuation — with some genuinely new risks that previous eras didn't face.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Explore How Documentation Has Evolved</h2>
+    <p>Click through each era to understand how healthcare documentation worked, what problems it solved, and what problems it created:</p>
+    <div class="timeline-explorer">
+      <div class="tl-label">📅 Documentation Through the Decades</div>
+      <div class="tl-title">Every Era Had New Tools — And New Problems</div>
+      <div class="tl-sub">Click each era to explore what changed and what stayed the same.</div>
+      <div class="tl-nav">
+        <button class="tl-btn active" onclick="showEra(0)">1970s–80s<br>Paper Charts</button>
+        <button class="tl-btn" onclick="showEra(1)">1990s<br>Typewriters → PCs</button>
+        <button class="tl-btn" onclick="showEra(2)">2000s<br>Early EHRs</button>
+        <button class="tl-btn" onclick="showEra(3)">2010s<br>Mobile & Cloud</button>
+        <button class="tl-btn" onclick="showEra(4)">2020s<br>AI Tools</button>
+      </div>
+      <div id="eraContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Why AI Is Actually Different This Time</h2>
+    <p>Every previous documentation technology — paper, typewriters, computers, EHRs — was a tool for recording what a human wrote. The human did all the thinking; the technology just changed the medium. AI is genuinely different, and it's worth being honest about why:</p>
+    <div class="difference-grid">
+      <div class="diff-card prev">
+        <div class="diff-icon">🖊️</div>
+        <div class="diff-title">Previous Technologies</div>
+        <div class="diff-desc">Human writes → technology records. The information came entirely from the human's knowledge, memory, and judgment. Technology was passive.</div>
+      </div>
+      <div class="diff-card now">
+        <div class="diff-icon">🤖</div>
+        <div class="diff-title">AI Documentation Tools</div>
+        <div class="diff-desc">Human speaks or types key points → AI generates draft document. The AI actively creates content using patterns from training data — not just from what you provided.</div>
+      </div>
+      <div class="diff-card concern">
+        <div class="diff-icon">⚠️</div>
+        <div class="diff-title">Why This Matters</div>
+        <div class="diff-desc">AI can add words, phrases, and details that weren't in your original input — and they can sound completely correct while being factually wrong about your specific patient.</div>
+      </div>
+    </div>
+    <p>This is the key difference. A typewriter never invented a medication you didn't dictate. An AI documentation tool might. That's not a reason to avoid AI — it's a reason to review every AI-generated document before it becomes part of a patient's record.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Same Core Challenge, Different Era</h2>
+    <p>What's remarkable about healthcare documentation history is that the fundamental challenges have stayed the same across every era — only the specific problems change. Here's how the same core challenge has played out from paper to AI:</p>
+    <div class="challenges">
+      <div style="display:grid;grid-template-columns:1fr 40px 1fr;gap:12px;margin-bottom:4px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#94A3B8;letter-spacing:.08em;">Paper Era</div>
+        <div></div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.08em;">AI Era</div>
+      </div>
+      <div id="challengeRows"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What Has Never Changed</h2>
+    <p>Through 50 years of documentation technology change, these fundamentals have stayed constant — and they form the foundation of everything you'll learn in Module 2:</p>
+    <div class="unchanged">
+      <div class="unchanged-label">✅ The Constants of Good Healthcare Documentation</div>
+      <div class="unchanged-items">
+        <div class="unchanged-item">
+          <div class="unchanged-dot"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5L8.5 2.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="unchanged-text"><strong>Accuracy over speed.</strong> Every era has tempted healthcare workers to rush documentation. Every era has paid the price when accuracy was sacrificed for speed.</div>
+        </div>
+        <div class="unchanged-item">
+          <div class="unchanged-dot"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5L8.5 2.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="unchanged-text"><strong>Specificity beats vagueness.</strong> "Patient took medication" has always been worse than "Patient took Lisinopril 10mg at 08:15." The medium changes. The standard doesn't.</div>
+        </div>
+        <div class="unchanged-item">
+          <div class="unchanged-dot"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5L8.5 2.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="unchanged-text"><strong>Human judgment owns the output.</strong> Whether you're signing a handwritten chart in 1978 or approving an AI-drafted note in 2025, your signature means you own what it says.</div>
+        </div>
+        <div class="unchanged-item">
+          <div class="unchanged-dot"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5L8.5 2.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="unchanged-text"><strong>Readers act on what you write.</strong> The next person who reads your documentation will make a real decision based on it. That hasn't changed in 50 years.</div>
+        </div>
+        <div class="unchanged-item">
+          <div class="unchanged-dot"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5L8.5 2.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="unchanged-text"><strong>Privacy and respect matter.</strong> Whether paper files locked in a cabinet or HIPAA-protected digital records, patient information has always been something to handle with care.</div>
+        </div>
+        <div class="unchanged-item">
+          <div class="unchanged-dot"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5L8.5 2.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="unchanged-text"><strong>Good writing is a professional skill.</strong> Every generation of healthcare workers has had to master the documentation expectations of their era. Yours includes AI — and that's actually an advantage.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="pull-quote"><p>Every generation of healthcare workers has had to learn new documentation tools. What's different today is that the tool can generate content — which means your critical review skills matter more than ever before.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A physician in 2025 uses an AI ambient documentation tool during a patient visit. The tool listens to the conversation and generates a full clinical note automatically. The physician glances at the note, thinks it looks right, and signs off without reading it carefully. A medication the patient said she was ALLERGIC to appears in the treatment plan — because the AI misunderstood a part of the conversation. What does this scenario most clearly illustrate?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">AI documentation tools are too dangerous to use in clinical settings</button>
+        <button class="qopt" onclick="cq(this,false)">The AI made a mistake — this is a technology failure, not a human failure</button>
+        <button class="qopt" onclick="cq(this,true)">Even as tools evolve to generate content automatically, the human responsibility to review and verify before signing has not changed — and the physician's failure to review carefully is the critical error here</button>
+        <button class="qopt" onclick="cq(this,false)">This is an unusual edge case — AI tools rarely make this type of mistake</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Healthcare documentation has evolved through paper charts, typewriters, early computers, EHRs, and now AI tools. Each era improved speed and access — and each era created new documentation risks that humans had to manage.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI documentation is genuinely different from previous technologies: it generates content, not just records it. Previous tools never invented information you didn't provide. AI can — and you must review its output before signing.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The constants haven't changed: accuracy over speed, specificity beats vagueness, human judgment owns every document, and your signature means you're responsible for what it says — regardless of what tool helped you write it.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const eras = [
+  {
+    icon:"📋",
+    year:"1970s – Late 1980s",
+    name:"The Paper Chart Era",
+    desc:"Every note was handwritten on paper forms kept in a physical folder — the patient's chart. Nurses, doctors, and other staff would all write in the same chart, which lived at the nursing station. When a patient transferred to another hospital, staff would photocopy the chart and fax it — or send it physically by courier.",
+    pros:[
+      {label:"What worked",text:"Simple, required no training, no power, no system outages."},
+      {label:"What worked",text:"Handwriting forced brevity — people wrote what mattered most."}
+    ],
+    cons:[
+      {label:"The problem",text:"Handwriting was often illegible — a major source of medication errors."},
+      {label:"The problem",text:"Charts could be lost, misfiled, damaged, or unavailable when needed."}
+    ],
+    transition:"🔄 The shift to computers promised to solve the legibility and access problems — but created entirely new challenges."
+  },
+  {
+    icon:"💻",
+    year:"Late 1980s – Late 1990s",
+    name:"Typewriters to Personal Computers",
+    desc:"Hospitals began using computers for billing and lab results, while nurses typed discharge summaries. The first generation of hospital computers were standalone machines — data from one department often couldn't be shared with another. This era began the transition from handwritten to typed notes, improving legibility but not yet connecting information across the care team.",
+    pros:[
+      {label:"What improved",text:"Typed notes were legible — no more deciphering handwriting."},
+      {label:"What improved",text:"Copy-paste made repetitive documentation faster."}
+    ],
+    cons:[
+      {label:"New problem",text:"Copy-paste also meant errors got copied forward repeatedly — the same wrong information repeated across hundreds of notes."},
+      {label:"New problem",text:"Systems weren't connected — a patient's lab results and their clinical notes were in different places."}
+    ],
+    transition:"🔄 The push toward connected systems led to the first full Electronic Health Records — but they came with a cost."
+  },
+  {
+    icon:"🖥️",
+    year:"Early 2000s – 2010",
+    name:"The EHR Revolution",
+    desc:"The Health Information Technology for Economic and Clinical Health (HITECH) Act in 2009 pushed hospitals to adopt Electronic Health Records (EHRs) by offering financial incentives. Within a decade, paper charts nearly disappeared from hospitals. EHRs like Epic and Cerner became the standard — putting patient information, orders, labs, and notes in one connected system.",
+    pros:[
+      {label:"Game changer",text:"All care team members could see the same information in real time."},
+      {label:"Game changer",text:"Medication alerts, allergy warnings, and order checks became automatic."}
+    ],
+    cons:[
+      {label:"The burden",text:"Physicians began spending more time on documentation than on patients — surveys found doctors spending 2 hours on EHR work for every 1 hour with patients."},
+      {label:"The burden",text:"'Note bloat' emerged: copy-pasted documentation grew to be so long that finding the relevant information became difficult."}
+    ],
+    transition:"🔄 The documentation burden of EHRs created the conditions that made AI documentation tools feel urgently necessary."
+  },
+  {
+    icon:"📱",
+    year:"2010 – 2020",
+    name:"Mobile, Cloud, and Remote Access",
+    desc:"Smartphones, tablets, and cloud computing changed when and where documentation happened. Physicians could now update notes from home. Patients could see their own records through portals. Telehealth enabled documentation of visits that happened over video. The lines between clinical setting and everywhere else began to blur.",
+    pros:[
+      {label:"New capability",text:"Documentation could happen closer to real time — notes completed at bedside rather than hours later."},
+      {label:"New capability",text:"Patients gained access to their own records, encouraging more careful, respectful writing."}
+    ],
+    cons:[
+      {label:"New risk",text:"Mobile access increased the risk of HIPAA violations — a physician answering a question about a patient on a personal device, screenshots of charts in text messages."},
+      {label:"New risk",text:"Always-on access to documentation systems contributed to clinician burnout."}
+    ],
+    transition:"🔄 The combination of documentation burden and mobile technology created the perfect conditions for AI-assisted documentation to emerge."
+  },
+  {
+    icon:"🤖",
+    year:"2020 – Present",
+    name:"AI-Assisted Documentation",
+    desc:"Tools like Nuance Dragon Medical One, Epic's AI documentation features, and ambient clinical intelligence (AI that listens to patient-provider conversations and writes notes automatically) are now in widespread use. These tools are genuinely transformative — they can reduce documentation time significantly and improve completeness. They also require a new kind of skill: the critical review of AI-generated content before it enters the permanent record.",
+    pros:[
+      {label:"The promise",text:"Physicians spending hours on documentation can reclaim time for patients."},
+      {label:"The promise",text:"AI can capture more complete information than rushed manual documentation."}
+    ],
+    cons:[
+      {label:"The new risk",text:"AI generates content — it can add details that were never said, misinterpret ambiguous language, or produce confident-sounding text that contains factual errors."},
+      {label:"The new risk",text:"Over-reliance on AI review is already documented: clinicians approving AI-generated notes without reading them carefully, creating permanent records with undetected errors."}
+    ],
+    transition:"📌 This is where you enter the story. The job in 2025 is to use AI tools effectively AND review their output critically. Both skills are required."
+  }
+];
+
+let currentEra = 0;
+function showEra(i) {
+  currentEra = i;
+  document.querySelectorAll('.tl-btn').forEach((b,bi) => b.classList.toggle('active', bi === i));
+  renderEra();
+}
+function renderEra() {
+  const e = eras[currentEra];
+  document.getElementById('eraContainer').innerHTML = `
+    <div class="tl-panel active">
+      <div class="tl-era">
+        <div class="tl-era-icon">${e.icon}</div>
+        <div class="tl-era-content">
+          <div class="tl-era-year">${e.year}</div>
+          <div class="tl-era-name">${e.name}</div>
+          <div class="tl-era-desc">${e.desc}</div>
+          <div class="tl-features">
+            ${e.pros.map(p=>`<div class="tl-feature pro"><div class="tl-feature-label">${p.label}</div>${p.text}</div>`).join('')}
+            ${e.cons.map(c=>`<div class="tl-feature con"><div class="tl-feature-label">${c.label}</div>${c.text}</div>`).join('')}
+          </div>
+          <div class="tl-transition">${e.transition}</div>
+        </div>
+      </div>
+    </div>`;
+}
+renderEra();
+
+const challengePairs = [
+  {theme:"Legibility", old:"Handwritten notes were often impossible to read. A physician's illegible 'u' looked like an 'n' — unit became nun, micrograms became milligrams.", new:"AI-generated notes are always legible. But legibility now hides a new risk: clearly written text that contains factual errors no one noticed because it read so smoothly."},
+  {theme:"Copying Errors", old:"Carbon paper and manual copying meant information got transcribed wrong. A misspelled name on the original followed the patient through every copied record.", new:"AI copy-paste and AI generation means errors can propagate at scale. An AI that misunderstands one data point will consistently misrepresent it across every document it touches."},
+  {theme:"Speed vs. Accuracy", old:"Under time pressure, nurses skipped details in handwritten notes. 'Patient resting comfortably' replaced three paragraphs that should have been written.", new:"AI generates notes in seconds — so quickly that the temptation to approve without reading carefully is significant. The tool solved the speed problem and created a new accuracy problem."},
+  {theme:"Information Silos", old:"Paper charts couldn't travel. A specialist in one building had no access to notes written in another building that morning.", new:"AI tools can process vast amounts of connected data — but they synthesize it based on patterns. If the original data had gaps or errors, the AI synthesis inherits them."}
+];
+
+const cRows = document.getElementById('challengeRows');
+challengePairs.forEach(pair => {
+  const div = document.createElement('div');
+  div.innerHTML = `
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.1em;margin-bottom:6px;">⚡ ${pair.theme}</div>
+    <div class="challenge-row">
+      <div class="challenge-era old">
+        <div class="challenge-era-label">📋 Paper Era</div>
+        <div class="challenge-era-text">${pair.old}</div>
+      </div>
+      <div class="challenge-arrow">→</div>
+      <div class="challenge-era new">
+        <div class="challenge-era-label">🤖 AI Era</div>
+        <div class="challenge-era-text">${pair.new}</div>
+      </div>
+    </div>`;
+  div.style.marginBottom = '16px';
+  cRows.appendChild(div);
+});
+
+function cq(btn, correct) {
+  if (document.querySelector('.qopt.correct') || document.querySelector('.qopt.wrong')) return;
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  const fb = document.getElementById('qfb');
+  if (correct) {
+    fb.className = 'qfb show cfb';
+    fb.textContent = '✅ Correct! This is the most important lesson in the evolution of documentation technology: tools change, but the human responsibility to review and verify stays constant. A physician who signed a handwritten note was responsible for what it said. A physician who approves an AI-generated note is equally responsible — and equally expected to have read it carefully before signing. "The AI wrote it" is not a defense in a malpractice case any more than "my pen wrote it" would have been in 1980.';
+  } else {
+    document.querySelectorAll('.qopt').forEach(o => { if(o.textContent.includes('human responsibility')) o.classList.add('correct'); });
+    fb.className = 'qfb show wfb';
+    fb.textContent = '❌ This scenario actually shows exactly the right use case for AI documentation tools — with exactly the wrong follow-through. The tool doing the work is not the problem; the missing human review is. AI documentation tools are being successfully used across thousands of healthcare settings — the key is that clinicians treat them as a first draft requiring verification, not a finished document. The technology failure is real, but the human failure to review is the critical error.';
+  }
+}
+
+window.addEventListener('scroll', () => {
+  const e = document.documentElement;
+  document.getElementById('pb').style.width = ((e.scrollTop / (e.scrollHeight - e.clientHeight)) * 100) + '%';
+});
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), {threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
