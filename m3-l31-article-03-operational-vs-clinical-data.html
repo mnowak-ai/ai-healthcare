@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operational vs. Clinical Data — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+.section{padding:36px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* SIDE BY SIDE DEFINITION */
+.def-split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0;}
+.def-card{border-radius:20px;padding:28px;}
+.def-card.op{background:var(--purple-pale);border:2px solid var(--purple-mid);}
+.def-card.cl{background:var(--green-pale);border:2px solid #86EFAC;}
+.def-icon{font-size:36px;margin-bottom:10px;}
+.def-type{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+.def-card.op .def-type{color:var(--purple);}
+.def-card.cl .def-type{color:var(--green);}
+.def-name{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:10px;}
+.def-desc{font-size:14px;line-height:1.7;color:var(--gray-text);margin-bottom:14px;}
+.def-examples{font-size:13px;line-height:1.8;color:var(--gray-text);}
+.def-examples strong{display:block;font-weight:700;margin-bottom:4px;font-size:11px;text-transform:uppercase;letter-spacing:.08em;}
+.def-card.op .def-examples strong{color:var(--purple);}
+.def-card.cl .def-examples strong{color:var(--green);}
+.def-rule{border-radius:10px;padding:10px 14px;margin-top:12px;font-size:13px;font-weight:600;}
+.def-card.op .def-rule{background:rgba(123,47,190,.1);color:var(--purple-dark);}
+.def-card.cl .def-rule{background:rgba(39,103,73,.1);color:var(--green);}
+
+/* SORT GAME */
+.sort-game{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.sg-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.sg-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.sg-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.sg-pool{display:flex;flex-wrap:wrap;gap:8px;min-height:48px;padding:14px;background:var(--white);border:2px dashed var(--purple-mid);border-radius:14px;margin-bottom:16px;}
+.sg-chip{background:var(--purple-dark);color:white;padding:8px 14px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;user-select:none;line-height:1.3;}
+.sg-chip:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(74,21,128,.3);}
+.sg-chip.correct-op{background:var(--purple);cursor:default;}
+.sg-chip.correct-cl{background:var(--green);cursor:default;}
+.sg-chip.wrong{background:var(--red);animation:shake .3s ease;}
+.sg-bins{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
+.sg-bin{border-radius:16px;padding:16px;min-height:120px;}
+.sg-bin.op{background:var(--purple-pale);border:2px dashed var(--purple);}
+.sg-bin.cl{background:var(--green-pale);border:2px dashed var(--green);}
+.sg-bin-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;}
+.sg-bin.op .sg-bin-label{color:var(--purple);}
+.sg-bin.cl .sg-bin-label{color:var(--green);}
+.sg-bin-chips{display:flex;flex-wrap:wrap;gap:6px;min-height:40px;}
+.sg-score-bar{background:var(--white);border-radius:12px;padding:14px 18px;font-size:14px;color:var(--gray-text);display:flex;justify-content:space-between;align-items:center;}
+.sg-score-num{font-family:'Fraunces',serif;font-size:24px;font-weight:900;color:var(--purple);}
+.sg-result{border-radius:12px;padding:14px 18px;margin-top:12px;font-size:14px;line-height:1.65;display:none;}
+.sg-result.show{display:block;animation:fadeIn .3s ease;}
+.sg-result.perfect{background:var(--green-pale);color:var(--green);}
+.sg-result.good{background:var(--orange-pale);color:var(--orange);}
+.sg-reset{margin-top:12px;background:var(--purple);color:white;border:none;border-radius:10px;padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;display:none;}
+.sg-reset.show{display:inline-block;}
+
+/* WHY IT MATTERS SCENARIOS */
+.why-tabs{margin:28px 0;}
+.wt-nav{display:flex;gap:8px;border-bottom:2px solid var(--purple-mid);margin-bottom:0;}
+.wt-tab{padding:10px 16px;font-size:13px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--gray-muted);border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;}
+.wt-tab.active{color:var(--purple);border-bottom-color:var(--purple);}
+.wt-panel{display:none;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:0 16px 16px 16px;padding:24px;animation:fadeIn .3s ease;}
+.wt-panel.active{display:block;}
+.wt-scenario-bad{background:var(--red-pale);border-left:4px solid var(--red);border-radius:0 10px 10px 0;padding:12px 16px;font-size:14px;line-height:1.65;margin-bottom:12px;}
+.wt-scenario-good{background:var(--green-pale);border-left:4px solid var(--green);border-radius:0 10px 10px 0;padding:12px 16px;font-size:14px;line-height:1.65;margin-bottom:12px;}
+.wt-scenario-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
+.wt-scenario-bad .wt-scenario-label{color:var(--red);}
+.wt-scenario-good .wt-scenario-label{color:var(--green);}
+.wt-lesson{background:var(--purple-pale);border-radius:10px;padding:12px 16px;font-size:14px;color:var(--purple-dark);}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.def-split{grid-template-columns:1fr;}.sg-bins{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.1 · Data Literacy</div>
+  <h1>Operational Data vs. Clinical Data: Why the Difference Matters and Why You Can't Confuse Them</h1>
+  <p class="hero-sub">Healthcare generates two fundamentally different kinds of data. Confusing them — or not knowing which one you're working with — leads to privacy violations, wrong tool choices, and serious professional mistakes. Here's how to tell them apart, every time.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Two Completely Different Things That Both Get Called "Healthcare Data"</h2>
+    <p>When people say "healthcare data," they could mean two very different things. One type is about the organization — its schedules, supplies, staffing, and performance metrics. The other type is about individual patients — their health histories, diagnoses, medications, and test results. These two types of data are handled differently, protected differently, used differently, and accessed by different people.</p>
+    <p>In Module 3, we focus entirely on operational data. But you need to understand both types — and be able to tell them apart — because <mark>mixing them up has real consequences.</mark> Using the wrong AI tool on the wrong type of data. Sharing information with someone who isn't supposed to have it. Missing a privacy obligation. These are the mistakes that come from not knowing the difference.</p>
+    <div class="def-split">
+      <div class="def-card op">
+        <div class="def-icon">⚙️</div>
+        <div class="def-type">TYPE 1</div>
+        <div class="def-name">Operational Data</div>
+        <div class="def-desc">Data about how the healthcare organization runs. It describes processes, resources, workflows, and performance — not individual patients. It helps managers and staff make the organization work better.</div>
+        <div class="def-examples">
+          <strong>Examples include:</strong>
+          Today's appointment schedule (slots and times, not patient names)<br>
+          Current inventory of exam gloves<br>
+          Average ER wait time this week<br>
+          Staff utilization rate<br>
+          Appointment no-show rate by day of week
+        </div>
+        <div class="def-rule">🔑 Quick test: Could you share this data in a team meeting without violating anyone's privacy? If yes — it's probably operational.</div>
+      </div>
+      <div class="def-card cl">
+        <div class="def-icon">🩺</div>
+        <div class="def-type">TYPE 2</div>
+        <div class="def-name">Clinical Data</div>
+        <div class="def-desc">Data about individual patients' health. It describes a specific person's medical history, conditions, treatments, and outcomes. It is strictly protected under HIPAA and can only be accessed by authorized care team members.</div>
+        <div class="def-examples">
+          <strong>Examples include:</strong>
+          Patient Maria's diabetes diagnosis<br>
+          A patient's list of current medications<br>
+          Lab test results for a specific patient<br>
+          A provider's clinical notes from an appointment<br>
+          A patient's insurance and billing records
+        </div>
+        <div class="def-rule">🔑 Quick test: Is this about a specific, identifiable person's health? If yes — it's clinical data. HIPAA applies. Handle with care.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Sort It Yourself: Practice Telling Them Apart</h2>
+    <p>The best way to build this skill is to practice it. Below are 10 pieces of healthcare data. Click each one and assign it to the correct category — Operational or Clinical. You'll get immediate feedback on each one.</p>
+    <div class="sort-game">
+      <div class="sg-label">🎯 Sorting Challenge</div>
+      <div class="sg-title">Is It Operational or Clinical?</div>
+      <div class="sg-sub">Click a data card from the pool, then click the correct bin to place it. Score 10/10 to master the distinction.</div>
+      <div style="font-size:13px;color:var(--gray-muted);margin-bottom:12px;">👆 Click a card to select it (it will glow), then click the correct bin below.</div>
+      <div class="sg-pool" id="sgPool"></div>
+      <div class="sg-bins">
+        <div class="sg-bin op" id="binOp" onclick="placeTo('op')">
+          <div class="sg-bin-label">⚙️ Operational Data</div>
+          <div class="sg-bin-chips" id="binOpChips"></div>
+        </div>
+        <div class="sg-bin cl" id="binCl" onclick="placeTo('cl')">
+          <div class="sg-bin-label">🩺 Clinical Data</div>
+          <div class="sg-bin-chips" id="binClChips"></div>
+        </div>
+      </div>
+      <div class="sg-score-bar">
+        <span>Score: <span id="scoreDisplay">0</span> / 10</span>
+        <span class="sg-score-num" id="scoreNum">0</span>
+      </div>
+      <div class="sg-result" id="sgResult"></div>
+      <button class="sg-reset" id="sgReset" onclick="resetGame()">↺ Try Again</button>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Why Getting This Wrong Has Real Consequences</h2>
+    <p>This isn't just an academic distinction. Healthcare workers who confuse operational and clinical data make mistakes that affect patient privacy, organizational compliance, and their own careers. Here are three real scenarios showing what happens when the line gets blurred:</p>
+    <div class="why-tabs">
+      <div class="wt-nav">
+        <button class="wt-tab active" onclick="showWhy(0)">Scenario 1: The AI Tool Problem</button>
+        <button class="wt-tab" onclick="showWhy(1)">Scenario 2: The Sharing Problem</button>
+        <button class="wt-tab" onclick="showWhy(2)">Scenario 3: The Access Problem</button>
+      </div>
+      <div id="whyContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="pull-quote"><p>Operational data helps you run the organization. Clinical data belongs to the patient. Knowing which one you're holding changes everything about how you handle it.</p></div>
+  </div>
+
+  <div class="quiz fade-in">
+    <div class="quiz-label">🧠 Quick Check</div>
+    <div class="quiz-q">A scheduling coordinator is reviewing a report from the AI scheduling system. The report shows: "Patients over 65 have a 34% higher no-show rate for afternoon slots compared to morning slots." What type of data is this, and can she share it with the scheduling team?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="cq(this,true)">Operational data — this is an aggregate trend about scheduling patterns, not about any individual patient. It can be shared with the scheduling team to improve booking practices.</button>
+      <button class="qopt" onclick="cq(this,false)">Clinical data — it mentions a patient age group, so it falls under HIPAA and requires restricted access</button>
+      <button class="qopt" onclick="cq(this,false)">Both types — the age information makes it clinical, but the scheduling pattern makes it operational</button>
+      <button class="qopt" onclick="cq(this,false)">Neither type — aggregate statistics like this don't count as healthcare data</button>
+    </div>
+    <div class="qfb" id="qfb"></div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Key Takeaways</div>
+    <h2>What to Remember From This Article</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Operational data is about how the organization runs — schedules, supplies, staffing, performance metrics. It describes processes and resources, not individual patients.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Clinical data is about individual patients' health — diagnoses, medications, test results, clinical notes. It is protected by HIPAA and can only be accessed by authorized care team members.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The quick test: Could you share this in a team meeting without violating privacy? Operational = probably yes. Clinical = no — it belongs to the patient.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Confusing the two types has real consequences: wrong AI tools, privacy violations, HIPAA breaches, and career-ending mistakes. The distinction is not academic — it's professionally essential.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const items=[
+  {text:'Today\'s appointment fill rate: 84%',correct:'op',explanation:'Operational — this describes schedule capacity, not any individual patient.'},
+  {text:'Patient Sarah Chen\'s blood pressure: 142/88',correct:'cl',explanation:'Clinical — this is an individual patient\'s health measurement, protected under HIPAA.'},
+  {text:'Average ER wait time this week: 34 minutes',correct:'op',explanation:'Operational — this is an aggregate performance metric about the organization, not about any specific person.'},
+  {text:'Dr. Patel\'s clinical notes from Tuesday',correct:'cl',explanation:'Clinical — provider notes document patient care and contain protected health information.'},
+  {text:'Remaining stock of exam gloves: 2 boxes',correct:'op',explanation:'Operational — this is inventory data about supplies, with no connection to any patient.'},
+  {text:'Patient James R.: prescribed metformin 500mg',correct:'cl',explanation:'Clinical — medication records are a core category of protected health information under HIPAA.'},
+  {text:'Staff nurse-to-patient ratio: 1:5 this shift',correct:'op',explanation:'Operational — this describes staffing levels and workflow, not any individual patient\'s information.'},
+  {text:'Lab result: Patient T.W., HbA1c = 8.2%',correct:'cl',explanation:'Clinical — lab results linked to an identifiable patient are protected health information.'},
+  {text:'Monday no-show rate: 21% (last 90 days)',correct:'op',explanation:'Operational — aggregate scheduling performance data over time. No individual patient is identified.'},
+  {text:'Patient #4412: upcoming knee surgery, penicillin allergy',correct:'cl',explanation:'Clinical — surgical plans and allergy information are protected health information, even when identified only by patient number.'},
+];
+
+let selected=null;
+let correct=0;
+let placed={};
+
+function initGame(){
+  selected=null;correct=0;placed={};
+  document.getElementById('sgPool').innerHTML='';
+  document.getElementById('binOpChips').innerHTML='';
+  document.getElementById('binClChips').innerHTML='';
+  document.getElementById('scoreDisplay').textContent='0';
+  document.getElementById('scoreNum').textContent='0';
+  document.getElementById('sgResult').className='sg-result';
+  document.getElementById('sgReset').className='sg-reset';
+  items.forEach((item,i)=>{
+    const chip=document.createElement('div');
+    chip.className='sg-chip';
+    chip.id='chip'+i;
+    chip.dataset.idx=i;
+    chip.textContent=item.text;
+    chip.onclick=()=>selectChip(i);
+    document.getElementById('sgPool').appendChild(chip);
+  });
+}
+
+function selectChip(i){
+  if(placed[i])return;
+  document.querySelectorAll('.sg-chip').forEach(c=>{
+    c.style.outline='none';
+    c.style.boxShadow='none';
+  });
+  selected=i;
+  const chip=document.getElementById('chip'+i);
+  chip.style.outline='3px solid #FFD700';
+  chip.style.boxShadow='0 0 0 4px rgba(255,215,0,.4)';
+}
+
+function placeTo(bin){
+  if(selected===null)return;
+  const item=items[selected];
+  const chip=document.getElementById('chip'+selected);
+  const isCorrect=item.correct===bin;
+  if(isCorrect){
+    correct++;
+    placed[selected]=true;
+    chip.style.outline='none';chip.style.boxShadow='none';
+    chip.classList.remove('sg-chip');
+    chip.className='sg-chip correct-'+(bin==='op'?'op':'cl');
+    chip.onclick=null;
+    document.getElementById('chip'+selected).remove();
+    const binChips=document.getElementById(bin==='op'?'binOpChips':'binClChips');
+    chip.style.fontSize='12px';chip.style.padding='6px 10px';
+    binChips.appendChild(chip);
+    document.getElementById('scoreDisplay').textContent=correct;
+    document.getElementById('scoreNum').textContent=correct;
+    if(correct===10){
+      const res=document.getElementById('sgResult');
+      res.className='sg-result show perfect';
+      res.textContent='🎉 Perfect score! You correctly identified all 10 pieces of data. This distinction is fundamental — you\'ve got it.';
+      document.getElementById('sgReset').className='sg-reset show';
+    }
+  } else {
+    chip.classList.add('wrong');
+    chip.style.outline='none';chip.style.boxShadow='none';
+    setTimeout(()=>{chip.classList.remove('wrong');},400);
+    const res=document.getElementById('sgResult');
+    res.className='sg-result show good';
+    res.textContent='Not quite — '+item.explanation+' Try again!';
+  }
+  selected=null;
+  document.querySelectorAll('.sg-chip').forEach(c=>{c.style.outline='none';c.style.boxShadow='none';});
+}
+
+function resetGame(){initGame();}
+initGame();
+
+const whyScenarios=[
+  {
+    tab:'Scenario 1',
+    bad_label:'❌ What Went Wrong',
+    bad:'A front desk coordinator uses a general AI chatbot (not a HIPAA-compliant tool) to help analyze patient appointment patterns. To get the analysis she wants, she types in the question: "Patients with diabetes have higher no-show rates — can you analyze this data?" — and pastes in a spreadsheet that includes patient names and diagnoses alongside scheduling data. She just shared protected clinical data with an unauthorized AI system.',
+    good_label:'✅ The Right Approach',
+    good:'Operational data (appointment patterns, no-show rates) can be used with approved scheduling AI tools. Clinical data (patient diagnoses, medications) is never entered into operational AI tools — those tools aren\'t built or approved to handle it. If she wanted to study the connection between diagnosis and scheduling behavior, that\'s a research question that requires a formal data process, not a quick AI query.',
+    lesson:'💡 The lesson: Before using any AI tool with healthcare data, you must know what type of data you\'re feeding it — and whether that tool is authorized to handle that type.'
+  },
+  {
+    tab:'Scenario 2',
+    bad_label:'❌ What Went Wrong',
+    bad:'A clinic manager emails an operations report to the full administrative team. The report contains scheduling metrics and performance data — all operational. But buried in the appendix, the report also includes a list of "high-risk patients" with their names and diagnoses, added by a well-meaning analyst who thought it would help with scheduling decisions. Clinical data just got emailed to 12 people who didn\'t need it and weren\'t authorized to receive it.',
+    good_label:'✅ The Right Approach',
+    good:'Operations reports should contain operational data only. If scheduling decisions need to account for patient complexity, the right approach is to use aggregate categories ("high complexity appointment type: 22% of tomorrow\'s schedule") not individual patient identifiers. Anyone building operational reports needs to strip or exclude clinical identifiers before distribution.',
+    lesson:'💡 The lesson: Even well-intentioned data sharing becomes a HIPAA violation when clinical data gets mixed into operational channels. Know what\'s in every report before you send it.'
+  },
+  {
+    tab:'Scenario 3',
+    bad_label:'❌ What Went Wrong',
+    bad:'A healthcare administrator wants to understand why a specific patient had an unusually long appointment last week that threw off the afternoon schedule. She pulls up the patient\'s chart in the EHR to see what the clinical notes say. She\'s not part of this patient\'s care team. She doesn\'t have a legitimate treatment, payment, or operations reason to access their chart. She just created an unauthorized access violation.',
+    good_label:'✅ The Right Approach',
+    good:'Operational questions — like why an appointment ran long — should be answered with operational data. The appropriate source is the appointment record (duration logged), not the clinical chart. If the clinical complexity of the visit is genuinely relevant to operations planning, the right step is to ask the care team to provide an operational summary — not to access the chart yourself.',
+    lesson:'💡 The lesson: The fact that you can access clinical data doesn\'t mean you should. Operational questions get operational answers — and the line between the two protects patients.'
+  }
+];
+let currentWhy=0;
+function showWhy(i){
+  currentWhy=i;
+  document.querySelectorAll('.wt-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));
+  const s=whyScenarios[i];
+  document.getElementById('whyContainer').innerHTML=`
+    <div class="wt-panel active">
+      <div class="wt-scenario-bad"><div class="wt-scenario-label">${s.bad_label}</div>${s.bad}</div>
+      <div class="wt-scenario-good"><div class="wt-scenario-label">${s.good_label}</div>${s.good}</div>
+      <div class="wt-lesson">${s.lesson}</div>
+    </div>`;
+}
+showWhy(0);
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  if(!correct)document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('aggregate trend'))o.classList.add('correct');});
+  const fb=document.getElementById('qfb');
+  fb.className='qfb show '+(correct?'cfb':'wfb');
+  fb.textContent=correct
+    ?'✅ Correct! This is operational data. The key is that no individual patient is identified — it\'s an aggregate trend showing a pattern across a group. Age is demographic data here, not personal health data. The fact that it mentions patients over 65 doesn\'t make it clinical; clinical data requires a link to an identifiable individual\'s health information. Aggregate scheduling patterns are exactly what operational AI tools are designed to analyze — and sharing them with the scheduling team to improve booking practices is exactly the right use.'
+    :'❌ This is operational data. The critical distinction: clinical data requires a link to an identifiable individual\'s health. This report shows an aggregate trend across a demographic group — no individual patient is named or identifiable. Mentioning age as a group characteristic is demographic, not clinical. Operational AI tools are designed precisely for this kind of aggregate analysis. There\'s no HIPAA concern here.';
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

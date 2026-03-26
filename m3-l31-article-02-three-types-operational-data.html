@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Three Types of Operational Healthcare Data — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;--teal:#0D7377;--teal-pale:#E0F7F7;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+.section{padding:36px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* THREE TYPE TABS */
+.type-explorer{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.te-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.te-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.te-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.te-tabs{display:flex;gap:0;border-radius:16px;overflow:hidden;border:2px solid var(--purple-mid);margin-bottom:20px;}
+.te-tab{flex:1;padding:14px 10px;text-align:center;cursor:pointer;border:none;transition:all .2s;font-size:13px;font-weight:700;line-height:1.3;}
+.te-tab:nth-child(1){background:var(--white);color:var(--gray-muted);}
+.te-tab:nth-child(2){background:var(--white);color:var(--gray-muted);}
+.te-tab:nth-child(3){background:var(--white);color:var(--gray-muted);}
+.te-tab.active:nth-child(1){background:#7B2FBE;color:white;}
+.te-tab.active:nth-child(2){background:var(--green);color:white;}
+.te-tab.active:nth-child(3){background:var(--orange);color:white;}
+.te-panel{display:none;animation:fadeIn .3s ease;}
+.te-panel.active{display:block;}
+.te-hero-stat{border-radius:16px;padding:20px 24px;margin-bottom:16px;display:flex;align-items:center;gap:16px;}
+.te-hero-stat.sched{background:var(--purple-pale);border:2px solid var(--purple-mid);}
+.te-hero-stat.inv{background:var(--green-pale);border:2px solid #86EFAC;}
+.te-hero-stat.perf{background:var(--orange-pale);border:2px solid #FDE68A;}
+.te-stat-icon{font-size:40px;}
+.te-stat-text-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.te-hero-stat.sched .te-stat-text-label{color:var(--purple);}
+.te-hero-stat.inv .te-stat-text-label{color:var(--green);}
+.te-hero-stat.perf .te-stat-text-label{color:var(--orange);}
+.te-stat-text-body{font-size:14px;line-height:1.6;color:var(--gray-text);}
+.te-examples{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+.te-example{background:var(--white);border-radius:12px;padding:14px;border:1.5px solid var(--purple-mid);}
+.te-example-source{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:6px;}
+.te-example-data{font-size:13px;font-weight:600;color:var(--purple-dark);margin-bottom:4px;}
+.te-example-ai{font-size:12px;color:var(--gray-muted);line-height:1.5;}
+.te-workflow{background:var(--white);border-radius:12px;padding:16px;border-left:4px solid var(--purple);}
+.te-workflow-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:8px;}
+.te-workflow-steps{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.te-step{background:var(--purple-pale);border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--purple-dark);}
+.te-arrow{color:var(--purple-mid);font-size:14px;}
+
+/* REAL EXAMPLE WALKTHROUGH */
+.walkthrough{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.wt-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.wt-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.wt-sub{font-size:14px;color:var(--gray-muted);margin-bottom:20px;}
+.wt-context{background:var(--gray-soft);border-radius:12px;padding:16px;margin-bottom:16px;font-size:14px;line-height:1.7;border-left:4px solid var(--orange);}
+.wt-data-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+.wt-data-col{border-radius:12px;padding:14px;}
+.wt-data-col:nth-child(1){background:var(--purple-pale);border:1.5px solid var(--purple-mid);}
+.wt-data-col:nth-child(2){background:var(--green-pale);border:1.5px solid #86EFAC;}
+.wt-data-col:nth-child(3){background:var(--orange-pale);border:1.5px solid #FDE68A;}
+.wt-col-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.wt-data-col:nth-child(1) .wt-col-label{color:var(--purple);}
+.wt-data-col:nth-child(2) .wt-col-label{color:var(--green);}
+.wt-data-col:nth-child(3) .wt-col-label{color:var(--orange);}
+.wt-col-items{font-size:13px;line-height:1.8;color:var(--gray-text);}
+.wt-ai-box{background:var(--purple-dark);border-radius:12px;padding:16px;color:white;margin-bottom:12px;}
+.wt-ai-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;opacity:.7;margin-bottom:8px;}
+.wt-ai-body{font-size:14px;line-height:1.7;}
+.wt-human-box{background:var(--green-pale);border:1.5px solid #86EFAC;border-radius:12px;padding:14px;}
+.wt-human-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--green);margin-bottom:6px;}
+.wt-human-body{font-size:14px;line-height:1.65;color:var(--gray-text);}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+
+/* SUMMARY */
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.te-examples{grid-template-columns:1fr;}.wt-data-cols{grid-template-columns:1fr;}.te-tabs{flex-direction:column;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.1 · Data Literacy</div>
+  <h1>The Three Types of Operational Healthcare Data: Scheduling, Inventory, and Performance</h1>
+  <p class="hero-sub">Not all healthcare data is the same. Understanding the three main types of operational data — what each one measures, where it comes from, and how AI uses it — is the foundation for everything in Module 3.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Why Healthcare Has Different Types of Data</h2>
+    <p>Healthcare is a complex operation. At any given moment, a hospital or clinic is simultaneously managing patient appointments, tracking supplies and medications, overseeing staff performance, monitoring patient outcomes, and managing dozens of other moving parts. Each of these areas generates its own kind of data — and each kind of data has different characteristics, is used for different decisions, and is handled differently by AI tools.</p>
+    <p>In this module, we focus specifically on <mark>operational data</mark> — the data that keeps a healthcare organization running day-to-day. This is distinct from clinical data (which covers a patient's individual health information). Operational data is about the organization itself: its schedules, its resources, its workflows, and how well it's performing.</p>
+    <p>There are three main categories. Every healthcare worker who touches an AI tool will encounter all three. Let's go through each one.</p>
+  </div>
+
+  <div class="type-explorer fade-in">
+    <div class="te-label">📂 Data Type Explorer</div>
+    <div class="te-title">Explore All Three Types of Operational Healthcare Data</div>
+    <div class="te-sub">Click each category to see what the data looks like, where it comes from, and exactly how AI uses it.</div>
+    <div class="te-tabs">
+      <button class="te-tab active" onclick="showType(0)">📅 Scheduling Data</button>
+      <button class="te-tab" onclick="showType(1)">📦 Inventory Data</button>
+      <button class="te-tab" onclick="showType(2)">📊 Performance Data</button>
+    </div>
+    <div id="typeContainer"></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>How All Three Work Together: A Real Example</h2>
+    <p>Here's what makes understanding all three types of data so powerful: in a real healthcare setting, they don't work in isolation. AI tools pull from all three simultaneously to build a fuller picture of what's happening and what should happen next. Walk through this example to see how:</p>
+    <div class="walkthrough">
+      <div class="wt-label">🏥 Real-World Walkthrough</div>
+      <div class="wt-title">Monday Morning at Lakeside Family Health — A Full Operational Picture</div>
+      <div class="wt-sub">Here's the data the AI operations platform is reading at 7:30am. See how scheduling, inventory, and performance data combine into one recommendation.</div>
+      <div class="wt-context">📋 <strong>Context:</strong> It's a Monday in October. Flu season is starting. The clinic has 3 physicians and 2 nurse practitioners scheduled today. The AI platform pulls from all three data types simultaneously.</div>
+      <div class="wt-data-cols">
+        <div class="wt-data-col">
+          <div class="wt-col-label">📅 Scheduling Data Says...</div>
+          <div class="wt-col-items">
+            • 47 appointments booked today<br>
+            • 11 flagged high no-show risk<br>
+            • 8 of 47 are new patients (longer avg visit)<br>
+            • 3pm–5pm block only 60% filled<br>
+            • Waitlist: 6 patients waiting for openings
+          </div>
+        </div>
+        <div class="wt-data-col">
+          <div class="wt-col-label">📦 Inventory Data Says...</div>
+          <div class="wt-col-items">
+            • Flu vaccines: 43 doses remaining<br>
+            • Rapid flu test kits: 12 remaining<br>
+            • Last 2 Mondays: avg 18 flu tests used<br>
+            • Reorder takes 2 days<br>
+            • No PPE shortage flags active
+          </div>
+        </div>
+        <div class="wt-data-col">
+          <div class="wt-col-label">📊 Performance Data Says...</div>
+          <div class="wt-col-items">
+            • Last Monday avg wait time: 41 min<br>
+            • Target: under 30 min<br>
+            • Monday AM is historically highest volume<br>
+            • Patient satisfaction dipped last week<br>
+            • NP availability: both fully booked
+          </div>
+        </div>
+      </div>
+      <div class="wt-ai-box">
+        <div class="wt-ai-label">🤖 What the AI Recommends</div>
+        <div class="wt-ai-body">Based on combined data analysis: (1) Add 2 waitlist patients to the 3pm–5pm block — high-no-show risk on morning slots makes afternoon capacity likely available. (2) Alert supply coordinator: rapid flu test inventory at 12 units is below the estimated 18-unit usage for today — reorder immediately. (3) Flag to clinical lead: Monday AM volume pattern combined with current staffing creates elevated wait time risk — consider extending NP availability or adjusting lunch break timing.</div>
+      </div>
+      <div class="wt-human-box">
+        <div class="wt-human-label">👩‍⚕️ What the Human Does Next</div>
+        <div class="wt-human-body">The operations coordinator reviews all three recommendations. She approves #1 and calls the two waitlist patients. She forwards #2 to the supply team and confirms the rush reorder. For #3, she checks with the clinical lead — who knows one of the NPs has a personal obligation that prevents extending her hours today. The coordinator flags this to the lead physician and asks if any appointments can be shifted to later in the week. The AI gave her the picture. She made the calls.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="pull-quote"><p>Understanding what type of data you're looking at tells you what questions to ask about it — and what the AI can and can't know from it alone.</p></div>
+  </div>
+
+  <div class="quiz fade-in">
+    <div class="quiz-label">🧠 Quick Check</div>
+    <div class="quiz-q">An AI scheduling tool sends an alert: "Tuesday's appointment fill rate is 71%, with 8 open slots. Historical data shows Tuesday afternoons have a 26% no-show rate." Which types of operational data is the AI using to generate this alert?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="cq(this,false)">Inventory data and performance data only</button>
+      <button class="qopt" onclick="cq(this,true)">Scheduling data (fill rate, open slots) and performance data (historical no-show rate) — two types working together</button>
+      <button class="qopt" onclick="cq(this,false)">Only scheduling data — no-show rates are part of scheduling</button>
+      <button class="qopt" onclick="cq(this,false)">All three types — inventory data is also present because appointments require supplies</button>
+    </div>
+    <div class="qfb" id="qfb"></div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Key Takeaways</div>
+    <h2>What to Remember From This Article</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Scheduling data covers appointments, capacity, patient flow, and no-show patterns. AI uses it to optimize booking, predict gaps, and manage waitlists before problems happen.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Inventory data covers supplies, medications, and equipment. AI uses usage trends and lead times to predict shortages before they happen and automate reordering at the right threshold.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Performance data covers how well the organization is doing — wait times, staff ratios, patient satisfaction, error rates. AI uses it to spot trends over time and flag when something is drifting in the wrong direction.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>In real operations, all three data types work together. AI recommendations usually draw on multiple types simultaneously — and understanding which type each piece of data comes from helps you evaluate whether the recommendation makes sense.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const types=[
+  {
+    panel_cls:'sched',
+    hero_cls:'sched',
+    icon:'📅',
+    label:'SCHEDULING DATA',
+    desc:'Scheduling data is everything related to when patients come in, how many are expected, whether they show up, and how efficiently appointment time is being used. It\'s one of the most action-dense types of operational data — because scheduling problems cascade quickly into staffing problems, patient experience problems, and financial problems.',
+    examples:[
+      {source:'Booking System',data:'Appointment slots: 48 booked, 6 open',ai:'AI predicts which of the 48 are high no-show risk, so staff can fill slots proactively from the waitlist'},
+      {source:'EHR History',data:'Patient X has missed 3 of their last 5 appointments',ai:'AI flags Patient X as high no-show risk for their upcoming Tuesday slot, prompting a same-day reminder call'},
+      {source:'Arrival Tracking',data:'Monday 9–11am average check-in time: 8.2 minutes',ai:'AI compares against target (under 6 min) and flags for process review — long check-in is causing downstream wait time issues'}
+    ],
+    workflow_label:'How Scheduling Data Flows',
+    steps:['Patient Books Appointment','System Logs Date, Time, Type, Provider','AI Analyzes Against Historical Patterns','AI Generates: No-Show Risk Score','AI Generates: Fill Rate Alert','Coordinator Reviews & Acts']
+  },
+  {
+    panel_cls:'inv',
+    hero_cls:'inv',
+    icon:'📦',
+    label:'INVENTORY DATA',
+    desc:'Inventory data tracks every supply, medication, and piece of equipment in a healthcare facility — what\'s on hand, what\'s being used, what needs to be ordered, and when. Poor inventory management is a genuine patient safety issue: running out of a critical supply mid-procedure or mid-shift can directly harm patients. AI inventory tools are one of the clearest examples of where technology prevents real harm.',
+    examples:[
+      {source:'Supply Room Scanner',data:'Exam gloves: 3 boxes remaining (est. 2 days supply)',ai:'AI compares usage rate against lead time (4 days) and flags: reorder now or face shortage before delivery arrives'},
+      {source:'Pharmacy System',data:'Medication A usage: up 40% this week vs. baseline',ai:'AI detects unusual spike and alerts pharmacy: verify whether increased usage is appropriate or whether a discrepancy exists'},
+      {source:'Equipment Log',data:'Ultrasound Unit 2: last maintenance 11 months ago',ai:'AI flags upcoming maintenance deadline and schedules service window during lowest-use hours to minimize disruption'}
+    ],
+    workflow_label:'How Inventory Data Flows',
+    steps:['Supply Used / Item Scanned','System Updates Current Stock Level','AI Compares to Usage Rate + Lead Time','AI Generates: Reorder Alert or Shortage Warning','Supply Coordinator Reviews','Order Placed or Escalated']
+  },
+  {
+    panel_cls:'perf',
+    hero_cls:'perf',
+    icon:'📊',
+    label:'PERFORMANCE DATA',
+    desc:'Performance data is the scorecard of how well the healthcare organization is doing across all its key functions. It aggregates information from scheduling, staffing, patient outcomes, satisfaction surveys, error reports, and financial systems to give managers and administrators a holistic view of organizational health. AI uses performance data primarily for trend detection — spotting patterns over time that a human reviewing a single week\'s report would miss.',
+    examples:[
+      {source:'Patient Survey System',data:'Patient satisfaction: 78% this week vs. 88% last month',ai:'AI flags 10-point drop and correlates with 3-week trend of increasing wait times — likely connection for administrator to investigate'},
+      {source:'Staffing & Timekeeping',data:'Nurse overtime hours: up 22% over the last 3 weeks',ai:'AI flags overtime spike as potential burnout risk indicator and projects: at current rate, 2 nurses are statistically likely to take leave within 60 days'},
+      {source:'Incident Reporting',data:'3 near-miss medication events logged in 10 days',ai:'AI detects cluster and flags for quality review: 3 events in 10 days is above the baseline rate of 1 per 2 weeks — pattern warrants investigation'}
+    ],
+    workflow_label:'How Performance Data Flows',
+    steps:['Events Happen Across Facility','Systems Log: Surveys, Times, Incidents, Financials','AI Analyzes Trends Over Time','AI Generates: Alerts, Reports, Predictions','Manager Reviews Dashboard','Strategic or Operational Decision Made']
+  }
+];
+
+let currentType=0;
+function showType(i){
+  currentType=i;
+  document.querySelectorAll('.te-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));
+  renderType();
+}
+function renderType(){
+  const t=types[currentType];
+  const exHtml=t.examples.map(e=>`
+    <div class="te-example">
+      <div class="te-example-source">📍 ${e.source}</div>
+      <div class="te-example-data">"${e.data}"</div>
+      <div class="te-example-ai">🤖 AI uses this to: ${e.ai}</div>
+    </div>`).join('');
+  const stepHtml=t.steps.map((s,si)=>`<span class="te-step">${s}</span>${si<t.steps.length-1?'<span class="te-arrow">→</span>':''}`).join('');
+  document.getElementById('typeContainer').innerHTML=`
+    <div class="te-panel active">
+      <div class="te-hero-stat ${t.hero_cls}">
+        <div class="te-stat-icon">${t.icon}</div>
+        <div>
+          <div class="te-stat-text-label">${t.label}</div>
+          <div class="te-stat-text-body">${t.desc}</div>
+        </div>
+      </div>
+      <div class="te-examples">${exHtml}</div>
+      <div class="te-workflow">
+        <div class="te-workflow-label">🔄 ${t.workflow_label}</div>
+        <div class="te-workflow-steps">${stepHtml}</div>
+      </div>
+    </div>`;
+}
+renderType();
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  if(!correct)document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('two types working together'))o.classList.add('correct');});
+  const fb=document.getElementById('qfb');
+  fb.className='qfb show '+(correct?'cfb':'wfb');
+  fb.textContent=correct
+    ?'✅ Correct! The alert combines two types: Scheduling data (the current fill rate of 71% and the 8 open slots — that\'s live booking status) and Performance data (the historical 26% no-show rate — that\'s a trend pattern measured over time). AI draws from both simultaneously to produce a single useful alert. Inventory data isn\'t involved here — there\'s no supply information in this scenario.'
+    :'❌ Look carefully at what each piece of data is: "71% fill rate and 8 open slots" is current scheduling data — live booking status. "Historical 26% no-show rate" is performance data — a trend pattern measured over time. No-show rate is performance data because it\'s a measurement of how the organization has performed historically, not just what\'s on the schedule right now. Two types, working together.';
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

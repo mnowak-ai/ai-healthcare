@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Is Data Literacy? — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+.section{padding:36px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* FOUR SKILLS GRID */
+.skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:24px 0;}
+.skill-card{border-radius:20px;padding:24px;border:2px solid;}
+.skill-card:nth-child(1){background:var(--purple-pale);border-color:var(--purple-mid);}
+.skill-card:nth-child(2){background:var(--green-pale);border-color:#86EFAC;}
+.skill-card:nth-child(3){background:var(--orange-pale);border-color:#FDE68A;}
+.skill-card:nth-child(4){background:#EEF2FF;border-color:#C7D2FE;}
+.skill-num{font-family:'Fraunces',serif;font-size:36px;font-weight:900;line-height:1;margin-bottom:6px;}
+.skill-card:nth-child(1) .skill-num{color:var(--purple);}
+.skill-card:nth-child(2) .skill-num{color:var(--green);}
+.skill-card:nth-child(3) .skill-num{color:var(--orange);}
+.skill-card:nth-child(4) .skill-num{color:#4338CA;}
+.skill-title{font-size:15px;font-weight:700;margin-bottom:6px;color:var(--gray-text);}
+.skill-desc{font-size:13px;line-height:1.6;color:var(--gray-text);}
+.skill-example{font-size:12px;font-style:italic;margin-top:8px;padding:8px 12px;border-radius:8px;background:rgba(255,255,255,.6);}
+
+/* LITERACY LEVEL SLIDER */
+.level-sim{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.sim-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.sim-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.sim-sub{font-size:15px;color:var(--gray-muted);margin-bottom:24px;}
+.level-track{display:flex;gap:0;margin-bottom:20px;border-radius:14px;overflow:hidden;border:2px solid var(--purple-mid);}
+.level-btn{flex:1;padding:12px 8px;text-align:center;font-size:13px;font-weight:700;cursor:pointer;border:none;background:var(--white);color:var(--gray-muted);transition:all .2s;line-height:1.3;}
+.level-btn.active{background:var(--purple);color:var(--white);}
+.level-scenario{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:22px;}
+.level-scene-tag{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.1em;margin-bottom:6px;}
+.level-scene-title{font-family:'Fraunces',serif;font-size:18px;color:var(--purple-dark);font-weight:700;margin-bottom:12px;}
+.level-data-box{background:var(--gray-soft);border-radius:10px;padding:14px 16px;margin-bottom:14px;font-size:14px;line-height:1.6;border-left:4px solid var(--orange);}
+.level-response{border-radius:10px;padding:14px 16px;font-size:14px;line-height:1.65;}
+.level-response.low{background:var(--red-pale);border:1.5px solid #FCA5A5;}
+.level-response.mid{background:var(--orange-pale);border:1.5px solid #FDE68A;}
+.level-response.high{background:var(--green-pale);border:1.5px solid #86EFAC;}
+.level-response-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
+.level-response.low .level-response-label{color:var(--red);}
+.level-response.mid .level-response-label{color:var(--orange);}
+.level-response.high .level-response-label{color:var(--green);}
+
+/* DAY IN THE LIFE WALK */
+.day-walk{margin:28px 0;}
+.dw-title{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);font-weight:700;margin-bottom:16px;}
+.dw-item{display:flex;gap:16px;margin-bottom:0;cursor:pointer;}
+.dw-item:not(:last-child) .dw-line{flex:1;width:2px;background:var(--purple-mid);}
+.dw-left{display:flex;flex-direction:column;align-items:center;width:44px;flex-shrink:0;}
+.dw-time-dot{width:44px;height:44px;background:var(--purple-pale);border:2px solid var(--purple-mid);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--purple);text-align:center;line-height:1.2;flex-shrink:0;transition:all .2s;}
+.dw-item:hover .dw-time-dot,.dw-item.open .dw-time-dot{background:var(--purple);color:white;border-color:var(--purple);}
+.dw-connector{width:2px;flex:1;background:var(--purple-mid);min-height:12px;margin:2px 0;}
+.dw-right{flex:1;padding-bottom:16px;}
+.dw-event{font-size:15px;font-weight:600;color:var(--purple-dark);margin-bottom:4px;}
+.dw-detail{font-size:14px;line-height:1.65;color:var(--gray-text);display:none;padding:10px 14px;background:var(--purple-pale);border-radius:10px;margin-top:8px;}
+.dw-item.open .dw-detail{display:block;animation:fadeIn .3s ease;}
+.dw-literacy-tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:2px 8px;border-radius:100px;margin-top:6px;}
+.dw-literacy-tag.uses{background:var(--purple-pale);color:var(--purple);}
+.dw-literacy-tag.needs{background:var(--orange-pale);color:var(--orange);}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+
+/* SUMMARY */
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.skills-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.1 · Data Literacy</div>
+  <h1>What Is Data Literacy? A Plain-Language Guide for Healthcare Workers</h1>
+  <p class="hero-sub">Data literacy isn't about becoming a mathematician or a computer scientist. It's about understanding the information your job generates every day — and knowing what to do with it. Here's what it actually means, and why it matters more than ever right now.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>The Simplest Possible Definition</h2>
+    <p>Data literacy means being able to <mark>read, understand, and use data to make better decisions</mark>. That's it. It doesn't mean you need to write code, build spreadsheets, or understand statistics at an advanced level. It means you can look at a number — or a chart, or a report — and understand what it's telling you, what it's not telling you, and what you should do with that information.</p>
+    <p>Think about how you already use data in daily life without calling it that. When you check the weather before deciding what to wear, you're reading data. When you look at a restaurant's rating before deciding whether to go, you're evaluating data. When you notice your phone battery is at 8% and you decide to charge it immediately, you're acting on data. You're already more data literate than you think.</p>
+    <p>In healthcare, the stakes are higher and the data is more complex — but the core skill is the same. See the information. Understand what it means. Decide what to do with it.</p>
+    <div class="pull-quote"><p>Data literacy isn't a technical skill you either have or don't have. It's a practical skill you develop over time — and you start building it the moment you start paying attention.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Four Things Data Literacy Actually Involves</h2>
+    <p>When we say "data literate," we mean someone who can do four specific things. These aren't advanced skills — but they are distinct skills, and most people are stronger in some than others:</p>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-num">01</div>
+        <div class="skill-title">Read Data</div>
+        <div class="skill-desc">Look at a number, chart, or report and understand what it's measuring. Know what the units mean. Know what time period it covers. Know where it came from.</div>
+        <div class="skill-example">Example: "This chart shows appointment no-show rates by day of week, measured as a percentage of total scheduled appointments, for the last 90 days."</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-num">02</div>
+        <div class="skill-title">Understand Context</div>
+        <div class="skill-desc">Know what "good" vs. "bad" looks like for this number. Understand what might cause it to go up or down. Know what it connects to in the real world.</div>
+        <div class="skill-example">Example: "A 22% no-show rate on Mondays is higher than our 14% average. That might be because patients book Monday slots far in advance and forget."</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-num">03</div>
+        <div class="skill-title">Ask Good Questions</div>
+        <div class="skill-desc">When data looks unusual, know what follow-up questions to ask. Don't just accept a number — understand what might be missing or misleading about it.</div>
+        <div class="skill-example">Example: "Is the Monday spike consistent year-round, or just in summer? Did anything change in our reminder process that might explain this?"</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-num">04</div>
+        <div class="skill-title">Act on Insights</div>
+        <div class="skill-desc">Use data to inform a real decision or action. Know when to act on what you see, when to investigate further, and when to escalate to someone else.</div>
+        <div class="skill-example">Example: "I'll flag the Monday no-show spike to my supervisor and suggest we run a targeted reminder test for Monday appointments next month."</div>
+      </div>
+    </div>
+    <p>Notice that only the first one involves reading numbers at all. Data literacy is mostly about judgment — what does this mean, what's missing, what should I do. That's a human skill. AI can help with the reading part. The judgment is yours.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What Does Data Literacy Look Like in Practice? See the Difference.</h2>
+    <p>Here's the best way to understand data literacy: see how three different people at different literacy levels respond to the same piece of information. Click each level to see how the response changes.</p>
+    <div class="level-sim">
+      <div class="sim-label">🔍 Literacy Level Simulator</div>
+      <div class="sim-title">The Same Data — Three Very Different Responses</div>
+      <div class="sim-sub">You're a scheduling coordinator. Your AI scheduling tool just flagged something. Click each level to see how different healthcare workers respond to the same information.</div>
+      <div class="level-track">
+        <button class="level-btn active" onclick="setLevel(0)">📊 Still Developing</button>
+        <button class="level-btn" onclick="setLevel(1)">📈 Getting There</button>
+        <button class="level-btn" onclick="setLevel(2)">🎯 Data Literate</button>
+      </div>
+      <div class="level-scenario">
+        <div class="level-scene-tag">📋 The Situation</div>
+        <div class="level-scene-title">Your AI scheduling tool flags this alert on a Wednesday morning:</div>
+        <div class="level-data-box">⚠️ <strong>Alert:</strong> Thursday appointment fill rate is currently 67% — significantly below your 88% target. 14 open slots remain unfilled. Historical data shows Thursday afternoons have the highest no-show rate in your facility at 31%.</div>
+        <div id="levelResponse"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>A Day in the Life: Where Data Literacy Shows Up in a Real Healthcare Shift</h2>
+    <p>Data literacy isn't something you practice once a week when you look at a report. It shows up constantly throughout a healthcare worker's day — in small moments, quick decisions, and daily routines. Click any event below to see the data literacy skill it requires.</p>
+    <div class="day-walk">
+      <div class="dw-title">🏥 A Tuesday Morning at Riverside Clinic — Front Desk Coordinator</div>
+      <div id="dayWalkContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Why Data Literacy Is More Important With AI, Not Less</h2>
+    <p>You might assume that AI tools make data literacy less important — after all, if the computer is reading the data, why do you need to? This gets it exactly backwards.</p>
+    <p>AI tools produce outputs — alerts, recommendations, predictions, reports. Those outputs are only useful if the human receiving them can evaluate whether they make sense. An AI that flags "high no-show risk" for a specific day is only helpful if the person reading that alert understands what a no-show rate is, whether the risk level is actually concerning, and what the right response is. Without data literacy, AI outputs are just noise.</p>
+    <p>Think of it this way: AI is like a very fast reader who can process thousands of pages and highlight the important parts. <mark>But you still need to be able to read to understand what the highlights mean.</mark> Data literacy is the ability to read. AI is the tool that shows you where to look.</p>
+  </div>
+
+  <div class="quiz fade-in">
+    <div class="quiz-label">🧠 Quick Check</div>
+    <div class="quiz-q">A medical assistant notices that the AI patient scheduling system is flagging "high complexity" for 60% of today's appointments. She's not sure what that means or whether that's unusual. What is the data literacy skill she's missing?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="cq(this,false)">Skill 1 — She can't read the data, so she needs to learn what the flag means technically</button>
+      <button class="qopt" onclick="cq(this,true)">Skill 2 — She can see the data but lacks context: she doesn't know what "high complexity" means, what a normal percentage looks like, or whether 60% should concern her</button>
+      <button class="qopt" onclick="cq(this,false)">Skill 3 — She knows what the data means but doesn't know what questions to ask about it</button>
+      <button class="qopt" onclick="cq(this,false)">Skill 4 — She understands the situation but doesn't know what action to take</button>
+    </div>
+    <div class="qfb" id="qfb"></div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Key Takeaways</div>
+    <h2>What to Remember From This Article</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Data literacy means being able to read, understand, and use data to make better decisions. It's a practical judgment skill — not a technical or math skill.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The four components: Read data, Understand context, Ask good questions, and Act on insights. Most healthcare workers already do parts of this — the goal is to do all four consistently.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI makes data literacy more important, not less. AI produces outputs — alerts, recommendations, predictions — that are only useful if the human receiving them can evaluate whether they make sense. Without data literacy, AI outputs are just noise.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Data literacy shows up constantly in a healthcare shift — in morning huddles, scheduling decisions, supply checks, and patient flow management. It's not a report you read once a week. It's a habit of paying attention.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const levels=[
+  {
+    cls:'low',label:'📊 Still Developing Data Literacy',
+    response:'She sees the alert, isn\'t sure what a "fill rate" is, and closes the notification. She figures if it were really important, her manager would tell her about it. By Thursday morning, 14 appointment slots are empty and the clinical team is underbooked for the day. Her manager asks why nobody acted on the scheduling alert.'
+  },
+  {
+    cls:'mid',label:'📈 Developing — Getting There',
+    response:'She understands that 67% fill rate means the schedule isn\'t full, and that 14 empty slots is a problem. She adds a note to tell her manager at their 11am check-in. She doesn\'t realize that the window to fill those Thursday slots by calling waitlist patients closes by end of today — so when she brings it up at 11am, most of the opportunity has passed.'
+  },
+  {
+    cls:'high',label:'🎯 Data Literate Response',
+    response:'She reads the alert and immediately understands: fill rate of 67% means the schedule is significantly underfull, 14 slots is a lot of wasted clinical time, and the 31% historical no-show rate means even if she fills all 14 slots, some will still be empty on Thursday. She pulls the waitlist, contacts the 6 highest-priority patients immediately, and flags to her manager that Thursday needs monitoring. She also notes the pattern: Thursday afternoons consistently underperform. She adds a question to the weekly meeting agenda: should they permanently adjust Thursday afternoon booking strategy?'
+  }
+];
+function setLevel(i){
+  document.querySelectorAll('.level-btn').forEach((b,bi)=>b.classList.toggle('active',bi===i));
+  const r=levels[i];
+  document.getElementById('levelResponse').innerHTML=`<div class="level-response ${r.cls}"><div class="level-response-label">${r.label}</div>${r.response}</div>`;
+}
+setLevel(0);
+
+const dayEvents=[
+  {time:'8:00\nAM',event:'Morning Huddle — Team reviews yesterday\'s performance numbers',detail:'The charge nurse shares that patient wait times averaged 38 minutes yesterday, up from 29 minutes the day before. A data-literate coordinator knows to ask: was it a staffing issue, a higher-than-expected volume, or a processing bottleneck? That question helps the team fix the right problem.',literacy:'Uses: Context + Questions'},
+  {time:'8:30\nAM',event:'Check today\'s appointment schedule fill rate',detail:'The scheduling system shows today at 94% filled, with 3 open slots. A data-literate coordinator notices 2 of those open slots are late afternoon, which historically has a high no-show rate — meaning today might effectively have 5 or 6 open slots. She adds 2 patients from the waitlist now rather than waiting.',literacy:'Uses: Read + Act'},
+  {time:'9:15\nAM',event:'AI flags a patient as "high no-show risk" for their 10am appointment',detail:'The AI system predicts a 74% chance this patient won\'t show up, based on their booking history and reminder response. A data-literate coordinator calls to confirm — not because the AI is always right, but because she understands that acting on a prediction is better than reacting to an empty slot.',literacy:'Uses: Context + Act'},
+  {time:'11:00\nAM',event:'Supply notification: exam gloves below reorder threshold',detail:'The inventory system shows 1.5 boxes remaining — enough for roughly 2 days at current usage. A data-literate coordinator checks whether there are any high-volume procedures scheduled this week that might increase glove usage before the reorder arrives. Yes — there\'s a wound care clinic Friday. She adjusts the order quantity.',literacy:'Uses: Questions + Act'},
+  {time:'2:30\nPM',event:'End-of-day: log patient satisfaction responses from the morning',detail:'Three patients rated their wait time as "poor" — but the average wait time data shows 24 minutes, which is well within target. A data-literate coordinator doesn\'t dismiss the feedback because the numbers look fine. She notes that the three patients who complained all had 9am appointments — maybe the check-in process at opening needs review.',literacy:'Uses: All four skills'}
+];
+const dwContainer=document.getElementById('dayWalkContainer');
+dayEvents.forEach((ev,i)=>{
+  const el=document.createElement('div');
+  el.className='dw-item';
+  el.innerHTML=`
+    <div class="dw-left">
+      <div class="dw-time-dot">${ev.time}</div>
+      ${i<dayEvents.length-1?'<div class="dw-connector"></div>':''}
+    </div>
+    <div class="dw-right">
+      <div class="dw-event">${ev.event}</div>
+      <span class="dw-literacy-tag uses">🔍 ${ev.literacy}</span>
+      <div class="dw-detail">${ev.detail}</div>
+    </div>`;
+  el.onclick=()=>{
+    el.classList.toggle('open');
+  };
+  dwContainer.appendChild(el);
+});
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  if(!correct)document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('lacks context'))o.classList.add('correct');});
+  const fb=document.getElementById('qfb');
+  fb.className='qfb show '+(correct?'cfb':'wfb');
+  fb.textContent=correct
+    ?'✅ Exactly right. She can see the data — she knows something is flagged. The gap is context: she doesn\'t know what "high complexity" means in this system, what a normal baseline looks like, or whether 60% represents a problem or is perfectly routine for a Tuesday. Context is Skill 2 — and it\'s often the skill that separates workers who act confidently on data from those who feel paralyzed by it.'
+    :'❌ She can clearly read the data — she sees the flag and understands something is happening. The problem is context. She doesn\'t know what "high complexity" means in this specific system, what a normal rate looks like, or whether 60% is alarming or routine. That\'s Skill 2: understanding context. Without it, the data is present but not useful.';
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

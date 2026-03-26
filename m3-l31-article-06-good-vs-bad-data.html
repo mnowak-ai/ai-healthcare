@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Good Data vs. Bad Data — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+.section{padding:36px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* DATA QUALITY DIMENSIONS */
+.dq-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:28px 0;}
+.dq-dim{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:18px;padding:22px;}
+.dq-dim-icon{font-size:28px;margin-bottom:8px;}
+.dq-dim-name{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.dq-dim-def{font-size:13px;color:var(--gray-muted);margin-bottom:10px;font-style:italic;}
+.dq-dim-good{background:var(--green-pale);border-radius:8px;padding:8px 12px;font-size:13px;line-height:1.55;margin-bottom:6px;}
+.dq-dim-bad{background:var(--red-pale);border-radius:8px;padding:8px 12px;font-size:13px;line-height:1.55;}
+
+/* BAD DATA SCENARIOS — flip card style */
+.bd-scenarios{display:flex;flex-direction:column;gap:14px;margin:28px 0;}
+.bd-scenario{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:16px;padding:0;overflow:hidden;}
+.bd-header{padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
+.bd-header-title{font-size:15px;font-weight:700;color:var(--purple-dark);}
+.bd-toggle{font-size:18px;color:var(--purple);transition:transform .3s;}
+.bd-scenario.open .bd-toggle{transform:rotate(180deg);}
+.bd-body{display:none;padding:0 20px 20px;}
+.bd-scenario.open .bd-body{display:block;}
+.bd-bad{background:var(--red-pale);border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:12px 14px;font-size:14px;line-height:1.65;margin-bottom:10px;}
+.bd-bad-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--red);letter-spacing:.08em;margin-bottom:6px;}
+.bd-consequence{background:var(--orange-pale);border-radius:8px;padding:10px 14px;font-size:13px;line-height:1.6;margin-bottom:10px;}
+.bd-consequence-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--orange);letter-spacing:.08em;margin-bottom:4px;}
+.bd-fix{background:var(--green-pale);border-radius:8px;padding:10px 14px;font-size:13px;line-height:1.6;}
+.bd-fix-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--green);letter-spacing:.08em;margin-bottom:4px;}
+
+/* GIGO VISUAL */
+.gigo{background:var(--purple-dark);border-radius:20px;padding:32px;margin:28px 0;text-align:center;}
+.gigo-title{font-family:'Fraunces',serif;font-size:22px;color:white;font-weight:700;margin-bottom:20px;}
+.gigo-flow{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;}
+.gigo-box{border-radius:12px;padding:14px 16px;text-align:center;min-width:130px;}
+.gigo-box.bad-in{background:rgba(220,38,38,.3);border:2px solid rgba(220,38,38,.5);}
+.gigo-box.ai-proc{background:rgba(123,47,190,.4);border:2px solid rgba(123,47,190,.6);}
+.gigo-box.bad-out{background:rgba(220,38,38,.3);border:2px solid rgba(220,38,38,.5);}
+.gigo-box.good-in{background:rgba(39,103,73,.3);border:2px solid rgba(39,103,73,.5);}
+.gigo-box.good-out{background:rgba(39,103,73,.3);border:2px solid rgba(39,103,73,.5);}
+.gigo-box-icon{font-size:24px;margin-bottom:6px;}
+.gigo-box-label{font-size:12px;font-weight:700;color:rgba(255,255,255,.9);line-height:1.3;}
+.gigo-arrow{font-size:22px;color:rgba(255,255,255,.4);}
+.gigo-divider{width:100%;text-align:center;color:rgba(255,255,255,.4);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin:12px 0;}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.dq-grid{grid-template-columns:1fr;}.gigo-flow{flex-direction:column;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.1 · Data Literacy</div>
+  <h1>What Good Data Looks Like vs. Bad Data: How Data Quality Affects AI Recommendations</h1>
+  <p class="hero-sub">AI is only as reliable as the data it's working from. Understanding what makes healthcare operational data "good" or "bad" — and what bad data does to AI recommendations — is one of the most important practical skills in this module.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>The Fundamental Rule: Garbage In, Garbage Out</h2>
+    <p>In computer science, there's a phrase that's been true since the 1950s and is still true today: "garbage in, garbage out." It means that if you feed bad data into any system — AI or otherwise — you will get bad results out of it. The system itself might be perfectly built. The algorithm might be state-of-the-art. But it cannot compensate for the quality of what you give it.</p>
+    <p>In healthcare operations, this matters enormously. AI scheduling tools, staffing systems, and inventory managers all rely on operational data that is accurate, current, and complete. <mark>When that data is wrong, the AI's recommendations are wrong</mark> — sometimes dangerously so. And because AI presents its outputs confidently (it doesn't say "I'm not sure about this"), wrong recommendations can look just as trustworthy as correct ones.</p>
+    <p>This is why data quality is everyone's responsibility — not just the IT team's. Every time a healthcare worker logs an appointment, records a supply count, or updates a patient status, they're contributing to the data that AI systems will use to make recommendations. The quality of their inputs affects the quality of everyone's outputs.</p>
+  </div>
+
+  <div class="gigo fade-in">
+    <div class="gigo-title">Garbage In, Garbage Out — Visualized</div>
+    <div class="gigo-divider">When data quality is poor:</div>
+    <div class="gigo-flow">
+      <div class="gigo-box bad-in"><div class="gigo-box-icon">🗑️</div><div class="gigo-box-label">Incomplete, outdated, or inaccurate operational data</div></div>
+      <div class="gigo-arrow">→</div>
+      <div class="gigo-box ai-proc"><div class="gigo-box-icon">🤖</div><div class="gigo-box-label">AI processes it (confidently)</div></div>
+      <div class="gigo-arrow">→</div>
+      <div class="gigo-box bad-out"><div class="gigo-box-icon">⚠️</div><div class="gigo-box-label">Flawed recommendation that looks accurate</div></div>
+    </div>
+    <div class="gigo-divider">When data quality is high:</div>
+    <div class="gigo-flow">
+      <div class="gigo-box good-in"><div class="gigo-box-icon">✅</div><div class="gigo-box-label">Accurate, current, and complete operational data</div></div>
+      <div class="gigo-arrow">→</div>
+      <div class="gigo-box ai-proc"><div class="gigo-box-icon">🤖</div><div class="gigo-box-label">AI processes it (confidently)</div></div>
+      <div class="gigo-arrow">→</div>
+      <div class="gigo-box good-out"><div class="gigo-box-icon">💡</div><div class="gigo-box-label">Reliable recommendation that can be trusted</div></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Four Dimensions of Data Quality</h2>
+    <p>When data scientists and healthcare IT professionals talk about "data quality," they mean four specific things. Understanding all four helps you recognize when data might be unreliable — before you act on an AI recommendation built from it.</p>
+    <div class="dq-grid">
+      <div class="dq-dim">
+        <div class="dq-dim-icon">✅</div>
+        <div class="dq-dim-name">Accuracy</div>
+        <div class="dq-dim-def">Does the data correctly reflect what actually happened?</div>
+        <div class="dq-dim-good">✅ Good: Appointment logged as "no-show" when patient genuinely didn't arrive</div>
+        <div class="dq-dim-bad">❌ Bad: Appointment logged as "no-show" because the staff forgot to check in the patient who was actually there</div>
+      </div>
+      <div class="dq-dim">
+        <div class="dq-dim-icon">🕒</div>
+        <div class="dq-dim-name">Timeliness</div>
+        <div class="dq-dim-def">Is the data current — updated when things actually change?</div>
+        <div class="dq-dim-good">✅ Good: Supply counts updated in real time as items are used or received</div>
+        <div class="dq-dim-bad">❌ Bad: Supply counts updated manually at the end of each day — AI thinks you have 40 gloves at 2pm when you actually ran out at 11am</div>
+      </div>
+      <div class="dq-dim">
+        <div class="dq-dim-icon">📋</div>
+        <div class="dq-dim-name">Completeness</div>
+        <div class="dq-dim-def">Is all the necessary information present, with no critical gaps?</div>
+        <div class="dq-dim-good">✅ Good: Every appointment record includes date, time, provider, patient ID, appointment type, and outcome (attended/no-show/cancelled)</div>
+        <div class="dq-dim-bad">❌ Bad: 30% of appointment records are missing the "appointment type" field — AI can't accurately predict appointment duration or staffing needs</div>
+      </div>
+      <div class="dq-dim">
+        <div class="dq-dim-icon">🔄</div>
+        <div class="dq-dim-name">Consistency</div>
+        <div class="dq-dim-def">Is data entered the same way across different people and systems?</div>
+        <div class="dq-dim-good">✅ Good: All staff use the same codes — "NS" for no-show, "CAN" for cancellation, "LAT" for late arrival</div>
+        <div class="dq-dim-bad">❌ Bad: Some staff enter "no show," others "NS," others "no-show," others "patient absent" — the AI treats these as four different categories and can't accurately count no-shows</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Real Scenarios: What Bad Data Does to AI Recommendations</h2>
+    <p>Click each scenario to see how a specific data quality problem leads directly to a bad AI recommendation — and what the fix is.</p>
+    <div class="bd-scenarios" id="bdContainer"></div>
+  </div>
+
+  <div class="quiz fade-in">
+    <div class="quiz-label">🧠 Quick Check</div>
+    <div class="quiz-q">A clinic's AI staffing system recommends only 2 nurses for a busy Friday afternoon. Staff are surprised — Fridays are historically one of their busiest days. The most likely explanation is:</div>
+    <div class="qopts">
+      <button class="qopt" onclick="cq(this,false)">The AI system is new and hasn't been properly configured yet</button>
+      <button class="qopt" onclick="cq(this,true)">A data quality issue — the AI may be working from incomplete or inaccurate Friday staffing and volume records, leading it to underestimate the demand</button>
+      <button class="qopt" onclick="cq(this,false)">The AI is correct and the staff's intuition about Fridays being busy is probably wrong</button>
+      <button class="qopt" onclick="cq(this,false)">The AI is only designed for weekday operations and shouldn't be used on Fridays</button>
+    </div>
+    <div class="qfb" id="qfb"></div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Key Takeaways</div>
+    <h2>What to Remember From This Article</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Garbage in, garbage out. AI cannot compensate for poor data quality — and it presents flawed outputs with the same confidence as reliable ones. Data quality is the invisible foundation that determines whether AI recommendations can be trusted.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The four dimensions of data quality: Accuracy (does it reflect reality?), Timeliness (is it current?), Completeness (are there gaps?), and Consistency (is it entered the same way every time?). All four matter.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Data quality is everyone's responsibility. Every time you log an appointment outcome, update a supply count, or record a patient status, you're contributing to the data that AI systems will use. The accuracy of your inputs affects the reliability of everyone's recommendations.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>When an AI recommendation surprises you or contradicts your experience, data quality problems are often the explanation. A recommendation that seems wrong is a signal to investigate the data behind it — not just to override it and move on.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const scenarios=[
+  {
+    title:'Scenario 1: Inaccurate No-Show Logging → Wrong Overbooking Strategy',
+    bad_label:'The Data Problem',
+    bad:'For 3 months, staff at a clinic have been logging "cancelled same-day" appointments as "no-shows" in the scheduling system, because the system\'s interface made it faster to select "NS" than navigate to the cancellation option. These are actually different things — a cancellation is a patient who called ahead; a no-show is one who just didn\'t come.',
+    consequence_label:'What the AI Does With It',
+    consequence:'The AI reads an inflated no-show rate and recommends aggressive overbooking for Monday mornings. Staff implement the recommendation. Actual no-shows don\'t materialize — because most of those records were really cancellations, not genuine no-shows. The clinic ends up regularly overbooked, with too many patients arriving at once and extended wait times.',
+    fix_label:'The Fix',
+    fix:'Data accuracy requires consistent training on how to log each outcome correctly. When staff are confused about the difference between "no-show" and "cancelled," they need clarification — not just faster shortcuts. Regular data audits (reviewing a random sample of records monthly) can catch systematic mislabeling before it distorts AI recommendations.'
+  },
+  {
+    title:'Scenario 2: Stale Inventory Counts → Supply Shortage Alert Too Late',
+    bad_label:'The Data Problem',
+    bad:'A busy clinic\'s supply coordinator manually updates inventory counts every Monday morning. It\'s currently Thursday afternoon. Exam gloves were restocked Monday but have been used heavily all week due to a wound care clinic Tuesday and Wednesday — the system still shows Monday\'s count of 8 boxes.',
+    consequence_label:'What the AI Does With It',
+    consequence:'The AI inventory system calculates: current stock (8 boxes per Monday\'s log) ÷ average daily usage rate = 6 days remaining. It schedules a routine reorder with standard 4-day delivery. In reality, there are fewer than 2 boxes left. The clinic runs out of gloves on Friday morning — before the reorder arrives.',
+    fix_label:'The Fix',
+    fix:'High-throughput supplies need more frequent or real-time count updates. The best systems use barcode scanning or RFID to update counts automatically as items are used. If manual counting is the only option, high-usage supplies should be counted daily, not weekly. The general rule: the faster a supply moves, the more frequently its count needs to be updated for AI to give accurate alerts.'
+  },
+  {
+    title:'Scenario 3: Incomplete Appointment Records → Staffing Underestimation',
+    bad_label:'The Data Problem',
+    bad:'When the clinic switched scheduling platforms 18 months ago, historical data was migrated but the "appointment type" field (routine, new patient, complex, post-procedure) didn\'t transfer correctly for 40% of appointments. Those records show appointment type as "unknown." The AI has been trained on this data.',
+    consequence_label:'What the AI Does With It',
+    consequence:'Because 40% of historical appointments are labeled "unknown" type, the AI can\'t accurately calculate average appointment duration by type. It underestimates how long appointments take on days with more new patients and complex cases — which are consistently longer than routine visits. The AI recommends staffing levels that assume shorter appointment times. Staff are consistently behind schedule on high-complexity days.',
+    fix_label:'The Fix',
+    fix:'Data migration gaps need to be identified and corrected before AI systems are trained on the migrated data. A simple audit would have flagged the 40% "unknown" problem immediately. The longer-term fix is a data cleaning project to back-fill appointment types using other records. AI systems trained on this kind of gap will continue to underperform until the underlying data is repaired.'
+  }
+];
+const container=document.getElementById('bdContainer');
+scenarios.forEach((s,i)=>{
+  const el=document.createElement('div');
+  el.className='bd-scenario';
+  el.innerHTML=`
+    <div class="bd-header" onclick="toggleBd(${i})">
+      <span class="bd-header-title">${s.title}</span>
+      <span class="bd-toggle">▼</span>
+    </div>
+    <div class="bd-body">
+      <div class="bd-bad"><div class="bd-bad-label">⚠️ ${s.bad_label}</div>${s.bad}</div>
+      <div class="bd-consequence"><div class="bd-consequence-label">🤖 ${s.consequence_label}</div>${s.consequence}</div>
+      <div class="bd-fix"><div class="bd-fix-label">✅ ${s.fix_label}</div>${s.fix}</div>
+    </div>`;
+  container.appendChild(el);
+});
+function toggleBd(i){
+  document.querySelectorAll('.bd-scenario').forEach((s,si)=>{
+    if(si===i)s.classList.toggle('open');
+    else s.classList.remove('open');
+  });
+}
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  if(!correct)document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('data quality issue'))o.classList.add('correct');});
+  const fb=document.getElementById('qfb');
+  fb.className='qfb show '+(correct?'cfb':'wfb');
+  fb.textContent=correct
+    ?'✅ Correct. When AI recommendations strongly contradict experienced staff intuition, a data quality problem is frequently the cause. The AI may be working from Friday staffing records that are inaccurate (wrong hours logged), incomplete (missing some shifts), or inconsistent (some staff log their hours differently than others). Before overriding or ignoring the recommendation, the right move is to investigate what data the AI used and whether it can be trusted. The staff\'s collective experience that Fridays are busy is also data — and it should trigger scrutiny of the AI\'s inputs.'
+    :'❌ Data quality issues are the most common explanation when an AI recommendation surprises experienced healthcare workers. The staff\'s shared experience that Fridays are busy represents real-world data that contradicts the AI output. Before concluding the AI is just wrong, the right step is to investigate the data it used — specifically the Friday staffing and volume records — for accuracy, timeliness, completeness, and consistency problems.';
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

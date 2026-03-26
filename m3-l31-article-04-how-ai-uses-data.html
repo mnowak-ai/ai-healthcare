@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How AI Actually Uses Operational Data — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+.section{padding:36px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* PATTERN BUILDER SIM */
+.pattern-sim{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.ps-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.ps-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ps-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.ps-data-row{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:8px;}
+.ps-day{border-radius:10px;padding:10px 6px;text-align:center;}
+.ps-day-label{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--gray-muted);margin-bottom:4px;}
+.ps-day-num{font-family:'Fraunces',serif;font-size:22px;font-weight:900;}
+.ps-day.low .ps-day-num{color:var(--green);}
+.ps-day.med .ps-day-num{color:var(--orange);}
+.ps-day.high .ps-day-num{color:var(--red);}
+.ps-day.low{background:var(--green-pale);}
+.ps-day.med{background:var(--orange-pale);}
+.ps-day.high{background:var(--red-pale);}
+.ps-week-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--gray-muted);letter-spacing:.08em;margin-bottom:6px;}
+.ps-reveal{background:var(--purple-dark);color:white;border:none;border-radius:12px;padding:12px 24px;font-size:14px;font-weight:700;cursor:pointer;margin:14px 0;transition:all .2s;}
+.ps-reveal:hover{background:var(--purple);}
+.ps-insight{border-radius:14px;padding:18px;margin-top:10px;display:none;}
+.ps-insight.show{display:block;animation:fadeIn .4s ease;}
+.ps-insight.ai{background:var(--purple-pale);border:1.5px solid var(--purple-mid);}
+.ps-insight-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.1em;margin-bottom:8px;}
+.ps-insight-body{font-size:14px;line-height:1.7;color:var(--gray-text);}
+.ps-human-box{background:var(--green-pale);border:1.5px solid #86EFAC;border-radius:14px;padding:16px;margin-top:10px;display:none;}
+.ps-human-box.show{display:block;animation:fadeIn .4s ease;}
+
+/* HOW AI LEARNS STEPS */
+.steps-flow{margin:28px 0;}
+.step-item{display:flex;gap:16px;margin-bottom:20px;}
+.step-num{width:44px;height:44px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:white;flex-shrink:0;}
+.step-body{flex:1;padding-top:6px;}
+.step-title{font-size:16px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.step-desc{font-size:14px;line-height:1.65;color:var(--gray-text);}
+.step-example{font-size:13px;font-style:italic;margin-top:8px;padding:10px 14px;background:var(--purple-pale);border-radius:10px;color:var(--purple-dark);}
+
+/* MORE DATA = BETTER */
+.data-quality{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0;}
+.dq-card{border-radius:16px;padding:18px;text-align:center;}
+.dq-card:nth-child(1){background:var(--red-pale);border:1.5px solid #FCA5A5;}
+.dq-card:nth-child(2){background:var(--orange-pale);border:1.5px solid #FDE68A;}
+.dq-card:nth-child(3){background:var(--green-pale);border:1.5px solid #86EFAC;}
+.dq-amount{font-family:'Fraunces',serif;font-size:28px;font-weight:900;margin-bottom:6px;}
+.dq-card:nth-child(1) .dq-amount{color:var(--red);}
+.dq-card:nth-child(2) .dq-amount{color:var(--orange);}
+.dq-card:nth-child(3) .dq-amount{color:var(--green);}
+.dq-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;color:var(--gray-muted);}
+.dq-desc{font-size:13px;line-height:1.55;color:var(--gray-text);}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.ps-data-row{grid-template-columns:repeat(4,1fr);}.data-quality{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.1 · Data Literacy</div>
+  <h1>How AI Actually Uses Operational Data: Spotting Patterns, Organizing Information, Supporting Decisions</h1>
+  <p class="hero-sub">AI doesn't read data the way a human does. It doesn't think, it doesn't understand — but it can find patterns across thousands of records faster than any human ever could. Here's exactly how that works, in plain language.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>The Best Analogy: AI as a Very Fast Pattern Reader</h2>
+    <p>Imagine you have a filing cabinet with 10,000 folders — one for every day of patient appointments at a hospital over the last 27 years. Each folder contains the date, the number of appointments, how many patients showed up, how many staff were on shift, what time the first patient arrived, and how long the average wait was.</p>
+    <p>A human analyst could maybe review 50 folders a day. Finding meaningful patterns would take years — and by the time they found them, the patterns might have changed. AI can read all 10,000 folders in seconds. Not to understand them in a human sense, but to <mark>look for recurring combinations — patterns that predict what will happen next.</mark></p>
+    <p>That's the foundation of how AI uses operational data in healthcare. It doesn't reason. It doesn't empathize. It finds patterns — and uses those patterns to make predictions and recommendations. The human's job is to decide what to do with those recommendations.</p>
+  </div>
+
+  <div class="pattern-sim fade-in">
+    <div class="ps-label">🔍 Pattern Discovery Simulation</div>
+    <div class="ps-title">See What AI Sees: Spot the Pattern in This Scheduling Data</div>
+    <div class="ps-sub">Here are 4 weeks of daily no-show data from a clinic. Look at the numbers — what pattern do you see? Then click "Reveal AI Analysis" to see what the AI finds.</div>
+
+    <div class="ps-week-label">Week 1 — No-show count by day</div>
+    <div class="ps-data-row">
+      <div class="ps-day high"><div class="ps-day-label">Mon</div><div class="ps-day-num">11</div></div>
+      <div class="ps-day med"><div class="ps-day-label">Tue</div><div class="ps-day-num">6</div></div>
+      <div class="ps-day low"><div class="ps-day-label">Wed</div><div class="ps-day-num">3</div></div>
+      <div class="ps-day low"><div class="ps-day-label">Thu</div><div class="ps-day-num">4</div></div>
+      <div class="ps-day med"><div class="ps-day-label">Fri</div><div class="ps-day-num">7</div></div>
+      <div class="ps-day low"><div class="ps-day-label">Sat</div><div class="ps-day-num">2</div></div>
+      <div class="ps-day low"><div class="ps-day-label">Sun</div><div class="ps-day-num">1</div></div>
+    </div>
+    <div class="ps-week-label">Week 2</div>
+    <div class="ps-data-row">
+      <div class="ps-day high"><div class="ps-day-label">Mon</div><div class="ps-day-num">13</div></div>
+      <div class="ps-day med"><div class="ps-day-label">Tue</div><div class="ps-day-num">5</div></div>
+      <div class="ps-day low"><div class="ps-day-label">Wed</div><div class="ps-day-num">4</div></div>
+      <div class="ps-day med"><div class="ps-day-label">Thu</div><div class="ps-day-num">6</div></div>
+      <div class="ps-day high"><div class="ps-day-label">Fri</div><div class="ps-day-num">9</div></div>
+      <div class="ps-day low"><div class="ps-day-label">Sat</div><div class="ps-day-num">2</div></div>
+      <div class="ps-day low"><div class="ps-day-label">Sun</div><div class="ps-day-num">1</div></div>
+    </div>
+    <div class="ps-week-label">Week 3</div>
+    <div class="ps-data-row">
+      <div class="ps-day high"><div class="ps-day-label">Mon</div><div class="ps-day-num">10</div></div>
+      <div class="ps-day med"><div class="ps-day-label">Tue</div><div class="ps-day-num">7</div></div>
+      <div class="ps-day low"><div class="ps-day-label">Wed</div><div class="ps-day-num">3</div></div>
+      <div class="ps-day low"><div class="ps-day-label">Thu</div><div class="ps-day-num">5</div></div>
+      <div class="ps-day med"><div class="ps-day-label">Fri</div><div class="ps-day-num">8</div></div>
+      <div class="ps-day low"><div class="ps-day-label">Sat</div><div class="ps-day-num">1</div></div>
+      <div class="ps-day low"><div class="ps-day-label">Sun</div><div class="ps-day-num">0</div></div>
+    </div>
+    <div class="ps-week-label">Week 4</div>
+    <div class="ps-data-row">
+      <div class="ps-day high"><div class="ps-day-label">Mon</div><div class="ps-day-num">12</div></div>
+      <div class="ps-day med"><div class="ps-day-label">Tue</div><div class="ps-day-num">6</div></div>
+      <div class="ps-day low"><div class="ps-day-label">Wed</div><div class="ps-day-num">2</div></div>
+      <div class="ps-day low"><div class="ps-day-label">Thu</div><div class="ps-day-num">4</div></div>
+      <div class="ps-day high"><div class="ps-day-label">Fri</div><div class="ps-day-num">10</div></div>
+      <div class="ps-day low"><div class="ps-day-label">Sat</div><div class="ps-day-num">3</div></div>
+      <div class="ps-day low"><div class="ps-day-label">Sun</div><div class="ps-day-num">1</div></div>
+    </div>
+    <button class="ps-reveal" onclick="revealPattern()">🤖 Reveal AI Analysis</button>
+    <div class="ps-insight ai" id="psInsight">
+      <div class="ps-insight-label">🤖 AI Pattern Analysis — Across 4 Weeks of Data</div>
+      <div class="ps-insight-body">Pattern detected: Monday no-show rate averages 11.5 per day — 3.2x the Wednesday baseline (3.0). Friday no-show rate averages 8.5 — 2.8x Wednesday baseline. Tuesday, Thursday are moderate. Wednesday is the most reliable day.<br><br><strong>Prediction confidence:</strong> High — pattern is consistent across all 4 weeks with less than 15% variance.<br><br><strong>Recommendation:</strong> Apply strategic overbooking of 2–3 slots for Monday and Friday bookings. Send 24-hour reminder calls (not just texts) for Monday slots. Consider waitlist priority for Monday morning cancellations.</div>
+    </div>
+    <div class="ps-human-box" id="psHuman">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--green);letter-spacing:.1em;margin-bottom:8px;">👩‍⚕️ What the Human Does With This</div>
+      <div style="font-size:14px;line-height:1.7;color:var(--gray-text);">The scheduling coordinator reviews the AI recommendation. She already suspected Mondays were bad — but she didn't realize Fridays were nearly as problematic. She approves the Monday overbooking strategy but adjusts Friday: she knows the clinic closes early on alternating Fridays, so overbooking those weeks would create a different problem. She also adds a note: the AI is using 4 weeks of data. She wants to see if the pattern holds over 6 months before making it permanent policy. <strong>The AI found the pattern. The human applied the judgment.</strong></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Four Steps of How AI Processes Operational Data</h2>
+    <p>Here's exactly what happens inside an AI system when it works with healthcare operational data. This isn't magic — it's a sequence of steps that, once you understand them, makes AI much less mysterious:</p>
+    <div class="steps-flow">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Data Collection</div>
+          <div class="step-desc">The AI system continuously receives data from connected systems — the scheduling platform, the inventory tracker, the staffing logs, the patient check-in system. This happens automatically, in real time, without anyone manually entering anything.</div>
+          <div class="step-example">💡 Example: Every time a patient checks in, their arrival time is automatically logged. Every appointment that ends without a patient showing up adds a data point to the no-show database.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Pattern Recognition</div>
+          <div class="step-desc">The AI looks across all the collected data for recurring combinations — situations that tend to happen together. It doesn't understand why they happen together. It just learns that when A and B are both true, C tends to follow.</div>
+          <div class="step-example">💡 Example: The AI learns that when (a) a patient booked more than 3 weeks in advance AND (b) they haven't responded to their reminder AND (c) it's a Monday afternoon slot — no-show probability is 68%. It doesn't know why. It just knows those three things together predict no-shows.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Prediction Generation</div>
+          <div class="step-desc">When the AI sees a current situation that matches a pattern it has learned, it generates a prediction. This prediction comes with a confidence level — how often this pattern has been right in the past.</div>
+          <div class="step-example">💡 Example: The AI flags Patient #4412 as "high no-show risk (71% confidence)" for their upcoming Monday afternoon appointment. 71% means: in similar past situations, 71 out of 100 patients with this profile didn't show up.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Recommendation</div>
+          <div class="step-desc">Based on its prediction, the AI suggests an action. This is not a command — it's a suggestion based on what has worked in similar situations in the past. A human reviews it and decides whether to act on it.</div>
+          <div class="step-example">💡 Example: "Recommend confirmation call for Patient #4412 by end of day. If no confirmation received by 4pm, contact next waitlist patient to fill the slot." The coordinator sees the recommendation and decides: call now, or handle the more urgent morning issues first.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Why More Data Makes AI Better — And Why That Has Limits</h2>
+    <p>The more historical data an AI system has worked with, the better it gets at recognizing patterns. A system with one month of scheduling data makes rougher predictions than one with three years. But there's a catch: <mark>more data only helps if the data is accurate and relevant.</mark></p>
+    <div class="data-quality">
+      <div class="dq-card">
+        <div class="dq-amount">2 weeks</div>
+        <div class="dq-label">Training Data</div>
+        <div class="dq-desc">Only sees 2 weeks of patterns. Can't distinguish a Monday spike from a seasonal pattern. Predictions are rough. High error rate. Don't trust recommendations yet.</div>
+      </div>
+      <div class="dq-card">
+        <div class="dq-amount">6 months</div>
+        <div class="dq-label">Training Data</div>
+        <div class="dq-desc">Sees seasonal variation. Distinguishes day-of-week patterns from one-time events. Predictions are more reliable. Some edge cases still missed.</div>
+      </div>
+      <div class="dq-card">
+        <div class="dq-amount">3+ years</div>
+        <div class="dq-label">Training Data</div>
+        <div class="dq-desc">Sees multi-year trends, flu season cycles, day-of-week patterns, holiday effects. Predictions are most reliable. But: if operations changed significantly, old data may mislead.</div>
+      </div>
+    </div>
+    <p>That last point is critical: old data can mislead a new situation. If a hospital changed its scheduling system, opened a new department, or hired significantly more staff — AI trained on data from before that change may give outdated recommendations. <strong>This is why human judgment is irreplaceable: you know when the context has changed. The AI doesn't.</strong></p>
+    <div class="pull-quote"><p>AI finds the patterns in what has already happened. It's up to you to know when what's happening now is different from what happened before.</p></div>
+  </div>
+
+  <div class="quiz fade-in">
+    <div class="quiz-label">🧠 Quick Check</div>
+    <div class="quiz-q">A clinic opens a new urgent care wing in January. By March, the AI scheduling system is giving staffing recommendations that consistently underestimate how many staff are needed in the afternoon. The most likely cause is:</div>
+    <div class="qopts">
+      <button class="qopt" onclick="cq(this,false)">The AI system has a software bug that needs to be fixed by the vendor</button>
+      <button class="qopt" onclick="cq(this,false)">The staff are not logging their hours correctly, giving the AI bad input</button>
+      <button class="qopt" onclick="cq(this,true)">The AI is trained on pre-urgent-care data and doesn't have enough new data yet to accurately reflect the changed afternoon demand patterns</button>
+      <button class="qopt" onclick="cq(this,false)">AI scheduling systems are generally unreliable and shouldn't be trusted for staffing decisions</button>
+    </div>
+    <div class="qfb" id="qfb"></div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Key Takeaways</div>
+    <h2>What to Remember From This Article</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI doesn't reason or understand — it finds patterns in large amounts of data and uses those patterns to make predictions. The four steps: collect data, recognize patterns, generate predictions, suggest actions.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>More data generally means better predictions — but only if the data is accurate and still relevant. Old data from a different operational context can actively mislead an AI system.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI recommendations always come with implicit confidence levels based on how often similar patterns have been right before. A high-confidence recommendation in a stable context is more trustworthy than one in a recently changed environment.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The most valuable thing a human brings to AI-supported decisions is knowing when the current situation is different from the historical data the AI was trained on. That contextual awareness is something no algorithm can replicate.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+let patternRevealed=false;
+function revealPattern(){
+  if(patternRevealed)return;
+  patternRevealed=true;
+  document.getElementById('psInsight').classList.add('show');
+  setTimeout(()=>document.getElementById('psHuman').classList.add('show'),600);
+  document.querySelector('.ps-reveal').textContent='✅ Pattern Revealed';
+  document.querySelector('.ps-reveal').style.background='var(--green)';
+}
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  if(!correct)document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('pre-urgent-care data'))o.classList.add('correct');});
+  const fb=document.getElementById('qfb');
+  fb.className='qfb show '+(correct?'cfb':'wfb');
+  fb.textContent=correct
+    ?'✅ Exactly right. The AI was trained on scheduling and staffing patterns from before the urgent care wing existed. The new wing changed afternoon demand significantly — but the AI is still predicting based on the old reality. This is one of the most common AI failure modes in healthcare operations: the environment changes, but the AI\'s training data doesn\'t reflect it yet. The fix is to flag the discrepancy to whoever manages the AI system, add a manual correction factor in the meantime, and allow time for new data to accumulate and retrain the model.'
+    :'❌ The most likely cause is that the AI is working from outdated data. It learned afternoon staffing patterns before the urgent care wing opened — and those patterns no longer reflect the current demand. This is a critical insight about how AI uses operational data: it\'s always looking backward at what has happened. When the present diverges significantly from the past, AI recommendations become unreliable until enough new data is collected.';
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
