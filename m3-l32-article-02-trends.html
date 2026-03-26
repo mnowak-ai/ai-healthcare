@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upward Trends, Downward Trends, and Patterns — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+.section{padding:36px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* TREND TYPE CARDS */
+.trend-types{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0;}
+.trend-card{border-radius:20px;padding:22px;border:2px solid;}
+.trend-card.up{background:#FFF5F5;border-color:#FCA5A5;}
+.trend-card.down{background:var(--green-pale);border-color:#86EFAC;}
+.trend-card.pattern{background:var(--orange-pale);border-color:#FDE68A;}
+.trend-icon{font-size:32px;margin-bottom:8px;}
+.trend-name{font-size:15px;font-weight:700;margin-bottom:4px;}
+.trend-card.up .trend-name{color:var(--red);}
+.trend-card.down .trend-name{color:var(--green);}
+.trend-card.pattern .trend-name{color:var(--orange);}
+.trend-rule{font-size:13px;font-style:italic;margin-bottom:8px;color:var(--gray-text);}
+.trend-nuance{font-size:12px;line-height:1.55;color:var(--gray-muted);}
+
+/* INTERACTIVE CHART SIM */
+.chart-sim{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.cs-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.cs-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.cs-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.cs-metric-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.cs-tab{padding:8px 16px;border-radius:100px;border:2px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.cs-tab:hover{border-color:var(--purple);color:var(--purple);}
+.cs-tab.active{background:var(--purple);border-color:var(--purple);color:white;}
+.cs-chart-area{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px;margin-bottom:14px;}
+.cs-chart-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap;gap:8px;}
+.cs-chart-metric{font-size:13px;font-weight:700;color:var(--purple-dark);}
+.cs-chart-current{font-family:'Fraunces',serif;font-size:28px;font-weight:900;color:var(--purple);}
+.cs-chart-target{font-size:12px;color:var(--gray-muted);}
+
+/* SVG chart */
+.cs-svg-wrap{width:100%;overflow:hidden;}
+.bar-chart{display:flex;align-items:flex-end;gap:6px;height:100px;padding:0 4px;}
+.bc-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.bc-bar{width:100%;border-radius:4px 4px 0 0;transition:all .4s ease;min-height:4px;}
+.bc-label{font-size:9px;color:var(--gray-muted);text-align:center;}
+.bc-val{font-size:9px;font-weight:700;color:var(--gray-text);}
+.target-line-wrap{position:relative;}
+
+.cs-trend-panel{border-radius:14px;padding:16px 20px;}
+.cs-trend-panel.up-bad{background:var(--red-pale);border:1.5px solid #FCA5A5;}
+.cs-trend-panel.down-good{background:var(--green-pale);border:1.5px solid #86EFAC;}
+.cs-trend-panel.pattern{background:var(--orange-pale);border:1.5px solid #FDE68A;}
+.cs-trend-panel.up-good{background:var(--green-pale);border:1.5px solid #86EFAC;}
+.cs-trend-panel.down-bad{background:var(--red-pale);border:1.5px solid #FCA5A5;}
+.ctp-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+.cs-trend-panel.up-bad .ctp-label{color:var(--red);}
+.cs-trend-panel.down-good .ctp-label{color:var(--green);}
+.cs-trend-panel.pattern .ctp-label{color:var(--orange);}
+.cs-trend-panel.up-good .ctp-label{color:var(--green);}
+.cs-trend-panel.down-bad .ctp-label{color:var(--red);}
+.ctp-what{font-size:14px;font-weight:600;color:var(--gray-text);margin-bottom:6px;}
+.ctp-why{font-size:13px;line-height:1.65;color:var(--gray-text);margin-bottom:8px;}
+.ctp-action{font-size:13px;font-weight:600;padding:8px 12px;border-radius:8px;background:rgba(255,255,255,.6);}
+
+/* TREND INTERPRETER GAME */
+.trend-game{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.tg-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.tg-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.tg-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.tg-scenario{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px;margin-bottom:12px;}
+.tg-chart{display:flex;align-items:flex-end;gap:5px;height:70px;margin-bottom:10px;padding:4px;}
+.tg-q{font-size:15px;font-weight:600;color:var(--purple-dark);margin-bottom:12px;}
+.tg-opts{display:flex;flex-direction:column;gap:8px;}
+.tg-opt{background:var(--gray-soft);border:2px solid var(--purple-mid);border-radius:10px;padding:11px 15px;cursor:pointer;font-size:14px;transition:all .2s;text-align:left;}
+.tg-opt:hover:not(:disabled){border-color:var(--purple);background:var(--purple-pale);}
+.tg-opt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.tg-opt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.tg-fb{font-size:13px;line-height:1.65;padding:12px 16px;border-radius:10px;margin-top:8px;display:none;}
+.tg-fb.show{display:block;}
+.tg-fb.ok{background:var(--green-pale);color:var(--green);}
+.tg-fb.bad{background:var(--red-pale);color:var(--red);}
+.tg-nav{display:flex;justify-content:space-between;align-items:center;margin-top:16px;}
+.tg-counter{font-size:13px;color:var(--gray-muted);}
+.tg-next{background:var(--purple);color:white;border:none;border-radius:10px;padding:10px 22px;font-size:14px;font-weight:700;cursor:pointer;display:none;}
+.tg-next.show{display:inline-block;}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.trend-types{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.2 · Reading AI Dashboards</div>
+  <h1>Upward Trends, Downward Trends, and Patterns: What Each One Means in Healthcare Operations</h1>
+  <p class="hero-sub">A single number tells you where you are. A trend tells you where you're going. This article teaches you to read the direction and shape of healthcare data — and translate what you see into the right operational response.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Why Trends Tell You More Than Numbers</h2>
+    <p>Imagine two hospitals. Hospital A has an ER wait time of 32 minutes. Hospital B also has an ER wait time of 32 minutes. Are they in the same situation? Not necessarily. Hospital A's wait time has been 32 minutes for three weeks straight — stable, at target. Hospital B's wait time was 18 minutes two weeks ago, 24 minutes last week, and 32 minutes today. It's been climbing fast.</p>
+    <p>Same number. Completely different situations. Hospital A is operating normally. Hospital B has a developing problem that, if unchecked, will be 40 minutes next week and 50 the week after. <mark>The number shows you where you are. The trend shows you whether you need to act right now, or whether you can monitor and respond if it continues.</mark></p>
+    <p>Healthcare AI dashboards don't just show current values — they show trends. Learning to read them correctly is one of the most practically valuable dashboard skills you can develop.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Three Types of Trends — And the Critical Rule for Each</h2>
+    <div class="trend-types">
+      <div class="trend-card up">
+        <div class="trend-icon">📈</div>
+        <div class="trend-name">Upward Trend</div>
+        <div class="trend-rule">"Something is increasing over time."</div>
+        <div class="trend-nuance">Whether this is good or bad depends entirely on the metric. Upward trend in patient satisfaction = great. Upward trend in ER wait times = problem. Upward trend in medication accuracy = excellent. Upward trend in nurse overtime hours = burnout risk. Always ask: "Is this a metric where higher is better or worse?"</div>
+      </div>
+      <div class="trend-card down">
+        <div class="trend-icon">📉</div>
+        <div class="trend-name">Downward Trend</div>
+        <div class="trend-rule">"Something is decreasing over time."</div>
+        <div class="trend-nuance">Same rule applies. Downward trend in bed occupancy during a recovery period = good. Downward trend in schedule fill rate = problem. Downward trend in patient complaints = good. Downward trend in staff retention = crisis developing. Context determines everything. A number going down is not automatically good news.</div>
+      </div>
+      <div class="trend-card pattern">
+        <div class="trend-icon">🔄</div>
+        <div class="trend-name">Recurring Pattern</div>
+        <div class="trend-rule">"Something happens consistently at specific times."</div>
+        <div class="trend-nuance">This is the most actionable trend type. A spike every Monday morning. A dip every Friday afternoon. A quarterly surge during flu season. Patterns are predictable — which means they can be planned for. AI is particularly good at identifying recurring patterns that human observers miss because patterns only become visible across large datasets over long time periods.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>See It Live: Explore Real Healthcare Trend Scenarios</h2>
+    <p>Click each metric to see its trend chart, understand what the trend means in this specific context, and learn what operational response it calls for.</p>
+    <div class="chart-sim">
+      <div class="cs-label">📊 Trend Scenario Explorer</div>
+      <div class="cs-title">Real Healthcare Metrics — Read the Trend, Know the Response</div>
+      <div class="cs-sub">Click any metric to see its 8-week trend, what it means, and what a manager should do about it.</div>
+      <div class="cs-metric-tabs">
+        <button class="cs-tab active" onclick="showMetric(0)">ER Wait Time</button>
+        <button class="cs-tab" onclick="showMetric(1)">Patient Admissions</button>
+        <button class="cs-tab" onclick="showMetric(2)">No-Show Rate</button>
+        <button class="cs-tab" onclick="showMetric(3)">Staff Overtime</button>
+        <button class="cs-tab" onclick="showMetric(4)">Satisfaction Score</button>
+      </div>
+      <div id="chartArea"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Practice: Read the Trend and Name the Response</h2>
+    <p>Below are four mini chart scenarios. For each one, identify what the trend type is and what it signals. Work through all four.</p>
+    <div class="trend-game">
+      <div class="tg-label">🎯 Trend Interpretation Challenge</div>
+      <div class="tg-title">What Does This Trend Tell You?</div>
+      <div class="tg-sub">Read the mini chart, read the metric name, and choose the correct interpretation.</div>
+      <div id="tgContainer"></div>
+    </div>
+  </div>
+
+  <div class="quiz fade-in">
+    <div class="quiz-label">🧠 Quick Check</div>
+    <div class="quiz-q">A hospital's medication accuracy rate has been 99.2%, 99.0%, 98.8%, 98.5%, 98.1% over the past five weeks. The target is 98%. It's still above target. What is the correct read of this trend?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="cq(this,false)">No action needed — the metric is still above the 98% target, so there's nothing to address</button>
+      <button class="qopt" onclick="cq(this,false)">This is normal variation — accuracy metrics always fluctuate slightly week to week</button>
+      <button class="qopt" onclick="cq(this,true)">This is a consistent downward trend that, if it continues at the same rate, will cross the 98% threshold within 1–2 weeks. The trend requires investigation now — before it becomes a violation.</button>
+      <button class="qopt" onclick="cq(this,false)">This is only a concern once the metric actually crosses below 98% — acting before then is premature</button>
+    </div>
+    <div class="qfb" id="qfb"></div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Key Takeaways</div>
+    <h2>What to Remember From This Article</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>A number tells you where you are. A trend tells you where you're going. Never interpret a healthcare metric without its trend context — the same number can represent a normal day or a developing crisis depending on the direction it's moving.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Upward and downward trends are neither good nor bad on their own — context determines everything. Always ask: "Is this a metric where higher is better or worse?" before interpreting the direction.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Recurring patterns are the most actionable trend type. Something that spikes every Monday morning can be planned for. AI is especially good at detecting these patterns across large datasets — but a human still needs to understand what the pattern means and decide how to respond to it.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>A metric still within its target range but trending consistently in the wrong direction often requires more immediate attention than a metric that crossed its threshold but is now recovering. The trend velocity — how fast it's moving — matters as much as the current value.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const metrics = [
+  { name:'ER Wait Time (minutes)', label:'ER Wait Time', current:'41 min', target:'Target: under 30 min',
+    bars:[22,24,21,26,28,33,38,41], colors:['low','low','low','low','low','mid','mid','high'],
+    panelCls:'up-bad', panelLabel:'📈 Upward Trend — Bad Direction',
+    what:'"ER wait time has been climbing consistently for 5 weeks — from 21 minutes to 41 minutes."',
+    why:'This is a classic slow-developing operational crisis. The number was fine 5 weeks ago. But a consistent weekly increase of ~3-4 minutes means the problem has been building for over a month. The root cause is rarely visible in a single week — it takes the trend to make it obvious.',
+    action:'🎯 Action: Don\'t just treat today\'s 41-minute wait time — investigate the 5-week cause. What changed 5 weeks ago? New patient volume? Staffing reduction? Intake process change? The trend\'s start date is your investigation anchor.' },
+  { name:'Patient Admissions (per week)', label:'Patient Admissions', current:'312 / week', target:'Baseline: ~280/week',
+    bars:[280,275,270,265,268,295,312,312], colors:['low','low','low','low','low','mid','high','high'],
+    panelCls:'pattern', panelLabel:'🔄 Pattern Trend — Flu Season Surge',
+    what:'"Admissions dropped slightly through the fall, then spiked sharply in weeks 7–8."',
+    why:'This is a seasonal pattern, not a random spike. Flu season admission surges are predictable and well-documented. The dip followed by sharp increase is a classic seasonal pattern. AI systems with multi-year data can flag this weeks before it becomes a crisis.',
+    action:'🎯 Action: Seasonal patterns are plannable. Pre-position staff, expand capacity agreements with nearby facilities, and alert supply management to increase flu-related supply orders. The pattern tells you what\'s coming — use it.' },
+  { name:'Appointment No-Show Rate (%)', label:'No-Show Rate', current:'27%', target:'Target: under 15%',
+    bars:[18,22,26,24,21,23,26,27], colors:['mid','mid','high','mid','mid','mid','high','high'],
+    panelCls:'pattern', panelLabel:'🔄 Recurring Pattern — Monday/Thursday Spikes',
+    what:'"No-show rate fluctuates between 18–27% with consistent spikes on specific days of week."',
+    why:'When a metric fluctuates with a recurring pattern rather than trending in one direction, the cause is usually day-specific or time-specific, not systemic. Looking only at the weekly average hides the pattern entirely. AI scheduling tools often spot this faster than managers because they analyze by day-of-week, not just week totals.',
+    action:'🎯 Action: Day-of-week patterns require day-specific solutions. Targeted reminder calls for Monday and Thursday slots, strategic overbooking for those days only, and waitlist prioritization for high-risk slots. Not a facility-wide change — a targeted one.' },
+  { name:'Staff Overtime Hours (per week)', label:'Staff Overtime', current:'184 hrs', target:'Target: under 80 hrs/week',
+    bars:[52,58,70,88,104,132,158,184], colors:['low','low','low','mid','mid','high','high','high'],
+    panelCls:'up-bad', panelLabel:'📈 Steep Upward Trend — Burnout Risk',
+    what:'"Overtime hours have more than tripled over 8 weeks — from 52 to 184 hours per week."',
+    why:'This is one of the most dangerous trends a healthcare manager can see. Overtime at this level is a leading indicator of staff burnout, resignation, and — critically — medication errors and patient safety events. The acceleration of the trend (it\'s speeding up, not just continuing) makes it urgent.',
+    action:'🎯 Action: Halt the trend immediately — this is a patient safety issue, not just a cost issue. Identify which departments are carrying the overtime load. Begin recruiting for temporary staff, review patient capacity, and flag to HR. At 184 hours per week, at least some staff are approaching dangerous fatigue levels.' },
+  { name:'Patient Satisfaction Score (%)', label:'Patient Satisfaction', current:'82%', target:'Target: above 87%',
+    bars:[91,90,89,88,87,85,84,82], colors:['low','low','low','low','low','mid','mid','mid'],
+    panelCls:'down-bad', panelLabel:'📉 Consistent Downward Trend — Lagging Indicator',
+    what:'"Satisfaction has declined every single week for 8 consecutive weeks — from 91% to 82%."',
+    why:'Eight consecutive weeks of decline with no reversal is not random variation — it\'s a systematic problem. Satisfaction is a lagging indicator, meaning it reflects patient experiences from days or weeks ago. By the time a satisfaction trend becomes this clear, the operational problems causing it have usually been present for a long time.',
+    action:'🎯 Action: Don\'t try to fix satisfaction directly — find what\'s driving the patient experience problem. Look at what else changed 8+ weeks ago: wait times, staffing ratios, intake processes. Patient satisfaction is the symptom. Something operational is the cause.' }
+];
+
+function renderBars(bars, colors, targetPct) {
+  const maxVal = Math.max(...bars);
+  const weeks = ['W1','W2','W3','W4','W5','W6','W7','W8'];
+  const colorMap = { low:'#4ADE80', mid:'#F59E0B', high:'#F87171' };
+  return bars.map((v, i) => {
+    const h = Math.round((v / maxVal) * 90);
+    return `<div class="bc-bar-wrap">
+      <div class="bc-val">${v}</div>
+      <div class="bc-bar" style="height:${h}px;background:${colorMap[colors[i]]};"></div>
+      <div class="bc-label">${weeks[i]}</div>
+    </div>`;
+  }).join('');
+}
+
+function showMetric(i) {
+  const m = metrics[i];
+  document.querySelectorAll('.cs-tab').forEach((t, ti) => t.classList.toggle('active', ti === i));
+  document.getElementById('chartArea').innerHTML = `
+    <div class="cs-chart-area">
+      <div class="cs-chart-header">
+        <div>
+          <div class="cs-chart-metric">${m.name}</div>
+          <div class="cs-chart-target">${m.target}</div>
+        </div>
+        <div class="cs-chart-current">${m.current}</div>
+      </div>
+      <div class="bar-chart">${renderBars(m.bars, m.colors)}</div>
+    </div>
+    <div class="cs-trend-panel ${m.panelCls}">
+      <div class="ctp-label">${m.panelLabel}</div>
+      <div class="ctp-what">${m.what}</div>
+      <div class="ctp-why">${m.why}</div>
+      <div class="ctp-action">${m.action}</div>
+    </div>`;
+}
+showMetric(0);
+
+// Trend game
+const tgScenarios = [
+  { bars:[28,29,31,30,29,31,30,28], colors:['low','low','mid','low','low','mid','low','low'], metric:'ER Wait Time (minutes)',
+    q:'What type of trend does this ER wait time show, and what does it mean?',
+    opts:['Upward trend — the ER is getting worse over time','Recurring pattern — ER wait times spike every other week, suggesting a predictable operational cause','Downward trend — ER performance is improving steadily','No meaningful trend — this data is too variable to interpret'],
+    correct:1, fb_ok:'✅ Correct. The alternating pattern (spike → drop → spike → drop) is a recurring cycle, not a direction. When you see this shape, the cause is almost always periodic: a specific shift, a recurring staffing arrangement, a day-of-week issue, or a bi-weekly schedule cycle. A recurring pattern calls for a specific, targeted investigation into what happens on the spike weeks.', fb_bad:'❌ Look at the shape, not just the numbers. The alternating high-low-high-low pattern isn\'t random and isn\'t trending in one direction — it\'s cycling. That means the cause is periodic (something that happens every other week). A recurring pattern calls for a different response than a directional trend — you need to find what specifically repeats.' },
+  { bars:[94,93,91,89,88,85,83,81], colors:['high','high','high','mid','mid','mid','low','low'], metric:'Bed Occupancy Rate (%)',
+    q:'Bed occupancy has declined from 94% to 81% over 8 weeks. What is the correct interpretation?',
+    opts:['This is an emergency — bed occupancy is dropping, which means revenue is falling','This is a positive trend — bed occupancy was critically high and has declined to a healthier operating range','This is suspicious — a decline this steady is probably caused by data entry errors','This needs immediate investigation regardless of direction because any change from baseline is concerning'],
+    correct:1, fb_ok:'✅ Exactly right. Context completely changes the meaning of this trend. Occupancy was at 94% — critically high, approaching 100% and leaving almost no capacity buffer. A steady decline toward 81% is a recovery to a healthier operating level. Revenue implications are a separate (and valid) concern, but from a patient safety and operational standpoint, this is a positive trend.', fb_bad:'❌ Context first. Bed occupancy was critically high at 94% — nearly at capacity with almost no room for emergencies. A steady decline to 81% represents a recovery toward a healthier operating range (typically 80–85%). A downward trend in a metric that was dangerously high is good news. The direction of a trend only has meaning relative to where the metric should be.' },
+  { bars:[12,11,13,29,12,10,28,11], colors:['low','low','low','high','low','low','high','low'], metric:'Medication Error Near-Misses (per week)',
+    q:'Near-miss medication events show regular spikes every 3rd week. What does this pattern most likely indicate?',
+    opts:['Random variation — medication errors fluctuate naturally and this pattern is coincidental','A recurring operational cause tied to a specific weekly schedule — possibly a staffing rotation, a shift change pattern, or a supply restocking cycle that falls on the same week every time','A worsening trend that will eventually lead to an actual medication error','A data quality problem — near-miss events are probably being logged inconsistently'],
+    correct:1, fb_ok:'✅ Right. Regular spikes every 3rd week are too consistent to be random — the 3-week interval almost certainly corresponds to something in the operational schedule. Staffing rotations, supply delivery cycles, and training schedules all commonly run on 3-week cycles. Finding the exact match between the spike weeks and the schedule is the investigation path.', fb_bad:'❌ A pattern this regular — spikes every third week with near-baseline numbers in between — is statistically very unlikely to be random variation. Patterns that repeat on a consistent interval almost always have an operational cause tied to that interval. Look for what happens on a 3-week cycle: staffing rotations, supply deliveries, shift change timing, equipment calibration schedules.' },
+  { bars:[86,86,85,87,86,86,85,86], colors:['mid','mid','mid','mid','mid','mid','mid','mid'], metric:'Schedule Fill Rate (%)',
+    q:'Schedule fill rate has fluctuated between 85–87% for 8 weeks, with a target of 88%. What is the correct read?',
+    opts:['This is fine — the metric is relatively stable and close to target','This is a chronic performance gap — the metric has been consistently below its 88% target for 8 weeks, suggesting a systemic scheduling issue that\'s never been addressed','This is improving — the trend is positive and will cross target soon','This needs immediate attention — any metric below target for 2+ weeks requires escalation'],
+    correct:1, fb_ok:'✅ Correct. Flat-but-below-target is a pattern that often gets ignored precisely because it\'s not getting worse. But 8 consecutive weeks below target without recovery suggests the root cause is structural — something about the scheduling process, the booking window, or the patient population that consistently leaves 1–3 slots unfilled per day. "Stable at bad" is still a problem worth fixing.', fb_bad:'❌ Stability below target is itself a pattern that deserves investigation. The metric isn\'t crashing — but it\'s been consistently below its 88% target for 8 full weeks. That consistent gap suggests a structural cause, not random variation. Something about how appointments are booked is systematically falling short. "Not getting worse" doesn\'t mean "doesn\'t need addressing."' }
+];
+let tgIdx = 0;
+function renderTG() {
+  if (tgIdx >= tgScenarios.length) {
+    document.getElementById('tgContainer').innerHTML = '<div style="background:var(--green-pale);border-radius:14px;padding:20px;text-align:center;color:var(--green);font-weight:700;font-size:15px;">✅ All 4 trend scenarios complete — you can read and interpret healthcare trends.</div>';
+    return;
+  }
+  const s = tgScenarios[tgIdx];
+  const colorMap = { low:'#4ADE80', mid:'#F59E0B', high:'#F87171' };
+  const maxV = Math.max(...s.bars);
+  const barsHtml = s.bars.map((v, i) => `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;"><div style="width:100%;border-radius:3px 3px 0 0;height:${Math.round(v/maxV*60)}px;background:${colorMap[s.colors[i]]};"></div><div style="font-size:8px;color:var(--gray-muted);">W${i+1}</div></div>`).join('');
+  const optsHtml = s.opts.map((o, oi) => `<button class="tg-opt" onclick="answerTG(${oi})">${o}</button>`).join('');
+  document.getElementById('tgContainer').innerHTML = `
+    <div class="tg-scenario">
+      <div style="font-size:11px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">📊 ${s.metric}</div>
+      <div class="tg-chart" style="display:flex;align-items:flex-end;gap:4px;height:70px;padding:4px 0;">${barsHtml}</div>
+      <div class="tg-q">${s.q}</div>
+      <div class="tg-opts">${optsHtml}</div>
+      <div class="tg-fb" id="tgFb"></div>
+    </div>
+    <div class="tg-nav">
+      <div class="tg-counter">Scenario ${tgIdx + 1} of ${tgScenarios.length}</div>
+      <button class="tg-next" id="tgNext" onclick="nextTG()">Next Scenario →</button>
+    </div>`;
+}
+function answerTG(idx) {
+  const s = tgScenarios[tgIdx];
+  const opts = document.querySelectorAll('.tg-opt');
+  if (opts[0].disabled) return;
+  opts.forEach(o => o.disabled = true);
+  const correct = idx === s.correct;
+  opts[idx].classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) opts[s.correct].classList.add('correct');
+  const fb = document.getElementById('tgFb');
+  fb.className = 'tg-fb show ' + (correct ? 'ok' : 'bad');
+  fb.textContent = correct ? s.fb_ok : s.fb_bad;
+  document.getElementById('tgNext').classList.add('show');
+}
+function nextTG() { tgIdx++; renderTG(); }
+renderTG();
+
+function cq(btn, correct) {
+  if (document.querySelector('.qopt.correct') || document.querySelector('.qopt.wrong')) return;
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) document.querySelectorAll('.qopt').forEach(o => { if (o.textContent.includes('consistent downward trend')) o.classList.add('correct'); });
+  const fb = document.getElementById('qfb');
+  fb.className = 'qfb show ' + (correct ? 'cfb' : 'wfb');
+  fb.textContent = correct
+    ? '✅ Correct. Five consecutive weekly declines of roughly 0.3 percentage points each is a consistent trend, not random variation. At this rate, the metric will cross 98% in approximately 1–2 weeks. The value of trend analysis is catching problems before they cross thresholds — not waiting until they do. By the time medication accuracy drops below 98%, several weeks of investigation and remediation time have been lost. A consistent declining trend at a safety-critical metric should trigger investigation immediately, even when the number is still "passing."'
+    : '❌ Five consecutive weekly declines is not random variation — it\'s a consistent trend. Random fluctuation goes up and down; this has gone down every single week. At the current rate of decline, the metric will cross the 98% threshold within 1–2 weeks. The purpose of trend analysis is to act before thresholds are crossed, not after. A consistent declining trend at a safety-critical metric like medication accuracy requires investigation now, while there\'s still time to prevent a violation.';
+}
+window.addEventListener('scroll', () => { const e = document.documentElement; document.getElementById('pb').style.width = ((e.scrollTop / (e.scrollHeight - e.clientHeight)) * 100) + '%'; });
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: .1 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

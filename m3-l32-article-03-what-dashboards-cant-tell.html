@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Dashboards Show vs. What They Can't Tell You — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+.section{padding:36px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* WHAT VS WHAT NOT */
+.what-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0;}
+.what-card{border-radius:20px;padding:26px;}
+.what-card.can{background:var(--green-pale);border:2px solid #86EFAC;}
+.what-card.cant{background:var(--red-pale);border:2px solid #FCA5A5;}
+.what-icon{font-size:32px;margin-bottom:10px;}
+.what-title{font-size:15px;font-weight:700;margin-bottom:10px;}
+.what-card.can .what-title{color:var(--green);}
+.what-card.cant .what-title{color:var(--red);}
+.what-items{font-size:13px;line-height:1.9;color:var(--gray-text);}
+.what-items li{list-style:none;padding:0;display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;}
+
+/* INVESTIGATION GAME — core sim */
+.invest-sim{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.is-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.is-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.is-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.is-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.is-tab{padding:8px 14px;border-radius:10px;border:1.5px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.is-tab.active{background:var(--purple);border-color:var(--purple);color:white;}
+.is-panel{display:none;animation:fadeIn .3s ease;}
+.is-panel.active{display:block;}
+.is-dashboard-reading{background:var(--white);border-radius:14px;padding:18px;border-left:5px solid var(--orange);margin-bottom:14px;}
+.is-dr-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--orange);letter-spacing:.08em;margin-bottom:6px;}
+.is-dr-reading{font-size:15px;font-weight:600;color:var(--gray-text);}
+.is-what{background:var(--green-pale);border-radius:12px;padding:14px;margin-bottom:10px;}
+.is-cant{background:var(--red-pale);border-radius:12px;padding:14px;margin-bottom:10px;}
+.is-zone-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
+.is-what .is-zone-label{color:var(--green);}
+.is-cant .is-zone-label{color:var(--red);}
+.is-zone-body{font-size:13px;line-height:1.7;color:var(--gray-text);}
+.is-investigate{background:var(--purple-pale);border-radius:12px;padding:14px;}
+.is-investigate-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.08em;margin-bottom:8px;}
+.is-questions{display:flex;flex-direction:column;gap:6px;}
+.is-q{font-size:13px;color:var(--purple-dark);padding:6px 10px;background:white;border-radius:8px;border-left:3px solid var(--purple);}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.what-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.2 · Reading AI Dashboards</div>
+  <h1>What Dashboards Show You vs. What They Can't Tell You — And Why That Gap Is Dangerous</h1>
+  <p class="hero-sub">A dashboard can tell you that ER wait times are 38 minutes. It cannot tell you why. Knowing the difference between what a dashboard shows and what it doesn't — and knowing when to investigate further — is one of the most critical skills in this entire module.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>The Single Most Important Idea in Dashboard Reading</h2>
+    <p>Here it is: <mark>dashboards describe what is happening. They do not explain why it is happening.</mark> This sounds simple. But in practice, it's one of the most frequently misunderstood aspects of AI-powered operations tools — and when it gets misunderstood, real harm follows.</p>
+    <p>A healthcare worker who sees "average ER wait time: 38 minutes" on a dashboard and immediately knows what to do about it is either very lucky or has made a dangerous assumption. The 38-minute wait could be caused by five completely different things — each requiring a completely different response. If they act on the wrong assumption about why, they might spend an hour on a fix that does nothing, while the real problem continues.</p>
+    <p>This is the gap: the dashboard shows you the <em>what</em>. You still have to figure out the <em>why</em>. And you can only do that with human knowledge, investigation, and judgment — none of which the dashboard provides.</p>
+    <div class="pull-quote"><p>A dashboard that says "ER wait time: 38 minutes" is like a thermometer that says "fever: 102°F." It tells you something is wrong. It doesn't tell you whether it's a cold, the flu, or something more serious. The diagnosis is still yours.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Clear Line: What Dashboards CAN and CANNOT Tell You</h2>
+    <div class="what-grid">
+      <div class="what-card can">
+        <div class="what-icon">✅</div>
+        <div class="what-title">What Dashboards CAN Tell You</div>
+        <ul class="what-items">
+          <li><span>→</span><span>Current values of tracked metrics (bed occupancy: 91%)</span></li>
+          <li><span>→</span><span>How those values compare to targets (above/below/at)</span></li>
+          <li><span>→</span><span>How values have changed over time (trends and patterns)</span></li>
+          <li><span>→</span><span>Which metrics are flagged as requiring attention (alerts)</span></li>
+          <li><span>→</span><span>Correlations between metrics that often move together</span></li>
+          <li><span>→</span><span>When changes happened (timestamps and change rates)</span></li>
+          <li><span>→</span><span>Predicted future values based on current patterns (AI forecasts)</span></li>
+        </ul>
+      </div>
+      <div class="what-card cant">
+        <div class="what-icon">❌</div>
+        <div class="what-title">What Dashboards CANNOT Tell You</div>
+        <ul class="what-items">
+          <li><span>→</span><span>Why a metric changed (the underlying cause)</span></li>
+          <li><span>→</span><span>Whether the data itself is accurate (garbage in, garbage out)</span></li>
+          <li><span>→</span><span>What happened in the building that isn't tracked (a key staff member called out)</span></li>
+          <li><span>→</span><span>Whether the AI forecast will actually come true</span></li>
+          <li><span>→</span><span>Human factors: morale, patient complexity, relationship dynamics</span></li>
+          <li><span>→</span><span>Context that changes the meaning of a number (new program launched)</span></li>
+          <li><span>→</span><span>What you should do about a problem — only that a problem exists</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Investigation Gap: Seeing It in Action</h2>
+    <p>For each dashboard reading below, click each tab to see what the dashboard tells you, what it can't tell you, and what questions you'd need to investigate to actually understand — and fix — the problem.</p>
+    <div class="invest-sim">
+      <div class="is-label">🔍 The Investigation Gap Simulator</div>
+      <div class="is-title">From "What" to "Why" — Four Real Scenarios</div>
+      <div class="is-sub">Each scenario shows a dashboard reading and then reveals the gap between what the data shows and what you still need to figure out.</div>
+      <div class="is-tabs">
+        <button class="is-tab active" onclick="showInvest(0)">ER Wait Times</button>
+        <button class="is-tab" onclick="showInvest(1)">Satisfaction Drop</button>
+        <button class="is-tab" onclick="showInvest(2)">Supply Shortage</button>
+        <button class="is-tab" onclick="showInvest(3)">Staffing Overtime</button>
+      </div>
+      <div id="investContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Rule: When to Accept the Number vs. When to Investigate</h2>
+    <p>Not every dashboard metric requires deep investigation. A healthcare worker who investigated every metric every day would never do anything else. The skill is knowing when the number is enough information — and when it isn't.</p>
+    <p><strong>Accept the number and act when:</strong> The metric is within normal range and stable, the AI recommendation is consistent with your operational knowledge, and the action required is routine (a standard reorder, a normal shift adjustment). Most green metrics most of the time fall into this category.</p>
+    <p><strong>Investigate before acting when:</strong> The metric is red or trending sharply in the wrong direction, the AI recommendation doesn't match what you know about today's situation, the number is surprising given your experience, or the recommended action would be costly or hard to reverse. <mark>Whenever a dashboard tells you something surprising, the right question is always "why" before "what should I do."</mark></p>
+  </div>
+
+  <div class="quiz fade-in">
+    <div class="quiz-label">🧠 Quick Check</div>
+    <div class="quiz-q">A dashboard shows patient satisfaction dropped from 88% to 79% this week. An administrator immediately emails the nursing staff asking them to "improve communication with patients." What mistake did she make?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="cq(this,false)">She acted too slowly — a 9-point drop should trigger a same-day all-hands meeting</button>
+      <button class="qopt" onclick="cq(this,false)">She emailed the wrong team — satisfaction issues are always a front-desk problem, not a nursing problem</button>
+      <button class="qopt" onclick="cq(this,true)">She acted on what the dashboard showed (a satisfaction drop) without investigating why it happened. "Improve communication" is a solution — but she doesn't know yet whether the cause is communication, wait times, facility issues, or something entirely different. She jumped from the what to the fix, skipping the why.</button>
+      <button class="qopt" onclick="cq(this,false)">She made no mistake — acting quickly on a metric drop is exactly what dashboard reading is for</button>
+    </div>
+    <div class="qfb" id="qfb"></div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Key Takeaways</div>
+    <h2>What to Remember From This Article</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Dashboards show what is happening — not why. A metric that's out of range tells you a problem exists. It doesn't tell you the cause, and the cause determines the fix. Acting without understanding the cause wastes time and may make things worse.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The investigation gap is real and often dangerous. For any surprising dashboard reading, the right sequence is: see the metric → ask why → investigate → then act. Skipping the "why" step leads to misdiagnosed problems and ineffective responses.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The same metric value can have completely different causes — and each cause requires a different response. A high ER wait time caused by understaffing needs a different fix than the same wait time caused by an unusually complex patient cohort. The dashboard gives you neither of these explanations.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>This is the most important reason human judgment cannot be automated out of healthcare operations. The dashboard generates the alert. The human investigates the cause. No AI tool — at any level of sophistication — can replace the contextual knowledge, conversation, and on-the-ground awareness required to understand why something is happening in a specific facility on a specific day.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const investScenarios = [
+  { tab:'ER Wait Times',
+    reading:'Dashboard shows: ER average wait time 38 minutes (↑ 12 min above 30-min target). Trend: up 3 weeks straight.',
+    what:'The dashboard tells you: wait times are 27% above target, have been rising for 3 weeks, and the rate of increase is approximately 3–4 minutes per week.',
+    cant:'The dashboard cannot tell you: Why wait times are rising. Is it a staffing shortage? More patients arriving? A slower intake process? Patients staying longer in ER bays? A bottleneck in the handoff to inpatient units? All of these produce the same metric — 38 minutes — but require completely different responses.',
+    questions:['Are ER patient arrivals higher than usual this week, or is volume stable?','Is the nurse-to-patient ratio in the ER at or above the safe threshold?','Is the inpatient bed occupancy rate high enough to be slowing the transfer of ER patients to floors?','Has the intake/registration process changed recently? Any new staff in that role?','Are ER patients being treated in the standard time — and the wait is just for initial triage?'] },
+  { tab:'Satisfaction Drop',
+    reading:'Dashboard shows: Patient satisfaction 79% this week (↓ 9pts from 88% last week). Single-week drop. Previous weeks stable.',
+    what:'The dashboard tells you: Satisfaction dropped sharply in a single week, which is unusual given the previous stability. A 9-point drop in one week typically signals a specific event or change, not a gradual trend.',
+    cant:'The dashboard cannot tell you: What patients were dissatisfied with. Was it wait times, communication quality, facility cleanliness, difficulty reaching staff, billing confusion, or a specific incident that generated multiple complaints? Satisfaction surveys ask multiple questions — the aggregate score hides which dimension declined.',
+    questions:['Which satisfaction sub-scores declined most sharply — communication, responsiveness, or overall care?','Did any unusual events happen this week: a department disruption, facility issue, staffing problem?','Was a specific unit, shift, or provider type responsible for the decline, or is it facility-wide?','Did patient volume or patient complexity increase this week?','Are there any complaint records or incident reports from this week that correlate?'] },
+  { tab:'Supply Shortage',
+    reading:'Dashboard shows: 4 supply alerts. IV tubing at 1.2 days remaining. Reorder lead time: 2 days. Usage up 40% vs. baseline.',
+    what:'The dashboard tells you: IV tubing stock will run out before the standard reorder arrives. Usage is significantly above baseline. This is a mathematically certain shortage unless the reorder is expedited or usage is reduced.',
+    cant:'The dashboard cannot tell you: Why usage is 40% above baseline. Is it appropriate clinical use (more patients requiring IV access this week), a waste issue (supplies being used inefficiently or not returned), a recording error (usage being logged that didn\'t actually occur), or a deliberate protocol change that increased IV access requirements?',
+    questions:['Is patient census higher this week, and are more patients legitimately requiring IV access?','Has any clinical protocol changed that would require more IV access per patient?','Is there a waste or disposal pattern that\'s inflating the usage count?','Are the usage logs being recorded accurately and promptly?','Can an emergency reorder be placed with expedited delivery, or can supplies be temporarily sourced from another department?'] },
+  { tab:'Staffing Overtime',
+    reading:'Dashboard shows: Staff overtime hours at 184/week (↑ from 52/week eight weeks ago). Target: under 80 hrs/week.',
+    what:'The dashboard tells you: Overtime has tripled over 8 weeks. The trend is accelerating. The facility is significantly above its target — meaning both cost and staff fatigue risks are elevated.',
+    cant:'The dashboard cannot tell you: Which departments are carrying the overtime load, which staff are most affected, whether the overtime is concentrated in a single role or spread across all staff, whether staff are choosing to work overtime vs. being required to, or what operational change 8 weeks ago triggered the trend.',
+    questions:['Which specific units or departments account for the majority of overtime hours?','What changed 8 weeks ago? New program, staffing reduction, patient volume increase?','Are specific staff members carrying a disproportionate share of overtime?','Is the overtime being driven by a coverage gap (not enough staff) or a volume surge (more patients than staffing planned for)?','Are there staff who are voluntarily working overtime vs. those being required to?'] }
+];
+
+let currentInvest = 0;
+function showInvest(i) {
+  currentInvest = i;
+  document.querySelectorAll('.is-tab').forEach((t, ti) => t.classList.toggle('active', ti === i));
+  const s = investScenarios[i];
+  const qsHtml = s.questions.map(q => `<div class="is-q">❓ ${q}</div>`).join('');
+  document.getElementById('investContainer').innerHTML = `
+    <div class="is-panel active">
+      <div class="is-dashboard-reading"><div class="is-dr-label">📊 Dashboard Reading</div><div class="is-dr-reading">${s.reading}</div></div>
+      <div class="is-what"><div class="is-zone-label">✅ What the Dashboard SHOWS</div><div class="is-zone-body">${s.what}</div></div>
+      <div class="is-cant"><div class="is-zone-label">❌ What the Dashboard CANNOT Tell You</div><div class="is-zone-body">${s.cant}</div></div>
+      <div class="is-investigate"><div class="is-investigate-label">🔍 Questions to Investigate Before Acting</div><div class="is-questions">${qsHtml}</div></div>
+    </div>`;
+}
+showInvest(0);
+
+function cq(btn, correct) {
+  if (document.querySelector('.qopt.correct') || document.querySelector('.qopt.wrong')) return;
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) document.querySelectorAll('.qopt').forEach(o => { if (o.textContent.includes('skipping the why')) o.classList.add('correct'); });
+  const fb = document.getElementById('qfb');
+  fb.className = 'qfb show ' + (correct ? 'cfb' : 'wfb');
+  fb.textContent = correct
+    ? '✅ Exactly right. She jumped from the what (satisfaction dropped) straight to the fix (improve communication) without ever asking why. The dashboard told her that satisfaction fell. It didn\'t tell her why. The cause might be communication — but it could equally be wait times caused by understaffing, a facility maintenance issue patients complained about, difficulty reaching the clinic by phone, or billing confusion on discharge. Each cause has a different fix. "Improve communication" is the right answer only if communication is actually the cause. She bypassed the investigation step entirely.'
+    : '❌ The core mistake was skipping the investigation step. The dashboard showed her the what (a 9-point satisfaction drop). But she assumed the why (communication problems) and jumped straight to a response. The dashboard cannot tell her what aspect of the patient experience declined. Maybe it was wait times, facility cleanliness, responsiveness, or billing. Each requires a different fix. Acting without understanding the cause is a fundamental dashboard reading error.';
+}
+window.addEventListener('scroll', () => { const e = document.documentElement; document.getElementById('pb').style.width = ((e.scrollTop / (e.scrollHeight - e.clientHeight)) * 100) + '%'; });
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: .1 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

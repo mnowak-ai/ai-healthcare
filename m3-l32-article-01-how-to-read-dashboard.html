@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Read a Healthcare Dashboard in Under 5 Minutes — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+.section{padding:36px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* STEP FRAMEWORK */
+.steps-framework{display:flex;flex-direction:column;gap:0;margin:28px 0;}
+.sf-item{display:flex;gap:0;cursor:pointer;}
+.sf-left{display:flex;flex-direction:column;align-items:center;width:56px;flex-shrink:0;}
+.sf-step-circle{width:48px;height:48px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:white;flex-shrink:0;transition:all .2s;border:3px solid var(--purple-pale);}
+.sf-item.active .sf-step-circle{background:var(--purple-dark);box-shadow:0 0 0 6px var(--purple-pale);transform:scale(1.1);}
+.sf-connector{width:3px;flex:1;background:var(--purple-mid);min-height:16px;margin:3px 0;}
+.sf-item:last-child .sf-connector{display:none;}
+.sf-right{flex:1;padding:4px 0 28px 16px;}
+.sf-title{font-size:17px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.sf-subtitle{font-size:13px;color:var(--gray-muted);font-style:italic;margin-bottom:0;}
+.sf-detail{font-size:14px;line-height:1.7;color:var(--gray-text);margin-top:10px;padding:14px 16px;background:var(--purple-pale);border-radius:12px;display:none;animation:fadeIn .3s ease;}
+.sf-item.active .sf-detail{display:block;}
+.sf-time-badge{display:inline-block;background:var(--purple);color:white;font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;margin-left:8px;vertical-align:middle;}
+
+/* GUIDED SIMULATION — the centrepiece */
+.guided-sim{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.gs-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.gs-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.gs-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.gs-progress{display:flex;gap:6px;margin-bottom:20px;}
+.gs-dot{width:10px;height:10px;border-radius:50%;background:var(--purple-mid);transition:all .3s;}
+.gs-dot.done{background:var(--green);}
+.gs-dot.active{background:var(--purple);transform:scale(1.3);}
+
+/* dashboard mini */
+.mini-dash{background:#1A1035;border-radius:16px;padding:20px;margin-bottom:16px;}
+.mini-dash-title{font-size:10px;font-weight:700;text-transform:uppercase;color:rgba(255,255,255,.45);letter-spacing:.12em;margin-bottom:14px;}
+.mini-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px;}
+.mini-kpi{border-radius:10px;padding:12px 10px;text-align:center;cursor:pointer;transition:all .2s;border:2px solid transparent;}
+.mini-kpi:hover{transform:translateY(-2px);}
+.mini-kpi.red{background:rgba(220,38,38,.25);}
+.mini-kpi.yellow{background:rgba(217,119,6,.25);}
+.mini-kpi.green{background:rgba(39,103,73,.25);}
+.mini-kpi.highlight{border-color:rgba(255,255,255,.6)!important;transform:scale(1.05);}
+.mini-kpi-val{font-family:'Fraunces',serif;font-size:22px;font-weight:900;color:white;line-height:1;}
+.mini-kpi-label{font-size:9px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em;margin-top:4px;}
+.mini-kpi-trend{font-size:10px;font-weight:700;margin-top:4px;}
+.mini-kpi.red .mini-kpi-trend{color:#F87171;}
+.mini-kpi.yellow .mini-kpi-trend{color:#FCD34D;}
+.mini-kpi.green .mini-kpi-trend{color:#4ADE80;}
+.mini-alert-row{display:flex;flex-direction:column;gap:5px;}
+.mini-alert{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border-radius:8px;padding:8px 12px;border-left:3px solid;}
+.mini-alert.red{border-left-color:#F87171;}
+.mini-alert.yellow{border-left-color:#FCD34D;}
+.mini-alert-text{font-size:11px;color:rgba(255,255,255,.75);}
+
+.gs-question{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:20px;margin-bottom:12px;}
+.gs-q-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.1em;margin-bottom:6px;}
+.gs-q-text{font-size:16px;font-weight:600;color:var(--purple-dark);margin-bottom:14px;line-height:1.4;}
+.gs-opts{display:flex;flex-direction:column;gap:8px;}
+.gs-opt{background:var(--gray-soft);border:2px solid var(--purple-mid);border-radius:10px;padding:12px 16px;cursor:pointer;font-size:14px;transition:all .2s;text-align:left;}
+.gs-opt:hover:not(:disabled){border-color:var(--purple);background:var(--purple-pale);}
+.gs-opt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.gs-opt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.gs-opt:disabled{cursor:default;}
+.gs-feedback{font-size:14px;line-height:1.65;padding:14px 18px;border-radius:10px;margin-top:10px;display:none;}
+.gs-feedback.show{display:block;animation:fadeIn .3s ease;}
+.gs-feedback.ok{background:var(--green-pale);color:var(--green);}
+.gs-feedback.bad{background:var(--red-pale);color:var(--red);}
+.gs-next{background:var(--purple);color:white;border:none;border-radius:10px;padding:10px 22px;font-size:14px;font-weight:700;cursor:pointer;margin-top:12px;display:none;transition:all .2s;}
+.gs-next:hover{background:var(--purple-dark);}
+.gs-next.show{display:inline-block;}
+.gs-complete{background:var(--purple-dark);border-radius:16px;padding:24px;text-align:center;color:white;display:none;}
+.gs-complete.show{display:block;animation:fadeIn .4s ease;}
+.gs-complete-title{font-family:'Fraunces',serif;font-size:28px;font-weight:900;margin-bottom:8px;}
+.gs-complete-msg{font-size:15px;opacity:.85;line-height:1.6;}
+
+/* CHECKLIST */
+.checklist{display:flex;flex-direction:column;gap:10px;margin:24px 0;}
+.check-item{display:flex;gap:12px;padding:14px 18px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;cursor:pointer;transition:all .2s;align-items:flex-start;}
+.check-item:hover{border-color:var(--purple);}
+.check-item.checked{background:var(--green-pale);border-color:var(--green);}
+.check-box{width:22px;height:22px;border:2px solid var(--purple-mid);border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;margin-top:2px;}
+.check-item.checked .check-box{background:var(--green);border-color:var(--green);}
+.check-label{font-size:14px;font-weight:600;color:var(--purple-dark);}
+.check-detail{font-size:13px;color:var(--gray-muted);margin-top:2px;line-height:1.5;}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.mini-kpi-grid{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.2 · Reading AI Dashboards</div>
+  <h1>How to Read a Healthcare Dashboard in Under 5 Minutes: A Step-by-Step Guide</h1>
+  <p class="hero-sub">Dashboard reading is a skill — and like any skill, it gets faster and sharper with a good framework. This article teaches you a 5-step process you can use on any healthcare operations dashboard, then puts you through a guided simulation to practice it live.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Why a Process Matters More Than Raw Intelligence</h2>
+    <p>Most people approach a new dashboard the same way they approach a messy desk: they pick up whatever catches their eye first. Maybe it's the biggest number. Maybe it's the most alarming color. Maybe it's the metric they recognize from a previous role. The problem with that approach is that <mark>dashboards are designed to show everything — but not everything is equally urgent right now.</mark></p>
+    <p>Without a reading process, you'll spend your attention on the wrong things. You might fixate on a metric that's slightly below target while missing a staffing alert that's about to turn into a patient safety problem. You might read a number without looking at its trend and completely miss that it's been declining for three weeks straight.</p>
+    <p>The five steps below aren't complicated. But doing them in order, every time, turns dashboard reading from a guessing game into a reliable skill. Most healthcare workers who practice this framework can read a new dashboard — and know its three most important issues — in under five minutes. That's the goal.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The 5-Step Dashboard Reading Process</h2>
+    <p>Click each step to expand the full detail and see exactly what to do at that stage of your read.</p>
+    <div class="steps-framework" id="stepsContainer"></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Now Practice It: Guided Dashboard Simulation</h2>
+    <p>Reading about a process is different from doing it. Below is a real operations dashboard — the same kind you'll encounter in a healthcare job. Work through 6 guided questions that take you through each step of the reading framework. Answer each one before moving to the next.</p>
+    <div class="guided-sim">
+      <div class="gs-label">🎯 Guided Dashboard Reading Simulation</div>
+      <div class="gs-title">Valley Health Center — Wednesday Morning Read</div>
+      <div class="gs-sub">Use the 5-step framework to work through this dashboard. Answer each question to unlock the next step.</div>
+      <div class="gs-progress" id="gsProgress"></div>
+      <div class="mini-dash">
+        <div class="mini-dash-title">Valley Health Center · Operations Dashboard · Wed 8:47am</div>
+        <div class="mini-kpi-grid" id="miniKpiGrid">
+          <div class="mini-kpi red" id="mkpi0"><div class="mini-kpi-val">96%</div><div class="mini-kpi-label">Bed Occupancy</div><div class="mini-kpi-trend">↑ +11% vs Mon</div></div>
+          <div class="mini-kpi red" id="mkpi1"><div class="mini-kpi-val">1:7</div><div class="mini-kpi-label">Nurse Ratio</div><div class="mini-kpi-trend">↑ over safe limit</div></div>
+          <div class="mini-kpi yellow" id="mkpi2"><div class="mini-kpi-val">41min</div><div class="mini-kpi-label">ER Wait Time</div><div class="mini-kpi-trend">↑ +12min vs target</div></div>
+          <div class="mini-kpi green" id="mkpi3"><div class="mini-kpi-val">89%</div><div class="mini-kpi-label">Schedule Fill</div><div class="mini-kpi-trend">→ on target</div></div>
+          <div class="mini-kpi green" id="mkpi4"><div class="mini-kpi-val">86%</div><div class="mini-kpi-label">Patient Satisfaction</div><div class="mini-kpi-trend">↓ -4pts this week</div></div>
+          <div class="mini-kpi red" id="mkpi5"><div class="mini-kpi-val">4</div><div class="mini-kpi-label">Supply Alerts</div><div class="mini-kpi-trend">↑ up from 1 yesterday</div></div>
+          <div class="mini-kpi yellow" id="mkpi6"><div class="mini-kpi-val">4.6d</div><div class="mini-kpi-label">Avg. Length Stay</div><div class="mini-kpi-trend">↑ above 3.8d target</div></div>
+          <div class="mini-kpi green" id="mkpi7"><div class="mini-kpi-val">98.8%</div><div class="mini-kpi-label">Med Accuracy</div><div class="mini-kpi-trend">→ above target</div></div>
+        </div>
+        <div class="mini-alert-row">
+          <div class="mini-alert red"><span>🚨</span><span class="mini-alert-text">CRITICAL: Staffing shortfall — tonight 7PM shift projected 3 nurses below safe minimum</span></div>
+          <div class="mini-alert yellow"><span>⚠️</span><span class="mini-alert-text">Supply: IV tubing sets at 1.2 days remaining — reorder lead time 2 days</span></div>
+          <div class="mini-alert yellow"><span>⚠️</span><span class="mini-alert-text">Patient satisfaction drop: 3rd consecutive weekly decline — now 4pts below 90-day avg</span></div>
+        </div>
+      </div>
+      <div id="gsQuestionArea"></div>
+      <div class="gs-complete" id="gsComplete">
+        <div class="gs-complete-title">✅ Dashboard Read Complete</div>
+        <div class="gs-complete-msg">You worked through all 5 steps correctly. You identified the two critical issues (staffing + occupancy), recognized the connecting root cause, spotted the supply timing emergency, and caught the lagging satisfaction trend. In a real job, that 5-minute read protects patients and gives your team a head start on the day's real problems.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Your 5-Minute Dashboard Reading Checklist</h2>
+    <p>Print this, save it, or internalize it. Click each item as you practice your next dashboard read:</p>
+    <div class="checklist" id="checklistContainer"></div>
+    <div id="checkComplete" style="background:var(--green-pale);border-radius:14px;padding:14px 20px;margin-top:10px;font-size:14px;color:var(--green);font-weight:600;display:none;">✅ Full read complete — you've applied all 5 steps. That's the framework.</div>
+  </div>
+
+  <div class="quiz fade-in">
+    <div class="quiz-label">🧠 Quick Check</div>
+    <div class="quiz-q">You open a healthcare dashboard and the first thing you notice is that patient satisfaction dropped from 91% to 86% this week. Using the 5-step framework, what should you do before deciding this is the most urgent issue?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="cq(this,false)">Act on it immediately — a 5-point satisfaction drop is always the most critical metric to address first</button>
+      <button class="qopt" onclick="cq(this,true)">Finish the full 5-step read first — check status colors across all metrics, read all trend arrows, check AI alerts, and look for connections before deciding where to focus. Satisfaction is a lagging indicator; there may be a more urgent root cause driving it that demands immediate action.</button>
+      <button class="qopt" onclick="cq(this,false)">Ignore satisfaction for now — it's a soft metric and clinical operations come first</button>
+      <button class="qopt" onclick="cq(this,false)">Report it to your supervisor immediately before investigating further</button>
+    </div>
+    <div class="qfb" id="qfb"></div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Key Takeaways</div>
+    <h2>What to Remember From This Article</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The 5-step process: Scan colors → Read trends → Check the biggest number → Review alerts → Look for connections. Done in order, every time, this framework turns dashboard reading from intuition into a reliable skill.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Colors first, numbers second. The status indicators (red/yellow/green) give you the priority map in seconds. Reading every number before scanning the colors wastes attention on things that might be perfectly fine.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Step 5 — looking for connections — is the step that creates the most value. When three metrics are red, asking "what single thing could be driving all three?" is what separates a data-literate healthcare worker from someone who just reads numbers.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Satisfaction scores and other lagging indicators should never be the first thing you act on. They reflect what already happened. Always complete the full read to find what's happening right now before you decide where to focus.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const steps = [
+  { num:1, title:'Scan the Status Colors', subtitle:'30 seconds — before reading a single number', time:'~30 sec',
+    detail:'Look at the entire dashboard before reading anything in detail. Your only goal: find the red tiles. Red = something is at or beyond a critical threshold. Yellow = approaching a problem. Green = fine for now. This scan gives you a priority map in under 30 seconds. If there are no red tiles, you have a normal day. If there are three red tiles, you know immediately that focused attention is needed before anything else. Do not start reading numbers until you\'ve done this scan.' },
+  { num:2, title:'Read the Trend Arrows, Not Just Numbers', subtitle:'60 seconds — the direction matters as much as the value', time:'~1 min',
+    detail:'For every metric — especially the non-green ones — look at the trend arrow and the comparison text ("↑ +8% vs. yesterday," "↓ 3rd consecutive week"). A bed occupancy of 88% with a downward trend is very different from 88% with an upward trend that\'s been going for a week. The number tells you where you are. The trend tells you where you\'re heading. Never interpret a metric without its trend context.' },
+  { num:3, title:'Identify the Single Most Urgent Metric', subtitle:'30 seconds — name the one that needs action today', time:'~30 sec',
+    detail:'After scanning colors and trends, identify the one metric that, if left unaddressed, would cause the most immediate harm. This is usually the metric that is both (a) red and (b) getting worse rapidly. On a dashboard with multiple reds, ask: which of these can\'t wait? A staffing shortfall projected for tonight\'s shift can\'t wait. A supply running out in 1.2 days with a 2-day lead time can\'t wait. A satisfaction score that\'s slowly declining might be important but can be addressed tomorrow.' },
+  { num:4, title:'Check Every AI Alert', subtitle:'60 seconds — after you\'ve formed your own read', time:'~1 min',
+    detail:'Now read the alert panel — after you\'ve already formed your own impression of the dashboard. This order is intentional. If you read the alerts first, they shape your entire perception of the dashboard before you\'ve done your own analysis. By reading them second, you can ask: "Does the AI\'s alert confirm what I already noticed? Did it catch something I missed? Does its recommendation make sense given what I can see?" This makes you a critical evaluator of AI output, not a passive follower of it.' },
+  { num:5, title:'Look for Connections Between Metrics', subtitle:'60–90 seconds — the highest-value step', time:'~60–90 sec',
+    detail:'This is where the real insight happens. Ask: "Are these red metrics related? Could one root cause be driving multiple problems?" A classic pattern: understaffing → nurses can\'t discharge patients efficiently → beds stay full → ER patients can\'t move to inpatient floors → ER wait times climb. Three red metrics, one root cause. Finding that connection means one targeted fix instead of three disconnected responses. Not all red metrics are connected — but always check before assuming they\'re independent problems.' }
+];
+
+const stepsContainer = document.getElementById('stepsContainer');
+steps.forEach((s, i) => {
+  const el = document.createElement('div');
+  el.className = 'sf-item' + (i===0?' active':'');
+  el.innerHTML = `
+    <div class="sf-left">
+      <div class="sf-step-circle">${s.num}</div>
+      <div class="sf-connector"></div>
+    </div>
+    <div class="sf-right">
+      <div class="sf-title">${s.title} <span class="sf-time-badge">${s.time}</span></div>
+      <div class="sf-subtitle">${s.subtitle}</div>
+      <div class="sf-detail">${s.detail}</div>
+    </div>`;
+  el.onclick = () => {
+    document.querySelectorAll('.sf-item').forEach(x => x.classList.remove('active'));
+    el.classList.add('active');
+  };
+  stepsContainer.appendChild(el);
+});
+
+// Guided simulation
+const questions = [
+  { step:'Step 1: Scan the Colors', q:'You open Valley Health Center\'s dashboard. Using Step 1 of the framework (scan status colors first), which is the correct first action?',
+    opts:['Read the patient satisfaction score — it\'s the most patient-centered metric','Count how many metrics are red, yellow, and green before reading any specific number','Find the biggest number on the dashboard and start there','Read the AI alerts first since they summarize the most important issues'],
+    correct:1, highlight:[0,1,2,5],
+    fb_ok:'✅ Correct. The first step is always a color scan — no detailed reading yet. Count the reds (3), yellows (2), greens (3). That tells you immediately this is a high-alert day requiring focused attention on the red metrics before anything else.',
+    fb_bad:'❌ The framework says colors first, details second. Before reading any specific number or alert, scan the whole dashboard for color coding. Here you have 3 red tiles, 2 yellows, 3 greens — that tells you it\'s a high-alert day before you\'ve read a single metric in detail.' },
+  { step:'Step 2: Read the Trend Arrows', q:'Looking at patient satisfaction (86%, green, ↓ -4pts this week): the metric is green but the trend arrow is pointing down. What does this tell you?',
+    opts:['Nothing to worry about — it\'s still in the green zone so it\'s fine','The metric is currently acceptable but has been declining — it warrants monitoring and investigation into why, even though it\'s not yet a crisis','Satisfaction scores are always volatile week-to-week and this is normal variation','This metric should be flagged as the most urgent issue today'],
+    correct:1, highlight:[4],
+    fb_ok:'✅ Exactly right. Green + downward trend is one of the most important patterns to recognize. The metric is fine today — but if the trend continues, it won\'t be fine for long. The right response is to note it, investigate the cause (3 consecutive declines suggests something systematic, not random variation), and plan an intervention — while recognizing it\'s not the most urgent thing on today\'s dashboard.',
+    fb_bad:'❌ Trend arrows change the meaning of a metric completely. Green + declining is very different from green + stable. Three consecutive weekly declines is not random noise — it\'s a pattern that needs investigation before it crosses into yellow or red territory. The correct read: currently acceptable, but deteriorating. Note it and investigate, but don\'t treat it as today\'s most urgent item.' },
+  { step:'Step 3: Identify the Most Urgent Metric', q:'After scanning colors and trends, which single metric on this dashboard requires the most immediate action today?',
+    opts:['Patient satisfaction (86%) — the 3-week decline trend makes it the top priority','Bed occupancy (96%) — being near capacity is always the most critical operational metric','The staffing alert — a projected shortfall of 3 nurses for tonight\'s 7PM shift is a time-sensitive patient safety issue that requires action in the next few hours','ER wait time (41 min) — patients are currently experiencing delays right now'],
+    correct:2, highlight:[1],
+    fb_ok:'✅ Correct. The staffing alert is the most time-sensitive issue. "Tonight\'s 7PM shift" means there are only hours left to find coverage. Every other problem on this dashboard — high occupancy, long ER waits, declining satisfaction — can potentially be managed through the day. A staffing shortfall at shift change cannot be resolved at 6:55pm. The window to act is now.',
+    fb_bad:'❌ Think about time sensitivity. High occupancy and long ER waits are serious — but they\'re happening right now and can be managed through the current shift. Patient satisfaction is a lagging trend. The staffing shortfall for tonight\'s shift is the only metric that has a hard deadline measured in hours. If nobody acts to find 3 nurses before 7PM, a patient safety problem becomes inevitable.' },
+  { step:'Step 4: Check the AI Alerts', q:'The AI alert says IV tubing sets are at 1.2 days remaining with a 2-day reorder lead time. You already noticed there were 4 supply alerts when you scanned the dashboard. What does checking the alert detail add to your read?',
+    opts:['Nothing — you already knew there were 4 supply alerts, so the detail doesn\'t change anything','The specific timing math: 1.2 days of supply vs. 2-day lead time means a shortage is mathematically certain unless the order is placed immediately — this is more urgent than the alert count alone suggested','The AI alerts are usually wrong about timing estimates so this should be verified before acting','This confirms supplies are low but doesn\'t change your priority — staffing is still the most urgent'],
+    correct:1, highlight:[],
+    fb_ok:'✅ Right. This is exactly why you check alert details after your own scan rather than just noting "4 supply alerts." The specific math — 1.2 days of supply, 2-day lead time — tells you that a shortage is guaranteed if the order isn\'t placed today. The count "4" didn\'t tell you that. The detail did. The AI alerts added precision to your own read.',
+    fb_bad:'❌ The alert detail matters. Knowing there are "4 supply alerts" from your color scan was useful. But the specific math — 1.2 days of supply vs. 2-day lead time — tells you something the count didn\'t: a shortage is mathematically certain unless action happens today. That\'s the value of checking alert details: they add precision and urgency to what your initial scan identified.' },
+  { step:'Step 5: Look for Connections', q:'Looking at the dashboard as a whole: bed occupancy is 96% (red), nurse ratio is 1:7 (red), ER wait time is 41 min (yellow), and average length of stay is 4.6 days (yellow). What\'s the most likely single root cause connecting these four metrics?',
+    opts:['Each metric has its own separate cause — they should be investigated independently','High patient demand this week is driving all four metrics simultaneously','The nurse-to-patient ratio is the likely root cause: understaffing means nurses can\'t efficiently discharge patients (↑ LOS), beds stay full (↑ occupancy), and the ER can\'t move patients to inpatient floors (↑ wait times)','The long average length of stay is causing everything else — fix discharges first'],
+    correct:2, highlight:[0,1,2,6],
+    fb_ok:'✅ Perfect read. The 1:7 nurse ratio is the root cause driving the cascade: too few nurses → patients take longer to be assessed and discharge-ready → length of stay increases → beds stay full → ER patients can\'t be admitted → ER wait times climb. One root cause, four metric impacts. The fix is staffing — which you already identified as the most time-sensitive action in Step 3. The 5-step read is complete.',
+    fb_bad:'❌ When multiple metrics cluster together, look for the systemic cause before treating them as independent problems. Here, the 1:7 nurse ratio is the trigger: understaffed nurses can\'t efficiently manage discharge planning, so patients stay longer (↑ LOS), beds fill up (↑ occupancy), the ER can\'t move patients to inpatient floors (↑ wait times). Fix the staffing shortfall and you address all four metrics simultaneously.' }
+];
+
+let currentQ = 0;
+let answeredCorrectly = [];
+
+function renderProgress() {
+  const prog = document.getElementById('gsProgress');
+  prog.innerHTML = questions.map((_, i) => `<div class="gs-dot ${i < currentQ ? 'done' : i === currentQ ? 'active' : ''}"></div>`).join('');
+}
+
+function renderQuestion() {
+  if (currentQ >= questions.length) {
+    document.getElementById('gsQuestionArea').innerHTML = '';
+    document.getElementById('gsComplete').classList.add('show');
+    return;
+  }
+  renderProgress();
+  const q = questions[currentQ];
+  // highlight relevant KPIs
+  document.querySelectorAll('.mini-kpi').forEach((k, i) => k.classList.remove('highlight'));
+  if (q.highlight) q.highlight.forEach(i => { const el = document.getElementById('mkpi' + i); if (el) el.classList.add('highlight'); });
+  const optsHtml = q.opts.map((o, oi) => `<button class="gs-opt" onclick="answerQ(${oi})">${o}</button>`).join('');
+  document.getElementById('gsQuestionArea').innerHTML = `
+    <div class="gs-question">
+      <div class="gs-q-label">🧭 ${q.step}</div>
+      <div class="gs-q-text">${q.q}</div>
+      <div class="gs-opts">${optsHtml}</div>
+      <div class="gs-feedback" id="gsFb"></div>
+      <button class="gs-next" id="gsNext" onclick="nextQ()">Next Step →</button>
+    </div>`;
+}
+
+function answerQ(idx) {
+  const q = questions[currentQ];
+  if (document.querySelector('.gs-opt.correct') || document.querySelector('.gs-opt.wrong')) return;
+  const opts = document.querySelectorAll('.gs-opt');
+  opts.forEach(o => o.disabled = true);
+  const correct = idx === q.correct;
+  opts[idx].classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) opts[q.correct].classList.add('correct');
+  const fb = document.getElementById('gsFb');
+  fb.className = 'gs-feedback show ' + (correct ? 'ok' : 'bad');
+  fb.textContent = correct ? q.fb_ok : q.fb_bad;
+  document.getElementById('gsNext').classList.add('show');
+}
+
+function nextQ() {
+  currentQ++;
+  if (currentQ >= questions.length) {
+    renderProgress();
+    document.getElementById('gsQuestionArea').innerHTML = '';
+    document.getElementById('gsComplete').classList.add('show');
+    document.querySelectorAll('.mini-kpi').forEach(k => k.classList.remove('highlight'));
+  } else {
+    renderQuestion();
+  }
+}
+
+renderQuestion();
+
+// checklist
+const checks = [
+  { label:'Step 1: Scanned all status colors before reading numbers', detail:'Count reds, yellows, and greens. Get the priority map first.' },
+  { label:'Step 2: Read every trend arrow alongside its metric', detail:'Checked whether each metric is improving, stable, or deteriorating.' },
+  { label:'Step 3: Named the single most time-sensitive metric', detail:'Identified which issue has the narrowest window to act.' },
+  { label:'Step 4: Read every AI alert in full detail', detail:'Checked alert specifics after forming my own independent read.' },
+  { label:'Step 5: Asked "are any of these metrics connected?"', detail:'Looked for a single root cause before treating issues as independent.' }
+];
+const cl = document.getElementById('checklistContainer');
+checks.forEach((c, i) => {
+  const el = document.createElement('div');
+  el.className = 'check-item';
+  el.innerHTML = `<div class="check-box" id="cb${i}"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="display:none" id="cbCheck${i}"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="check-label">${c.label}</div><div class="check-detail">${c.detail}</div></div>`;
+  el.onclick = () => {
+    el.classList.toggle('checked');
+    document.getElementById('cbCheck' + i).style.display = el.classList.contains('checked') ? 'block' : 'none';
+    const allDone = document.querySelectorAll('.check-item.checked').length === checks.length;
+    document.getElementById('checkComplete').style.display = allDone ? 'block' : 'none';
+  };
+  cl.appendChild(el);
+});
+
+function cq(btn, correct) {
+  if (document.querySelector('.qopt.correct') || document.querySelector('.qopt.wrong')) return;
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) document.querySelectorAll('.qopt').forEach(o => { if (o.textContent.includes('full 5-step read')) o.classList.add('correct'); });
+  const fb = document.getElementById('qfb');
+  fb.className = 'qfb show ' + (correct ? 'cfb' : 'wfb');
+  fb.textContent = correct
+    ? '✅ Exactly right. Patient satisfaction is a lagging indicator — it tells you what patients experienced in the past. Before deciding it\'s the most urgent issue, you need to complete the full framework: check all other status colors, read every trend, identify the most time-sensitive metric, review alerts, and look for connections. You might find that a staffing shortfall tonight is actively causing today\'s satisfaction problem — making the staffing fix the more urgent intervention.'
+    : '❌ The framework exists precisely to prevent this kind of premature focus. Satisfaction is a lagging indicator — it reflects the past. Before acting on it, complete the full 5-step read. You might discover that a staffing shortfall projected for tonight is more urgent, or that the satisfaction drop is being driven by a root cause (high wait times, understaffing) that requires a different fix than satisfaction surveys would suggest.';
+}
+
+window.addEventListener('scroll', () => {
+  const e = document.documentElement;
+  document.getElementById('pb').style.width = ((e.scrollTop / (e.scrollHeight - e.clientHeight)) * 100) + '%';
+});
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: .1 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

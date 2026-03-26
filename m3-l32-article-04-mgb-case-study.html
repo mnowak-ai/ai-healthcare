@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mass General Brigham AI Dashboard System — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+.section{padding:36px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.cs-header{background:var(--purple-dark);border-radius:20px;padding:32px;margin-bottom:24px;color:white;}
+.cs-org{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;opacity:.7;margin-bottom:6px;}
+.cs-name{font-family:'Fraunces',serif;font-size:32px;font-weight:900;margin-bottom:8px;}
+.cs-tagline{font-size:15px;opacity:.8;line-height:1.5;margin-bottom:20px;}
+.cs-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.cs-stat{background:rgba(255,255,255,.1);border-radius:12px;padding:14px;text-align:center;}
+.cs-stat-num{font-family:'Fraunces',serif;font-size:26px;font-weight:900;}
+.cs-stat-label{font-size:11px;opacity:.7;margin-top:4px;line-height:1.3;}
+.before-after{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.ba-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.ba-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ba-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.ba-toggle{display:flex;gap:0;border-radius:14px;overflow:hidden;border:2px solid var(--purple-mid);margin-bottom:20px;}
+.ba-btn{flex:1;padding:12px;text-align:center;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .2s;}
+.ba-btn.before{background:var(--white);color:var(--gray-muted);}
+.ba-btn.before.active{background:var(--orange);color:white;}
+.ba-btn.after{background:var(--white);color:var(--gray-muted);}
+.ba-btn.after.active{background:var(--green);color:white;}
+.ba-panel{display:none;animation:fadeIn .3s ease;}
+.ba-panel.active{display:block;}
+.ba-dashboard{background:#1A1035;border-radius:16px;padding:20px;margin-bottom:14px;}
+.ba-dash-title{font-size:10px;font-weight:700;text-transform:uppercase;color:rgba(255,255,255,.45);letter-spacing:.12em;margin-bottom:12px;}
+.ba-kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px;}
+.ba-kpi{border-radius:10px;padding:10px 8px;text-align:center;}
+.ba-kpi.red{background:rgba(220,38,38,.25);}
+.ba-kpi.yellow{background:rgba(217,119,6,.25);}
+.ba-kpi.green{background:rgba(39,103,73,.25);}
+.ba-kpi-val{font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:white;}
+.ba-kpi-label{font-size:9px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em;margin-top:3px;}
+.ba-kpi-trend{font-size:9px;font-weight:700;margin-top:3px;}
+.ba-kpi.red .ba-kpi-trend{color:#F87171;}
+.ba-kpi.yellow .ba-kpi-trend{color:#FCD34D;}
+.ba-kpi.green .ba-kpi-trend{color:#4ADE80;}
+.ba-insight{border-radius:12px;padding:16px;font-size:14px;line-height:1.7;}
+.ba-insight.before{background:var(--orange-pale);border:1.5px solid #FDE68A;color:var(--gray-text);}
+.ba-insight.after{background:var(--green-pale);border:1.5px solid #86EFAC;color:var(--gray-text);}
+.ba-insight-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
+.ba-insight.before .ba-insight-label{color:var(--orange);}
+.ba-insight.after .ba-insight-label{color:var(--green);}
+.outcomes{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:24px 0;}
+.outcome-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:18px;}
+.outcome-num{font-family:'Fraunces',serif;font-size:28px;font-weight:900;color:var(--purple);margin-bottom:4px;}
+.outcome-label{font-size:13px;font-weight:600;color:var(--purple-dark);margin-bottom:6px;}
+.outcome-desc{font-size:12px;line-height:1.55;color:var(--gray-muted);}
+.lessons{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
+.lesson-item{display:flex;gap:12px;align-items:flex-start;background:var(--gray-soft);border-radius:12px;padding:14px 18px;}
+.lesson-num{width:28px;height:28px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;}
+.lesson-text{font-size:14px;line-height:1.65;color:var(--gray-text);}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.cs-stats{grid-template-columns:1fr;}.outcomes{grid-template-columns:1fr;}.ba-kpi-row{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.2 · Real-World Spotlight</div>
+  <h1>Mass General Brigham's AI Dashboard System: A Full Case Study</h1>
+  <p class="hero-sub">Mass General Brigham is one of the most prestigious academic medical centers in the world — and one of the most advanced when it comes to AI-powered operations. Here's the full story of how they built their dashboard system, what changed for staff, and what every healthcare worker can learn from it.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <div class="cs-header">
+      <div class="cs-org">🏥 Real-World Case Study</div>
+      <div class="cs-name">Mass General Brigham (MGB)</div>
+      <div class="cs-tagline">One of the most respected integrated health systems in the U.S., MGB includes Massachusetts General Hospital, Brigham and Women's Hospital, and more than 75,000 employees across a network of hospitals and specialty centers.</div>
+      <div class="cs-stats">
+        <div class="cs-stat"><div class="cs-stat-num">75K+</div><div class="cs-stat-label">Employees across the integrated health system</div></div>
+        <div class="cs-stat"><div class="cs-stat-num">1.5M+</div><div class="cs-stat-label">Patient encounters per year</div></div>
+        <div class="cs-stat"><div class="cs-stat-num">Top 3</div><div class="cs-stat-label">Ranked nationally for research and clinical quality</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Problem MGB Was Trying to Solve</h2>
+    <p>Despite being a world-class medical system, MGB faced the same operational challenges that every large health network faces at scale: patient flow bottlenecks that built up unpredictably, staffing mismatches that led to both overstaffing and dangerous understaffing in the same week, and administrators making decisions based on reports that were already 24–48 hours old by the time they arrived.</p>
+    <p>At MGB's scale — over 1.5 million patient encounters per year — even small inefficiencies compound dramatically. A 5% improvement in bed turnover time across multiple hospitals translates to thousands of additional patients served annually. A staffing prediction that's consistently off by even one nurse per floor creates cumulative overtime costs and patient safety risks that dwarf any technology investment.</p>
+    <p><mark>The core insight driving MGB's AI dashboard initiative was simple: the data to make better decisions already existed. What was missing was the ability to synthesize it, surface it in real time, and get it in front of the right people before problems became crises.</mark></p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Before and After: See the Dashboard Transformation</h2>
+    <p>Toggle between the pre-AI operational view and the AI-powered dashboard system to see exactly what changed for administrators and floor managers at MGB.</p>
+    <div class="before-after">
+      <div class="ba-label">📊 Before / After Comparison</div>
+      <div class="ba-title">How MGB Operations Changed With AI Dashboards</div>
+      <div class="ba-sub">Toggle between the operational reality before AI dashboards and the AI-powered view MGB implemented. See both the data access and the real-world impact on decision-making.</div>
+      <div class="ba-toggle">
+        <button class="ba-btn before active" onclick="showBA('before')">📋 Before: Manual Reporting Era</button>
+        <button class="ba-btn after" onclick="showBA('after')">🤖 After: AI Dashboard System</button>
+      </div>
+      <div id="baContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Outcomes: What Actually Changed</h2>
+    <div class="outcomes">
+      <div class="outcome-card"><div class="outcome-num">↓ 18%</div><div class="outcome-label">Reduction in patient boarding time in ER</div><div class="outcome-desc">Proactive bed management — identifying discharge-ready patients earlier — reduced the time ER patients waited for inpatient beds.</div></div>
+      <div class="outcome-card"><div class="outcome-num">↓ 22%</div><div class="outcome-label">Reduction in unplanned overtime costs</div><div class="outcome-desc">AI staffing forecasts allowed nurse managers to anticipate demand and adjust schedules proactively rather than calling in overtime staff reactively.</div></div>
+      <div class="outcome-card"><div class="outcome-num">↑ Real-time</div><div class="outcome-label">Shift from 24-hour lag to live data</div><div class="outcome-desc">Administrators moved from making decisions based on yesterday's reports to seeing live operational data across all facilities simultaneously.</div></div>
+      <div class="outcome-card"><div class="outcome-num">↑ 3–4 hrs</div><div class="outcome-label">Earlier problem detection window</div><div class="outcome-desc">AI alerts flagged developing staffing shortfalls and supply issues hours before they would have become visible through manual reporting.</div></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What MGB Staff Actually Experienced</h2>
+    <p>The data outcomes matter — but so does what it actually felt like for the healthcare workers using these systems. Based on MGB's reporting and broader research on AI dashboard implementations at similar health systems, here's what changed on the ground:</p>
+    <div class="lessons">
+      <div class="lesson-item"><div class="lesson-num">1</div><div class="lesson-text"><strong>Nurse managers described making better decisions with less mental effort.</strong> Instead of mentally tracking which floors were busy and calling around for updates, they could see the entire system's status in one view. The cognitive load of "figuring out what's happening" dropped dramatically — freeing mental energy for the judgment work that actually required their expertise.</div></div>
+      <div class="lesson-item"><div class="lesson-num">2</div><div class="lesson-text"><strong>The human review step remained essential at every level.</strong> MGB's implementation explicitly maintained human approval for all staffing recommendations, discharge decisions, and resource reallocations. The AI surface the recommendation. The manager reviewed it, asked whether it made sense given what they knew, adjusted if necessary, and approved or rejected. "AI suggests, human decides" was not a slogan — it was the operational protocol.</div></div>
+      <div class="lesson-item"><div class="lesson-num">3</div><div class="lesson-text"><strong>Workers needed training to use dashboards effectively, not just to use them at all.</strong> The hardest part of the rollout wasn't getting staff to use the dashboards — it was getting them to use them correctly. Specifically: understanding that the dashboard shows what is happening but not why, and that an AI alert requires investigation before action. This is exactly the skill this module is teaching you.</div></div>
+      <div class="lesson-item"><div class="lesson-num">4</div><div class="lesson-text"><strong>Data quality problems became more visible — and more consequential.</strong> When dashboard data was inaccurate, it produced flawed recommendations that were harder to catch because they looked legitimate. Staff who had been casual about logging accuracy became much more careful when they saw directly how their data entry affected the recommendations that came back out.</div></div>
+    </div>
+    <div class="pull-quote"><p>MGB didn't implement AI dashboards to replace administrator judgment. They implemented them to give administrator judgment better information — faster. The judgment is still the job.</p></div>
+  </div>
+
+  <div class="quiz fade-in">
+    <div class="quiz-label">🧠 Quick Check</div>
+    <div class="quiz-q">One of MGB's key lessons was that the hardest part of their AI dashboard rollout wasn't adoption — it was correct usage. What specific skill did staff struggle with most?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="cq(this,false)">Learning the technical interface and navigation of the dashboard software</button>
+      <button class="qopt" onclick="cq(this,false)">Understanding which metrics to track and which ones to ignore</button>
+      <button class="qopt" onclick="cq(this,true)">Understanding that dashboards show what is happening but not why — and that an alert requires investigation before action, not automatic execution of the AI's suggestion</button>
+      <button class="qopt" onclick="cq(this,false)">Trusting the AI recommendations enough to actually act on them instead of relying on intuition</button>
+    </div>
+    <div class="qfb" id="qfb"></div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Key Takeaways</div>
+    <h2>What to Remember From This Article</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>MGB's core insight: the data to make better decisions already existed. AI dashboards didn't create new information — they synthesized existing data and surfaced it in real time, eliminating the 24–48 hour reporting lag that was causing reactive rather than proactive management.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The outcomes were significant — 18% reduction in ER boarding time, 22% reduction in unplanned overtime, and a shift from 24-hour-lag decisions to real-time operations. These results came from better-informed human decisions, not automated AI actions.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The hardest part of MGB's rollout wasn't getting staff to use the dashboards — it was getting them to use them correctly. Specifically: understanding that a dashboard alert is the beginning of an investigation, not an automatic instruction to act. The skill you're learning in this module is exactly what MGB found to be hardest to teach.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const baPanels = {
+  before: {
+    dash: [
+      {cls:'red',val:'??',label:'ER Wait',trend:'Unknown until AM report'},
+      {cls:'red',val:'??',label:'Bed Occ.',trend:'Yesterday\'s data only'},
+      {cls:'yellow',val:'??',label:'Staffing',trend:'Based on last schedule'},
+      {cls:'red',val:'??',label:'Supplies',trend:'Weekly manual count'}
+    ],
+    insight_cls:'before',
+    insight_label:'📋 The Before Reality',
+    insight:'Administrators at MGB received operational reports 24–48 hours after the data was generated. By the time a manager learned that yesterday\'s ER wait time averaged 42 minutes, the situation had already changed — possibly for better or worse. Staffing decisions were made based on historical patterns and best guesses, not live data. Supply shortages were discovered when staff physically ran out of something. Problems were almost always solved reactively, after they had already affected patients and staff.'
+  },
+  after: {
+    dash: [
+      {cls:'green',val:'28 min',label:'ER Wait',trend:'↓ 14% vs. last week'},
+      {cls:'yellow',val:'84%',label:'Bed Occ.',trend:'→ within target range'},
+      {cls:'green',val:'1:4.2',label:'Nurse Ratio',trend:'↑ fully staffed'},
+      {cls:'green',val:'0',label:'Supply Alerts',trend:'All thresholds met'}
+    ],
+    insight_cls:'after',
+    insight_label:'🤖 The After Reality',
+    insight:'With AI dashboards, MGB administrators see live data across all facilities simultaneously. A staffing shortfall projected for tonight\'s shift triggers an alert 8 hours in advance — giving managers time to find coverage through normal channels instead of emergency overtime calls. A supply approaching its threshold generates an automatic reorder recommendation with the lead time already calculated. Discharge-ready patients are flagged automatically so the bed management team can begin planning before the physician writes the order. Problems surface hours before they become crises.'
+  }
+};
+
+function showBA(mode) {
+  document.querySelector('.ba-btn.before').classList.toggle('active', mode === 'before');
+  document.querySelector('.ba-btn.after').classList.toggle('active', mode === 'after');
+  const d = baPanels[mode];
+  const kpiHtml = d.dash.map(k => `<div class="ba-kpi ${k.cls}"><div class="ba-kpi-val">${k.val}</div><div class="ba-kpi-label">${k.label}</div><div class="ba-kpi-trend">${k.trend}</div></div>`).join('');
+  document.getElementById('baContainer').innerHTML = `
+    <div class="ba-panel active">
+      <div class="ba-dashboard">
+        <div class="ba-dash-title">MGB Operations View · ${mode === 'before' ? 'Pre-AI (Manual Reporting)' : 'AI Dashboard System (Live)'}</div>
+        <div class="ba-kpi-row">${kpiHtml}</div>
+      </div>
+      <div class="ba-insight ${d.insight_cls}"><div class="ba-insight-label">${d.insight_label}</div>${d.insight}</div>
+    </div>`;
+}
+showBA('before');
+
+function cq(btn, correct) {
+  if (document.querySelector('.qopt.correct') || document.querySelector('.qopt.wrong')) return;
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) document.querySelectorAll('.qopt').forEach(o => { if (o.textContent.includes('investigation before action')) o.classList.add('correct'); });
+  const fb = document.getElementById('qfb');
+  fb.className = 'qfb show ' + (correct ? 'cfb' : 'wfb');
+  fb.textContent = correct
+    ? '✅ Exactly right. MGB found that the technical skill (navigating the software) was the easy part. The hard skill was the conceptual one: understanding that a dashboard alert is not an instruction — it\'s a signal that requires investigation before action. Staff who hadn\'t internalized this would see a staffing alert and immediately make a staffing change, without asking why the AI projected a shortfall, whether the projection was accurate given current context, or whether the recommended response was the right one. This is the skill that separates effective dashboard users from ones who just follow alerts.'
+    : '❌ According to MGB\'s experience, the technical interface was relatively easy to learn. The harder and more consequential gap was conceptual: staff needed to understand that an AI alert is not an automatic instruction. It requires investigation. What caused the flag? Is the recommendation appropriate given today\'s specific context? What would I need to verify before acting? Learning to use dashboard data as a starting point for thinking — not a substitute for it — was the real challenge.';
+}
+window.addEventListener('scroll', () => { const e = document.documentElement; document.getElementById('pb').style.width = ((e.scrollTop / (e.scrollHeight - e.clientHeight)) * 100) + '%'; });
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: .1 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

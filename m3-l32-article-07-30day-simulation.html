@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>30-Day Dashboard Analysis Activity — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+.section{padding:36px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+
+/* ACTIVITY BANNER */
+.activity-banner{background:var(--purple-dark);border-radius:20px;padding:28px 32px;margin-bottom:28px;display:flex;gap:20px;align-items:center;}
+.ab-icon{font-size:48px;flex-shrink:0;}
+.ab-title{font-family:'Fraunces',serif;font-size:22px;font-weight:900;color:white;margin-bottom:6px;}
+.ab-desc{font-size:14px;color:rgba(255,255,255,.75);line-height:1.55;}
+.ab-badges{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
+.ab-badge{background:rgba(255,255,255,.15);color:white;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;}
+
+/* 30-DAY DASHBOARD */
+.dash-30{background:#1A1035;border-radius:20px;padding:24px;margin:28px 0;}
+.d30-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;}
+.d30-title{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:white;}
+.d30-subtitle{font-size:11px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.1em;margin-top:2px;}
+.d30-period{font-size:12px;color:rgba(255,255,255,.5);background:rgba(255,255,255,.08);padding:6px 12px;border-radius:8px;}
+
+/* metric selector */
+.metric-selector{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.ms-btn{padding:7px 14px;border-radius:100px;border:2px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.6);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;}
+.ms-btn:hover{border-color:rgba(255,255,255,.5);color:white;}
+.ms-btn.active{background:var(--purple);border-color:var(--purple);color:white;}
+
+/* main chart */
+.chart-container{background:rgba(255,255,255,.05);border-radius:14px;padding:16px;margin-bottom:14px;}
+.chart-title{font-size:11px;font-weight:700;text-transform:uppercase;color:rgba(255,255,255,.45);letter-spacing:.1em;margin-bottom:12px;}
+.bar-row{display:flex;align-items:flex-end;gap:3px;height:120px;}
+.day-bar{flex:1;border-radius:3px 3px 0 0;min-height:3px;cursor:pointer;transition:all .2s;position:relative;}
+.day-bar:hover{opacity:.75;transform:scaleY(1.05);transform-origin:bottom;}
+.day-bar.selected{outline:2px solid white;outline-offset:1px;}
+.day-bar.flag{outline:2px solid #F59E0B;outline-offset:1px;}
+.bar-labels{display:flex;gap:3px;margin-top:6px;}
+.bar-label{flex:1;text-align:center;font-size:7px;color:rgba(255,255,255,.3);}
+.bar-label.week{font-weight:700;color:rgba(255,255,255,.55);}
+.target-indicator{font-size:10px;color:rgba(255,255,255,.4);margin-top:6px;text-align:right;}
+
+/* kpi summary row */
+.kpi-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;}
+.ks-tile{background:rgba(255,255,255,.07);border-radius:10px;padding:12px;text-align:center;cursor:pointer;transition:all .2s;border:2px solid transparent;}
+.ks-tile:hover{background:rgba(255,255,255,.12);}
+.ks-tile.active{border-color:rgba(255,255,255,.4);}
+.ks-tile.red{background:rgba(220,38,38,.2);}
+.ks-tile.yellow{background:rgba(217,119,6,.2);}
+.ks-tile.green{background:rgba(39,103,73,.2);}
+.ks-val{font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:white;}
+.ks-label{font-size:9px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em;margin-top:3px;}
+.ks-change{font-size:10px;font-weight:700;margin-top:3px;}
+.ks-tile.red .ks-change{color:#F87171;}
+.ks-tile.yellow .ks-change{color:#FCD34D;}
+.ks-tile.green .ks-change{color:#4ADE80;}
+
+/* tooltip */
+.bar-tooltip{background:rgba(0,0,0,.85);color:white;font-size:12px;border-radius:8px;padding:8px 12px;position:fixed;pointer-events:none;display:none;z-index:200;line-height:1.5;}
+
+/* TASK PANELS */
+.tasks{display:flex;flex-direction:column;gap:0;margin:28px 0;}
+.task-item{border:1.5px solid var(--purple-mid);border-radius:16px;overflow:hidden;margin-bottom:12px;background:var(--white);}
+.task-header{display:flex;gap:14px;align-items:center;padding:18px 20px;cursor:pointer;}
+.task-num{width:36px;height:36px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:16px;font-weight:900;color:white;flex-shrink:0;}
+.task-num.done{background:var(--green);}
+.task-title{font-size:15px;font-weight:700;color:var(--purple-dark);flex:1;}
+.task-status{font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;}
+.task-status.pending{background:var(--purple-pale);color:var(--purple);}
+.task-status.complete{background:var(--green-pale);color:var(--green);}
+.task-body{display:none;padding:0 20px 20px;}
+.task-body.open{display:block;animation:fadeIn .3s ease;}
+.task-prompt{background:var(--gray-soft);border-radius:12px;padding:16px 18px;font-size:15px;line-height:1.7;color:var(--gray-text);margin-bottom:14px;}
+.task-hint{background:var(--purple-pale);border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:12px 16px;font-size:13px;color:var(--purple-dark);margin-bottom:14px;}
+.task-hint-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.08em;margin-bottom:4px;}
+.task-options{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.task-opt{background:var(--gray-soft);border:2px solid var(--purple-mid);border-radius:10px;padding:12px 16px;cursor:pointer;font-size:14px;transition:all .2s;text-align:left;line-height:1.5;}
+.task-opt:hover:not(:disabled){border-color:var(--purple);background:var(--purple-pale);}
+.task-opt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.task-opt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.task-opt:disabled{cursor:default;}
+.task-fb{font-size:14px;line-height:1.7;padding:14px 18px;border-radius:10px;margin-top:10px;display:none;}
+.task-fb.show{display:block;animation:fadeIn .3s ease;}
+.task-fb.ok{background:var(--green-pale);color:var(--green);}
+.task-fb.bad{background:var(--red-pale);color:var(--red);}
+.task-continue{background:var(--purple);color:white;border:none;border-radius:10px;padding:10px 22px;font-size:14px;font-weight:700;cursor:pointer;margin-top:12px;display:none;transition:all .2s;}
+.task-continue:hover{background:var(--purple-dark);}
+.task-continue.show{display:inline-block;}
+
+/* ACTION BUILDER */
+.action-builder{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px;margin-top:14px;}
+.ab-title-sm{font-size:13px;font-weight:700;color:var(--purple-dark);margin-bottom:12px;}
+.ab-row{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.ab-label{font-size:12px;color:var(--gray-muted);width:80px;flex-shrink:0;padding-top:10px;font-weight:600;}
+.ab-chips{display:flex;gap:6px;flex-wrap:wrap;flex:1;}
+.ab-chip{padding:7px 14px;border-radius:100px;border:2px solid var(--purple-mid);background:var(--white);font-size:12px;font-weight:600;cursor:pointer;color:var(--gray-muted);transition:all .2s;}
+.ab-chip:hover{border-color:var(--purple);color:var(--purple);}
+.ab-chip.selected{background:var(--purple);border-color:var(--purple);color:white;}
+.ab-submit{background:var(--purple);color:white;border:none;border-radius:10px;padding:10px 22px;font-size:14px;font-weight:700;cursor:pointer;margin-top:8px;transition:all .2s;}
+.ab-submit:hover{background:var(--purple-dark);}
+.ab-result{border-radius:10px;padding:12px 16px;margin-top:10px;font-size:14px;line-height:1.65;display:none;}
+.ab-result.show{display:block;animation:fadeIn .3s ease;}
+.ab-result.good{background:var(--green-pale);color:var(--green);}
+.ab-result.partial{background:var(--orange-pale);color:var(--orange);}
+
+/* COMPLETION */
+.completion{background:var(--purple-dark);border-radius:20px;padding:36px;text-align:center;margin:28px 0;display:none;}
+.completion.show{display:block;animation:fadeIn .5s ease;}
+.comp-title{font-family:'Fraunces',serif;font-size:32px;font-weight:900;color:white;margin-bottom:8px;}
+.comp-sub{font-size:15px;color:rgba(255,255,255,.75);line-height:1.6;max-width:500px;margin:0 auto 20px;}
+.comp-stats{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;}
+.comp-stat{text-align:center;}
+.comp-stat-num{font-family:'Fraunces',serif;font-size:28px;font-weight:900;color:white;}
+.comp-stat-label{font-size:11px;color:rgba(255,255,255,.55);margin-top:2px;}
+
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:640px){.hero,.content{padding-left:24px;padding-right:24px;}.kpi-summary{grid-template-columns:repeat(2,1fr);}.activity-banner{flex-direction:column;}.comp-stats{gap:16px;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="bar-tooltip" id="tooltip"></div>
+
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.2 · Activity</div>
+  <h1>Real-World Simulation: Analyze a 30-Day Hospital Dashboard and Make Three Operational Decisions</h1>
+  <p class="hero-sub">This is your capstone activity for Lesson 3.2. You won't just read about dashboards — you'll use one. Explore 30 days of real operational data, identify the three most important trends, and build a concrete action recommendation for each.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <div class="section fade-in">
+    <div class="activity-banner">
+      <div class="ab-icon">🏥</div>
+      <div>
+        <div class="ab-title">Northfield Regional Medical Center — 30-Day Operations Review</div>
+        <div class="ab-desc">You're the new Operations Coordinator. Your first assignment: review the past 30 days of data, identify what's most important, and present three action-ready recommendations to the leadership team by end of week.</div>
+        <div class="ab-badges">
+          <span class="ab-badge">📊 4 Metrics to Analyze</span>
+          <span class="ab-badge">🎯 3 Decisions to Make</span>
+          <span class="ab-badge">⏱️ Estimated: 15–20 min</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Step 1: Explore the 30-Day Dashboard</h2>
+    <p>Before you answer any questions, spend time with the data. Click each metric button to see its 30-day trend. Hover over individual bars to see the exact value for that day. Look for patterns, spikes, and sustained trends. Take mental notes on what stands out.</p>
+
+    <div class="dash-30">
+      <div class="d30-header">
+        <div>
+          <div class="d30-title">Northfield Regional — Operations Dashboard</div>
+          <div class="d30-subtitle">30-Day Review · Days 1–30</div>
+        </div>
+        <div class="d30-period">📅 Past 30 Days</div>
+      </div>
+
+      <div class="kpi-summary">
+        <div class="ks-tile red" id="ks0" onclick="selectMetric(0)">
+          <div class="ks-val">43 min</div>
+          <div class="ks-label">ER Wait (Day 30)</div>
+          <div class="ks-change">↑ +18 min vs Day 1</div>
+        </div>
+        <div class="ks-tile yellow" id="ks1" onclick="selectMetric(1)">
+          <div class="ks-val">84%</div>
+          <div class="ks-label">Bed Occ. (Day 30)</div>
+          <div class="ks-change">↑ +7% vs Day 1</div>
+        </div>
+        <div class="ks-tile red" id="ks2" onclick="selectMetric(2)">
+          <div class="ks-val">1:6.1</div>
+          <div class="ks-label">Nurse Ratio (Day 30)</div>
+          <div class="ks-change">↑ over safe threshold</div>
+        </div>
+        <div class="ks-tile yellow" id="ks3" onclick="selectMetric(3)">
+          <div class="ks-val">83%</div>
+          <div class="ks-label">Satisfaction (Day 30)</div>
+          <div class="ks-change">↓ -6pts vs Day 1</div>
+        </div>
+      </div>
+
+      <div class="metric-selector">
+        <button class="ms-btn active" onclick="selectMetric(0)">📊 ER Wait Time</button>
+        <button class="ms-btn" onclick="selectMetric(1)">🛏️ Bed Occupancy</button>
+        <button class="ms-btn" onclick="selectMetric(2)">👩‍⚕️ Nurse:Patient Ratio</button>
+        <button class="ms-btn" onclick="selectMetric(3)">⭐ Patient Satisfaction</button>
+      </div>
+
+      <div class="chart-container">
+        <div class="chart-title" id="chartTitle">ER Wait Time (minutes) — 30 Days</div>
+        <div class="bar-row" id="barRow"></div>
+        <div class="bar-labels" id="barLabels"></div>
+        <div class="target-indicator" id="targetIndicator"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Step 2: Complete the Three Analysis Tasks</h2>
+    <p>Now that you've explored the data, work through the three tasks below in order. Each one builds on the last. Click the task header to open it — complete each one before moving to the next.</p>
+
+    <div class="tasks" id="tasksContainer"></div>
+    <div class="completion" id="completionPanel">
+      <div class="comp-title">✅ Analysis Complete</div>
+      <div class="comp-sub">You identified all three critical trends, understood the root cause connection between them, and built actionable recommendations. That's exactly what an operations coordinator is hired to do.</div>
+      <div class="comp-stats">
+        <div class="comp-stat"><div class="comp-stat-num">3</div><div class="comp-stat-label">Trends identified</div></div>
+        <div class="comp-stat"><div class="comp-stat-num">1</div><div class="comp-stat-label">Root cause found</div></div>
+        <div class="comp-stat"><div class="comp-stat-num">3</div><div class="comp-stat-label">Action plans built</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 What This Activity Tested</div>
+    <h2>The Skills You Just Used</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>Trend identification:</strong> Reading 30 days of data to find which metrics have been moving consistently in the wrong direction — not just reacting to today's numbers.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>Root cause thinking:</strong> Recognizing that ER wait times, bed occupancy, nurse ratios, and satisfaction don't always have four separate causes — they can all connect back to one. Finding that connection is what separates a data-literate healthcare worker from one who just reads numbers.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>Action translation:</strong> Moving from "the data says this" to "we should do this" — the critical last step that most dashboards cannot do for you. This is the human judgment layer, and it's what this entire lesson has been building toward.</p></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// DATA: 30 days for each metric
+const metrics = [
+  {
+    id: 0, key:'er', label:'ER Wait Time (minutes)', unit:'min', target: 30, targetLabel:'Target: under 30 min',
+    color:'#F87171', warnColor:'#FCD34D', goodColor:'#4ADE80',
+    data: [25,26,24,27,25,28,26,29,28,31,30,33,32,31,34,33,35,34,36,35,37,36,38,37,40,39,41,40,42,43],
+    flags: [9,14,19,24,29], // days that are particularly notable
+    notes: { 9:'First day above 30-min target', 14:'Now 4 min above target — trend clear', 19:'7 min above target — escalation needed', 24:'10 min above — root cause unresolved', 29:'13 min above target — Day 30 worst yet' }
+  },
+  {
+    id: 1, key:'occ', label:'Bed Occupancy Rate (%)', unit:'%', target: 85, targetLabel:'Target: 75–85%',
+    color:'#F87171', warnColor:'#FCD34D', goodColor:'#4ADE80',
+    data: [77,76,78,77,79,78,80,79,80,81,80,82,81,83,82,83,84,83,84,85,85,86,85,86,87,86,87,87,84,84],
+    flags: [19,24,21],
+    notes: { 19:'Crossed 85% target — now in warning zone', 24:'Peaked at 87% — near critical', 27:'87% on back-to-back days — staffing impact confirmed' }
+  },
+  {
+    id: 2, key:'ratio', label:'Nurse-to-Patient Ratio (patients per nurse)', unit:'pts/nurse', target: 4, targetLabel:'Safe limit: 1:4 or lower (4.0 shown)',
+    color:'#F87171', warnColor:'#FCD34D', goodColor:'#4ADE80',
+    data: [3.8,3.9,3.8,4.0,3.9,4.1,4.0,4.2,4.1,4.3,4.3,4.4,4.4,4.5,4.5,4.6,4.7,4.7,4.8,4.9,5.0,5.1,5.2,5.4,5.6,5.7,5.8,5.9,6.0,6.1],
+    flags: [3,9,19,24,29],
+    notes: { 3:'First day above safe 1:4 ratio', 9:'Now 1:4.3 — above safe threshold but manageable', 19:'1:4.9 — significant overload building', 24:'1:5.6 — approaching dangerous territory', 29:'1:6.0 — critical overload' }
+  },
+  {
+    id: 3, key:'sat', label:'Patient Satisfaction Score (%)', unit:'%', target: 87, targetLabel:'Target: above 87%',
+    color:'#FCD34D', warnColor:'#FCD34D', goodColor:'#4ADE80',
+    data: [89,89,88,89,89,88,88,87,88,87,87,86,87,86,85,86,85,85,84,84,83,84,83,83,82,83,82,83,83,83],
+    flags: [7,14,19,25],
+    notes: { 7:'Satisfaction dropped below 87% target — first signal', 14:'Now at 86% — trend confirmed', 19:'84% — 5 points below target', 25:'82% — continued erosion' }
+  }
+];
+
+let selectedMetric = 0;
+
+function getBarColor(val, metric) {
+  if (metric.id === 2) { // ratio: lower is better
+    if (val <= 4.0) return metric.goodColor;
+    if (val <= 5.0) return metric.warnColor;
+    return metric.color;
+  } else if (metric.id === 1) { // occupancy
+    if (val <= 85) return metric.goodColor;
+    if (val <= 91) return metric.warnColor;
+    return metric.color;
+  } else if (metric.id === 0) { // er wait
+    if (val <= 30) return metric.goodColor;
+    if (val <= 37) return metric.warnColor;
+    return metric.color;
+  } else { // satisfaction: higher is better
+    if (val >= 87) return metric.goodColor;
+    if (val >= 83) return metric.warnColor;
+    return metric.color;
+  }
+}
+
+function renderChart(idx) {
+  const m = metrics[idx];
+  const data = m.data;
+  const maxVal = Math.max(...data) * 1.15;
+  const minVal = Math.min(...data) * 0.9;
+
+  document.getElementById('chartTitle').textContent = m.label + ' — Days 1–30';
+  document.getElementById('targetIndicator').textContent = m.targetLabel;
+
+  const barRow = document.getElementById('barRow');
+  barRow.innerHTML = '';
+  const labelsRow = document.getElementById('barLabels');
+  labelsRow.innerHTML = '';
+
+  data.forEach((val, i) => {
+    const heightPct = ((val - minVal) / (maxVal - minVal)) * 100;
+    const color = getBarColor(val, m);
+    const isFlag = m.flags.includes(i);
+
+    const bar = document.createElement('div');
+    bar.className = 'day-bar' + (isFlag ? ' flag' : '');
+    bar.style.height = Math.max(heightPct, 3) + '%';
+    bar.style.background = color;
+    bar.style.opacity = isFlag ? '1' : '0.75';
+    bar.addEventListener('mouseenter', (e) => {
+      const tip = document.getElementById('tooltip');
+      tip.style.display = 'block';
+      const note = m.notes[i] ? `\n💬 ${m.notes[i]}` : '';
+      tip.textContent = `Day ${i+1}: ${val}${m.unit}${note}`;
+      tip.style.left = (e.clientX + 12) + 'px';
+      tip.style.top = (e.clientY - 40) + 'px';
+    });
+    bar.addEventListener('mousemove', (e) => {
+      const tip = document.getElementById('tooltip');
+      tip.style.left = (e.clientX + 12) + 'px';
+      tip.style.top = (e.clientY - 40) + 'px';
+    });
+    bar.addEventListener('mouseleave', () => { document.getElementById('tooltip').style.display = 'none'; });
+    barRow.appendChild(bar);
+
+    const lbl = document.createElement('div');
+    lbl.className = 'bar-label' + ([6,13,20,27].includes(i) ? ' week' : '');
+    lbl.textContent = [0,6,13,20,27,29].includes(i) ? `D${i+1}` : '';
+    labelsRow.appendChild(lbl);
+  });
+}
+
+function selectMetric(idx) {
+  selectedMetric = idx;
+  document.querySelectorAll('.ms-btn').forEach((b, bi) => b.classList.toggle('active', bi === idx));
+  document.querySelectorAll('.ks-tile').forEach((t, ti) => t.classList.toggle('active', ti === idx));
+  renderChart(idx);
+}
+
+renderChart(0);
+
+// TASKS
+const tasks = [
+  {
+    title: 'Task 1: Identify the Three Most Critical Trends',
+    prompt: 'After reviewing all four metrics over 30 days, which three trends are most important for leadership to know about? Choose the combination that best captures what this data is actually telling you.',
+    hint: 'Look at direction and magnitude together. A metric that\'s 13 minutes above target after 30 days of consistent increases tells a different story than one that briefly dipped and recovered.',
+    options: [
+      'Patient satisfaction declining, bed occupancy rising, and ER wait times increasing — these three need attention',
+      'ER wait time has increased by 18 minutes over 30 days (from 25 to 43 min), nurse-to-patient ratio has deteriorated from a safe 1:3.8 to a dangerous 1:6.1, and patient satisfaction has declined every single week — these three are the critical story',
+      'Bed occupancy is high, satisfaction is declining, and we need more nurses — three separate problems requiring three separate solutions',
+      'The staffing ratio alone is the problem — the other metrics are downstream effects'
+    ],
+    correct: 1,
+    fb_ok: '✅ Excellent. You identified all three critical trends with the right level of specificity. The key is that you named the magnitude and direction — "increased by 18 minutes" and "from 1:3.8 to 1:6.1" — not just "things are bad." This level of precision is what makes an operational recommendation actionable rather than vague.',
+    fb_bad: '❌ The right trend identification names both the metric AND its magnitude and direction over the 30 days. Option B does this precisely: ER wait time rose 18 minutes, nurse ratio deteriorated from safe (1:3.8) to critical (1:6.1), and satisfaction declined consistently for the entire month. Identifying these three together — with specificity — is the foundation of a real operational recommendation.'
+  },
+  {
+    title: 'Task 2: Find the Connection (Root Cause Analysis)',
+    prompt: 'Looking at all four trends together: ER wait time climbed 18 minutes, nurse ratio went from 1:3.8 to 1:6.1, bed occupancy rose from 77% to 84–87%, and satisfaction fell 6 points — all in the same 30-day period. What is the most likely single root cause driving this pattern?',
+    hint: 'Think about what one operational change could simultaneously cause a rising nurse ratio, slower ER processing, bed occupancy growth, and patient experience decline.',
+    options: [
+      'Patient volume increased dramatically — more patients always drives all four metrics in these directions',
+      'The hospital has a data quality problem — metrics don\'t usually move together this consistently without some recording error',
+      'A staffing shortage building over 30 days: fewer nurses → each nurse covers more patients (↑ ratio) → discharge planning slows → beds stay full longer (↑ occupancy) → ER patients wait for inpatient beds (↑ wait times) → overworked staff provide less attentive care (↓ satisfaction)',
+      'Patient satisfaction is causing the other problems — dissatisfied patients take more nurse time, which reduces efficiency across all other metrics'
+    ],
+    correct: 2,
+    fb_ok: '✅ Exactly right. This is the most important skill in dashboard analysis: recognizing when multiple metrics that look like separate problems are actually one cascading problem. A staffing shortage is the most parsimonious explanation for all four concurrent trends. The cascade logic is clear: fewer nurses → each nurse is stretched thinner → patients wait longer for discharge → beds don\'t turn over → ER backup builds → under-resourced staff deliver less attentive care. One root cause, four measurable effects.',
+    fb_bad: '❌ When four metrics move consistently in the same direction over the same time period, the most likely explanation is a shared root cause — not four separate problems or a data error. Here, the staffing cascade explains all four trends simultaneously: fewer nurses means a worse ratio, slower discharge processing keeps beds full, ER patients can\'t be admitted while beds are occupied, and overloaded staff have less time for the interactions that drive satisfaction scores. One problem, four dashboard signals.'
+  },
+  {
+    title: 'Task 3: Build Your Three Action Recommendations',
+    prompt: 'You\'ve identified the trends and the root cause. Now build the three action recommendations you\'ll present to leadership. For each recommendation, choose the most appropriate response given what you know.',
+    useBuilder: true,
+    hint: 'Your three recommendations should address: (1) the immediate crisis, (2) the medium-term root cause, and (3) the early warning — the metric that will be last to improve even after the root cause is fixed.',
+    actions: [
+      {
+        label: 'Action 1',
+        prompt: 'The most urgent immediate action (addresses the critical patient safety issue right now):',
+        choices: [
+          { text: 'Launch a patient satisfaction improvement campaign', value: 'sat-campaign' },
+          { text: 'Contact float pool and agency nurses today to supplement current staffing — do not wait for HR approval cycle', value: 'staffing-now', correct: true },
+          { text: 'Schedule a meeting to discuss the staffing problem next week', value: 'meeting' },
+          { text: 'Reduce patient admissions until staffing recovers', value: 'reduce-admits' }
+        ]
+      },
+      {
+        label: 'Action 2',
+        prompt: 'The medium-term structural fix (addresses the root cause so this doesn\'t recur):',
+        choices: [
+          { text: 'Install a new dashboard with more alerts', value: 'alerts' },
+          { text: 'Commission a staffing analysis to understand why the ratio deteriorated over 30 days — was it departures, reduced hours, or demand growth? — and build a hiring or retention plan', value: 'staff-analysis', correct: true },
+          { text: 'Reduce bed capacity to match current staffing levels', value: 'reduce-beds' },
+          { text: 'Implement mandatory overtime for all current staff', value: 'overtime' }
+        ]
+      },
+      {
+        label: 'Action 3',
+        prompt: 'The monitoring flag for leadership (the lagging indicator that will be last to recover):',
+        choices: [
+          { text: 'Monitor bed occupancy weekly — it will recover as staffing improves', value: 'occ-monitor' },
+          { text: 'Set a target for ER wait times to recover to under 30 minutes within 14 days of staffing improvement', value: 'er-target' },
+          { text: 'Flag patient satisfaction as a lagging indicator — expect it to continue declining for 1–2 weeks even after staffing is addressed, and set a 30-day recovery timeline with weekly check-ins', value: 'sat-lag', correct: true },
+          { text: 'No further monitoring needed once staffing is fixed', value: 'no-monitor' }
+        ]
+      }
+    ]
+  }
+];
+
+let taskStates = [false, false, false];
+let actionSelections = {};
+
+function renderTasks() {
+  const container = document.getElementById('tasksContainer');
+  container.innerHTML = '';
+  tasks.forEach((task, i) => {
+    const item = document.createElement('div');
+    item.className = 'task-item';
+    const statusText = taskStates[i] ? 'Complete' : i === 0 || taskStates[i-1] ? 'Open' : 'Locked';
+    const statusCls = taskStates[i] ? 'complete' : 'pending';
+    const numCls = taskStates[i] ? 'done' : '';
+
+    if (task.useBuilder) {
+      item.innerHTML = `
+        <div class="task-header" onclick="toggleTask(${i})">
+          <div class="task-num ${numCls}">${taskStates[i] ? '✓' : i+1}</div>
+          <div class="task-title">${task.title}</div>
+          <div class="task-status ${statusCls}">${statusText}</div>
+        </div>
+        <div class="task-body ${i===0 || taskStates[i-1] ? 'open' : ''}" id="taskBody${i}">
+          <div class="task-prompt">${task.prompt}</div>
+          <div class="task-hint"><div class="task-hint-label">💡 Hint</div>${task.hint}</div>
+          <div class="action-builder">
+            <div class="ab-title-sm">Build your three-part recommendation:</div>
+            ${task.actions.map((a, ai) => `
+              <div style="margin-bottom:16px;">
+                <div style="font-size:12px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">${a.label}</div>
+                <div style="font-size:13px;color:var(--gray-text);margin-bottom:8px;">${a.prompt}</div>
+                <div class="ab-chips">
+                  ${a.choices.map((c, ci) => `<div class="ab-chip" id="chip_${i}_${ai}_${ci}" onclick="selectChip(${i},${ai},${ci},'${c.value}')">${c.text}</div>`).join('')}
+                </div>
+              </div>`).join('')}
+            <button class="ab-submit" onclick="submitActions(${i})">Submit My Recommendation →</button>
+            <div class="ab-result" id="abResult${i}"></div>
+          </div>
+        </div>`;
+    } else {
+      const optsHtml = task.options.map((o, oi) => `<button class="task-opt" onclick="answerTask(${i}, ${oi})" id="topt_${i}_${oi}">${o}</button>`).join('');
+      item.innerHTML = `
+        <div class="task-header" onclick="toggleTask(${i})">
+          <div class="task-num ${numCls}">${taskStates[i] ? '✓' : i+1}</div>
+          <div class="task-title">${task.title}</div>
+          <div class="task-status ${statusCls}">${statusText}</div>
+        </div>
+        <div class="task-body ${i===0 || taskStates[i-1] ? 'open' : ''}" id="taskBody${i}">
+          <div class="task-prompt">${task.prompt}</div>
+          <div class="task-hint"><div class="task-hint-label">💡 Hint</div>${task.hint}</div>
+          <div class="task-options">${optsHtml}</div>
+          <div class="task-fb" id="taskFb${i}"></div>
+          <button class="task-continue" id="taskContinue${i}" onclick="continueTask(${i})">Continue to Task ${i+2} →</button>
+        </div>`;
+    }
+    container.appendChild(item);
+  });
+}
+
+function toggleTask(i) {
+  const body = document.getElementById('taskBody' + i);
+  if (body) body.classList.toggle('open');
+}
+
+function answerTask(taskIdx, optIdx) {
+  const task = tasks[taskIdx];
+  const opts = document.querySelectorAll(`#taskBody${taskIdx} .task-opt`);
+  if ([...opts].some(o => o.classList.contains('correct') || o.classList.contains('wrong'))) return;
+  opts.forEach(o => o.disabled = true);
+  const correct = optIdx === task.correct;
+  opts[optIdx].classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) opts[task.correct].classList.add('correct');
+  const fb = document.getElementById('taskFb' + taskIdx);
+  fb.className = 'task-fb show ' + (correct ? 'ok' : 'bad');
+  fb.textContent = correct ? task.fb_ok : task.fb_bad;
+  const cont = document.getElementById('taskContinue' + taskIdx);
+  if (taskIdx < tasks.length - 1) cont.classList.add('show');
+  if (taskIdx === tasks.length - 1 || !cont) {
+    taskStates[taskIdx] = true;
+    checkCompletion();
+  }
+}
+
+function continueTask(taskIdx) {
+  taskStates[taskIdx] = true;
+  renderTasks();
+  setTimeout(() => {
+    const nextBody = document.getElementById('taskBody' + (taskIdx + 1));
+    if (nextBody) nextBody.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 300);
+}
+
+function selectChip(taskIdx, actionIdx, chipIdx, value) {
+  const task = tasks[taskIdx];
+  const action = task.actions[actionIdx];
+  // deselect others in same row
+  action.choices.forEach((_, ci) => {
+    const chip = document.getElementById(`chip_${taskIdx}_${actionIdx}_${ci}`);
+    if (chip) chip.classList.remove('selected');
+  });
+  const selected = document.getElementById(`chip_${taskIdx}_${actionIdx}_${chipIdx}`);
+  if (selected) selected.classList.add('selected');
+  if (!actionSelections[taskIdx]) actionSelections[taskIdx] = {};
+  actionSelections[taskIdx][actionIdx] = { value, correct: action.choices[chipIdx].correct };
+}
+
+function submitActions(taskIdx) {
+  const task = tasks[taskIdx];
+  const selections = actionSelections[taskIdx] || {};
+  const allSelected = task.actions.every((_, ai) => selections[ai] !== undefined);
+  const allCorrect = task.actions.every((_, ai) => selections[ai] && selections[ai].correct);
+
+  const result = document.getElementById('abResult' + taskIdx);
+  if (!allSelected) {
+    result.className = 'ab-result show partial';
+    result.textContent = '⚠️ Please make a selection for all three actions before submitting.';
+    return;
+  }
+
+  const correctCount = task.actions.filter((_, ai) => selections[ai] && selections[ai].correct).length;
+  if (allCorrect) {
+    result.className = 'ab-result show good';
+    result.textContent = '✅ All three recommendations are correct and well-targeted. Action 1 addresses the immediate safety crisis. Action 2 addresses the structural root cause. Action 3 tracks the lagging indicator that will be last to recover. This is exactly the three-part operational response a leadership team needs.';
+    taskStates[taskIdx] = true;
+    checkCompletion();
+    renderTasks();
+  } else {
+    result.className = 'ab-result show partial';
+    result.textContent = `You got ${correctCount} of 3 correct. Review your selections: Action 1 should address the immediate patient safety crisis (staffing now, not next week). Action 2 should fix the root cause structurally. Action 3 should acknowledge that satisfaction is a lagging indicator — it will keep declining even after staffing improves, and leadership needs a realistic timeline.`;
+  }
+}
+
+function checkCompletion() {
+  if (taskStates.every(s => s)) {
+    setTimeout(() => {
+      document.getElementById('completionPanel').classList.add('show');
+      document.getElementById('completionPanel').scrollIntoView({ behavior: 'smooth' });
+    }, 500);
+  }
+}
+
+renderTasks();
+
+window.addEventListener('scroll', () => {
+  const e = document.documentElement;
+  document.getElementById('pb').style.width = ((e.scrollTop / (e.scrollHeight - e.clientHeight)) * 100) + '%';
+});
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: .1 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

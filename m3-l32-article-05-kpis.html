@@ -1,0 +1,204 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Key Performance Indicators in Healthcare — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}.section{padding:36px 0 0;}h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.kpi-table-wrap{overflow-x:auto;margin:28px 0;}
+table.kpi-table{width:100%;border-collapse:collapse;border-radius:16px;overflow:hidden;border:1.5px solid var(--purple-mid);}
+table.kpi-table th{background:var(--purple);color:white;padding:12px 14px;font-size:12px;font-weight:700;text-align:left;}
+table.kpi-table td{padding:12px 14px;font-size:13px;border-bottom:1px solid var(--purple-mid);vertical-align:top;line-height:1.5;}
+table.kpi-table tr:last-child td{border-bottom:none;}
+table.kpi-table tr:nth-child(even) td{background:var(--gray-soft);}
+.zone-badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;}
+.zone-g{background:var(--green-pale);color:var(--green);}
+.zone-o{background:var(--orange-pale);color:var(--orange);}
+.zone-r{background:var(--red-pale);color:var(--red);}
+.red-flag{background:var(--red-pale);border-left:4px solid var(--red);border-radius:0 8px 8px 0;padding:10px 14px;font-size:13px;color:var(--gray-text);}
+.kpi-game{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.kg-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.kg-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.kg-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.kg-scenario{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:18px;margin-bottom:12px;}
+.kg-data{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:12px;padding:10px 14px;background:var(--gray-soft);border-radius:8px;}
+.kg-q{font-size:14px;font-weight:600;color:var(--gray-text);margin-bottom:10px;}
+.kg-opts{display:flex;flex-direction:column;gap:7px;}
+.kg-opt{background:var(--gray-soft);border:2px solid var(--purple-mid);border-radius:10px;padding:11px 15px;cursor:pointer;font-size:13px;transition:all .2s;text-align:left;}
+.kg-opt:hover:not(:disabled){border-color:var(--purple);background:var(--purple-pale);}
+.kg-opt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.kg-opt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.kg-fb{font-size:13px;line-height:1.65;padding:12px 16px;border-radius:10px;margin-top:8px;display:none;}
+.kg-fb.show{display:block;}.kg-fb.ok{background:var(--green-pale);color:var(--green);}.kg-fb.bad{background:var(--red-pale);color:var(--red);}
+.kg-next{background:var(--purple);color:white;border:none;border-radius:10px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;margin-top:10px;display:none;}
+.kg-next.show{display:inline-block;}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}.qfb.show{display:block;}.qfb.cfb{background:var(--green-pale);color:var(--green);}.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}}
+</style></head><body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.2 · Reading AI Dashboards</div>
+  <h1>Key Performance Indicators in Healthcare: The 12 Numbers Every Healthcare Worker Should Be Able to Read</h1>
+  <p class="hero-sub">Dashboards are only useful when you know what "good" looks like. This article gives you the 12 most important healthcare operational KPIs — what each measures, the target ranges, the red flags, and what action each one calls for.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>Why Every Healthcare Worker Needs to Know These Numbers</h2>
+    <p>You can sit in front of a dashboard all day and not learn anything if you don't know what the numbers mean. A bed occupancy of 87% means nothing without knowing that the safe operating range is 80–85% and that anything over 92% is a capacity crisis. A nurse-to-patient ratio of 1:5 means nothing without knowing that safe limits are typically 1:4 or lower.</p>
+    <p><mark>Context turns numbers into information. These 12 KPIs are the context layer for every healthcare operations dashboard you'll ever encounter.</mark> Memorize the general ranges. The specific targets will vary by facility and unit type — but the framework stays the same.</p>
+  </div>
+  <div class="section fade-in">
+    <h2>The 12 KPIs — Complete Reference Table</h2>
+    <p>Click any row to expand the full red-flag detail and action guidance for that metric.</p>
+    <div class="kpi-table-wrap">
+      <table class="kpi-table">
+        <thead><tr><th>#</th><th>KPI</th><th>What It Measures</th><th>Target Range</th><th>Red Flag Threshold</th></tr></thead>
+        <tbody id="kpiTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="section fade-in">
+    <h2>Test Yourself: Is This a Red Flag?</h2>
+    <p>Work through these 4 real dashboard scenarios. For each one, use your KPI knowledge to identify whether the number represents normal operations, a developing concern, or a critical situation requiring immediate action.</p>
+    <div class="kpi-game">
+      <div class="kg-label">🚦 Red Flag Recognition Challenge</div>
+      <div class="kg-title">Normal, Warning, or Critical?</div>
+      <div class="kg-sub">Read the dashboard number and choose the correct level of concern. Use what you've learned about target ranges.</div>
+      <div id="kgContainer"></div>
+    </div>
+  </div>
+  <div class="quiz fade-in">
+    <div class="quiz-label">🧠 Quick Check</div>
+    <div class="quiz-q">A clinic's AI dashboard shows: Appointment no-show rate 23%, Average length of stay 2.1 days, Bed occupancy 72%, Medication accuracy 99.3%. Which metric should concern the operations manager most?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="cq(this,false)">Average length of stay — 2.1 days seems very short and patients may be being discharged prematurely</button>
+      <button class="qopt" onclick="cq(this,true)">Appointment no-show rate — 23% is significantly above the 10–15% healthy range and represents both lost clinical time and patients not receiving needed care</button>
+      <button class="qopt" onclick="cq(this,false)">Bed occupancy — 72% is below the 80–85% ideal range, indicating underutilization</button>
+      <button class="qopt" onclick="cq(this,false)">Medication accuracy — 99.3% is above target but any imperfection in a safety metric requires immediate attention</button>
+    </div>
+    <div class="qfb" id="qfb"></div>
+  </div>
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Key Takeaways</div>
+    <h2>What to Remember From This Article</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>KPI knowledge is the context layer that turns dashboard numbers into information. Without knowing what "good" looks like for each metric, a dashboard is just a screen full of numbers.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The 12 core KPIs span four categories: patient flow (occupancy, ER wait time, LOS, no-show rate), staffing (nurse ratio, utilization, overtime, turnover), quality (medication accuracy, satisfaction, readmissions), and operations (supply fill rate, revenue cycle). Together they give a complete operational picture.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Specific targets vary by facility type, unit, and state regulations — but the general ranges in this article give you a reliable baseline for evaluating any healthcare operations dashboard.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const kpis=[
+  {num:1,name:'Bed Occupancy Rate',measures:'% of licensed beds currently filled',target:'75–85%',flag:'Above 92%',good:'75–85%',warn:'85–92%',red:'92%+',action:'Activate discharge planning; alert ER of potential bed shortage; review staffing for peak periods.',detail:'The most immediate capacity metric. Above 92%, there\'s almost no buffer for emergency admissions. Every percent above 85% increases the risk that ER patients will be boarded, waiting for inpatient beds.'},
+  {num:2,name:'ER Average Wait Time',measures:'Avg. time from arrival to provider assessment',target:'Under 30 min',flag:'Over 45 min',good:'Under 25 min',warn:'25–40 min',red:'40+ min',action:'Investigate bottleneck location (intake, provider availability, bed access). Check whether bed occupancy or staffing is the root cause.',detail:'A lagging indicator of ER operational flow. Long waits often reflect problems in upstream or downstream processes rather than the ER itself.'},
+  {num:3,name:'Average Length of Stay (ALOS)',measures:'Average inpatient days per admission',target:'Facility-specific; typically 3.5–4.5 days',flag:'15%+ above target',good:'At or below target',warn:'5–15% above target',red:'15%+ above target',action:'Flag discharge-ready patients for priority rounds. Review discharge planning process for bottlenecks.',detail:'ALOS creep compounds into capacity problems quickly. Each extra half-day per patient at a 200-bed hospital represents roughly 5–6 extra beds occupied at any given time.'},
+  {num:4,name:'Appointment No-Show Rate',measures:'% of scheduled appointments where patient doesn\'t arrive',target:'Under 10–12%',flag:'Above 20%',good:'Under 10%',warn:'10–20%',red:'20%+',action:'Analyze by day-of-week and appointment type. Implement targeted reminder protocols. Review overbooking strategy for high-risk slots.',detail:'High no-show rates represent wasted clinical capacity. AI scheduling tools can predict individual no-show risk and trigger proactive outreach before gaps open.'},
+  {num:5,name:'Nurse-to-Patient Ratio',measures:'Number of patients per nurse on current shift',target:'1:4 (med-surg); 1:2–3 (ICU)',flag:'1:6 or worse',good:'1:3–4 (med-surg)',warn:'1:5',red:'1:6+',action:'Immediate: contact float pool or on-call staff. Document the ratio formally. Alert charge nurse and floor supervisors to prioritize monitoring.',detail:'One of the most direct patient safety metrics on any dashboard. Research links each additional patient per nurse above safe ratios to measurable increases in adverse events and mortality.'},
+  {num:6,name:'Staff Utilization Rate',measures:'% of scheduled staff hours actively engaged in productive work',target:'75–85%',flag:'Above 92% or below 65%',good:'75–85%',warn:'85–92% or 65–75%',red:'92%+ (overloaded) or under 65% (underutilized)',action:'Above 92%: schedule review needed to prevent burnout. Under 65%: review staffing levels for cost efficiency.',detail:'Both extremes are problems: overutilization leads to burnout and errors; underutilization means unnecessary labor cost. The ideal range reflects productive work with enough buffer for unexpected demands.'},
+  {num:7,name:'Staff Overtime Hours',measures:'Weekly overtime hours across the facility',target:'Varies; healthy: minimal planned overtime',flag:'Sustained high overtime 3+ weeks',good:'Minimal, predictable',warn:'Moderate increase',red:'Tripling or sustained above-target',action:'Identify which departments are carrying the load. Begin recruiting for temporary staff. Flag as patient safety risk if approaching fatigue thresholds.',detail:'Overtime is a leading indicator of burnout, staff turnover, and — critically — medication errors. A 3-week sustained overtime trend predicts staff departures with high accuracy.'},
+  {num:8,name:'Medication Accuracy Rate',measures:'% of medication administrations completed correctly',target:'Above 98% (many facilities target 99%)',flag:'Drops below 97%',good:'98%+ (ideally 99%+)',warn:'97–98%',red:'Under 97%',action:'Immediate investigation: identify error patterns by unit, shift, or medication type. Review staffing ratios — errors often spike when nurses are overloaded.',detail:'Even small percentage drops represent real patient harm at scale. A facility giving 10,000 medications daily at 97% accuracy is making 300 errors per day. Trends matter as much as current values.'},
+  {num:9,name:'Patient Satisfaction Score',measures:'% of patients rating care experience as positive (HCAHPS standard)',target:'Above 85–90% (varies by facility goals)',flag:'Below 75%, or consistent decline',good:'Above 87%',warn:'80–87%',red:'Under 80%',action:'Investigate sub-scores (communication, responsiveness, etc.) to find the specific driver before acting. Satisfaction is a lagging indicator.',detail:'Satisfaction scores reflect the past, not the present. A drop almost always means an operational problem has been present for 1–2 weeks already. Don\'t treat the score — find and treat the cause.'},
+  {num:10,name:'30-Day Readmission Rate',measures:'% of patients readmitted within 30 days of discharge',target:'Below 10–12%',flag:'Above 15%',good:'Under 10%',warn:'10–15%',red:'15%+',action:'Review discharge planning process. Assess whether patients are being discharged ready. Examine follow-up care access for readmitted patients.',detail:'High readmissions indicate either premature discharge or failure of post-discharge care support. Medicare financially penalizes hospitals with high readmission rates in certain categories.'},
+  {num:11,name:'Supply Fill Rate',measures:'% of supply orders fulfilled on time and in full',target:'97–100%',flag:'Below 93%',good:'97–100%',warn:'93–97%',red:'Under 93%',action:'Identify which specific items are failing to fill. Check vendor reliability and reorder point accuracy. Review if AI inventory thresholds are calibrated correctly.',detail:'Supply failures have direct clinical impact. A fill rate decline is often the first visible sign of a supply chain problem that will cause shortages if not addressed immediately.'},
+  {num:12,name:'Revenue Cycle Days',measures:'Average days from service delivery to payment collection',target:'Under 40 days',flag:'Above 55 days',good:'Under 40 days',warn:'40–55 days',red:'55+ days',action:'Identify which claim types or payers are causing delays. Check for coding errors or documentation gaps that are triggering denials.',detail:'Revenue cycle performance directly affects organizational financial health — and therefore capacity to hire staff and invest in patient care. Long cycle times often indicate upstream clinical documentation problems.'}
+];
+
+const tbody = document.getElementById('kpiTableBody');
+kpis.forEach((k,i)=>{
+  const tr = document.createElement('tr');
+  tr.innerHTML=`<td>${k.num}</td><td><strong>${k.name}</strong></td><td style="font-size:12px;">${k.measures}</td><td><span class="zone-badge zone-g">${k.target}</span></td><td><span class="zone-badge zone-r">${k.flag}</span></td>`;
+  tr.style.cursor='pointer';
+  const detailTr = document.createElement('tr');
+  detailTr.innerHTML=`<td colspan="5" style="padding:0;"><div style="display:none;padding:12px 14px 14px;background:var(--purple-pale);font-size:13px;line-height:1.7;" id="kpiDetail${i}">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;">
+      <span class="zone-badge zone-g">✅ ${k.good}</span>
+      <span class="zone-badge zone-o">⚠️ ${k.warn}</span>
+      <span class="zone-badge zone-r">🚨 ${k.red}</span>
+    </div>
+    <div class="red-flag" style="margin-bottom:8px;">${k.detail}</div>
+    <div style="background:var(--green-pale);border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:10px 14px;font-size:13px;"><strong style="color:var(--green);">🎯 Action:</strong> ${k.action}</div>
+  </div></td>`;
+  tr.onclick=()=>{
+    const el=document.getElementById('kpiDetail'+i);
+    el.style.display=el.style.display==='none'?'block':'none';
+  };
+  tbody.appendChild(tr);
+  tbody.appendChild(detailTr);
+});
+
+const games=[
+  {data:'Dashboard: Nurse-to-patient ratio = 1:5.2 on a medical-surgical floor. Target: 1:4.',q:'Is this a normal, warning, or critical situation?',
+   opts:['Normal — 1:5 is within acceptable range for busy days','Warning — this is above the 1:4 target and should be monitored, especially if trending upward','Critical — 1:5.2 is dangerous and requires immediate staffing action'],
+   correct:1,fb_ok:'✅ Right. 1:5.2 is in the warning zone — above the 1:4 target but not yet at the 1:6 critical threshold. The right response is active monitoring, checking if this is a temporary spike or a developing trend, and having a plan ready if it crosses 1:6.',fb_bad:'❌ 1:5.2 is above the 1:4 target — that\'s a warning, not a green light. But it\'s not yet in the critical zone (1:6+). The appropriate response is monitoring and preparation, not immediate emergency action.'},
+  {data:'Dashboard: 30-day readmission rate = 14% this month. Target: below 12%. Last month: 11%.',q:'What level of concern is appropriate here?',
+   opts:['No concern — 14% is close enough to the 12% target','Warning with investigation needed — the metric has crossed target and moved in the wrong direction in a single month. The jump from 11% to 14% warrants understanding why.','Critical — Medicare penalties are automatic whenever readmissions exceed 12%'],
+   correct:1,fb_ok:'✅ Correct. A 3-point increase in a single month that crosses the target threshold is a warning that warrants investigation. It\'s not yet a crisis — but it\'s not coincidence either. Understanding what changed this month (discharge process, patient complexity, follow-up care access) is the right response before this trend worsens.',fb_bad:'❌ The combination of crossing the target AND a notable single-month increase warrants more than "no concern" and less than "immediate crisis." The jump from 11% to 14% in one month is meaningful — it suggests a specific change occurred this month. Investigating the cause now, while the trend is just starting, is much better than waiting for it to reach 18–20%.'},
+  {data:'Dashboard: Revenue cycle average days = 38. Target: under 40 days.',q:'How should an operations manager respond to this metric?',
+   opts:['Immediate investigation — any metric above 35 days requires escalation','Standard monitoring — the metric is within target range and trending normally','Call an all-hands billing meeting immediately — revenue cycle problems affect all operations'],
+   correct:1,fb_ok:'✅ Right. At 38 days — below the 40-day target — this metric is currently within its healthy range. Standard monitoring is appropriate. If it were trending upward toward 40 and beyond, investigation would be warranted. But acting on a metric that\'s performing within target wastes time and organizational energy.',fb_bad:'❌ At 38 days, this metric is within its target range (under 40). Standard monitoring is appropriate. Not every metric on a dashboard requires an action response — part of dashboard literacy is knowing when a number is fine and allowing it to remain fine without generating unnecessary activity.'},
+  {data:'Dashboard: Medication accuracy rate = 98.3%. Target: above 98%. But: it was 99.1% last month, 98.9% two months ago, 98.6% three months ago.',q:'What\'s the correct read even though the metric is still above target?',
+   opts:['No action needed — above target is above target, regardless of history','This declining trend, even while above target, requires investigation. At the current rate of decline, the metric will cross 98% within a few months. Early intervention is far better than waiting for a threshold breach.','The decline is within normal variation — medication accuracy fluctuates and this is not a pattern worth worrying about'],
+   correct:1,fb_ok:'✅ Exactly right. Four consecutive months of decline is not normal variation — it\'s a trend. Even though the current value is still above target, a consistent 0.3% decline per month will cross 98% within two months and continue declining after that. Acting on a trend before threshold breach is the entire value of trend analysis.',fb_bad:'❌ Four consecutive monthly declines is a pattern, not variation. The fact that the metric is still above target doesn\'t make the trend less real. At the current rate, this metric will breach 98% within 2 months. The purpose of trend analysis is to act before thresholds are crossed — which is why identifying this pattern now, while there\'s still time to investigate and correct, is the right response.'}
+];
+
+let kgIdx=0;
+function renderKG(){
+  if(kgIdx>=games.length){document.getElementById('kgContainer').innerHTML='<div style="background:var(--green-pale);border-radius:14px;padding:20px;text-align:center;color:var(--green);font-weight:700;font-size:15px;">✅ All scenarios complete — you can read KPI red flags.</div>';return;}
+  const g=games[kgIdx];
+  const optsHtml=g.opts.map((o,oi)=>`<button class="kg-opt" onclick="answerKG(${oi})">${o}</button>`).join('');
+  document.getElementById('kgContainer').innerHTML=`
+    <div class="kg-scenario">
+      <div class="kg-data">📊 ${g.data}</div>
+      <div class="kg-q">${g.q}</div>
+      <div class="kg-opts">${optsHtml}</div>
+      <div class="kg-fb" id="kgFb"></div>
+      <button class="kg-next" id="kgNext" onclick="nextKG()">Next →</button>
+    </div>
+    <div style="font-size:13px;color:var(--gray-muted);text-align:right;margin-top:8px;">Question ${kgIdx+1} of ${games.length}</div>`;
+}
+function answerKG(idx){
+  const g=games[kgIdx];
+  const opts=document.querySelectorAll('.kg-opt');
+  if(opts[0].disabled)return;
+  opts.forEach(o=>o.disabled=true);
+  opts[idx].classList.add(idx===g.correct?'correct':'wrong');
+  if(idx!==g.correct)opts[g.correct].classList.add('correct');
+  const fb=document.getElementById('kgFb');
+  fb.className='kg-fb show '+(idx===g.correct?'ok':'bad');
+  fb.textContent=idx===g.correct?g.fb_ok:g.fb_bad;
+  document.getElementById('kgNext').classList.add('show');
+}
+function nextKG(){kgIdx++;renderKG();}
+renderKG();
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  if(!correct)document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('23%'))o.classList.add('correct');});
+  const fb=document.getElementById('qfb');
+  fb.className='qfb show '+(correct?'cfb':'wfb');
+  fb.textContent=correct?'✅ Correct. A 23% no-show rate is significantly above the healthy 10–12% range — nearly double. This means roughly 1 in 4 scheduled patients isn\'t showing up, which represents massive wasted clinical capacity and patients not receiving needed care. The other metrics listed are actually performing well: ALOS of 2.1 days is typical for an outpatient clinic, 72% occupancy is slightly below the 80–85% ideal but not alarming, and 99.3% medication accuracy is excellent. The no-show rate stands out clearly as the problem requiring investigation and action.':'❌ Compare each metric to its target range. ALOS of 2.1 days is normal for many outpatient settings. Bed occupancy at 72% is slightly low but not critical. Medication accuracy at 99.3% is excellent — above target. The no-show rate of 23% is the clear outlier: it\'s nearly double the healthy 10–12% range. That\'s the metric that demands attention.';
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body></html>

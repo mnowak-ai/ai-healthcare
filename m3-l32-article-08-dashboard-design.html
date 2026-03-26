@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Dashboard Design Affects Decision-Making — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+.section{padding:36px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* SIDE-BY-SIDE COMPARISON */
+.design-compare{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.dc-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.dc-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.dc-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.dc-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
+.dc-box{border-radius:14px;overflow:hidden;}
+.dc-box-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:8px 14px;text-align:center;}
+.dc-box.bad .dc-box-label{background:var(--red-pale);color:var(--red);}
+.dc-box.good .dc-box-label{background:var(--green-pale);color:var(--green);}
+/* Bad dashboard mockup */
+.bad-dash{background:#2D2D2D;padding:12px;font-family:monospace;}
+.bad-row{display:flex;gap:8px;margin-bottom:6px;flex-wrap:wrap;}
+.bad-kpi{background:#3D3D3D;border:1px solid #555;padding:6px 10px;font-size:10px;color:#CCC;border-radius:4px;min-width:80px;}
+.bad-kpi span{display:block;font-size:14px;font-weight:700;color:#FFF;}
+.bad-table{width:100%;font-size:9px;color:#AAA;border-collapse:collapse;margin-top:6px;}
+.bad-table td,.bad-table th{border:1px solid #444;padding:4px 6px;}
+.bad-table th{background:#444;color:#DDD;}
+/* Good dashboard mockup */
+.good-dash{background:#1A1035;padding:14px;}
+.good-header{font-size:9px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;}
+.good-alert-bar{background:rgba(220,38,38,.2);border-left:3px solid #F87171;border-radius:0 6px 6px 0;padding:6px 10px;font-size:10px;color:#F87171;font-weight:700;margin-bottom:8px;}
+.good-kpi-row{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:8px;}
+.good-kpi{border-radius:8px;padding:9px 10px;}
+.good-kpi.red{background:rgba(220,38,38,.2);}
+.good-kpi.yellow{background:rgba(217,119,6,.2);}
+.good-kpi.green{background:rgba(39,103,73,.2);}
+.good-kpi-val{font-family:'Fraunces',serif;font-size:16px;font-weight:900;color:white;line-height:1;}
+.good-kpi-label{font-size:8px;color:rgba(255,255,255,.5);margin-top:2px;}
+.good-kpi-trend{font-size:8px;font-weight:700;margin-top:2px;}
+.good-kpi.red .good-kpi-trend{color:#F87171;}
+.good-kpi.yellow .good-kpi-trend{color:#FCD34D;}
+.good-kpi.green .good-kpi-trend{color:#4ADE80;}
+.dc-verdict{border-radius:12px;padding:14px 18px;font-size:13px;line-height:1.65;}
+.dc-verdict.bad{background:var(--red-pale);color:var(--gray-text);}
+.dc-verdict.good{background:var(--green-pale);color:var(--gray-text);}
+.dc-verdict strong{display:block;margin-bottom:4px;}
+
+/* DESIGN PRINCIPLES */
+.principles{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
+.principle{border-radius:16px;overflow:hidden;border:1.5px solid var(--purple-mid);cursor:pointer;}
+.principle-header{display:flex;gap:12px;align-items:center;padding:16px 18px;background:var(--white);}
+.principle-icon{font-size:24px;}
+.principle-title{font-size:14px;font-weight:700;color:var(--purple-dark);flex:1;}
+.principle-toggle{font-size:12px;color:var(--purple);font-weight:700;}
+.principle-body{display:none;padding:0 18px 16px;background:var(--white);}
+.principle.open .principle-body{display:block;}
+.principle-rule{background:var(--purple-pale);border-radius:10px;padding:12px 16px;font-size:14px;line-height:1.7;color:var(--purple-dark);margin-bottom:8px;}
+.principle-bad{background:var(--red-pale);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--gray-text);margin-bottom:6px;}
+.principle-good{background:var(--green-pale);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--gray-text);}
+.p-badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.principle-bad .p-badge{color:var(--red);}
+.principle-good .p-badge{color:var(--green);}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.dc-pair{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.2 · Reading AI Dashboards</div>
+  <h1>How Dashboard Design Affects Decision-Making: Why Some Dashboards Help and Others Confuse</h1>
+  <p class="hero-sub">Two dashboards can show identical data and produce completely different decisions. The way information is arranged, colored, and prioritized on a screen directly affects how quickly humans notice problems — and which ones they notice first. Understanding this makes you a smarter and more critical user of any AI tool.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Design Is Not Decoration — It's a Decision Tool</h2>
+    <p>Dashboard design is not about making things look nice. It's about how quickly and accurately the human brain can extract the information it needs to make a good decision. Every choice a designer makes — what color to use for a critical alert, how large to make the most important number, where to put the AI recommendations — directly affects what the healthcare worker notices first, what they might miss entirely, and how confident they feel about their decision.</p>
+    <p>This matters in healthcare more than almost anywhere else because the stakes are high, the time available is limited, and the volume of information is large. <mark>A well-designed dashboard that surfaces a staffing shortfall clearly at 7 AM prevents a patient safety event at 7 PM. A poorly designed one where the same alert is buried in a list of 22 notifications of equal visual weight does not.</mark></p>
+    <div class="pull-quote"><p>Dashboard design is a patient safety issue. When critical information is hard to find, it gets missed — not because healthcare workers aren't attentive, but because the human brain has limits that good design works with rather than against.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Side by Side: Good vs. Poor Dashboard Design</h2>
+    <p>Both dashboards below show the same operational data — one critical staffing alert, three other metrics. See how differently they communicate the same information, and what a healthcare worker would notice first in each.</p>
+    <div class="design-compare">
+      <div class="dc-label">🖥️ Design Comparison</div>
+      <div class="dc-title">Same Data. Very Different Decisions.</div>
+      <div class="dc-sub">Which dashboard makes the staffing crisis obvious? Which one buries it?</div>
+      <div class="dc-pair">
+        <div class="dc-box bad">
+          <div class="dc-box-label">❌ Poor Design</div>
+          <div class="bad-dash">
+            <div class="bad-row">
+              <div class="bad-kpi">BED OCC<span>84%</span></div>
+              <div class="bad-kpi">ER WAIT<span>41min</span></div>
+              <div class="bad-kpi">NRS RATIO<span>1:6.1</span></div>
+              <div class="bad-kpi">SAT<span>83%</span></div>
+            </div>
+            <table class="bad-table">
+              <thead><tr><th>Alert</th><th>Category</th><th>Time</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Schedule Thursday 71%</td><td>Scheduling</td><td>9:12am</td><td>Open</td></tr>
+                <tr><td>STAFF SHORTFALL TONIGHT -3 NURSES</td><td>Staffing</td><td>9:08am</td><td>Open</td></tr>
+                <tr><td>IV tubing 1.2 days</td><td>Supply</td><td>8:44am</td><td>Open</td></tr>
+                <tr><td>Sat score declining week 4</td><td>Quality</td><td>8:01am</td><td>Open</td></tr>
+                <tr><td>Overtime 3 nurses above threshold</td><td>Staffing</td><td>7:55am</td><td>Open</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="dc-box good">
+          <div class="dc-box-label">✅ Better Design</div>
+          <div class="good-dash">
+            <div class="good-header">Valley Health · Operations · Live</div>
+            <div class="good-alert-bar">🚨 CRITICAL ACTION REQUIRED: Staffing shortfall tonight — 3 nurses below safe minimum · Act by 2PM</div>
+            <div class="good-kpi-row">
+              <div class="good-kpi red"><div class="good-kpi-val">1:6.1</div><div class="good-kpi-label">Nurse Ratio</div><div class="good-kpi-trend">↑ over safe limit</div></div>
+              <div class="good-kpi red"><div class="good-kpi-val">41min</div><div class="good-kpi-label">ER Wait</div><div class="good-kpi-trend">↑ +11 vs target</div></div>
+              <div class="good-kpi yellow"><div class="good-kpi-val">84%</div><div class="good-kpi-label">Bed Occupancy</div><div class="good-kpi-trend">↑ +7% this week</div></div>
+              <div class="good-kpi yellow"><div class="good-kpi-val">83%</div><div class="good-kpi-label">Satisfaction</div><div class="good-kpi-trend">↓ 4th decline</div></div>
+            </div>
+            <div style="font-size:9px;color:rgba(255,255,255,.35);border-top:1px solid rgba(255,255,255,.1);padding-top:8px;margin-top:4px;">3 lower-priority alerts · Tap to view</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div class="dc-verdict bad"><strong>❌ What's wrong with the poor design:</strong> The critical staffing alert is the second row in a plain table, visually identical to a scheduling note. It has no color, no size distinction, no urgency signal. A healthcare worker scanning quickly — which is how dashboards are almost always read — could easily miss it or give it equal attention to "Thursday schedule at 71%."</div>
+        <div class="dc-verdict good"><strong>✅ What the better design does right:</strong> The critical alert is immediately unmissable — positioned at top, high-contrast red, labeled "CRITICAL ACTION REQUIRED," and includes a deadline ("Act by 2PM"). The KPIs are color-coded by severity. Lower-priority items are collapsed so they don't compete for attention. The staffing crisis is impossible to miss.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Five Principles That Separate Good Dashboard Design From Bad</h2>
+    <p>Click each principle to see the rule, a poor-design example, and a better-design example:</p>
+    <div class="principles" id="principlesContainer"></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What This Means For You as a Dashboard User</h2>
+    <p>You probably won't design your own healthcare dashboard — but you will use ones that other people designed. Understanding design principles makes you a better and more critical user of those tools. Specifically, it helps you:</p>
+    <p><strong>Recognize when a dashboard is poorly designed.</strong> If you find yourself frequently missing alerts, struggling to find the most important metric, or feeling overwhelmed by the screen — the problem may not be you. A well-designed dashboard should make the most critical information obvious within seconds. If it doesn't, that's a design failure worth raising with your supervisor or IT team.</p>
+    <p><strong>Compensate for bad design deliberately.</strong> If you know a dashboard has poor information hierarchy, you can build your own process to compensate — for example, always checking the alert table completely before acting, regardless of visual emphasis. <mark>Knowing a tool's weaknesses and working around them is part of professional AI literacy.</mark></p>
+    <p><strong>Advocate for better tools.</strong> When a dashboard design is creating workflow problems or missed alerts, that's actionable feedback. Healthcare workers who can articulate specifically why a tool is causing errors ("the critical alerts aren't visually distinct from informational ones") provide feedback that actually gets tools improved.</p>
+  </div>
+
+  <div class="quiz fade-in">
+    <div class="quiz-label">🧠 Quick Check</div>
+    <div class="quiz-q">A healthcare administrator notices that her team frequently misses the weekly supply shortage alerts on their dashboard. She asks you to look at the dashboard. You notice the supply alerts appear in small gray text at the bottom of a scrolling list, after 18 other notifications. What is the most accurate diagnosis of the problem?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="cq(this,false)">The team needs better training on dashboard reading — they should be scrolling through all alerts thoroughly</button>
+      <button class="qopt" onclick="cq(this,false)">Supply alerts are inherently low priority and it's appropriate that they appear at the bottom</button>
+      <button class="qopt" onclick="cq(this,true)">This is a dashboard design failure — supply shortage alerts that have direct patient care implications should be visually distinct and prioritized, not buried in gray text below 18 other items of equal visual weight</button>
+      <button class="qopt" onclick="cq(this,false)">The problem is the volume of alerts overall — the solution is to reduce the total number of alerts</button>
+    </div>
+    <div class="qfb" id="qfb"></div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Key Takeaways</div>
+    <h2>What to Remember From This Article</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Dashboard design directly affects which problems get noticed and which get missed. Two dashboards showing identical data can produce completely different decisions based solely on how the information is arranged, colored, and prioritized.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The five design principles that matter most: visual hierarchy (critical things must look critical), progressive disclosure (hide secondary detail until needed), actionable alerts (include what to do, not just what's wrong), appropriate color (meaningful, not decorative), and information density (less is more).</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Understanding design principles makes you a better user, not just a passive recipient. When a dashboard is poorly designed, that's actionable feedback — and healthcare workers who can articulate specifically what's wrong provide feedback that actually improves tools.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const principles = [
+  { icon:'👁️', title:'Visual Hierarchy: Critical Information Must Look Critical',
+    rule:'The most important piece of information on any dashboard should be visually unmissable. Size, color, position, and contrast should all reinforce the same priority message. If a critical staffing alert looks identical to an informational note, it will be treated as equally important — which means it might get the same 2 seconds of attention as an informational note.',
+    bad:'❌ Bad: A scrolling alert table where every row — from "schedule 71% Thursday" to "staffing shortfall tonight, patient safety risk" — appears in the same font, same color, same size.',
+    good:'✅ Better: Critical alerts displayed in a prominent banner at the top of the dashboard, in high-contrast red, with "CRITICAL" labeling and a deadline. Informational items collapsed or de-emphasized.' },
+  { icon:'🗂️', title:'Progressive Disclosure: Show the Summary, Hide the Detail',
+    rule:'Every item on a dashboard competes for the user\'s attention. When all information is shown at full detail simultaneously, nothing stands out. Good dashboards show summaries by default ("3 lower-priority alerts") and let users click to expand the detail they need. This preserves attention for what matters most.',
+    bad:'❌ Bad: 22 alerts all displayed simultaneously with full text, regardless of priority. The most critical item must be found within a wall of notifications.',
+    good:'✅ Better: Top 2–3 priority items shown in full. All others collapsed under "View 19 additional alerts." The summary counts tell you whether to look further without forcing you to scan everything.' },
+  { icon:'✅', title:'Actionable Language: Tell People What to Do, Not Just What\'s Wrong',
+    rule:'"Staffing shortfall" tells you there\'s a problem. "Staffing shortfall — contact float pool by 2PM to cover tonight\'s 7PM shift" tells you what to do. Dashboards that include the recommended action alongside the alert save investigation time and reduce the chance that someone will acknowledge an alert without acting on it.',
+    bad:'❌ Bad: "Nurse ratio above threshold." What does this mean for today? What should I do? How urgent is it? The alert tells you a status but gives you no path forward.',
+    good:'✅ Better: "Nurse ratio 1:6.1 — above 1:4 safe limit. Recommend: Contact float pool for supplemental nursing coverage. Current shift ends at 3PM — 4 hours to arrange." Action, deadline, context.' },
+  { icon:'🎨', title:'Color: Meaningful and Consistent, Not Decorative',
+    rule:'Color should encode meaning, not just look good. If red means "critical" for one metric and orange means "critical" for another, users have to decode the color system rather than read it intuitively. The red/yellow/green traffic-light system is effective precisely because it\'s universal. When dashboard designers introduce new color conventions without explanation, they slow down the reading process.',
+    bad:'❌ Bad: Purple for understaffed departments, blue for on-target departments, orange for supply issues, teal for scheduling gaps. Each color requires active decoding — and during a busy shift, decoding costs attention.',
+    good:'✅ Better: Consistent red/yellow/green across all metrics, with no exceptions. Users internalize the system once and apply it everywhere without conscious thought.' },
+  { icon:'📐', title:'Information Density: More Data Is Not More Helpful',
+    rule:'A dashboard with 40 metrics is not more informative than one with 12. It\'s more confusing. Every metric added to a dashboard competes for the attention available to the most important metric. The best operational dashboards show the minimum number of metrics needed to give a complete picture of the facility\'s status — and no more.',
+    bad:'❌ Bad: 40 metrics visible simultaneously, plus a scrolling alert feed, plus trend charts for each metric, plus AI forecast panels. The screen is dense with data that requires 5+ minutes to fully read — making real-time operational use impractical.',
+    good:'✅ Better: 8–12 core metrics visible at a glance, organized by category, with drill-down available for more detail. The dashboard can be read completely in under 2 minutes, leaving time for the actual decision-making.' }
+];
+
+const container = document.getElementById('principlesContainer');
+principles.forEach((p, i) => {
+  const el = document.createElement('div');
+  el.className = 'principle';
+  el.innerHTML = `
+    <div class="principle-header" onclick="togglePrinciple(${i})">
+      <div class="principle-icon">${p.icon}</div>
+      <div class="principle-title">${p.title}</div>
+      <div class="principle-toggle" id="ptoggle${i}">+ Expand</div>
+    </div>
+    <div class="principle-body" id="pbody${i}">
+      <div class="principle-rule">${p.rule}</div>
+      <div class="principle-bad"><div class="p-badge">❌ Poor Design Example</div>${p.bad}</div>
+      <div class="principle-good"><div class="p-badge">✅ Better Design Example</div>${p.good}</div>
+    </div>`;
+  container.appendChild(el);
+});
+
+function togglePrinciple(i) {
+  const el = container.children[i];
+  el.classList.toggle('open');
+  document.getElementById('ptoggle' + i).textContent = el.classList.contains('open') ? '− Collapse' : '+ Expand';
+}
+
+function cq(btn, correct) {
+  if (document.querySelector('.qopt.correct') || document.querySelector('.qopt.wrong')) return;
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) document.querySelectorAll('.qopt').forEach(o => { if (o.textContent.includes('design failure')) o.classList.add('correct'); });
+  const fb = document.getElementById('qfb');
+  fb.className = 'qfb show ' + (correct ? 'cfb' : 'wfb');
+  fb.textContent = correct
+    ? '✅ Correct. This is a visual hierarchy failure — a supply alert with patient care implications is being given the same visual treatment as routine informational items. More training won\'t fix a design problem; the brain can only attend to what visual design makes salient. The right solution is to surface supply shortage alerts with appropriate visual priority — color, position, and size that reflect their actual urgency. Reducing alert volume overall might be part of the fix, but the primary issue is hierarchy, not quantity.'
+    : '❌ Training doesn\'t fix design problems. The issue here is that the dashboard is treating a supply shortage alert — which can directly affect patient care procedures — with the same visual weight as 18 other items. The human brain doesn\'t attend equally to everything on a screen; it responds to visual signals that indicate importance. Placing a critical alert in gray text at the bottom of a long list is a design failure that training cannot overcome. The fix is in the design: elevate supply shortage alerts to an appropriate visual priority level.';
+}
+
+window.addEventListener('scroll', () => {
+  const e = document.documentElement;
+  document.getElementById('pb').style.width = ((e.scrollTop / (e.scrollHeight - e.clientHeight)) * 100) + '%';
+});
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: .1 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
