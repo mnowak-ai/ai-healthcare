@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Non-Clinical Healthcare Roles Need Data Literacy — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+.section{padding:36px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* ROLE SELECTOR */
+.role-explorer{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.re-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.re-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.re-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.re-roles{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+.re-role-btn{display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:100px;border:2px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.re-role-btn:hover{border-color:var(--purple);color:var(--purple);}
+.re-role-btn.active{background:var(--purple);border-color:var(--purple);color:white;}
+.re-role-btn .re-role-icon{font-size:16px;}
+.re-detail{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:18px;padding:24px;display:none;animation:fadeIn .3s ease;}
+.re-detail.visible{display:block;}
+.re-detail-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;}
+.re-detail-icon{font-size:36px;}
+.re-detail-role-name{font-size:13px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.1em;margin-bottom:4px;}
+.re-detail-title{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);font-weight:700;line-height:1.25;}
+.re-before-after{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+.re-before{background:var(--orange-pale);border:1.5px solid #FDE68A;border-radius:12px;padding:14px;}
+.re-after{background:var(--green-pale);border:1.5px solid #86EFAC;border-radius:12px;padding:14px;}
+.re-ba-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.re-before .re-ba-label{color:var(--orange);}
+.re-after .re-ba-label{color:var(--green);}
+.re-ba-items{font-size:13px;line-height:1.8;color:var(--gray-text);}
+.re-data-skills{border-radius:12px;padding:14px;background:var(--purple-pale);border:1.5px solid var(--purple-mid);}
+.re-ds-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.08em;margin-bottom:8px;}
+.re-ds-items{display:flex;flex-wrap:wrap;gap:6px;}
+.re-ds-tag{background:var(--purple);color:white;padding:4px 12px;border-radius:100px;font-size:12px;font-weight:600;}
+
+/* STAT ROW */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0;}
+.stat-card{background:var(--purple-dark);border-radius:18px;padding:22px;text-align:center;}
+.stat-num{font-family:'Fraunces',serif;font-size:36px;font-weight:900;color:white;line-height:1;margin-bottom:6px;}
+.stat-label{font-size:12px;color:rgba(255,255,255,.7);line-height:1.4;}
+
+/* MYTH BUSTERS */
+.myths{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
+.myth-item{border-radius:14px;overflow:hidden;border:1.5px solid var(--purple-mid);}
+.myth-trigger{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;cursor:pointer;background:var(--white);}
+.myth-trigger-text{font-size:14px;font-weight:600;color:var(--gray-text);}
+.myth-trigger-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;background:var(--red-pale);color:var(--red);flex-shrink:0;margin-left:10px;}
+.myth-body{display:none;padding:0 18px 16px;background:var(--white);}
+.myth-item.open .myth-body{display:block;}
+.myth-myth{background:var(--red-pale);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--red);line-height:1.6;margin-bottom:8px;}
+.myth-reality{background:var(--green-pale);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--green);line-height:1.6;}
+
+/* JOB POSTING SIM */
+.job-posting{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:20px;padding:28px;margin:28px 0;}
+.jp-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.jp-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.jp-company{font-size:14px;color:var(--gray-muted);margin-bottom:16px;}
+.jp-section-label{font-size:12px;font-weight:700;text-transform:uppercase;color:var(--gray-muted);letter-spacing:.08em;margin-bottom:8px;margin-top:14px;}
+.jp-list{font-size:14px;line-height:1.8;color:var(--gray-text);}
+.jp-highlight{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:600;}
+.jp-callout{background:var(--purple-pale);border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:12px 16px;margin-top:14px;font-size:14px;color:var(--purple-dark);line-height:1.65;}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.stat-row{grid-template-columns:1fr;}.re-before-after{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.1 · Data Literacy</div>
+  <h1>Why Non-Clinical Healthcare Roles Need to Understand Data Just as Much as Clinical Ones</h1>
+  <p class="hero-sub">If you're heading into healthcare administration, scheduling, billing, or operations — this article is for you. Data literacy isn't "for IT people" or doctors. It's for every single person who touches a healthcare workflow, and it's becoming a hiring requirement across the industry.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Let's Address the Elephant in the Room</h2>
+    <p>There's a persistent idea in healthcare that "the data stuff" is someone else's job. The doctors and nurses deal with patients. The IT team deals with the computers and dashboards. Administrative staff just handle scheduling, phones, and paperwork. That's the old model.</p>
+    <p>Here's the reality today: <mark>non-clinical staff are often the primary users of operational AI tools</mark> — the scheduling systems, the inventory trackers, the performance dashboards, the billing platforms. Doctors spend most of their time with patients. IT staff set up the systems and fix them when they break. But the front desk coordinator, the scheduling manager, the billing specialist, the office manager? They're in these systems every single hour of every single working day.</p>
+    <p>That means data literacy isn't a nice-to-have for administrative healthcare roles. It's the job. And the healthcare organizations that understand this are already building it into their hiring criteria.</p>
+    <div class="pull-quote"><p>The person who processes the most healthcare data on any given day usually isn't the doctor. It's the front desk coordinator who just handled 40 patients before noon.</p></div>
+  </div>
+
+  <div class="stat-row fade-in">
+    <div class="stat-card">
+      <div class="stat-num">60%</div>
+      <div class="stat-label">of healthcare workers are in non-clinical administrative and operational roles</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">3x</div>
+      <div class="stat-label">more AI-powered tools deployed in operations vs. clinical settings in most healthcare organizations</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">72%</div>
+      <div class="stat-label">of healthcare job postings for admin roles now mention data tools, EHR systems, or analytics in requirements</div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>How AI Is Changing Each Non-Clinical Role — Pick Yours</h2>
+    <p>Click your role (or the one you're aiming for) to see exactly how data and AI are changing the job — what's different from the pre-AI version, and which specific data skills matter most.</p>
+    <div class="role-explorer">
+      <div class="re-label">💼 Role Explorer</div>
+      <div class="re-title">How AI Is Changing Your Role Specifically</div>
+      <div class="re-sub">Click a role to see a before/after comparison and the specific data skills that role now requires.</div>
+      <div class="re-roles">
+        <button class="re-role-btn" onclick="showRole('frontdesk')"><span class="re-role-icon">📋</span>Front Desk Coordinator</button>
+        <button class="re-role-btn" onclick="showRole('scheduling')"><span class="re-role-icon">📅</span>Scheduling Manager</button>
+        <button class="re-role-btn" onclick="showRole('billing')"><span class="re-role-icon">💰</span>Billing Specialist</button>
+        <button class="re-role-btn" onclick="showRole('office')"><span class="re-role-icon">🏥</span>Office / Practice Manager</button>
+        <button class="re-role-btn" onclick="showRole('supply')"><span class="re-role-icon">📦</span>Supply Coordinator</button>
+      </div>
+      <div class="re-detail" id="reDetail"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Myths That Hold Administrative Staff Back</h2>
+    <p>Three specific misconceptions keep non-clinical healthcare workers from developing data literacy. Click each one to see why it's wrong — and what the reality actually looks like.</p>
+    <div class="myths" id="mythContainer"></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What This Looks Like on a Real Job Posting</h2>
+    <p>Don't just take our word for it. Here's what healthcare job postings for administrative roles actually look like today. Notice how much data and AI literacy is baked into the requirements — even for roles that aren't called "data analyst."</p>
+    <div class="job-posting">
+      <div class="jp-label">📄 Real Job Posting Example</div>
+      <div class="jp-title">Patient Services Coordinator — Outpatient Clinic</div>
+      <div class="jp-company">Regional Medical Center · Full-time · Entry to Mid-level</div>
+      <div class="jp-section-label">Key Responsibilities</div>
+      <div class="jp-list">
+        • Manage daily appointment scheduling using <span class="jp-highlight">AI-assisted scheduling platform</span><br>
+        • <span class="jp-highlight">Monitor and respond to scheduling system alerts</span> including no-show risk flags and fill rate warnings<br>
+        • Coordinate with clinical staff to optimize patient flow and <span class="jp-highlight">reduce wait times using real-time dashboard data</span><br>
+        • Maintain accurate patient records and appointment data to support <span class="jp-highlight">AI-driven reporting accuracy</span><br>
+        • <span class="jp-highlight">Interpret weekly performance reports</span> and identify trends for supervisor review<br>
+        • Manage waitlist using <span class="jp-highlight">predictive scheduling tools</span> to maximize appointment utilization
+      </div>
+      <div class="jp-section-label">Required Skills</div>
+      <div class="jp-list">
+        • Experience with EHR and scheduling software (Epic, Athena, or similar)<br>
+        • <span class="jp-highlight">Ability to read and interpret operational reports and dashboards</span><br>
+        • Strong attention to data accuracy — understands the impact of data quality on system performance<br>
+        • <span class="jp-highlight">Comfortable working with AI-generated recommendations</span> and knows when to escalate concerns<br>
+        • Excellent communication skills for patient and team interactions
+      </div>
+      <div class="jp-callout">💡 Notice: This is a Patient Services Coordinator role — not a data analyst, not an IT position, not a clinical role. It's a front-line administrative job. And it requires dashboard reading, AI tool fluency, data quality awareness, and the ability to interpret reports. This is what the market looks like right now.</div>
+    </div>
+  </div>
+
+  <div class="quiz fade-in">
+    <div class="quiz-label">🧠 Quick Check</div>
+    <div class="quiz-q">A billing specialist at a medical clinic notices that the AI billing system is flagging an unusually high number of claims as "likely to be denied" this week — 34%, up from their usual 8%. She's not a data analyst, and she's never been trained on the AI system formally. What should she do?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="cq(this,false)">Nothing — flagging AI system behavior is the IT team's job, not billing staff</button>
+      <button class="qopt" onclick="cq(this,false)">Ignore the flags and submit the claims anyway — the AI makes mistakes and 34% might just be a glitch</button>
+      <button class="qopt" onclick="cq(this,true)">Investigate the pattern — a 4x spike in denial flags is a significant anomaly. Check whether there's a coding change, a payer policy update, or a data entry issue driving the flags. Escalate to her supervisor if she can't identify the cause.</button>
+      <button class="qopt" onclick="cq(this,false)">Wait until the end of the month when the billing report comes out to see if the pattern continues</button>
+    </div>
+    <div class="qfb" id="qfb"></div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Key Takeaways</div>
+    <h2>What to Remember From This Article</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Non-clinical staff are often the primary users of healthcare's AI-powered operational tools — scheduling systems, billing platforms, inventory trackers, performance dashboards. Data literacy isn't for IT. It's for the people in these systems every day.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The job market has already moved. Healthcare administrative job postings routinely list dashboard reading, AI tool fluency, and data quality awareness as required skills — not preferences, requirements. This certification is directly relevant to getting and excelling in these roles.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>"I'm not a data person" is a career limiter in modern healthcare administration. The workers who thrive aren't the ones who understand data better than anyone — they're the ones who are willing to pay attention to it, ask questions about it, and act on what it tells them.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Data literacy in non-clinical roles is ultimately about patient care. When a scheduling coordinator fills an empty slot, a patient who needed care gets seen. When a billing specialist catches a denial risk, the organization stays financially healthy. These roles are not separate from healthcare — they are healthcare.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const roles = {
+  frontdesk: {
+    icon: '📋', role: 'Front Desk Coordinator',
+    title: 'The First and Last Data Touchpoint for Every Patient Visit',
+    before: ['Manual appointment book or basic scheduling software', 'Called patients to confirm appointments — no system guidance on who to prioritize', 'Counted available slots by looking at the printed schedule', 'Handled no-shows reactively — called the next person on a handwritten waitlist after the fact', 'End-of-day summary: filled out manually'],
+    after: ['AI scheduling platform with real-time fill rate tracking', 'System flags high-risk no-shows automatically — coordinator calls those patients first', 'Dashboard shows fill rate live, open slots, and waitlist patients sorted by priority', 'AI proactively contacts waitlist patients before gaps open based on predicted no-shows', 'End-of-day reports generated automatically — coordinator reviews and flags anomalies'],
+    skills: ['Fill rate interpretation', 'No-show risk reading', 'Waitlist AI tools', 'Alert response', 'Data accuracy logging']
+  },
+  scheduling: {
+    icon: '📅', role: 'Scheduling Manager',
+    title: 'From Reactive Fixer to Proactive Optimizer',
+    before: ['Reviewed last week\'s schedule to plan this week\'s', 'Identified scheduling patterns through experience over years', 'Staffing adjustments made after problems became visible', 'No-show and fill rate metrics calculated manually from paper logs', 'Template-based scheduling with limited flexibility'],
+    after: ['AI generates predicted patient volume by day, time, and provider type up to 3 weeks ahead', 'System surfaces patterns (Monday spikes, holiday effects) automatically from 2+ years of data', 'Staffing recommendations generated before shortfalls occur — proactive not reactive', 'Real-time dashboards show fill rate, no-show rate, and wait times live throughout the day', 'AI suggests schedule template adjustments based on utilization patterns'],
+    skills: ['Predictive volume reading', 'AI staffing recommendations', 'Dashboard trend analysis', 'Schedule optimization data', 'Performance report interpretation']
+  },
+  billing: {
+    icon: '💰', role: 'Billing Specialist',
+    title: 'AI Is Now Your First Line of Claims Defense',
+    before: ['Submitted claims, then waited to see which were denied', 'Denial patterns identified through experience over many months', 'Manual coding audits done periodically', 'Revenue cycle tracked through monthly reports from accounting', 'Time-consuming appeals process handled reactively'],
+    after: ['AI flags claims with high denial probability before submission — billing specialist reviews and corrects', 'System identifies coding patterns that correlate with denials automatically', 'Real-time clean claim rate shown on billing dashboard', 'Revenue cycle metrics available daily — days to collection, denial rates, appeal outcomes', 'AI identifies payer-specific patterns: "Payer X denies 62% of claims with code Y — use code Z instead"'],
+    skills: ['Denial risk flag reading', 'Clean claim rate tracking', 'Revenue cycle dashboards', 'Coding pattern alerts', 'Payer trend analysis']
+  },
+  office: {
+    icon: '🏥', role: 'Office / Practice Manager',
+    title: 'The Hub of Every Data Stream in the Practice',
+    before: ['Monthly financial report was the primary performance review tool', 'Staffing decisions based on experience and staff requests', 'Patient complaints were the main signal for service problems', 'Supply ordering done manually on a set schedule', 'Performance issues identified weeks after they occurred'],
+    after: ['Real-time operations dashboard shows all key metrics in one view — occupancy, wait times, fill rates, staff ratios', 'AI staffing forecasts allow proactive scheduling adjustments up to 2 weeks ahead', 'Patient satisfaction data tracked continuously — problems surface before they become complaints', 'AI inventory management flags supply needs before shortages develop', 'Trend reports identify performance drift weeks earlier than monthly reports would'],
+    skills: ['Operations dashboard reading', 'Multi-metric analysis', 'AI forecasting tools', 'Performance trend interpretation', 'Cross-departmental data synthesis']
+  },
+  supply: {
+    icon: '📦', role: 'Supply Coordinator',
+    title: 'From Calendar-Based Ordering to Demand-Driven Intelligence',
+    before: ['Ordered supplies on a fixed weekly or monthly schedule', 'Estimated quantities based on experience and rough usage estimates', 'Shortages discovered when staff reported running out', 'No visibility into which departments were using what at what rate', 'Tracked inventory manually with spreadsheets or paper logs'],
+    after: ['AI tracks usage rates in real time and projects days-of-supply remaining for each item', 'System generates reorder alerts calibrated to vendor lead times — not calendar dates', 'Usage anomalies (sudden 40% spike in glove usage) flagged automatically for investigation', 'Department-level usage visible in dashboard — coordination between supply and clinical teams improved', 'AI suggests order quantities based on upcoming schedule demand (more supplies needed before high-volume procedure days)'],
+    skills: ['Usage rate reading', 'Lead-time alert interpretation', 'Inventory dashboard monitoring', 'Demand forecasting', 'Anomaly investigation']
+  }
+};
+
+function showRole(key) {
+  const r = roles[key];
+  document.querySelectorAll('.re-role-btn').forEach(b => b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  const beforeItems = r.before.map(i => `• ${i}`).join('<br>');
+  const afterItems = r.after.map(i => `• ${i}`).join('<br>');
+  const skillTags = r.skills.map(s => `<span class="re-ds-tag">${s}</span>`).join('');
+  const el = document.getElementById('reDetail');
+  el.innerHTML = `
+    <div class="re-detail-header">
+      <div class="re-detail-icon">${r.icon}</div>
+      <div>
+        <div class="re-detail-role-name">${r.role}</div>
+        <div class="re-detail-title">${r.title}</div>
+      </div>
+    </div>
+    <div class="re-before-after">
+      <div class="re-before">
+        <div class="re-ba-label">📋 Before AI Tools</div>
+        <div class="re-ba-items">${beforeItems}</div>
+      </div>
+      <div class="re-after">
+        <div class="re-ba-label">🤖 With AI Tools Today</div>
+        <div class="re-ba-items">${afterItems}</div>
+      </div>
+    </div>
+    <div class="re-data-skills">
+      <div class="re-ds-label">📊 Data Skills This Role Now Requires</div>
+      <div class="re-ds-items">${skillTags}</div>
+    </div>`;
+  el.classList.add('visible');
+}
+
+const myths = [
+  {
+    myth: '"Data literacy is for IT people and analysts — not for administrative staff."',
+    reality: 'Administrative staff ARE the primary users of most healthcare operational data tools. IT people build and maintain the systems. Analysts run reports. But the front desk coordinator reads the no-show risk flag and decides whether to call the patient. The scheduling manager reviews the AI staffing recommendation and decides whether to add a shift. These are data literacy tasks performed by administrative staff, every single day.'
+  },
+  {
+    myth: '"I\'m not good at math, so data work isn\'t for me."',
+    reality: 'Data literacy in healthcare operations requires almost no math. It requires judgment: Does this number make sense? Is this trend going in the wrong direction? Does this AI recommendation match what I know about our situation? Those are critical thinking questions, not math problems. The tools do the calculations. You do the thinking.'
+  },
+  {
+    myth: '"The AI handles all the data stuff now — I just need to know how to use the software."',
+    reality: 'Knowing how to click through software is a basic requirement, not a skill. The actual value you provide is being able to evaluate what the software tells you. An AI that says "Thursday is 71% filled" is giving you information. Knowing whether that\'s a problem, why it happened, and what to do about it — that\'s data literacy. The AI can\'t do that part. You can.'
+  }
+];
+const mythContainer = document.getElementById('mythContainer');
+myths.forEach((m, i) => {
+  const el = document.createElement('div');
+  el.className = 'myth-item';
+  el.innerHTML = `
+    <div class="myth-trigger" onclick="toggleMyth(${i})">
+      <span class="myth-trigger-text">💬 "${m.myth}"</span>
+      <span class="myth-trigger-badge">Myth</span>
+    </div>
+    <div class="myth-body">
+      <div class="myth-myth">❌ The Myth: ${m.myth}</div>
+      <div class="myth-reality">✅ The Reality: ${m.reality}</div>
+    </div>`;
+  mythContainer.appendChild(el);
+});
+function toggleMyth(i) {
+  document.querySelectorAll('.myth-item').forEach((m, mi) => {
+    if (mi === i) m.classList.toggle('open');
+    else m.classList.remove('open');
+  });
+}
+
+function cq(btn, correct) {
+  if (document.querySelector('.qopt.correct') || document.querySelector('.qopt.wrong')) return;
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) document.querySelectorAll('.qopt').forEach(o => { if (o.textContent.includes('4x spike')) o.classList.add('correct'); });
+  const fb = document.getElementById('qfb');
+  fb.className = 'qfb show ' + (correct ? 'cfb' : 'wfb');
+  fb.textContent = correct
+    ? '✅ Exactly right. A 4x spike in denial flags — from 8% to 34% — is a significant anomaly that requires immediate investigation, not dismissal or delay. The billing specialist doesn\'t need to be a data analyst to recognize that this pattern is unusual and important. She should look for patterns in the flagged claims (same procedure code? same payer? same provider?), check whether there\'s been a recent payer policy update or a coding change, and escalate to her supervisor if she can\'t identify the cause. Waiting until the month-end report would mean submitting hundreds of likely-denied claims in the meantime. This is exactly the kind of proactive, data-aware action that separates effective billing staff from those who just process paperwork.'
+    : '❌ A 4x increase in denial flags is exactly the kind of anomaly that a data-literate billing specialist should investigate immediately — not ignore, not defer, and not treat as IT\'s responsibility. The billing specialist doesn\'t need technical training to recognize that 34% is dramatically higher than the usual 8%. That pattern recognition and the instinct to investigate is data literacy in action. Waiting until month-end would mean submitting hundreds of potentially flawed claims in the meantime.';
+}
+
+window.addEventListener('scroll', () => {
+  const e = document.documentElement;
+  document.getElementById('pb').style.width = ((e.scrollTop / (e.scrollHeight - e.clientHeight)) * 100) + '%';
+});
+const obs = new IntersectionObserver(entries => entries.forEach(e => {
+  if (e.isIntersecting) e.target.classList.add('visible');
+}), { threshold: .1 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
