@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Safe vs. Unsafe AI Use With Patient Data — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* Scenario judge */
+.judge-sim{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.js-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.js-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.js-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.js-scenario{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px;margin-bottom:12px;}
+.js-scene-header{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;}
+.js-scene-num{width:28px;height:28px;background:var(--purple);color:white;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;}
+.js-scene-text{font-size:15px;line-height:1.7;color:var(--gray-text);flex:1;}
+.js-buttons{display:flex;gap:8px;margin-top:10px;}
+.js-btn{padding:10px 20px;border-radius:10px;border:2px solid;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;}
+.js-btn.safe-btn{background:var(--white);border-color:var(--green);color:var(--green);}
+.js-btn.safe-btn:hover{background:var(--green-pale);}
+.js-btn.unsafe-btn{background:var(--white);border-color:var(--red);color:var(--red);}
+.js-btn.unsafe-btn:hover{background:var(--red-pale);}
+.js-btn.selected{opacity:1;}
+.js-btn.selected.correct{background:var(--green-pale);border-color:var(--green);}
+.js-btn.selected.wrong{background:var(--red-pale);border-color:var(--red);}
+.js-fb{font-size:13px;line-height:1.65;padding:10px 14px;border-radius:10px;margin-top:10px;display:none;}
+.js-fb.show{display:block;animation:fadeIn .3s ease;}
+.js-fb.safe-fb{background:var(--green-pale);color:var(--green);border:1px solid #86EFAC;}
+.js-fb.unsafe-fb{background:var(--red-pale);color:var(--red);border:1px solid #FCA5A5;}
+.js-score{background:var(--purple);color:white;border-radius:16px;padding:20px;text-align:center;margin-top:16px;display:none;}
+.js-score.show{display:block;animation:fadeIn .4s ease;}
+.js-score-num{font-family:'Fraunces',serif;font-size:44px;font-weight:900;}
+
+/* Decision framework */
+.framework{display:flex;flex-direction:column;gap:10px;margin:24px 0;}
+.fw-step{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start;}
+.fw-num{width:32px;height:32px;background:var(--purple);color:white;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;margin-top:2px;}
+.fw-body{flex:1;}
+.fw-q{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.fw-detail{font-size:13px;line-height:1.6;color:var(--gray-muted);}
+.fw-stop{background:var(--red-pale);border-radius:6px;padding:4px 10px;font-size:12px;font-weight:700;color:var(--red);display:inline-block;margin-top:4px;}
+.fw-continue{background:var(--green-pale);border-radius:6px;padding:4px 10px;font-size:12px;font-weight:700;color:var(--green);display:inline-block;margin-top:4px;}
+
+/* Quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 4.1 · Privacy Basics</div>
+  <h1>Safe vs. Unsafe AI Use With Patient Data: Real Scenarios Every Healthcare Worker Will Face</h1>
+  <p class="hero-sub">The line between safe and unsafe AI use with patient data isn't always obvious in the moment. This article builds your judgment with real scenarios — the kinds of situations you'll actually encounter on the job — and gives you a clear decision framework you can use every time.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Why This Isn't Always Obvious</h2>
+    <p>Most healthcare workers who make AI privacy mistakes aren't trying to break rules. They're trying to do their jobs well — and they encounter a situation where a quick, convenient AI tool seems like it would help. The tool looks legitimate. The task seems harmless. And the policy memo from six months ago didn't specifically address this exact situation.</p>
+    <p>That gap between "looks fine" and "actually fine" is where most violations happen. <mark>The goal of this article is to close that gap</mark> — not by making you memorize every possible scenario, but by building your instinct for recognizing when a line is being crossed.</p>
+    <div class="pull-quote"><p>The most important question is not "is this technically allowed?" It's "has this AI tool been evaluated, approved, and contracted for HIPAA compliance by my organization for this specific use?" If the answer isn't clearly yes — stop.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Test Your Judgment: Safe or Unsafe?</h2>
+    <p>Read each scenario and decide whether the AI use is safe or unsafe. You'll get detailed feedback on each one:</p>
+    <div class="judge-sim">
+      <div class="js-label">⚖️ Judgment Trainer</div>
+      <div class="js-title">Safe or Unsafe? You Decide.</div>
+      <div class="js-sub">These are based on real patterns observed in healthcare AI use. Click Safe ✅ or Unsafe 🚫 for each scenario.</div>
+      <div id="judgeScenarios"></div>
+      <div class="js-score" id="judgeScore">
+        <div class="js-score-num" id="judgeScoreNum"></div>
+        <div style="font-size:14px;opacity:.85;margin-top:4px;" id="judgeScoreMsg"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>A Decision Framework You Can Use Every Time</h2>
+    <p>When you're unsure whether a specific AI use with patient data is safe, work through these four questions in order. If you hit a "Stop" at any point, do not use that tool for that task:</p>
+    <div class="framework">
+      <div class="fw-step">
+        <div class="fw-num">1</div>
+        <div class="fw-body">
+          <div class="fw-q">Has my organization specifically approved this AI tool for use with patient data?</div>
+          <div class="fw-detail">This means IT and compliance have evaluated it, signed a Business Associate Agreement, and communicated approval to staff. "I found it online" and "a colleague recommended it" are not approval.</div>
+          <div class="fw-stop">No → STOP. Do not use with patient data.</div>
+          <div class="fw-continue">Yes → Continue to Question 2</div>
+        </div>
+      </div>
+      <div class="fw-step">
+        <div class="fw-num">2</div>
+        <div class="fw-body">
+          <div class="fw-q">Does my role give me legitimate access to the specific patient information this task requires?</div>
+          <div class="fw-detail">Even with an approved tool, you can only use patient data that your role authorizes you to access. The tool doesn't expand your access rights — it just provides a different interface for authorized data.</div>
+          <div class="fw-stop">No → STOP. Don't use PHI you don't have authorized access to.</div>
+          <div class="fw-continue">Yes → Continue to Question 3</div>
+        </div>
+      </div>
+      <div class="fw-step">
+        <div class="fw-num">3</div>
+        <div class="fw-body">
+          <div class="fw-q">Is the purpose of this AI use one that HIPAA's permitted purposes cover?</div>
+          <div class="fw-detail">Treating the patient, payment for care, and healthcare operations are permitted purposes. Marketing, research without proper authorization, and personal curiosity are not — regardless of which tool you use.</div>
+          <div class="fw-stop">No → STOP. Patient data cannot be used for this purpose.</div>
+          <div class="fw-continue">Yes → Continue to Question 4</div>
+        </div>
+      </div>
+      <div class="fw-step">
+        <div class="fw-num">4</div>
+        <div class="fw-body">
+          <div class="fw-q">Am I using only the minimum amount of patient information necessary for this specific task?</div>
+          <div class="fw-detail">Even if the tool is approved, your role is authorized, and the purpose is permitted — you should only include the PHI that the task actually requires. Don't include extra details "just in case."</div>
+          <div class="fw-stop">No → Reduce the PHI to what's actually needed.</div>
+          <div class="fw-continue">Yes → The use is safe to proceed.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A nurse is documenting a patient visit and wants to use an AI documentation tool. Her hospital has approved the tool and signed a BAA with the vendor. While dictating notes, she includes detailed information about the patient's mental health history, substance use background, and family social situation — information that came up in conversation but isn't directly relevant to the current visit (a routine blood pressure check). Is there a privacy concern?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">No — the tool is approved and she has legitimate access to the patient's record, so everything she documents is fine</button>
+        <button class="qopt" onclick="cq(this,true)">Yes — even with an approved tool, she should only document information relevant to the current visit; including sensitive details that aren't clinically necessary for this encounter violates the minimum necessary principle</button>
+        <button class="qopt" onclick="cq(this,false)">No — documentation is always a permitted purpose under HIPAA</button>
+        <button class="qopt" onclick="cq(this,false)">It depends on whether the patient mentioned those things voluntarily</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Safe AI use with patient data requires four things to all be true: the tool is organizationally approved, your role authorizes the access, the purpose is HIPAA-permitted, and you're using the minimum PHI necessary.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Most privacy violations with AI tools happen not from bad intent but from convenience — using an unapproved tool because it's faster, including more patient detail than the task requires, or assuming "I'm only helping the patient" makes any use appropriate.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>When in doubt, use the four-question framework. If you can't clearly answer "yes" to all four questions, stop and check with your supervisor or compliance team before proceeding.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const scenarios=[
+  {
+    text:'A care coordinator uses the hospital\'s approved AI clinical summary tool to generate a pre-visit summary for a patient appointment. The tool pulls from the patient\'s EHR and she reviews the output before the physician enters the room.',
+    isSafe:true,
+    safeFb:'✅ Safe. The tool is hospital-approved, the care coordinator\'s role authorizes access to pre-visit summaries, the purpose is patient care, and she reviews the output — which keeps humans in the accountability loop. This is exactly the responsible AI use model.',
+    unsafeFb:'This use is actually safe. Approved tool + authorized role + care purpose + human review = responsible AI use. The review step is important — it keeps the human accountable for what the AI produced.'
+  },
+  {
+    text:'A nurse is running behind on documentation and pastes a patient\'s name, diagnosis, and recent lab results into ChatGPT to help her draft a faster clinical note.',
+    isSafe:false,
+    safeFb:'This use is actually unsafe. ChatGPT is a public AI tool with no Business Associate Agreement with any healthcare organization. Entering any PHI — including a name and diagnosis — into a public AI tool is a HIPAA violation regardless of the intended use.',
+    unsafeFb:'🚫 Unsafe. ChatGPT is not a HIPAA-compliant, hospital-approved tool. Entering any PHI into it — name, diagnosis, lab results — is a violation. "Faster documentation" is not justification for using a non-approved system. The nurse should use only hospital-approved documentation tools, even if they take longer.'
+  },
+  {
+    text:'A billing specialist uses an AI-assisted coding tool that her hospital approved and trained her on. She enters the diagnosis codes and procedure codes from the physician\'s note to generate a claim.',
+    isSafe:true,
+    safeFb:'✅ Safe. The tool is hospital-approved, billing is a HIPAA-permitted purpose, the specialist is entering only the billing-relevant codes from her authorized role — not the full clinical record. This is appropriate minimum-necessary use with an approved tool.',
+    unsafeFb:'This use is actually safe. Approved tool + billing purpose + minimum necessary codes = appropriate use. The specialist is doing exactly what her role and the tool are designed for.'
+  },
+  {
+    text:'A medical assistant is curious whether a local celebrity has been seen at the clinic. She uses the EHR system to look up whether there is a patient record under that name.',
+    isSafe:false,
+    safeFb:'This is unsafe regardless of what tool is used. Accessing a patient\'s record out of personal curiosity — not for any treatment, payment, or operational purpose — is a HIPAA violation. EHR access logs record every record access, and this type of "curiosity lookup" is one of the most commonly disciplined violations.',
+    unsafeFb:'🚫 Unsafe — and one of the most serious HIPAA violations in terms of consequences. Curiosity is never a permitted purpose. Every EHR access is logged. Workers have been fired and faced criminal charges for accessing celebrity or public figure records without a treatment purpose. The AI or system used doesn\'t change the violation — the purpose is what matters.'
+  },
+  {
+    text:'A physician uses a hospital-approved AI transcription tool during a patient visit. After the visit, she reviews the AI-generated note, corrects two inaccuracies, and signs off before it enters the official record.',
+    isSafe:true,
+    safeFb:'✅ Safe — and the gold standard of responsible AI documentation use. Approved tool, appropriate purpose, human review, correction of errors, and official sign-off. This is exactly the "human-in-the-loop" workflow that makes AI documentation trustworthy.',
+    unsafeFb:'This use is actually the safest possible pattern. The physician is using an approved tool with human review and correction built in. This is the model all AI-assisted documentation should follow.'
+  },
+  {
+    text:'A hospital administrator shares a spreadsheet of 500 anonymized patient records with an AI analytics vendor to analyze appointment no-show patterns. The vendor has not signed a Business Associate Agreement.',
+    isSafe:false,
+    safeFb:'"Anonymized" doesn\'t automatically mean safe — and the BAA issue makes this clearly problematic. Even if the data appears de-identified, sharing it with a vendor that hasn\'t signed a BAA violates HIPAA. The hospital administrator should work with compliance to ensure proper de-identification under HIPAA standards and obtain a signed BAA before any data sharing.',
+    unsafeFb:'🚫 Unsafe on two counts. First, "anonymized" is not the same as HIPAA-compliant de-identification — patients can often be re-identified from combinations of data points. Second, and critically, any vendor handling patient data must sign a Business Associate Agreement. No BAA = no sharing, regardless of what the data looks like.'
+  }
+];
+
+let judgeAnswers=[];
+function buildJudge(){
+  const container=document.getElementById('judgeScenarios');
+  scenarios.forEach((s,i)=>{
+    const el=document.createElement('div');
+    el.className='js-scenario';
+    el.id='js'+i;
+    el.innerHTML=`
+      <div class="js-scene-header">
+        <div class="js-scene-num">${i+1}</div>
+        <div class="js-scene-text">${s.text}</div>
+      </div>
+      <div class="js-buttons">
+        <button class="js-btn safe-btn" onclick="judgeIt(${i},true)">✅ Safe</button>
+        <button class="js-btn unsafe-btn" onclick="judgeIt(${i},false)">🚫 Unsafe</button>
+      </div>
+      <div class="js-fb" id="jsfb${i}"></div>`;
+    container.appendChild(el);
+  });
+}
+buildJudge();
+
+function judgeIt(i,calledSafe){
+  if(judgeAnswers[i]!==undefined)return;
+  judgeAnswers[i]=calledSafe;
+  const correct=calledSafe===scenarios[i].isSafe;
+  const btns=document.querySelectorAll(`#js${i} .js-btn`);
+  btns.forEach(b=>b.disabled=true);
+  const clickedBtn=calledSafe?btns[0]:btns[1];
+  clickedBtn.classList.add('selected',correct?'correct':'wrong');
+  const fb=document.getElementById('jsfb'+i);
+  fb.textContent=calledSafe ? scenarios[i].safeFb : scenarios[i].unsafeFb;
+  fb.className='js-fb show '+(scenarios[i].isSafe?'safe-fb':'unsafe-fb');
+  if(judgeAnswers.filter(a=>a!==undefined).length===scenarios.length){
+    const score=judgeAnswers.filter((a,i)=>a===scenarios[i].isSafe).length;
+    document.getElementById('judgeScoreNum').textContent=score+'/'+scenarios.length;
+    const msgs=['Review the scenarios you missed carefully — the patterns there are the most commonly misunderstood in real healthcare settings.','Strong performance — one scenario to review. Look at what made it different from your expectation.','Near-perfect. One edge case to examine — these distinctions matter in practice.','Perfect score — you have a solid instinct for safe vs. unsafe AI use with patient data.'];
+    document.getElementById('judgeScoreMsg').textContent=msgs[Math.min(score,4)-1]||msgs[0];
+    document.getElementById('judgeScore').classList.add('show');
+  }
+}
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){
+    fb.className='qfb show cfb';
+    fb.textContent='✅ Correct. Tool approval doesn\'t override the minimum necessary standard. A routine blood pressure visit doesn\'t require the patient\'s full mental health history, substance use background, and family social situation in the documentation — those details aren\'t clinically necessary for this encounter. Including them creates an unnecessarily detailed record of sensitive information that wasn\'t the purpose of the visit. The approved tool is fine; the scope of information included needs to match the actual clinical need.';
+  } else {
+    document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('minimum necessary'))o.classList.add('correct');});
+    fb.className='qfb show wfb';
+    fb.textContent='❌ "Approved tool" and "documented while talking to the patient" are not unlimited licenses. HIPAA\'s minimum necessary standard applies to documentation — the record should reflect what\'s clinically relevant for the specific encounter. A blood pressure check doesn\'t require a comprehensive social and mental health history in its notes. The concern isn\'t the tool — it\'s what the nurse chose to include.';
+  }
+}
+
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

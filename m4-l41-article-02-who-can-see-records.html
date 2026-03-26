@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Patient's Medical Record: Who Can See It, Who Can't, and What AI Changes — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* Record walkthrough */
+.record-sim{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.rs-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.rs-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.rs-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.record-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px;margin-bottom:4px;}
+.record-header{background:var(--purple);color:white;border-radius:10px;padding:10px 16px;margin-bottom:16px;}
+.record-header-title{font-size:15px;font-weight:700;}
+.record-header-sub{font-size:12px;opacity:.8;margin-top:2px;}
+.record-section{border:1.5px solid var(--purple-mid);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s;}
+.record-section:hover{border-color:var(--purple);background:var(--purple-pale);}
+.record-section.expanded{background:var(--purple-pale);border-color:var(--purple);}
+.rs-sec-header{display:flex;justify-content:space-between;align-items:center;}
+.rs-sec-title{font-size:14px;font-weight:700;color:var(--purple-dark);}
+.rs-sec-tag{font-size:11px;font-weight:700;text-transform:uppercase;padding:3px 8px;border-radius:6px;}
+.rs-sec-tag.phi{background:var(--purple-pale);color:var(--purple);border:1px solid var(--purple-mid);}
+.rs-sec-body{display:none;margin-top:10px;font-size:13px;line-height:1.7;color:var(--gray-text);}
+.record-section.expanded .rs-sec-body{display:block;}
+.rs-who-can-see{margin-top:8px;}
+.rs-who-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);margin-bottom:4px;}
+.rs-who-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.rs-who-item{font-size:12px;padding:6px 10px;border-radius:6px;display:flex;align-items:center;gap:6px;}
+.rs-who-item.yes{background:var(--green-pale);color:var(--green);}
+.rs-who-item.no{background:var(--red-pale);color:var(--red);}
+
+/* Access flow */
+.access-flow{display:flex;flex-direction:column;gap:0;margin:24px 0;position:relative;}
+.access-flow::before{content:'';position:absolute;left:21px;top:42px;bottom:42px;width:3px;background:var(--purple-mid);}
+.af-step{display:flex;gap:20px;padding-bottom:20px;position:relative;}
+.af-dot{width:44px;height:44px;border-radius:50%;background:var(--purple);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;position:relative;z-index:1;}
+.af-body{flex:1;padding-top:6px;}
+.af-title{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.af-desc{font-size:14px;line-height:1.65;color:var(--gray-text);}
+.af-ai-note{background:var(--purple-pale);border-radius:8px;padding:8px 12px;font-size:13px;color:var(--purple-dark);margin-top:6px;}
+
+/* Minimum necessary */
+.mn-example{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px;margin:16px 0;}
+.mn-scenario{font-size:14px;font-weight:600;color:var(--purple-dark);margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--purple-mid);}
+.mn-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.mn-col{border-radius:10px;padding:12px 14px;}
+.mn-col.too-much{background:var(--red-pale);border:1.5px solid #FCA5A5;}
+.mn-col.just-right{background:var(--green-pale);border:1.5px solid #86EFAC;}
+.mn-col-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
+.mn-col.too-much .mn-col-label{color:var(--red);}
+.mn-col.just-right .mn-col-label{color:var(--green);}
+.mn-col-text{font-size:13px;line-height:1.6;color:var(--gray-text);}
+
+/* Quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.rs-who-grid{grid-template-columns:1fr;}.mn-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 4.1 · Privacy Basics</div>
+  <h1>Your Patient's Medical Record: Who Can See It, Who Can't, and What AI Changes</h1>
+  <p class="hero-sub">A patient's medical record contains some of the most sensitive information in their life. Understanding exactly who has legitimate access to it — and what changes when AI tools get involved — is one of the most practical privacy skills you can have.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>The "Need to Know" Principle</h2>
+    <p>The single most important concept governing who can access a patient's record is this: <mark>access to patient information should be limited to what is necessary for the specific purpose being served.</mark> HIPAA calls this the "minimum necessary" standard.</p>
+    <p>This means that even within a healthcare organization, not every employee can see every record. A billing specialist needs financial information — but not detailed clinical notes. A receptionist needs scheduling information — but not lab results. An emergency room nurse needs urgent medical history — but not a patient's mental health records from another facility unless it's directly relevant.</p>
+    <p>The "need to know" principle sounds simple, but it's one of the most commonly violated privacy standards in healthcare — and one of the most critical to understand when AI tools expand the reach of patient data.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Walk Through a Real Patient Record</h2>
+    <p>Let's look at a single patient record and examine who can legitimately access each section — and why. Click each section to expand it:</p>
+    <div class="record-sim">
+      <div class="rs-label">🗂️ Record Walkthrough</div>
+      <div class="rs-title">Patient: Maria Chen · DOB: March 12, 1978</div>
+      <div class="rs-sub">Click each section of the record to see who has legitimate access and what HIPAA says about each type of information.</div>
+      <div class="record-card">
+        <div class="record-header">
+          <div class="record-header-title">🏥 Valley Medical Center — Electronic Health Record</div>
+          <div class="record-header-sub">Record created: January 15, 2024 · Status: Active</div>
+        </div>
+        <div id="recordSections"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>How Access Flows Through a Healthcare Visit</h2>
+    <p>During a single patient visit, a record may be touched by multiple people — each with a different legitimate purpose. Here's how that access chain works, and where AI now enters the picture:</p>
+    <div class="access-flow">
+      <div class="af-step">
+        <div class="af-dot">1</div>
+        <div class="af-body">
+          <div class="af-title">Check-in / Front Desk</div>
+          <div class="af-desc">The front desk staff accesses name, insurance information, and appointment history — enough to verify identity and confirm coverage. They do not need clinical notes or diagnosis history to do their job.</div>
+          <div class="af-ai-note">🤖 AI here: Scheduling systems may automatically pull appointment history and insurance details. This is appropriate — but AI tools should only surface what staff need for check-in, not the full record.</div>
+        </div>
+      </div>
+      <div class="af-step">
+        <div class="af-dot">2</div>
+        <div class="af-body">
+          <div class="af-title">Medical Assistant / Nurse</div>
+          <div class="af-desc">Takes vitals, reviews recent visit summaries, and updates the record with today's measurements. Needs enough history to identify trends and flag concerns — but typically not billing details or records from unrelated specialists.</div>
+          <div class="af-ai-note">🤖 AI here: Clinical AI tools may surface relevant history or flag abnormal vitals. The MA or nurse should review what the AI surfaced and confirm it's clinically relevant before passing it to the physician.</div>
+        </div>
+      </div>
+      <div class="af-step">
+        <div class="af-dot">3</div>
+        <div class="af-body">
+          <div class="af-title">Physician / Provider</div>
+          <div class="af-desc">Has the broadest legitimate access — needs full medical history, medications, allergies, prior diagnoses, and test results to provide accurate diagnosis and treatment. Still does not need billing account numbers or insurance plan details.</div>
+          <div class="af-ai-note">🤖 AI here: AI documentation tools draft clinical notes from voice or text input. The physician must review and sign off on any AI-generated documentation — they remain responsible for the accuracy of everything in the record.</div>
+        </div>
+      </div>
+      <div class="af-step">
+        <div class="af-dot">4</div>
+        <div class="af-body">
+          <div class="af-title">Billing / Coding Staff</div>
+          <div class="af-desc">Needs diagnosis codes, procedure codes, and insurance information to process the claim. Does not need detailed clinical notes, mental health records, substance use history, or other sensitive clinical details.</div>
+          <div class="af-ai-note">🤖 AI here: AI coding tools automatically extract billing codes from clinical notes — which means AI may surface sensitive clinical details during the billing process. Organizations must ensure these tools only pass forward what billing staff need.</div>
+        </div>
+      </div>
+      <div class="af-step">
+        <div class="af-dot">5</div>
+        <div class="af-body">
+          <div class="af-title">Outside Providers / Specialists</div>
+          <div class="af-desc">Can receive records only for the specific purpose of treating the patient — and only the portions relevant to that treatment. A cardiologist receiving a referral needs cardiology-relevant history, not the patient's complete psychiatric record.</div>
+          <div class="af-ai-note">🤖 AI here: Interoperability AI that shares records across health systems must be configured to share only what's relevant for the specific referral — not the entire record. This is a configuration responsibility, not just a worker responsibility.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Minimum Necessary Standard in Practice</h2>
+    <p>HIPAA's "minimum necessary" rule means you should only access, use, or share the amount of patient information actually needed for the specific task you're doing. Here's how that plays out in real situations:</p>
+
+    <div class="mn-example">
+      <div class="mn-scenario">Scenario: A billing coordinator needs to verify a patient's insurance for an upcoming appointment.</div>
+      <div class="mn-grid">
+        <div class="mn-col too-much">
+          <div class="mn-col-label">❌ More Than Necessary</div>
+          <div class="mn-col-text">Opening the patient's full electronic health record — viewing clinical notes, diagnosis history, medications, and mental health records — to find the insurance card photo attached to the chart.</div>
+        </div>
+        <div class="mn-col just-right">
+          <div class="mn-col-label">✅ Minimum Necessary</div>
+          <div class="mn-col-text">Accessing only the insurance/billing section of the record, which contains the insurance card, plan number, and coverage verification — nothing clinical.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mn-example">
+      <div class="mn-scenario">Scenario: An AI documentation tool generates a discharge summary for a patient leaving the hospital.</div>
+      <div class="mn-grid">
+        <div class="mn-col too-much">
+          <div class="mn-col-label">❌ More Than Necessary</div>
+          <div class="mn-col-text">The AI automatically pulls the patient's entire record — including a separate mental health intake from three years ago — and includes it in the discharge summary shared with the patient's primary care doctor and family members.</div>
+        </div>
+        <div class="mn-col just-right">
+          <div class="mn-col-label">✅ Minimum Necessary</div>
+          <div class="mn-col-text">The AI generates a summary of the current hospitalization. The clinician reviews it and removes any information that isn't relevant to the current discharge and the receiving provider's role.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pull-quote"><p>The minimum necessary standard applies to AI outputs just as much as human actions. If an AI tool surfaces more information than the current task requires, the healthcare worker must catch that — and not pass it forward.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A receptionist at a dental office is using an AI scheduling tool that, when she books a patient appointment, automatically displays the patient's full medical history including diagnoses and medication list alongside the scheduling screen. She doesn't need this information to schedule the appointment. What should she do?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Nothing — the AI is just being helpful and the information is already visible</button>
+        <button class="qopt" onclick="cq(this,false)">Review the medical history to make sure there's nothing that would affect scheduling</button>
+        <button class="qopt" onclick="cq(this,true)">Avoid reading the clinical information she doesn't need, and report to her supervisor that the AI tool is displaying more PHI than necessary for the scheduling function</button>
+        <button class="qopt" onclick="cq(this,false)">Use the information to prepare notes for the dentist before the appointment</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Access to patient records follows the "need to know" and "minimum necessary" principles — each person should access only the information required for their specific role and task, nothing more.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI tools can expand access to patient information in ways healthcare workers don't always notice — surfacing more data than needed, combining records across departments, or routing clinical information to billing staff. Workers must apply the minimum necessary standard to AI outputs, not just their own actions.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>When an AI tool shows you more patient information than your role requires, the right response is to avoid using that excess information and report the configuration issue — not to take advantage of the access.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const sections=[
+  {
+    title:'Demographics & Contact Information',
+    tag:'PHI',
+    content:'Name, date of birth, address, phone number, email, emergency contact. This is the most basic identifying information in the record.',
+    who:[
+      {role:'Front Desk / Scheduling',access:true},
+      {role:'Treating Physicians',access:true},
+      {role:'Nursing Staff',access:true},
+      {role:'Billing / Insurance',access:true},
+      {role:'Marketing Team',access:false},
+      {role:'Employer',access:false},
+      {role:'Family Members (without authorization)',access:false},
+      {role:'Other Patients',access:false}
+    ]
+  },
+  {
+    title:'Medical History & Active Diagnoses',
+    tag:'PHI',
+    content:'Current and past diagnoses, chronic conditions, surgical history, allergies, and immunizations. This is the clinical backbone of the record.',
+    who:[
+      {role:'Treating Physicians',access:true},
+      {role:'Nursing Staff (as relevant)',access:true},
+      {role:'Referred Specialists (relevant portions)',access:true},
+      {role:'Front Desk Staff',access:false},
+      {role:'Billing Staff (codes only, not full notes)',access:false},
+      {role:'Employer',access:false},
+      {role:'Family Members (without authorization)',access:false},
+      {role:'Life / Disability Insurers',access:false}
+    ]
+  },
+  {
+    title:'Mental Health & Substance Use Records',
+    tag:'PHI — Extra Protection',
+    content:'Mental health diagnoses, therapy notes, substance use treatment records. These carry ADDITIONAL protections under federal law (42 CFR Part 2 for substance use) — stricter than standard HIPAA.',
+    who:[
+      {role:'Mental Health Treatment Team',access:true},
+      {role:'Treating Physician (with patient consent)',access:true},
+      {role:'General Nursing Staff',access:false},
+      {role:'Billing / Coding Staff',access:false},
+      {role:'Other Specialists (without specific consent)',access:false},
+      {role:'AI Documentation Tools',access:false},
+      {role:'Employer',access:false},
+      {role:'Family Members (without specific authorization)',access:false}
+    ]
+  },
+  {
+    title:'Lab Results & Diagnostic Reports',
+    tag:'PHI',
+    content:'Blood tests, imaging results (X-ray, MRI, CT), pathology reports, and other diagnostic findings.',
+    who:[
+      {role:'Ordering Physician',access:true},
+      {role:'Treating Care Team',access:true},
+      {role:'Referred Specialists (relevant results)',access:true},
+      {role:'Patient themselves',access:true},
+      {role:'Front Desk / Scheduling Staff',access:false},
+      {role:'Billing Staff (codes only)',access:false},
+      {role:'Employer',access:false},
+      {role:'School / Educational Institution',access:false}
+    ]
+  },
+  {
+    title:'Insurance & Billing Information',
+    tag:'PHI',
+    content:'Insurance plan details, account numbers, claim history, payment records, and balance information.',
+    who:[
+      {role:'Billing / Coding Staff',access:true},
+      {role:'Insurance Plans (for claims processing)',access:true},
+      {role:'Patient themselves',access:true},
+      {role:'Treating Physicians (plan coverage only)',access:true},
+      {role:'Clinical Staff beyond treating team',access:false},
+      {role:'Employer (except for self-funded plans)',access:false},
+      {role:'Marketing Team',access:false},
+      {role:'Other Patients',access:false}
+    ]
+  }
+];
+
+function buildRecord(){
+  const container=document.getElementById('recordSections');
+  sections.forEach((s,i)=>{
+    const el=document.createElement('div');
+    el.className='record-section';
+    el.id='rs'+i;
+    const whoItems=s.who.map(w=>`<div class="rs-who-item ${w.access?'yes':'no'}">${w.access?'✅':'🚫'} ${w.role}</div>`).join('');
+    el.innerHTML=`
+      <div class="rs-sec-header">
+        <div class="rs-sec-title">📄 ${s.title}</div>
+        <div class="rs-sec-tag phi">${s.tag}</div>
+      </div>
+      <div class="rs-sec-body">
+        <p style="font-size:14px;line-height:1.65;margin-bottom:10px;">${s.content}</p>
+        <div class="rs-who-can-see">
+          <div class="rs-who-label">Access by Role</div>
+          <div class="rs-who-grid">${whoItems}</div>
+        </div>
+      </div>`;
+    el.onclick=()=>el.classList.toggle('expanded');
+    container.appendChild(el);
+  });
+}
+buildRecord();
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){
+    fb.className='qfb show cfb';
+    fb.textContent='✅ Correct. The receptionist\'s role does not require clinical information to schedule an appointment. Under the minimum necessary standard, she should not read information she doesn\'t need — even if it\'s visible on her screen. More importantly, the fact that a scheduling AI is displaying clinical PHI to a non-clinical staff member is a configuration problem that should be reported. The AI tool is surfacing more information than the role requires, which is a privacy risk that needs to be addressed at the system level.';
+  } else {
+    document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('Avoid reading'))o.classList.add('correct');});
+    fb.className='qfb show wfb';
+    fb.textContent='❌ "The AI is just being helpful" doesn\'t override the minimum necessary standard. A receptionist\'s access to clinical PHI — even if it appeared automatically — creates a privacy risk. The right action is both to avoid reading information she doesn\'t need AND to flag the issue: an AI scheduling tool should not display clinical history to scheduling staff. Reviewing clinical information for scheduling purposes, or using it to prepare notes, are both examples of accessing more PHI than the role requires.';
+  }
+}
+
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
