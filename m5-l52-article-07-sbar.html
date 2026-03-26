@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SBAR: The Communication Framework Every Healthcare Worker Should Know — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,56px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--purple-dark);margin-bottom:16px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* SBAR big display */
+.sbar-display{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0;}
+.sbar-card{border-radius:20px;padding:22px;text-align:center;}
+.sbar-card.s{background:#EDE9FE;border:2px solid #C4B5FD;}
+.sbar-card.b{background:var(--purple-pale);border:2px solid var(--purple-mid);}
+.sbar-card.a{background:var(--green-pale);border:2px solid #86EFAC;}
+.sbar-card.r{background:var(--orange-pale);border:2px solid #FDE68A;}
+.sc-letter{font-family:'Fraunces',serif;font-size:52px;font-weight:900;line-height:1;margin-bottom:6px;}
+.sbar-card.s .sc-letter{color:#7C3AED;}
+.sbar-card.b .sc-letter{color:var(--purple);}
+.sbar-card.a .sc-letter{color:var(--green);}
+.sbar-card.r .sc-letter{color:var(--orange);}
+.sc-word{font-size:15px;font-weight:700;margin-bottom:8px;}
+.sbar-card.s .sc-word{color:#5B21B6;}
+.sbar-card.b .sc-word{color:var(--purple-dark);}
+.sbar-card.a .sc-word{color:var(--green);}
+.sbar-card.r .sc-word{color:#92400E;}
+.sc-desc{font-size:12px;line-height:1.55;color:var(--gray-text);}
+
+/* SBAR builder */
+.sbar-builder{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.sb2-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.sb2-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.sb2-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.builder-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.bt-tab{padding:8px 16px;border-radius:10px;border:1.5px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.bt-tab.active{background:var(--purple);border-color:var(--purple);color:white;}
+.builder-content{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:22px;}
+.bc-scenario{background:var(--orange-pale);border-left:4px solid var(--orange);padding:12px 16px;border-radius:0 10px 10px 0;font-size:14px;line-height:1.7;margin-bottom:16px;}
+.bc-sbar{display:flex;flex-direction:column;gap:10px;}
+.bc-section{border-radius:12px;padding:14px 16px;}
+.bc-section.s{background:#EDE9FE;}
+.bc-section.b{background:var(--purple-pale);}
+.bc-section.a{background:var(--green-pale);}
+.bc-section.r{background:var(--orange-pale);}
+.bcs-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
+.bc-section.s .bcs-label{color:#7C3AED;}
+.bc-section.b .bcs-label{color:var(--purple);}
+.bc-section.a .bcs-label{color:var(--green);}
+.bc-section.r .bcs-label{color:#92400E;}
+.bcs-text{font-size:14px;line-height:1.65;color:var(--gray-text);}
+.bc-ai-note{background:var(--gray-soft);border-radius:10px;padding:10px 14px;margin-top:12px;font-size:13px;color:var(--purple-dark);}
+
+/* What AI misses in SBAR */
+.ai-sbar-gaps{display:flex;flex-direction:column;gap:10px;margin:24px 0;}
+.asg-item{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:16px 20px;display:flex;gap:14px;}
+.asg-icon{font-size:22px;flex-shrink:0;}
+.asg-section{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:4px;}
+.asg-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.asg-desc{font-size:13px;line-height:1.55;color:var(--gray-text);}
+
+/* Quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.sbar-display{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 5.2 · Communication Skills</div>
+  <h1>SBAR: The Communication Framework Every Healthcare Worker Should Know — And How AI Fits Into It</h1>
+  <p class="hero-sub">SBAR is the gold-standard communication framework used in hospitals and clinics worldwide for handoffs, escalations, and urgent communication. Learning it now puts you ahead of most new healthcare workers — and knowing how AI interacts with it makes you even more prepared.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Why SBAR Exists</h2>
+    <p>Healthcare communication failures are one of the leading causes of preventable patient harm. Studies have found that miscommunication during patient handoffs — when one care team hands off responsibility for a patient to another — accounts for a significant percentage of medication errors, missed diagnoses, and adverse events.</p>
+    <p>SBAR was developed to solve this problem. It gives healthcare workers a <mark>consistent structure for communicating critical information</mark> — especially in urgent situations where the temptation is to ramble, skip context, or bury the most important point at the end. It originated in the U.S. Navy for nuclear submarines (where communication errors are catastrophic), and was adapted for healthcare by the Institute for Healthcare Improvement in the early 2000s.</p>
+    <p>Today it's used in hospitals, clinics, emergency departments, and long-term care facilities across the world. If you walk into your first healthcare job already knowing SBAR, you will immediately stand out.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Four Parts of SBAR</h2>
+    <div class="sbar-display">
+      <div class="sbar-card s"><div class="sc-letter">S</div><div class="sc-word">Situation</div><div class="sc-desc">What is happening right now? State the immediate concern clearly and briefly.</div></div>
+      <div class="sbar-card b"><div class="sc-letter">B</div><div class="sc-word">Background</div><div class="sc-desc">What is the relevant context? Patient history, current diagnosis, relevant recent events.</div></div>
+      <div class="sbar-card a"><div class="sc-letter">A</div><div class="sc-word">Assessment</div><div class="sc-desc">What do you think is going on? Your professional read on the situation.</div></div>
+      <div class="sbar-card r"><div class="sc-letter">R</div><div class="sc-word">Recommendation</div><div class="sc-desc">What do you need? What action are you requesting or recommending?</div></div>
+    </div>
+    <p>The power of SBAR is its structure. It forces the person communicating to lead with the most critical information (Situation), provide the context needed to understand it (Background), add professional interpretation (Assessment), and make a clear ask (Recommendation). The person receiving the communication doesn't have to hunt for what matters — it's always in the same place.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>See SBAR in Action: Three Real Healthcare Scenarios</h2>
+    <p>SBAR looks different depending on the situation. Click through to see how it applies to verbal handoffs, written escalations, and AI-assisted documentation:</p>
+    <div class="sbar-builder">
+      <div class="sb2-label">📋 SBAR in Practice</div>
+      <div class="sb2-title">See How SBAR Structures Real Communication</div>
+      <div class="sb2-sub">Each scenario shows how the same framework produces clear, actionable communication in different contexts.</div>
+      <div class="builder-tabs">
+        <button class="bt-tab active" onclick="showBuilder(0)">Nursing Handoff</button>
+        <button class="bt-tab" onclick="showBuilder(1)">Urgent Escalation</button>
+        <button class="bt-tab" onclick="showBuilder(2)">AI-Assisted Note</button>
+      </div>
+      <div id="builderContent"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What AI Can and Can't Do With SBAR</h2>
+    <p>AI tools are increasingly being used to draft SBAR communications — especially in documentation workflows. Here's where AI helps, and where human judgment is irreplaceable:</p>
+    <div class="ai-sbar-gaps">
+      <div class="asg-item"><div class="asg-icon">✅</div><div><div class="asg-section">S — Situation</div><div class="asg-title">AI can draft: AI is good at summarizing the immediate clinical fact</div><div class="asg-desc">If a patient's vitals are in the EHR, AI can generate "Patient presenting with blood pressure 168/102, heart rate 94." The data extraction is accurate. Review for accuracy and context.</div></div></div>
+      <div class="asg-item"><div class="asg-icon">✅</div><div><div class="asg-section">B — Background</div><div class="asg-title">AI can draft: AI can pull structured history from the record</div><div class="asg-desc">EHR-integrated AI can surface diagnosis history, medication list, and recent visits efficiently. Still needs review — AI may miss recent verbal discussions or context that isn't in the structured record.</div></div></div>
+      <div class="asg-item"><div class="asg-icon">⚠️</div><div><div class="asg-section">A — Assessment</div><div class="asg-title">AI should not own: Assessment requires clinical judgment</div><div class="asg-desc">AI can suggest possible interpretations based on patterns — but Assessment is the clinician's professional read on the situation. An AI's "assessment" is a suggestion to evaluate, not a conclusion to adopt. The human must own this section.</div></div></div>
+      <div class="asg-item"><div class="asg-icon">⚠️</div><div><div class="asg-section">R — Recommendation</div><div class="asg-title">AI should not own: Recommendations require accountability</div><div class="asg-desc">AI can surface standard protocol recommendations based on presenting symptoms — but the Recommendation is what you are specifically asking for from another healthcare professional. That ask carries professional accountability that AI cannot hold.</div></div></div>
+    </div>
+    <div class="pull-quote"><p>SBAR is a human communication framework. AI can help populate the data — but the judgment and the accountability always belong to the person signing the communication.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A nurse is using an AI tool that drafts SBAR summaries from EHR data. The AI generates an Assessment section that says "Patient likely experiencing medication side effects." The nurse isn't sure if this is accurate. What should she do?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Send the SBAR as-is — the AI's assessment is based on data and is probably right</button>
+        <button class="qopt" onclick="cq(this,false)">Delete the Assessment section entirely — AI shouldn't be involved in assessments</button>
+        <button class="qopt" onclick="cq(this,true)">Review the patient's record and form her own clinical assessment — the AI's suggestion can be a starting point, but the Assessment section must reflect the nurse's actual professional judgment, not the AI's guess</button>
+        <button class="qopt" onclick="cq(this,false)">Change the wording slightly to indicate it's an AI suggestion, then send it</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>SBAR — Situation, Background, Assessment, Recommendation — is the gold-standard clinical communication framework. It structures urgent communication so critical information is never buried and the receiver always knows what action is needed.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI can help draft the Situation and Background sections — where data from the EHR can be summarized accurately. Assessment and Recommendation require human clinical judgment and professional accountability that AI cannot hold.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Knowing SBAR before your first healthcare job is a genuine advantage. Every hospital uses it, every care team recognizes it, and every supervisor will notice when a new employee already communicates in the structure that reduces errors.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+const builders=[
+  {
+    title:'Nursing Shift Handoff',
+    scenario:'End of shift. A nurse is handing off care of a 67-year-old patient with diabetes whose blood glucose has been trending high all shift.',
+    s:'I\'m handing off Mr. Reyes, 67-year-old male in Room 214. His blood glucose has been elevated all shift — currently 248 mg/dL at 6pm.',
+    b:'Mr. Reyes is admitted for a diabetic foot wound. He\'s on a sliding scale insulin regimen. He ate his full dinner this evening. No insulin was held or missed today.',
+    a:'His glucose has been consistently above target range (goal: 80–180). This may be related to the stress response from the wound infection. He hasn\'t required extra correction doses today but may need one tonight.',
+    r:'Please monitor his 9pm glucose closely. If it\'s above 250, I\'d recommend checking in with the on-call provider about adjusting tonight\'s sliding scale.',
+    ainote:'An AI documentation tool could draft the S and B sections accurately from EHR data. The A section ("stress response from wound infection") and the R section (specific clinical recommendation) both require nursing judgment and should be written by the nurse, not accepted from AI without evaluation.'
+  },
+  {
+    title:'Urgent Escalation to Physician',
+    scenario:'A medical assistant notices a patient in the waiting room looks pale, is sweating, and is pressing on his chest. She needs to escalate to the physician immediately.',
+    s:'Dr. Chen, this is Maria at the front desk. We have a patient in the waiting room — Mr. Torres — who appears to be in distress. He\'s pale, diaphoretic, and holding his chest.',
+    b:'Mr. Torres is a 58-year-old patient who came in for a routine blood pressure check. He has a history of hypertension and is on lisinopril. He said he started feeling "not right" about 5 minutes ago.',
+    a:'This presentation — chest discomfort, sweating, pallor — is concerning for a possible cardiac event.',
+    r:'I\'m requesting you come to the waiting room immediately, or I can call 911 — what would you like me to do?',
+    ainote:'In an urgent verbal escalation like this, there\'s no time for AI assistance. SBAR works verbally because the structure is memorized — you don\'t need a tool. This is exactly why learning the framework matters, not just knowing that a framework exists.'
+  },
+  {
+    title:'AI-Assisted Written Escalation',
+    scenario:'A care coordinator reviewing AI-generated risk flag reports sees that a patient hasn\'t refilled a critical blood pressure medication in 45 days. She\'s drafting a message to the patient\'s care team.',
+    s:'Patient Margaret Wu (DOB 5/12/1958) has not refilled her amlodipine prescription in 45 days according to pharmacy records. She is at risk for uncontrolled hypertension.',
+    b:'Ms. Wu was prescribed amlodipine 5mg daily for Stage 2 hypertension. Her last fill was 45 days ago (30-day supply). Her most recent recorded BP (6 weeks ago) was 148/92. She has no documented care team contact in the past 6 weeks.',
+    a:'The medication gap strongly suggests she is not currently taking her antihypertensive. This is clinically significant given her Stage 2 diagnosis and elevated baseline BP.',
+    r:'Recommend outreach to Ms. Wu to assess whether she\'s experiencing barriers to refilling (cost, side effects, access). If unreachable by phone, a portal message with a refill link may be effective. Please advise if you\'d like me to initiate outreach.',
+    ainote:'The AI-generated risk flag provided the Situation data. The care coordinator used the EHR for Background. She wrote the Assessment (her professional read on the clinical significance) and the Recommendation herself — both required judgment about this specific patient. This is the "AI drafts, humans refine and own" model in action.'
+  },
+];
+let builderIdx=0;
+function showBuilder(i){builderIdx=i;document.querySelectorAll('.bt-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));renderBuilder();}
+function renderBuilder(){
+  const b=builders[builderIdx];
+  document.getElementById('builderContent').innerHTML=`<div class="builder-content">
+    <div class="bc-scenario"><strong>Scenario:</strong> ${b.scenario}</div>
+    <div class="bc-sbar">
+      <div class="bc-section s"><div class="bcs-label">S — Situation</div><div class="bcs-text">${b.s}</div></div>
+      <div class="bc-section b"><div class="bcs-label">B — Background</div><div class="bcs-text">${b.b}</div></div>
+      <div class="bc-section a"><div class="bcs-label">A — Assessment</div><div class="bcs-text">${b.a}</div></div>
+      <div class="bc-section r"><div class="bcs-label">R — Recommendation</div><div class="bcs-text">${b.r}</div></div>
+    </div>
+    <div class="bc-ai-note">🤖 <strong>AI note:</strong> ${b.ainote}</div>
+  </div>`;
+}
+renderBuilder();
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. The Assessment section of an SBAR is the clinician\'s professional interpretation — it carries clinical and potentially legal weight. "The AI said it might be medication side effects" is not a clinical assessment. The nurse must review the patient\'s record, apply her own clinical knowledge, and write an assessment that reflects her actual professional judgment. AI\'s suggestion is a starting point for her own thinking — not a conclusion to adopt and forward.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('professional judgment'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ Sending an AI assessment you aren\'t sure about is sending a professional clinical judgment you haven\'t made. Deleting it entirely misses the point — an Assessment is required in a proper SBAR. Labeling it as "AI suggestion" is better but still doesn\'t solve the problem: the receiving care team needs a professional assessment, not a flagged AI guess. The nurse needs to review the record and form her own view.';}
+}
+</script>
+</body>
+</html>

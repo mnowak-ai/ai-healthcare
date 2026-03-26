@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Written vs. Verbal Communication in Healthcare — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,56px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--purple-dark);margin-bottom:16px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* Comparison */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.cg-card{border-radius:20px;padding:24px;}
+.cg-card.written{background:var(--purple-pale);border:2px solid var(--purple-mid);}
+.cg-card.verbal{background:var(--green-pale);border:2px solid #86EFAC;}
+.cg-icon{font-size:32px;margin-bottom:10px;}
+.cg-title{font-size:16px;font-weight:700;margin-bottom:10px;}
+.cg-card.written .cg-title{color:var(--purple-dark);}
+.cg-card.verbal .cg-title{color:var(--green);}
+.cg-items{display:flex;flex-direction:column;gap:7px;}
+.cg-item{font-size:13px;line-height:1.55;display:flex;gap:8px;}
+
+/* Decision guide */
+.decision-guide{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.dg-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.dg-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.dg-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.dg-situations{display:flex;flex-direction:column;gap:10px;}
+.dg-situation{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start;}
+.dg-mode{width:80px;flex-shrink:0;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;text-align:center;padding:4px 6px;border-radius:8px;}
+.dg-mode.written{background:var(--purple-pale);color:var(--purple-dark);}
+.dg-mode.verbal{background:var(--green-pale);color:var(--green);}
+.dg-mode.both{background:var(--orange-pale);color:#92400E;}
+.dg-text{flex:1;}
+.dg-situation-title{font-size:14px;font-weight:700;color:var(--gray-text);margin-bottom:4px;}
+.dg-why{font-size:13px;color:var(--gray-muted);line-height:1.55;}
+
+/* AI and over-documentation */
+.ai-doc-warning{background:var(--orange-pale);border:2px solid #FDE68A;border-radius:20px;padding:24px;margin:24px 0;}
+.adw-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--orange);margin-bottom:10px;}
+.adw-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:#92400E;margin-bottom:10px;}
+.adw-text{font-size:15px;line-height:1.7;color:#78350F;}
+
+/* Scenario chooser */
+.scenario-pick{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.sp-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.sp-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.sp-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.sp-scenarios{display:flex;flex-direction:column;gap:12px;}
+.sp-item{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:16px 20px;}
+.sp-situation{font-size:15px;font-weight:600;color:var(--gray-text);margin-bottom:10px;}
+.sp-options{display:flex;gap:8px;flex-wrap:wrap;}
+.sp-opt{padding:8px 14px;border-radius:10px;border:2px solid var(--purple-mid);background:var(--white);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;color:var(--gray-muted);}
+.sp-opt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.sp-opt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.sp-opt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.sp-fb{font-size:13px;line-height:1.6;padding:10px 14px;border-radius:8px;margin-top:10px;display:none;}
+.sp-fb.show{display:block;animation:fadeIn .3s ease;}
+.sp-fb.good{background:var(--green-pale);color:var(--green);}
+.sp-fb.ok{background:var(--orange-pale);color:#92400E;}
+.sp-fb.bad{background:var(--red-pale);color:var(--red);}
+
+/* Quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.compare-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 5.2 · Communication Skills</div>
+  <h1>Written vs. Verbal Communication in Healthcare: When to Document and When to Just Talk</h1>
+  <p class="hero-sub">Not everything needs to be written down. And some things absolutely must be. Knowing the difference — especially when AI tools make writing faster and easier than ever — is a professional judgment skill that this article helps you develop.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Why This Isn't an Obvious Question</h2>
+    <p>In most workplaces, writing something down is considered more professional than saying it verbally. In healthcare, this isn't always true — and getting it wrong in either direction creates real problems.</p>
+    <p><mark>Over-documentation creates a false record, legal risk, and a chart so cluttered with irrelevant information that critical details get buried.</mark> Under-documentation leaves important decisions, patient communications, and safety events out of the record where they'll matter later.</p>
+    <p>AI tools complicate this further. When AI can generate documentation in seconds, there's a temptation to document everything — because it's so easy. But more documentation isn't always better documentation. Quality and appropriate placement matter more than volume.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What Each Mode Does Well</h2>
+    <div class="compare-grid">
+      <div class="cg-card written">
+        <div class="cg-icon">📝</div>
+        <div class="cg-title">Written Communication — Use When:</div>
+        <div class="cg-items">
+          <div class="cg-item" style="color:var(--purple-dark)">📋 A permanent record is needed (clinical events, decisions, patient communications)</div>
+          <div class="cg-item" style="color:var(--purple-dark)">📋 Multiple people need to receive the same information consistently</div>
+          <div class="cg-item" style="color:var(--purple-dark)">📋 The details are complex enough that spoken communication risks errors</div>
+          <div class="cg-item" style="color:var(--purple-dark)">📋 Legal, regulatory, or compliance documentation is required</div>
+          <div class="cg-item" style="color:var(--purple-dark)">📋 Consent was given or a care decision was made</div>
+        </div>
+      </div>
+      <div class="cg-card verbal">
+        <div class="cg-icon">🗣️</div>
+        <div class="cg-title">Verbal Communication — Use When:</div>
+        <div class="cg-items">
+          <div class="cg-item" style="color:var(--green)">💬 Urgency requires immediate clarity — don't wait to write it</div>
+          <div class="cg-item" style="color:var(--green)">💬 Emotional sensitivity makes a human voice more appropriate (difficult news, conflict)</div>
+          <div class="cg-item" style="color:var(--green)">💬 The topic is interpersonal (team dynamics, feedback, complaints)</div>
+          <div class="cg-item" style="color:var(--green)">💬 Quick coordination where a record doesn't add value</div>
+          <div class="cg-item" style="color:var(--green)">💬 Written communication would be misread as more formal/serious than intended</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Decision Guide: What Mode for What Situation?</h2>
+    <p>Here's a practical guide to the most common healthcare communication situations — and which mode serves each one best:</p>
+    <div class="decision-guide">
+      <div class="dg-label">📊 Communication Mode Guide</div>
+      <div class="dg-title">What Situation Calls for What Mode?</div>
+      <div class="dg-sub">These are real decisions healthcare workers make every day.</div>
+      <div class="dg-situations">
+        <div class="dg-situation"><div class="dg-mode written">Write It</div><div class="dg-text"><div class="dg-situation-title">Patient gave verbal consent to a procedure</div><div class="dg-why">Consent must be documented. If consent isn't in the record, legally it didn't happen. Write a brief note capturing that consent was obtained, what was explained, and that the patient agreed.</div></div></div>
+        <div class="dg-situation"><div class="dg-mode verbal">Say It</div><div class="dg-text"><div class="dg-situation-title">A coworker made a small mistake that's easy to fix and hasn't harmed anyone</div><div class="dg-why">A quick, private verbal conversation is almost always better than an email trail for minor interpersonal issues. Written feedback on minor mistakes can feel like an attack and damage working relationships unnecessarily.</div></div></div>
+        <div class="dg-situation"><div class="dg-mode written">Write It</div><div class="dg-text"><div class="dg-situation-title">A patient was informed of a new diagnosis</div><div class="dg-why">Clinical discussions with patients about new diagnoses, treatment decisions, and what was explained need to be in the record. "Patient was informed of Type 2 Diabetes diagnosis, treatment options discussed, follow-up scheduled" — brief, but legally essential.</div></div></div>
+        <div class="dg-situation"><div class="dg-mode verbal">Say It</div><div class="dg-text"><div class="dg-situation-title">You need to urgently escalate a patient safety concern</div><div class="dg-why">Verbal escalation is faster in urgent situations. Use SBAR to communicate clearly. Then document that you escalated and what response was given — but don't delay the escalation to write it first.</div></div></div>
+        <div class="dg-situation"><div class="dg-mode both">Both</div><div class="dg-text"><div class="dg-situation-title">A patient called with a question about their medications</div><div class="dg-why">Handle the conversation verbally (immediate response, appropriate tone). Then document the call in the patient record: who called, what was asked, what was communicated, and any follow-up needed. The verbal conversation serves the patient; the written note protects everyone.</div></div></div>
+        <div class="dg-situation"><div class="dg-mode verbal">Say It</div><div class="dg-text"><div class="dg-situation-title">You have feedback for a colleague about their communication style</div><div class="dg-why">Feedback about interpersonal behavior belongs in a private conversation — not an email that can be forwarded, misread, or used later in a dispute. If it's serious enough to warrant formal documentation, it goes through HR processes, not casual emails.</div></div></div>
+        <div class="dg-situation"><div class="dg-mode written">Write It</div><div class="dg-text"><div class="dg-situation-title">You made or witnessed a medication error</div><div class="dg-why">Incident reports are mandatory documentation in healthcare. This is written — through the proper incident reporting system. Verbal-only acknowledgment of an error is not sufficient and protects no one.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The AI Over-Documentation Problem</h2>
+    <div class="ai-doc-warning">
+      <div class="adw-label">⚠️ The New Risk: AI Makes Writing Too Easy</div>
+      <div class="adw-title">When "Document Everything" Becomes a Problem</div>
+      <div class="adw-text">AI tools can generate documentation in seconds — which creates a temptation to document everything, because why not? But over-documentation creates serious problems in healthcare. Charts become cluttered with trivial information that buries critical data. Routine conversations get turned into formal records that create false impressions of their significance. Staff spend time reviewing AI-generated notes that didn't need to exist. And ironically, important information — buried in a sea of AI-generated documentation — becomes harder to find. The question isn't "can AI generate a note for this?" It's "does this actually need to be documented, and does the AI draft accurately capture what happened?"</div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Choose the Right Mode</h2>
+    <p>For each situation below, choose whether written, verbal, or both is the most appropriate response:</p>
+    <div class="scenario-pick">
+      <div class="sp-label">🎯 Communication Mode Practice</div>
+      <div class="sp-title">Written, Verbal, or Both?</div>
+      <div class="sp-sub">Choose the most appropriate mode for each situation.</div>
+      <div class="sp-scenarios" id="spScenarios"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="pull-quote"><p>AI makes documentation faster. It doesn't make every situation require documentation. Professional judgment — knowing when to write and when to talk — is still entirely yours to develop.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A care coordinator and a nurse have a quick hallway conversation about a patient's upcoming discharge. The care coordinator mentions a specific concern about the patient's home situation. No documentation is created. The next day, a different nurse has the patient — and doesn't know about the concern. What does this illustrate?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">That verbal communication is always risky and should be avoided in clinical settings</button>
+        <button class="qopt" onclick="cq(this,false)">That the first nurse should have sent an email to the second nurse directly</button>
+        <button class="qopt" onclick="cq(this,true)">That clinically relevant information discussed verbally must be documented to become part of the shared care record — verbal communication handles the immediate conversation, but the record protects continuity of care</button>
+        <button class="qopt" onclick="cq(this,false)">That the second nurse should have asked for a handoff briefing before starting the shift</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Written communication creates a permanent record — use it when a record is legally required, when consistency across multiple people matters, or when a clinical event needs to be documented. Verbal communication is faster and more human — use it for urgent escalations, sensitive interpersonal conversations, and situations where written communication would be disproportionate.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI makes documentation so easy that over-documentation is now a real risk. More documentation isn't always better — cluttered charts, irrelevant notes, and AI-generated records for conversations that didn't need documenting all reduce the quality of care information rather than improving it.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>For many situations, the answer is both: handle the immediate communication verbally (or by phone), then document it in the record to protect continuity of care. The verbal conversation serves the person; the written record serves the system.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+const spData=[
+  {situation:'A patient mentions during their visit that they\'ve been feeling depressed lately. The provider listens and responds. Should this be documented?',correct:'written',options:['Written','Verbal','Both'],fbs:{written:'✅ Correct. A patient disclosing mental health concerns during a clinical visit must be documented. This is clinically relevant information that affects their care, and it needs to be in the record for any future provider who cares for this patient.',verbal:'❌ Mental health disclosures during clinical visits are clinically significant and must be documented. "I listened to them" is not a substitute for a clinical note. If this patient has a crisis later, the record of this disclosure matters.',both:'Partially right — verbal was appropriate in the moment. But documentation is also required, making "both" closer to right than "verbal only." The verbal interaction happened; the written record needs to follow.'}},
+  {situation:'Two nurses need to coordinate who covers which patient rooms during a short break. They\'re standing next to each other.',correct:'verbal',options:['Written','Verbal','Both'],fbs:{written:'❌ Creating written documentation for a quick hallway coverage swap is over-documentation. It adds nothing to the care record and wastes time. This is exactly the kind of routine coordination that belongs as a brief verbal exchange.',verbal:'✅ Correct. Brief logistical coordination between staff present in the same space is exactly what verbal communication is for. Creating written records for every routine coverage conversation is over-documentation.',both:'This over-documents a trivial coordination. Both modes is appropriate when verbal communication needs to be followed by a formal record — but a break coverage arrangement between two nurses standing next to each other doesn\'t meet that threshold.'}},
+  {situation:'A patient calls the clinic to ask about a side effect of their new medication. The nurse answers the question and reassures them.',correct:'both',options:['Written','Verbal','Both'],fbs:{written:'Partially right — documentation is needed. But the conversation itself should be handled verbally (it\'s a phone call responding to a patient concern). The combination — verbal conversation now, written record after — is the right approach.',verbal:'❌ The verbal part was correct — of course the patient gets an immediate verbal answer. But clinically relevant patient calls should be documented in the record. What did they ask? What was told to them? Any follow-up needed? That becomes part of the care record.',both:'✅ Correct. Handle the immediate patient concern verbally — that\'s what they need right now. Then document the call: what the patient asked, what was communicated, and any follow-up needed. The verbal part serves the patient; the written note protects continuity of care.'}}
+];
+const spContainer=document.getElementById('spScenarios');
+const spAnswered={};
+spData.forEach((item,i)=>{
+  const div=document.createElement('div');
+  div.className='sp-item';
+  div.innerHTML=`<div class="sp-situation">${item.situation}</div>
+    <div class="sp-options">${item.options.map(o=>`<button class="sp-opt" onclick="pickMode(${i},'${o.toLowerCase()}',this)">${o}</button>`).join('')}</div>
+    <div class="sp-fb" id="spfb-${i}"></div>`;
+  spContainer.appendChild(div);
+});
+function pickMode(i,choice,btn){
+  if(spAnswered[i])return;
+  spAnswered[i]=true;
+  const item=spData[i];
+  const correct=choice===item.correct;
+  btn.classList.add(correct?'correct':'wrong');
+  if(!correct){btn.closest('.sp-item').querySelectorAll('.sp-opt').forEach(b=>{if(b.textContent.toLowerCase()===item.correct)b.classList.add('correct');});}
+  const fb=document.getElementById(`spfb-${i}`);
+  fb.textContent=item.fbs[choice]||'';
+  fb.className=`sp-fb show ${correct?'good':choice==='both'&&item.correct!=='both'?'ok':'bad'}`;
+}
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. This is the fundamental reason why "say it verbally" is often not enough in clinical settings. Verbal communication handles the immediate moment — but it doesn\'t enter the shared care record. The next person caring for this patient had no way to know about the concern. Clinically relevant information discussed verbally must be documented to protect continuity of care. The verbal conversation and the written record serve different purposes — and both are necessary.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('continuity of care'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ The problem isn\'t the communication mode — it\'s that clinically relevant information stayed verbal when it needed to become a written record. An email to the next nurse would have helped, but isn\'t the right mechanism (it\'s not in the care record either). A handoff briefing helps but depends on verbal transmission again. The right answer: document clinically relevant conversations so the information lives in the shared record, accessible to every provider who cares for the patient, regardless of whether they attended a specific conversation or handoff.';}
+}
+</script>
+</body>
+</html>

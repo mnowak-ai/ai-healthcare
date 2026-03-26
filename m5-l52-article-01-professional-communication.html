@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional Communication in Healthcare — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,58px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* Stakes cards */
+.stakes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0;}
+.stake{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:18px;text-align:center;}
+.stake-icon{font-size:28px;margin-bottom:8px;}
+.stake-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.stake-desc{font-size:13px;line-height:1.55;color:var(--gray-text);}
+
+/* The 4 principles */
+.principles{display:flex;flex-direction:column;gap:14px;margin:24px 0;}
+.principle{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px 24px;display:flex;gap:16px;align-items:flex-start;}
+.principle-num{width:36px;height:36px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:14px;font-weight:700;flex-shrink:0;margin-top:2px;}
+.principle-title{font-size:16px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.principle-desc{font-size:14px;line-height:1.65;color:var(--gray-text);}
+.principle-ai{font-size:12px;color:var(--purple);font-weight:600;background:var(--purple-pale);border-radius:6px;padding:4px 10px;margin-top:8px;display:inline-block;}
+
+/* Before/After transformer */
+.ba-sim{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.ba-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.ba-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ba-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.ba-tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.ba-tab{padding:8px 16px;border-radius:10px;border:1.5px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.ba-tab.active{background:var(--purple);border-color:var(--purple);color:white;}
+.ba-panel{display:none;animation:fadeIn .3s ease;}
+.ba-panel.active{display:block;}
+.ba-split{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.ba-side{border-radius:14px;padding:16px 18px;}
+.ba-side.before{background:var(--red-pale);border:1.5px solid #FECACA;}
+.ba-side.after{background:var(--green-pale);border:1.5px solid #86EFAC;}
+.ba-side-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.ba-side.before .ba-side-label{color:var(--red);}
+.ba-side.after .ba-side-label{color:var(--green);}
+.ba-text{font-size:13px;line-height:1.7;color:var(--gray-text);font-family:monospace;}
+.ba-analysis{background:var(--purple-pale);border-radius:10px;padding:12px 16px;margin-top:10px;font-size:13px;line-height:1.6;color:var(--purple-dark);}
+
+/* Common mistakes */
+.mistakes{display:flex;flex-direction:column;gap:10px;margin:24px 0;}
+.mistake{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;overflow:hidden;cursor:pointer;transition:border-color .2s;}
+.mistake:hover{border-color:var(--purple);}
+.mistake.open{border-color:var(--purple);}
+.mistake-header{padding:14px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;}
+.mistake-label{font-size:14px;font-weight:600;color:var(--gray-text);}
+.mistake-arrow{font-size:14px;transition:transform .2s;flex-shrink:0;}
+.mistake.open .mistake-arrow{transform:rotate(180deg);}
+.mistake-body{display:none;padding:0 18px 14px;border-top:1px solid var(--purple-mid);}
+.mistake.open .mistake-body{display:block;animation:fadeIn .25s ease;}
+.mb-why{font-size:14px;line-height:1.65;color:var(--gray-text);margin-top:10px;}
+.mb-fix{background:var(--green-pale);border-radius:8px;padding:10px 14px;margin-top:8px;font-size:13px;color:var(--green);}
+
+/* Quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.stakes{grid-template-columns:1fr;}.ba-split{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 5.2 · Communication Skills</div>
+  <h1>Professional Communication in Healthcare: Why Clarity Isn't Optional</h1>
+  <p class="hero-sub">In healthcare, unclear communication doesn't just cause confusion — it causes harm. Understanding what professional communication actually requires, and how AI tools change your responsibility for it, is foundational to everything in this lesson.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Communication Is a Clinical Skill</h2>
+    <p>Healthcare workers often think of "clinical skills" as the hands-on, technical things — drawing blood, taking vitals, operating equipment. But communication is also a clinical skill. <mark>Studies consistently show that a significant percentage of adverse healthcare events — medication errors, missed diagnoses, delayed treatments — are caused or worsened by communication failures, not clinical incompetence.</mark></p>
+    <p>When a nurse misinterprets a handoff note and the next shift starts with the wrong assumption about a patient's status, that's a communication failure. When a patient doesn't understand their discharge instructions and returns to the ER two days later, that's a communication failure. When a physician's order is ambiguous and a staff member makes the wrong inference, that's a communication failure.</p>
+    <p>AI tools can make communication faster — but they can also introduce new failure modes if the human review layer isn't solid. This lesson is about building that layer.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What's Actually at Stake When Communication Goes Wrong</h2>
+    <div class="stakes">
+      <div class="stake"><div class="stake-icon">🏥</div><div class="stake-title">Patient Safety</div><div class="stake-desc">Unclear instructions, missed commitments, and misattributed information directly affect what happens to patients. Communication failures are a leading cause of preventable harm.</div></div>
+      <div class="stake"><div class="stake-icon">⚖️</div><div class="stake-title">Legal Accountability</div><div class="stake-desc">Written healthcare communications become records. Inaccurate documentation, vague commitments, and unclear notes create liability — for you and your organization.</div></div>
+      <div class="stake"><div class="stake-icon">🤝</div><div class="stake-title">Professional Trust</div><div class="stake-desc">Healthcare teams run on trust. Workers who communicate clearly, accurately, and reliably become the ones colleagues and managers depend on most.</div></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Four Principles of Professional Healthcare Communication</h2>
+    <p>Professional communication in healthcare comes down to four principles that apply whether you're writing a patient message, completing a handoff note, sending a team email, or reviewing AI-generated content before distributing it:</p>
+    <div class="principles">
+      <div class="principle">
+        <div class="principle-num">1</div>
+        <div>
+          <div class="principle-title">Accuracy Over Speed</div>
+          <div class="principle-desc">In healthcare, getting it right matters more than getting it fast. A quick message with a wrong date, a wrong medication name, or a vague instruction creates more work — and more risk — than taking two more minutes to verify and clarify.</div>
+          <div class="principle-ai">🤖 AI relevance: AI is fast — but not always accurate. Your job is to catch the errors before they become the official record.</div>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">2</div>
+        <div>
+          <div class="principle-title">Specific, Not Vague</div>
+          <div class="principle-desc">Vague language invites misinterpretation. "Follow up soon" means different things to different people. "Schedule a follow-up appointment within 7 days" doesn't. In healthcare, the person acting on your communication may not be able to ask you to clarify — they need to be able to act on the words alone.</div>
+          <div class="principle-ai">🤖 AI relevance: AI-generated content often defaults to vague language. "The patient should return as needed" — when does that mean? Your review should catch and fix vagueness before it goes out.</div>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">3</div>
+        <div>
+          <div class="principle-title">Appropriate for the Audience</div>
+          <div class="principle-desc">A message to a physician uses different language than a message to a patient. Internal team communications can use medical terminology. Patient communications should use plain language — typically at a 6th–8th grade reading level. AI-generated content often defaults to clinical or formal language regardless of audience.</div>
+          <div class="principle-ai">🤖 AI relevance: Always check whether the tone and vocabulary match the actual reader. An AI draft written for a clinician may need significant simplification before it's appropriate for a patient.</div>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">4</div>
+        <div>
+          <div class="principle-title">Own What You Send</div>
+          <div class="principle-desc">The moment you put your name on a piece of healthcare communication — or send it from your account — you own it. Not the AI tool that drafted it. Not the software that generated the recommendation. You. Review everything before it goes anywhere with your name on it.</div>
+          <div class="principle-ai">🤖 AI relevance: "The AI wrote it" is not a professional defense if the content is wrong, inappropriate, or causes harm. You are always the author of record.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>See the Difference: Before and After Professional Review</h2>
+    <p>Click through to see real examples of how applying these four principles transforms a healthcare communication from problematic to professional:</p>
+    <div class="ba-sim">
+      <div class="ba-label">✏️ Before & After</div>
+      <div class="ba-title">What Professional Review Actually Does</div>
+      <div class="ba-sub">Compare the original (AI-drafted or first-draft) version with the improved professional version.</div>
+      <div class="ba-tabs">
+        <button class="ba-tab active" onclick="showBA(0)">Patient Message</button>
+        <button class="ba-tab" onclick="showBA(1)">Handoff Note</button>
+        <button class="ba-tab" onclick="showBA(2)">Care Team Email</button>
+      </div>
+      <div id="baContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Most Common Professional Communication Mistakes</h2>
+    <p>These patterns show up constantly in healthcare workplace communication — and in AI-generated drafts. Click each one to see why it's a problem and how to fix it:</p>
+    <div class="mistakes" id="mistakesContainer"></div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="pull-quote"><p>The professional who communicates with clarity, accuracy, and ownership is the person the team depends on when it matters most.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">An AI tool drafts a patient discharge message that says: "Please take your medications as instructed and follow up with your doctor when you feel it's necessary." A healthcare worker reviews it. What's the most important change to make before sending?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Change the tone — it sounds too casual for a healthcare organization</button>
+        <button class="qopt" onclick="cq(this,false)">Add more medical terminology so it sounds more professional</button>
+        <button class="qopt" onclick="cq(this,true)">Replace the vague instructions with specific ones: which medications, what doses, when — and give a specific timeframe for follow-up ("within 7 days" not "when you feel it's necessary")</button>
+        <button class="qopt" onclick="cq(this,false)">The message is fine — it covers the key points the patient needs</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Professional healthcare communication follows four principles: accuracy over speed, specific not vague, appropriate for the audience, and own what you send. Every AI-drafted communication needs to be reviewed through all four lenses before it goes anywhere.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI drafts are fast, but they default to vague language, clinical vocabulary regardless of audience, and they can't verify the accuracy of patient-specific details. Review is not optional — it's the professional skill that separates useful AI from harmful AI.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>When you send a healthcare communication, you own it — regardless of whether AI helped write it. The standard of professional accountability doesn't change because a tool was involved.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+const baExamples=[
+  {
+    label:'Patient discharge message',
+    before:`Dear Patient,\n\nThank you for your visit. Please take your medications as directed and follow up with your physician at your earliest convenience if your symptoms persist or worsen. Please do not hesitate to contact us should you require further assistance.\n\nBest regards,\n[Clinic Name]`,
+    after:`Dear Ms. Thompson,\n\nThank you for your visit today. Here's what you need to do:\n\n• Take Metformin 500mg twice daily with meals (morning and evening)\n• Take your blood pressure medication (Lisinopril 10mg) once each morning\n\nPlease schedule a follow-up appointment within 7 days — call (555) 234-5678 or use the patient portal. If your blood pressure exceeds 160/100 or you feel chest pain or shortness of breath, call us immediately or go to the ER.\n\nQuestions? Call us at (555) 234-5678 between 8am–5pm weekdays.\n\n— Dr. Patel's Care Team`,
+    analysis:'The original is vague on every key point: which medications? What doses? How soon is "earliest convenience"? What symptoms warrant contact? The revised version is specific on every actionable item, uses the patient\'s name, gives specific timeframes, and tells the patient exactly what to do in an emergency.'
+  },
+  {
+    label:'Shift handoff note',
+    before:`Bed 4 — Patient had a rough night. Pain levels elevated, gave something for it. Might need follow-up on labs. Family was concerned.`,
+    after:`Bed 4 — Rivera, Carlos (DOB 03/14/1952)\nPain: Reported 7/10 at 02:15. Administered Morphine 2mg IV at 02:20; reduced to 4/10 by 03:00.\nLabs: CBC from last evening pending — results expected by 0600. Flagged for AM review.\nFamily: Wife called at 23:30, concerned about discharge timeline. Advised Dr. Chen will speak with family at rounds. Contact: (555) 887-2341.`,
+    analysis:`The original has four critical failures: no patient identifier, no specific medication or dose, no lab specifics, no actionable family follow-up. The next shift can't reliably act on it. The revised version is specific on every point — anyone reading it knows exactly what happened and exactly what needs to happen next.`
+  },
+  {
+    label:'Care team email',
+    before:`Team,\n\nJust a heads up that we have a patient who needs some extra attention. Let's make sure someone checks in on them today. Also the supply order from last week still hasn't arrived, someone should look into that.\n\nThanks`,
+    after:`Team,\n\nTwo action items for today:\n\n1. PATIENT FOLLOW-UP — Room 7, Martinez (admitted Mon). Requested pain reassessment — no owner assigned yet. Need: one team member to reassess by 2pm today and document. [Will anyone own this? Reply to confirm.]\n\n2. SUPPLY ORDER — Order #4421 (Placed Tue, Oct 8) not received. Needs: someone to contact vendor by EOD today. Last contact was Sandra — Sandra, can you follow up?\n\nPlease reply to confirm who owns each item.\n\n— Marcus`,
+    analysis:`The original has no owners, no deadlines, and no specifics — nothing in it will reliably result in action. The revised version has two clearly separated issues, each with a named person being asked to own it, a specific deadline, and a request for confirmation. Professional communication assigns responsibility.`
+  }
+];
+
+let baIdx=0;
+function showBA(i){baIdx=i;document.querySelectorAll('.ba-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));renderBA();}
+function renderBA(){
+  const ex=baExamples[baIdx];
+  document.getElementById('baContainer').innerHTML=`<div class="ba-panel active">
+    <div class="ba-split">
+      <div class="ba-side before"><div class="ba-side-label">❌ Before — Problems Present</div><div class="ba-text">${ex.before.replace(/\n/g,'<br>')}</div></div>
+      <div class="ba-side after"><div class="ba-side-label">✅ After — Professional Standard</div><div class="ba-text">${ex.after.replace(/\n/g,'<br>')}</div></div>
+    </div>
+    <div class="ba-analysis">💡 <strong>What changed:</strong> ${ex.analysis}</div>
+  </div>`;
+}
+renderBA();
+
+const mistakes=[
+  {label:'"ASAP" and "soon" as deadlines',why:'These words mean different things to different people in different contexts. In a busy clinical setting, "ASAP" from one person might mean "in the next hour" while the reader interprets it as "sometime today." Missed deadlines from vague time language are common.',fix:'Always specify an actual time or date. "By 3pm today," "within 24 hours," or "before end of shift" — not "soon" or "when you get a chance."'},
+  {label:'Passive voice that hides the owner',why:'"The patient should be followed up with" — by whom? Passive constructions remove accountability. If nobody is named as responsible, nobody takes responsibility.',fix:'Name the person: "Dr. Chen will follow up with the patient at rounds." Active voice with a named owner creates real accountability.'},
+  {label:'Assuming the reader knows the context',why:'Healthcare teams are busy. The person reading your message may have handled 30 other patients since you last spoke. Never assume they remember the specific case, the prior conversation, or the background.',fix:'Include enough context for the communication to stand alone: patient name, room, relevant history, and what specifically you need.'},
+  {label:'Medical jargon in patient-facing messages',why:'AI tools often generate clinically accurate messages that patients can\'t understand. "Titrate your analgesic as needed" is meaningless to most patients. Confusion about instructions is a major cause of medication errors and missed follow-ups.',fix:'Read patient messages as if you\'ve never been to medical school. Replace clinical terms with plain equivalents: "pain medication" not "analgesic," "twice a day" not "BID."'},
+  {label:'Forwarding AI drafts without review',why:'The most common professional communication failure in AI-enabled workplaces. A quick AI draft gets forwarded because it "looks right" without the crucial check: are the patient-specific details actually correct?',fix:'Treat every AI draft as a first draft, not a final one. Check every name, date, medication, and instruction before it leaves your hands.'},
+];
+
+const mc=document.getElementById('mistakesContainer');
+mistakes.forEach(m=>{
+  const div=document.createElement('div');
+  div.className='mistake';
+  div.innerHTML=`<div class="mistake-header"><div class="mistake-label">⚠️ ${m.label}</div><div class="mistake-arrow">▼</div></div>
+    <div class="mistake-body">
+      <div class="mb-why">${m.why}</div>
+      <div class="mb-fix">✅ <strong>Fix:</strong> ${m.fix}</div>
+    </div>`;
+  div.onclick=()=>{const was=div.classList.contains('open');document.querySelectorAll('.mistake').forEach(d=>d.classList.remove('open'));if(!was)div.classList.add('open');};
+  mc.appendChild(div);
+});
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. Vagueness is the most dangerous quality in a healthcare patient communication. "Take your medications as instructed" assumes the patient remembers instructions they may have received while anxious or sedated. "Follow up when necessary" gives them no guidance on urgency. The professional standard: specific medications by name, specific doses, specific schedules, and a specific timeframe for follow-up. AI drafts consistently need this kind of specificity added during review.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('specific timeframe'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ Tone and vocabulary are secondary concerns here. The primary problem is that this message is vague in ways that directly affect patient safety: which medications? What doses? When should the follow-up happen? These aren\'t stylistic questions — they\'re safety questions. A message that\'s warm and professional but vague about actionable instructions is more dangerous than one that\'s formal but specific.';}
+}
+</script>
+</body>
+</html>

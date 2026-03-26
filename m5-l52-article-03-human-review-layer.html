@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Human Review Layer: Why Every AI-Generated Clinical Document Must Be Read Before It Goes Anywhere — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,58px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+</style>
+
+    <style>
+    .checklist{display:flex;flex-direction:column;gap:10px;margin:24px 0;}
+    .check-item{display:flex;gap:12px;padding:14px 18px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;cursor:pointer;transition:all .2s;}
+    .check-item:hover{border-color:var(--purple);}
+    .check-item.checked{background:var(--green-pale);border-color:var(--green);}
+    .check-box{width:22px;height:22px;border:2px solid var(--purple-mid);border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+    .check-item.checked .check-box{background:var(--green);border-color:var(--green);}
+    .check-label{font-size:14px;font-weight:600;color:var(--purple-dark);}
+    .check-detail{font-size:13px;color:var(--gray-muted);margin-top:2px;line-height:1.5;}
+    .error-list{display:flex;flex-direction:column;gap:10px;margin:24px 0;}
+    .error-item{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;overflow:hidden;cursor:pointer;}
+    .error-item:hover{border-color:var(--purple);}
+    .error-item.open{border-color:var(--red);}
+    .ei-header{padding:14px 18px;display:flex;justify-content:space-between;align-items:center;}
+    .ei-label{font-size:14px;font-weight:600;color:var(--gray-text);}
+    .ei-arrow{font-size:14px;transition:transform .2s;}
+    .error-item.open .ei-arrow{transform:rotate(180deg);}
+    .ei-body{display:none;padding:0 18px 14px;border-top:1px solid var(--purple-mid);}
+    .error-item.open .ei-body{display:block;animation:fadeIn .25s ease;}
+    .ei-example{background:var(--red-pale);border-radius:8px;padding:10px 14px;font-size:13px;font-family:monospace;color:#7F1D1D;margin:10px 0 6px;}
+    .ei-why{font-size:14px;line-height:1.65;color:var(--gray-text);margin-bottom:8px;}
+    .ei-catch{background:var(--green-pale);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--green);}
+    @media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}}
+    </style>
+    
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 5.2 · Communication Skills</div>
+  <h1>The Human Review Layer: Why Every AI-Generated Clinical Document Must Be Read Before It Goes Anywhere</h1>
+  <p class="hero-sub">AI-generated clinical documents become official records the moment they're distributed. The review step isn't optional overhead — it's the professional work that makes AI outputs trustworthy.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+    <div class="section fade-in">
+    <h2>AI Creates a Draft. You Create the Document.</h2>
+    <p>When an AI tool generates a clinical note, a patient message, or a care team update, it has completed one step in the process — not the final step. The final step is always human review. <mark>The moment a clinical document is distributed, it becomes an organizational record — and the person who sent it is accountable for its accuracy, regardless of how it was generated.</mark></p>
+    <p>This isn't a bureaucratic formality. AI tools regularly produce content that is: factually wrong about patient-specific details, vague in ways that cause misinterpretation, written at the wrong level for the intended reader, missing critical context, and confidently incorrect about medications, dates, and names. Review isn't optional insurance — it's the work.</p>
+    </div>
+    <div class="section fade-in">
+    <h2>The Five-Point Review Checklist</h2>
+    <p>Before distributing any AI-generated clinical document, work through these five checks. Click each one to mark it complete:</p>
+    <div class="checklist" id="reviewChecklist"></div>
+    <div id="checkComplete" style="background:var(--green-pale);border-radius:14px;padding:16px 20px;margin-top:12px;font-size:15px;color:var(--green);font-weight:600;display:none;animation:fadeIn .4s ease;">✅ All five checks complete — this document is ready to distribute.</div>
+    </div>
+    <div class="section fade-in">
+    <h2>The Most Common AI Document Errors in Healthcare</h2>
+    <p>After reviewing thousands of AI-generated healthcare communications, patterns emerge. These are the errors that show up most frequently — and that cause the most harm when they slip through unchecked:</p>
+    <div class="error-list" id="errorList"></div>
+    </div>
+    <div class="section fade-in">
+    <div class="pull-quote"><p>Review isn't slowing down AI — it's completing the workflow. Speed without accuracy isn't efficiency; it's risk.</p></div>
+    </div>
+    <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">An AI documentation tool generates a post-visit summary for a patient named Robert Chen. The summary refers to the patient as "she" throughout and lists a medication the patient hasn't taken in two years. The document looks professional and complete. A healthcare worker is about to send it. What should they do?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Send it — the clinical content is accurate even if the pronoun is wrong</button>
+        <button class="qopt" onclick="cq(this,false)">Fix just the pronoun — small errors like outdated medication lists aren't critical for a post-visit summary</button>
+        <button class="qopt" onclick="cq(this,true)">Fix both issues before sending — incorrect pronouns disrespect the patient and an outdated medication list in an official document creates a false medical record that could affect future care</button>
+        <button class="qopt" onclick="cq(this,false)">Return the document to the AI tool for correction rather than editing it manually</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+    </div>
+    <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Human review is not a formality — it's the professional step that separates a draft from a document. AI-generated content becomes a healthcare record the moment it's distributed, and the person who distributed it is accountable for its accuracy.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The five review checks: patient-specific details accurate, tone and vocabulary appropriate for recipient, commitments are real and specific, nothing is missing that needs to be there, nothing is present that shouldn't be. All five every time.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The most dangerous AI errors are the ones that look right: a wrong medication name that sounds plausible, a vague instruction that seems complete, a confident date that's actually incorrect. Review every specific detail, not just the overall feel.</p></div>
+    </div>
+    </div>
+    
+</div>
+<script>
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+    const checks=[
+      {label:'Patient-specific details are verified',detail:'Every name, date, medication, dose, and instruction is checked against the actual record — not assumed to be correct.'},
+      {label:'Tone and vocabulary match the recipient',detail:'Clinical language for care team. Plain language (6th–8th grade) for patients. The AI doesn't always get this right automatically.'},
+      {label:'Commitments are real and specific',detail:'Every action item has a named owner and a specific deadline. "Follow up soon" and "when necessary" are not acceptable in clinical documents.'},
+      {label:'Nothing critical is missing',detail:'The document covers everything the recipient needs to act on safely — no implicit assumptions that the reader already knows something important.'},
+      {label:'No inappropriate information is present',detail:'The document contains only what's needed for its purpose. No extra PHI, no side conversations, no information that shouldn't be distributed to this audience.'},
+    ];
+    const cl=document.getElementById('reviewChecklist');
+    const checkedState=new Set();
+    checks.forEach((c,i)=>{
+      const el=document.createElement('div');el.className='check-item';
+      el.innerHTML=`<div class="check-box" id="cb${i}"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="display:none" id="cbCheck${i}"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="check-label">${c.label}</div><div class="check-detail">${c.detail}</div></div>`;
+      el.onclick=()=>{el.classList.toggle('checked');document.getElementById('cbCheck'+i).style.display=el.classList.contains('checked')?'block':'none';if(el.classList.contains('checked'))checkedState.add(i);else checkedState.delete(i);document.getElementById('checkComplete').style.display=checkedState.size===checks.length?'block':'none';};
+      cl.appendChild(el);
+    });
+    const errors=[
+      {label:'Wrong patient pronoun / name',example:'AI uses "he" for a patient named Maria, or "she" for Robert.',why:'AI infers gender from names — and gets it wrong. This is disrespectful to patients and creates documentation errors.',catch:'Always verify pronouns match the patient's actual preferences and record.'},
+      {label:'Outdated or hallucinated medications',example:'"Continue taking Atenolol 25mg daily" — but the patient stopped Atenolol 18 months ago.',why:'AI generates plausible-sounding medication details based on training data patterns, not the actual patient record. It can invent medications, doses, and instructions that look completely realistic.',catch:'Never accept AI-generated medication details without cross-checking the current medication list in the actual record.'},
+      {label:'Wrong dates and deadlines',example:'"Follow up appointment scheduled for November 15" — but no such appointment exists.',why:'AI fills in date-shaped placeholders with plausible dates. It has no access to your scheduling system and will generate dates confidently.',catch:'Every specific date in an AI document must be verified against an actual system record.'},
+      {label:'Vague instructions that seem specific',example:'"Take your medication as prescribed with food as needed."',why:'This sounds like an instruction but contains no actionable information. "As prescribed" refers to something the patient may not remember. "As needed" is ambiguous.',catch:'Replace every vague instruction with a specific one before the document leaves your hands.'},
+      {label:'Missing critical context',example:'A discharge summary that omits the follow-up appointment, emergency contact instructions, or who to call with questions.',why:'AI generates what was in the prompt — it doesn't know what wasn't included and won't flag it as missing.',catch:'Compare the AI output against your organization's required elements checklist before signing off.'},
+    ];
+    const el2=document.getElementById('errorList');
+    errors.forEach(e=>{
+      const div=document.createElement('div');div.className='error-item';
+      div.innerHTML=`<div class="ei-header"><div class="ei-label">⚠️ ${e.label}</div><div class="ei-arrow">▼</div></div>
+        <div class="ei-body"><div class="ei-example">${e.example}</div><div class="ei-why">${e.why}</div><div class="ei-catch">🔍 <strong>How to catch it:</strong> ${e.catch}</div></div>`;
+      div.onclick=()=>{const was=div.classList.contains('open');document.querySelectorAll('.error-item').forEach(d=>d.classList.remove('open'));if(!was)div.classList.add('open');};
+      el2.appendChild(div);
+    });
+    function cq(btn,correct){
+      if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+      btn.classList.add(correct?'correct':'wrong');
+      const fb=document.getElementById('qfb');
+      if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. Both errors matter — and both are the healthcare worker's responsibility to catch before the document becomes an official record. Incorrect pronouns are both a patient dignity issue and a documentation accuracy issue. An outdated medication in a post-visit summary becomes part of the patient's record and could affect future prescribing decisions by other providers who rely on that record. Neither is minor.';}
+      else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('incorrect pronouns'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ Every error in an official clinical document matters. Incorrect pronouns create a documentation record that misidentifies the patient. An outdated medication list in the official record can influence future care decisions. Review means catching all errors — not triaging which ones seem important enough to fix.';}
+    }
+    
+</script>
+</body>
+</html>

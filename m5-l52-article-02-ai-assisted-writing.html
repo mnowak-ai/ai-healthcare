@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Assisted Writing in Healthcare — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,58px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.spectrum{margin:24px 0;}
+.spectrum-bar{height:16px;border-radius:8px;background:linear-gradient(to right,var(--green),#FBBF24,var(--red));margin:10px 0;}
+.spectrum-labels{display:flex;justify-content:space-between;font-size:12px;color:var(--gray-muted);}
+.spectrum-items{display:flex;flex-direction:column;gap:8px;margin-top:14px;}
+.si{display:flex;gap:12px;align-items:flex-start;padding:10px 14px;border-radius:10px;font-size:13px;line-height:1.5;}
+.si.low{background:var(--green-pale);}
+.si.med{background:var(--orange-pale);}
+.si.high{background:var(--red-pale);}
+.si-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.si.low .si-dot{background:var(--green);}
+.si.med .si-dot{background:var(--orange);}
+.si.high .si-dot{background:var(--red);}
+.use-cases{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0;}
+.uc{border-radius:16px;padding:20px;}
+.uc.yes{background:var(--green-pale);border:2px solid #86EFAC;}
+.uc.no{background:var(--red-pale);border:2px solid #FECACA;}
+.uc-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;}
+.uc.yes .uc-label{color:var(--green);}
+.uc.no .uc-label{color:var(--red);}
+.uc-items{display:flex;flex-direction:column;gap:6px;}
+.uc-item{font-size:13px;line-height:1.5;display:flex;gap:8px;}
+.prompt-sim{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.ps-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.ps-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ps-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.prompt-compare{display:flex;flex-direction:column;gap:12px;}
+.prompt-pair{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;overflow:hidden;}
+.pp-header{padding:12px 16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .2s;}
+.pp-header:hover{background:var(--purple-pale);}
+.pp-title{font-size:14px;font-weight:600;color:var(--gray-text);}
+.pp-arrow{font-size:14px;transition:transform .2s;}
+.prompt-pair.open .pp-arrow{transform:rotate(180deg);}
+.pp-body{display:none;padding:0 16px 14px;border-top:1px solid var(--purple-mid);}
+.prompt-pair.open .pp-body{display:block;animation:fadeIn .25s ease;}
+.pp-bad{background:var(--red-pale);border-radius:8px;padding:10px 14px;font-size:13px;font-family:monospace;color:#7F1D1D;margin:10px 0 6px;}
+.pp-good{background:var(--green-pale);border-radius:8px;padding:10px 14px;font-size:13px;font-family:monospace;color:#14532D;margin-bottom:6px;}
+.pp-why{font-size:13px;color:var(--gray-muted);line-height:1.6;}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.use-cases{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 5.2 · Communication Skills</div>
+  <h1>AI-Assisted Writing in Healthcare: What's Helpful, What's Risky, and What's a HIPAA Violation</h1>
+  <p class="hero-sub">AI writing tools can save hours every week in healthcare settings — but only when used correctly. Understanding where the line is between smart and risky, and between risky and illegal, protects both you and your patients.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>AI Writing Tools Are Already in Healthcare Workplaces</h2>
+    <p>Whether your employer has officially adopted them or not, AI writing tools are being used in healthcare workplaces right now. Some workers use employer-approved tools with proper safeguards. Some use free consumer tools they found helpful. Some don't realize the documentation software they use every day already has AI built in.</p>
+    <p>The question isn't whether AI writing tools belong in healthcare — many do, used correctly, with real benefit to patients and workers. The question is <mark>whether the specific use you're making is safe, authorized, and producing communication that meets professional standards.</mark></p>
+  </div>
+  <div class="section fade-in">
+    <h2>The Risk Spectrum: Where Different Uses Fall</h2>
+    <p>Not all AI writing use carries the same risk. Here's how to think about where different uses fall:</p>
+    <div class="spectrum">
+      <div class="spectrum-bar"></div>
+      <div class="spectrum-labels"><span>Lower Risk</span><span>Higher Risk</span></div>
+      <div class="spectrum-items">
+        <div class="si low"><div class="si-dot"></div><div>Using an approved, HIPAA-compliant AI documentation tool (like Nuance DAX) with patient data as part of your official workflow</div></div>
+        <div class="si low"><div class="si-dot"></div><div>Using any AI tool to draft general communication templates with NO patient information included</div></div>
+        <div class="si med"><div class="si-dot"></div><div>Using an unapproved but encryption-capable tool for work content that doesn't directly include PHI (still likely violates IT policy)</div></div>
+        <div class="si high"><div class="si-dot"></div><div>Using a consumer AI tool (personal ChatGPT, etc.) with any patient-identifying information — even "minor" details like a first name + condition</div></div>
+        <div class="si high"><div class="si-dot"></div><div>Copying text from a patient's chart into any non-approved AI tool to ask for a summary, draft, or suggestion</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="section fade-in">
+    <h2>What AI Writing Tools Can and Can't Do in Healthcare</h2>
+    <div class="use-cases">
+      <div class="uc yes">
+        <div class="uc-label">✅ Appropriate Uses (in approved tools)</div>
+        <div class="uc-items">
+          <div class="uc-item" style="color:#14532D">✔ Draft patient reminder templates (no patient data)</div>
+          <div class="uc-item" style="color:#14532D">✔ Suggest phrasing for patient education materials</div>
+          <div class="uc-item" style="color:#14532D">✔ Generate staff communication templates</div>
+          <div class="uc-item" style="color:#14532D">✔ Summarize clinical notes (in HIPAA-compliant tools)</div>
+          <div class="uc-item" style="color:#14532D">✔ Research general clinical communication best practices</div>
+          <div class="uc-item" style="color:#14532D">✔ Draft non-patient-specific policy documents</div>
+        </div>
+      </div>
+      <div class="uc no">
+        <div class="uc-label">🚫 Inappropriate Uses (HIPAA or policy risk)</div>
+        <div class="uc-items">
+          <div class="uc-item" style="color:#991B1B">✗ Entering patient name + condition into any unapproved tool</div>
+          <div class="uc-item" style="color:#991B1B">✗ Pasting chart notes into consumer AI for summarizing</div>
+          <div class="uc-item" style="color:#991B1B">✗ Using AI to draft patient communications that bypass human review</div>
+          <div class="uc-item" style="color:#991B1B">✗ Sending AI-generated content without verifying patient-specific details</div>
+          <div class="uc-item" style="color:#991B1B">✗ Using AI to write clinical documentation without appropriate oversight</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section fade-in">
+    <h2>Writing Better Prompts for Healthcare AI Tools</h2>
+    <p>If your organization uses an approved AI writing tool, the quality of what it produces depends heavily on how you prompt it. Better prompts = better first drafts = less work in review. Click each example to see the difference:</p>
+    <div class="prompt-sim">
+      <div class="ps-label">💬 Prompt Quality Comparison</div>
+      <div class="ps-title">Better Prompts, Better Drafts</div>
+      <div class="ps-sub">Click each scenario to see the weak vs. strong version of the same prompt.</div>
+      <div class="prompt-compare" id="promptContainer"></div>
+    </div>
+  </div>
+  <div class="section fade-in">
+    <div class="pull-quote"><p>AI writing tools are most valuable when they draft the structure and you supply the judgment. Never reverse that order.</p></div>
+  </div>
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A healthcare worker uses their organization's approved AI documentation tool to draft a patient discharge summary. The AI generates a draft that looks complete and professional. What must the worker do before the document is finalized?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Nothing — the approved tool is HIPAA-compliant, so the output is professional and accurate</button>
+        <button class="qopt" onclick="cq(this,false)">Just add their signature — the AI handles the content quality</button>
+        <button class="qopt" onclick="cq(this,true)">Carefully review every patient-specific detail — medications, instructions, follow-up dates — to verify accuracy before signing and distributing</button>
+        <button class="qopt" onclick="cq(this,false)">Only review it if the patient is high-risk — routine cases don't require full review</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The risk of AI writing tools in healthcare falls on a spectrum: approved tools for general content (low risk) to consumer tools with patient data (HIPAA violation). The dividing line is always: does this tool have a BAA, and does my input include PHI?</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Even fully approved, HIPAA-compliant AI writing tools require human review before their output is finalized. HIPAA compliance authorizes the tool to receive data — it doesn't guarantee the output is accurate, appropriate, or meets professional standards.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Better prompts produce better drafts. Specifying the audience, tone, purpose, and any constraints in your prompt reduces the review time required and improves the quality of the starting point.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+const prompts=[
+  {title:'Writing a patient reminder message',bad:'Write a reminder for a patient.',good:'Write a friendly appointment reminder for a patient. Audience: adult patient, may not have healthcare background. Include: appointment date/time [I will fill in], clinic location, what to bring (insurance card, ID, list of current medications). Keep under 100 words. Avoid medical jargon.',why:'The weak prompt produces generic output that needs complete rewriting. The strong prompt specifies audience, required elements, length, and tone — producing a draft that needs only minor customization.'},
+  {title:'Writing a care team update',bad:'Summarize the patient situation for the team.',good:'Write a brief care team update for a shift handoff. Include: patient status, any changes since last shift, pending actions with owners and deadlines, and any family communication needed. Use direct, clinical language appropriate for nursing staff. Keep each section to 2-3 sentences.',why:'The weak prompt gives no structure. The strong prompt specifies the format, sections, audience, and length — dramatically reducing the review and editing burden.'},
+  {title:'Drafting patient education content',bad:'Explain diabetes management.',good:'Write patient education content explaining Type 2 diabetes self-management for newly diagnosed adults with no prior health education. Use plain language (6th grade reading level). Cover: what to monitor, when to take medications, warning signs to report. Format as short paragraphs, not bullet points. Avoid clinical abbreviations.',why:'The weak prompt produces clinically accurate but inaccessible content. The strong prompt specifies reading level, audience background, specific topics, format, and language constraints — producing content that\'s actually useful for the intended reader.'},
+];
+const pc=document.getElementById('promptContainer');
+prompts.forEach(p=>{
+  const div=document.createElement('div');
+  div.className='prompt-pair';
+  div.innerHTML=`<div class="pp-header" onclick="this.parentElement.classList.toggle('open')"><div class="pp-title">📝 ${p.title}</div><div class="pp-arrow">▼</div></div>
+    <div class="pp-body">
+      <div style="font-size:12px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.08em;margin-top:10px;margin-bottom:4px;">❌ Weak prompt</div>
+      <div class="pp-bad">${p.bad}</div>
+      <div style="font-size:12px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;">✅ Strong prompt</div>
+      <div class="pp-good">${p.good}</div>
+      <div class="pp-why"><strong>Why it matters:</strong> ${p.why}</div>
+    </div>`;
+  pc.appendChild(div);
+});
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. HIPAA compliance is about the tool\'s authorization to handle the data — it has nothing to do with the accuracy or appropriateness of the output. An approved AI tool can still hallucinate medication names, get doses wrong, put the wrong follow-up date, or produce content that\'s inappropriate for the specific patient. Every AI-generated clinical document requires human review of every patient-specific detail, regardless of which tool produced it.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('verify accuracy'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ HIPAA compliance authorizes the tool to receive patient data — it says nothing about the quality or accuracy of what the tool produces. AI tools can generate incorrect medication names, wrong doses, wrong follow-up dates, and clinically inappropriate recommendations with complete confidence. Review is always required before any AI-generated clinical document is finalized. "Routine" cases are not exempt — errors in routine documentation affect patient care just as errors in complex cases do.';}
+}
+</script>
+</body>
+</html>

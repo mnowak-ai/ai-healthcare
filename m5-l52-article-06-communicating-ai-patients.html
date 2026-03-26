@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Communicating About AI to Patients — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,56px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--purple-dark);margin-bottom:16px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* The 3 principles */
+.principles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;}
+.principle{border-radius:20px;padding:22px;}
+.principle.p1{background:var(--purple-pale);border:2px solid var(--purple-mid);}
+.principle.p2{background:var(--green-pale);border:2px solid #86EFAC;}
+.principle.p3{background:var(--orange-pale);border:2px solid #FDE68A;}
+.pr-icon{font-size:28px;margin-bottom:8px;}
+.pr-name{font-size:14px;font-weight:700;margin-bottom:6px;}
+.principle.p1 .pr-name{color:var(--purple);}
+.principle.p2 .pr-name{color:var(--green);}
+.principle.p3 .pr-name{color:var(--orange);}
+.pr-desc{font-size:13px;line-height:1.6;color:var(--gray-text);}
+
+/* What NOT to say */
+.say-dont{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
+.say-dont-item{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;overflow:hidden;}
+.sdi-bad{background:var(--red-pale);padding:14px 18px;display:flex;gap:12px;align-items:flex-start;}
+.sdi-bad-icon{font-size:18px;flex-shrink:0;}
+.sdi-bad-text{font-size:14px;font-weight:600;color:#991B1B;font-style:italic;}
+.sdi-good{background:var(--green-pale);padding:14px 18px;display:flex;gap:12px;align-items:flex-start;}
+.sdi-good-icon{font-size:18px;flex-shrink:0;}
+.sdi-good-text{font-size:14px;color:#14532D;font-style:italic;}
+.sdi-why{padding:10px 18px;font-size:13px;color:var(--gray-muted);line-height:1.6;border-top:1px solid var(--purple-mid);}
+
+/* Roleplay simulator */
+.roleplay{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.rp-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.rp-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.rp-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.scenario-nav{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.snav-btn{padding:8px 14px;border-radius:10px;border:1.5px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.snav-btn.active{background:var(--purple);border-color:var(--purple);color:white;}
+.scenario-display{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:22px;}
+.sd-context{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-muted);margin-bottom:8px;}
+.sd-patient{background:var(--gray-soft);border-radius:10px;padding:14px 16px;font-size:15px;font-style:italic;color:var(--gray-text);margin-bottom:16px;border-left:3px solid var(--purple);}
+.sd-label{font-size:12px;font-weight:700;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.response-choices{display:flex;flex-direction:column;gap:8px;}
+.rc-item{padding:12px 16px;border-radius:10px;border:2px solid var(--purple-mid);background:var(--white);cursor:pointer;font-size:14px;line-height:1.55;transition:all .2s;}
+.rc-item:hover{border-color:var(--purple);background:var(--purple-pale);}
+.rc-item.best{background:var(--green-pale);border-color:var(--green);color:#14532D;}
+.rc-item.poor{background:var(--red-pale);border-color:var(--red);color:#991B1B;}
+.rc-item.ok{background:var(--orange-pale);border-color:#FDE68A;color:#92400E;}
+.rc-fb{font-size:14px;line-height:1.65;padding:12px 16px;border-radius:10px;margin-top:10px;display:none;}
+.rc-fb.show{display:block;animation:fadeIn .3s ease;}
+.rc-fb.good{background:var(--green-pale);color:var(--green);}
+.rc-fb.okay{background:var(--orange-pale);color:#92400E;}
+.rc-fb.bad{background:var(--red-pale);color:var(--red);}
+
+/* Quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.principles{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 5.2 · Communication Skills</div>
+  <h1>Communicating About AI to Patients: Scripts, Frameworks, and What Not to Say</h1>
+  <p class="hero-sub">Patients are curious, sometimes nervous, and increasingly asking direct questions about AI in their healthcare. How you answer shapes their trust in you — and in the entire care system. This article gives you the language to do it well.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Why This Conversation Matters</h2>
+    <p>Healthcare workers are often the first people patients turn to when they have concerns about new technology. A front desk coordinator gets asked about AI appointment reminders. A medical assistant is asked whether a computer read the patient's chart. A care coordinator has to explain why AI flagged the patient for an outreach call.</p>
+    <p>Most healthcare workers haven't been trained for these conversations — which means they often handle them poorly. They either dismiss the concern ("Oh, AI just helps with scheduling, don't worry about it") or overclaim ("AI is completely safe, it makes everything better"). Both responses damage trust rather than build it.</p>
+    <p><mark>The goal of patient communication about AI is honesty + clarity + appropriate reassurance.</mark> Not a sales pitch, not a technical lecture, and not a deflection. Here's how to do it.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Three Principles for Every AI Conversation With a Patient</h2>
+    <div class="principles">
+      <div class="principle p1">
+        <div class="pr-icon">🎯</div>
+        <div class="pr-name">Be Specific, Not Vague</div>
+        <div class="pr-desc">Vague reassurances ("AI is totally safe") make skeptical patients more suspicious. Specific answers ("the AI tool we use for scheduling only has access to your appointment time and contact info, not your medical record") actually answer their question and build real trust.</div>
+      </div>
+      <div class="principle p2">
+        <div class="pr-icon">✋</div>
+        <div class="pr-name">Affirm Human Oversight</div>
+        <div class="pr-desc">The most reassuring thing you can say to most patients is that a human is responsible. "AI helps gather information, but your care team makes all the decisions" addresses the core fear: that a computer is running their healthcare. Make the human layer visible.</div>
+      </div>
+      <div class="principle p3">
+        <div class="pr-icon">🚪</div>
+        <div class="pr-name">Leave the Door Open</div>
+        <div class="pr-desc">End with an invitation: "Is there anything specific you'd like to know more about?" or "Your doctor can answer questions about how technology is used in your specific care." Don't shut the conversation down — the patient who feels heard is far less likely to develop lasting mistrust.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What Not to Say — and What to Say Instead</h2>
+    <p>These are the most common communication failures when healthcare workers talk to patients about AI. Each has a better alternative:</p>
+    <div class="say-dont">
+      <div class="say-dont-item">
+        <div class="sdi-bad"><div class="sdi-bad-icon">❌</div><div class="sdi-bad-text">"Don't worry about it — AI is just a tool, it doesn't make real decisions."</div></div>
+        <div class="sdi-good"><div class="sdi-good-icon">✅</div><div class="sdi-good-text">"That's a fair question. In our clinic, AI helps with things like scheduling and organizing information — your care team reviews everything and makes all the actual decisions about your care."</div></div>
+        <div class="sdi-why">Why: "Don't worry about it" dismisses a legitimate concern. The better response validates the question and gives a specific, honest answer.</div>
+      </div>
+      <div class="say-dont-item">
+        <div class="sdi-bad"><div class="sdi-bad-icon">❌</div><div class="sdi-bad-text">"AI makes us so much more accurate and efficient — it's actually better than humans in some ways!"</div></div>
+        <div class="sdi-good"><div class="sdi-good-icon">✅</div><div class="sdi-good-text">"AI tools help us be more thorough with things like catching scheduling gaps and organizing records. Your care team still uses their own judgment and expertise for everything that affects your treatment."</div></div>
+        <div class="sdi-why">Why: Overclaiming AI's accuracy makes the patient distrust you when something goes wrong — and something eventually will. Honest calibration builds lasting confidence.</div>
+      </div>
+      <div class="say-dont-item">
+        <div class="sdi-bad"><div class="sdi-bad-icon">❌</div><div class="sdi-bad-text">"I don't really know how it works — IT handles all of that."</div></div>
+        <div class="sdi-good"><div class="sdi-good-icon">✅</div><div class="sdi-good-text">"I can tell you about the parts I work with directly. For more detailed questions about how our systems work, I'd connect you with our patient services team, who can give you a full answer."</div></div>
+        <div class="sdi-why">Why: "I don't know" with nothing else is a trust-killer. You can acknowledge limits while still being helpful by saying what you DO know and connecting them to someone who can answer more.</div>
+      </div>
+      <div class="say-dont-item">
+        <div class="sdi-bad"><div class="sdi-bad-icon">❌</div><div class="sdi-bad-text">"AI is completely secure — we make sure of that."</div></div>
+        <div class="sdi-good"><div class="sdi-good-icon">✅</div><div class="sdi-good-text">"We use approved, HIPAA-compliant tools for managing your information, and your privacy is protected under federal law. If you'd like details on our privacy practices, I can give you our Notice of Privacy Practices."</div></div>
+        <div class="sdi-why">Why: "Completely secure" is a promise you can't guarantee. "HIPAA-compliant tools" and "federal law" are accurate, specific, and actually more reassuring to an informed patient than an absolute claim.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Practice: Choose the Best Response</h2>
+    <p>Work through these real patient scenarios and pick the response you'd actually want to give — then see the feedback:</p>
+    <div class="roleplay">
+      <div class="rp-label">🎭 Response Practice</div>
+      <div class="rp-title">How Would You Handle This?</div>
+      <div class="rp-sub">For each patient scenario, choose the response you think works best.</div>
+      <div class="scenario-nav" id="scenNav"></div>
+      <div id="scenDisplay"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="pull-quote"><p>The patient who understands how AI fits into their care — and trusts that a human is watching — is a partner in their own healthcare. Build that trust one honest conversation at a time.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">An elderly patient tells you: "I don't want a computer in charge of my health. I want a real doctor." What is the most effective response?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Reassure them that AI isn't involved in their care at all</button>
+        <button class="qopt" onclick="cq(this,false)">Explain that AI is actually very helpful and they shouldn't worry</button>
+        <button class="qopt" onclick="cq(this,true)">Validate their concern, then clearly explain that their doctor makes all care decisions — and that any technology we use is a tool to help their care team, not replace them</button>
+        <button class="qopt" onclick="cq(this,false)">Tell them to discuss AI concerns directly with their doctor, not you</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Three principles for every patient AI conversation: be specific (not vague), affirm human oversight, and leave the door open for more questions. Patients who feel heard and accurately informed become long-term partners in their care.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Avoid dismissing concerns ("don't worry about it"), overclaiming AI accuracy, claiming total ignorance without offering a path forward, or making security promises you can't guarantee. Each of these damages trust.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The most reassuring thing you can say is that a human is responsible. Make the human oversight layer visible to patients — it's accurate, it's reassuring, and it's the truth.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+const scenarios=[
+  {
+    context:'Front desk at a clinic',
+    patient:'"I got a text message from your AI system. Does your computer know all my personal health information?"',
+    responses:[
+      {text:'A) "Yes, our AI system has full access to your medical record so it can send personalized reminders."',type:'poor',fb:'❌ This is likely inaccurate and alarming. Scheduling systems typically only have appointment data, not full medical records. Overstating AI access will increase patient anxiety and damage trust.'},
+      {text:'B) "No — the system that sends reminders only knows your appointment time and the contact information you provided. It doesn\'t have access to your medical history or diagnosis."',type:'best',fb:'✅ Specific, accurate, and directly answers what the patient is actually worried about. This is exactly the right response — concrete, reassuring, and honest.'},
+      {text:'C) "I\'m not sure what information the AI has — you\'d have to ask IT."',type:'poor',fb:'❌ Deflecting entirely when you actually do know the basic answer ("it sends appointment reminders") leaves the patient without real information. You can answer the basic question and offer to connect them for more detail.'},
+    ]
+  },
+  {
+    context:'Medical assistant, pre-appointment',
+    patient:'"I read that AI makes mistakes. How do I know AI isn\'t messing up my records?"',
+    responses:[
+      {text:'A) "AI is very accurate — the technology has improved a lot and the error rates are very low now."',type:'poor',fb:'❌ This overclaims AI accuracy and sets up a trust failure if the patient later learns about an AI error. It also doesn\'t actually address their concern about their specific record.'},
+      {text:'B) "That\'s a reasonable concern. Any AI-generated content in your records is reviewed by your care team before it becomes part of your official chart. You also have the right to request your records and flag anything that looks incorrect."',type:'best',fb:'✅ This validates the concern, explains the safeguard (human review), and empowers the patient with their existing right to review and correct their records. It\'s honest, specific, and confidence-building.'},
+      {text:'C) "We don\'t really use AI for clinical records — just administrative stuff."',type:'poor',fb:'❌ If this is inaccurate — and in many clinics, AI documentation tools are being used — you\'ve told the patient something false, which is far more damaging to trust when discovered.'},
+    ]
+  },
+  {
+    context:'Care coordinator on a phone call',
+    patient:'"I got a call saying AI flagged me as high-risk. What does that mean? Is a computer deciding my care?"',
+    responses:[
+      {text:'A) "The AI looks at patterns in your health data to identify patients who might benefit from extra support. Your care team reviewed the flag and that\'s why I\'m calling — a person decided to reach out to you, not just a computer."',type:'best',fb:'✅ This explains what AI actually did (pattern recognition), clearly states human oversight was involved, and reframes "AI flagged you" as "your care team is proactively looking out for you." This turns a potentially alarming message into a reassuring one.'},
+      {text:'B) "An AI system automatically calls anyone flagged — your doctor will review it at your next appointment."',type:'poor',fb:'❌ "Automatically calls anyone" confirms the patient\'s fear that computers are running their care without human involvement. The fact that their doctor won\'t see it until a future appointment also isn\'t reassuring.'},
+      {text:'C) "Don\'t worry — it\'s just a computer program, it doesn\'t make real decisions."',type:'poor',fb:'❌ "Don\'t worry" dismisses the concern. And "just a computer program" is both inaccurate (it processed their health data) and likely to make them trust the system less, not more.'},
+    ]
+  },
+];
+let scenIdx=0;
+const answered={};
+function renderScenNav(){
+  document.getElementById('scenNav').innerHTML=scenarios.map((s,i)=>`<button class="snav-btn${i===scenIdx?' active':''}" onclick="showScen(${i})">Scenario ${i+1}</button>`).join('');
+}
+function showScen(i){scenIdx=i;renderScenNav();renderScen();}
+function renderScen(){
+  const s=scenarios[scenIdx];
+  const isAnswered=answered[scenIdx]!==undefined;
+  document.getElementById('scenDisplay').innerHTML=`<div class="scenario-display">
+    <div class="sd-context">📍 ${s.context}</div>
+    <div class="sd-patient">💬 Patient: "${s.patient}"</div>
+    <div class="sd-label">How would you respond?</div>
+    <div class="response-choices">${s.responses.map((r,ri)=>`
+      <div class="rc-item${isAnswered?(r.type==='best'?' best':r.type==='poor'?' poor':' ok'):''}" onclick="pickResponse(${ri})">${r.text}</div>`).join('')}
+    </div>
+    <div class="rc-fb${isAnswered?' show '+(s.responses[answered[scenIdx]].type==='best'?'good':'bad'):''}" id="rcfb-${scenIdx}">${isAnswered?s.responses[answered[scenIdx]].fb:''}</div>
+  </div>`;
+}
+function pickResponse(ri){
+  if(answered[scenIdx]!==undefined)return;
+  answered[scenIdx]=ri;
+  renderScen();
+}
+renderScenNav();renderScen();
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. This answer does three things right: it validates the concern (not dismissing it), provides the key reassurance (the doctor makes decisions), and accurately characterizes what technology actually does in their care. "I don\'t want a computer in charge" is a reasonable concern — the honest answer is that a computer isn\'t in charge, a doctor is, and you can say that truthfully.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('validate their concern'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ Telling them AI isn\'t involved at all may be inaccurate and will backfire when they discover otherwise. Telling them they shouldn\'t worry dismisses their concern. Redirecting entirely misses the chance to actually reassure them. The most effective response validates the concern first — then explains the human oversight layer clearly and honestly.';}
+}
+</script>
+</body>
+</html>
