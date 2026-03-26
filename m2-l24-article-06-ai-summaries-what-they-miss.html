@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Generated Summaries: What They Get Right and What They Miss — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--red:#DC2626;--red-pale:#FFF1F1;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,56px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.balance{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.bal-col{border-radius:16px;padding:18px;}
+.bal-col.right{background:var(--green-pale);border:2px solid #86EFAC;}
+.bal-col.wrong{background:var(--red-pale);border:2px solid #FCA5A5;}
+.bal-title{font-size:13px;font-weight:700;margin-bottom:10px;}
+.right .bal-title{color:var(--green);}
+.wrong .bal-title{color:var(--red);}
+.bal-item{font-size:13px;line-height:1.55;padding:5px 0;border-bottom:1px solid rgba(0,0,0,.06);}
+.bal-item:last-child{border-bottom:none;}
+.failure-cards{display:flex;flex-direction:column;gap:14px;margin:24px 0;}
+.fc-card{border-radius:18px;overflow:hidden;border:1.5px solid var(--purple-mid);}
+.fc-header{padding:14px 18px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:background .2s;}
+.fc-header:hover{background:var(--gray-soft);}
+.fc-header.open{background:var(--purple-pale);}
+.fc-icon{font-size:22px;flex-shrink:0;}
+.fc-title{font-size:15px;font-weight:700;color:var(--purple-dark);}
+.fc-toggle{margin-left:auto;font-size:14px;color:var(--gray-muted);transition:transform .3s;}
+.fc-header.open .fc-toggle{transform:rotate(180deg);}
+.fc-body{display:none;padding:0 18px 16px;background:var(--white);}
+.fc-header.open+.fc-body{display:block;}
+.fc-desc{font-size:14px;line-height:1.7;color:var(--gray-text);margin-bottom:10px;margin-top:10px;}
+.fc-example{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.fce-col{border-radius:10px;padding:10px 12px;}
+.fce-col.bad{background:var(--red-pale);}
+.fce-col.good{background:var(--green-pale);}
+.fce-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;}
+.fce-col.bad .fce-label{color:var(--red);}
+.fce-col.good .fce-label{color:var(--green);}
+.fce-text{font-size:12px;line-height:1.65;font-family:monospace;}
+.trust-quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.tq-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.tq-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.tq-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.tq-items{display:flex;flex-direction:column;gap:12px;}
+.tq-item{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:16px;}
+.tq-summary{font-size:13px;line-height:1.75;font-family:monospace;background:var(--gray-soft);border-radius:8px;padding:10px 12px;margin-bottom:10px;}
+.tq-q{font-size:13px;font-weight:600;color:var(--purple-dark);margin-bottom:8px;}
+.tq-opts{display:flex;flex-direction:column;gap:7px;}
+.tq-opt{font-size:13px;padding:8px 14px;border-radius:9px;border:1.5px solid var(--purple-mid);cursor:pointer;background:var(--white);transition:all .2s;text-align:left;}
+.tq-opt:hover{border-color:var(--purple);}
+.tq-opt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.tq-opt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.tq-fb{font-size:13px;line-height:1.6;padding:8px 12px;border-radius:8px;margin-top:8px;display:none;}
+.tq-fb.show{display:block;}
+.tq-fb.ok{background:var(--green-pale);color:var(--green);}
+.tq-fb.bad{background:var(--red-pale);color:var(--red);}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:640px){.hero,.content{padding-left:24px;padding-right:24px;}.balance{grid-template-columns:1fr;}.fc-example{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 2.4 · Patient Summaries</div>
+  <h1>AI-Generated Summaries in Healthcare: What They Get Right, What They Miss, and Why You Can't Just Trust Them</h1>
+  <p class="hero-sub">AI can generate a patient summary in seconds. That speed is real and valuable. But the patterns of failure — the specific ways AI summaries fall short — are predictable and teachable. Know the failure modes and you'll never be caught off guard by them.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>What AI Gets Right — and Where the Problems Start</h2>
+    <div class="balance">
+      <div class="bal-col right">
+        <div class="bal-title">✅ What AI summaries genuinely do well</div>
+        <div class="bal-item">Processing large volumes of clinical notes quickly</div>
+        <div class="bal-item">Organizing information into consistent structures</div>
+        <div class="bal-item">Extracting medication lists from unstructured notes</div>
+        <div class="bal-item">Creating a readable first draft of standard elements</div>
+        <div class="bal-item">Catching items mentioned across multiple notes</div>
+        <div class="bal-item">Reducing transcription time significantly</div>
+      </div>
+      <div class="bal-col wrong">
+        <div class="bal-title">❌ Where AI summaries consistently fail</div>
+        <div class="bal-item">Presenting uncertain information as definite fact</div>
+        <div class="bal-item">Omitting context that changes meaning entirely</div>
+        <div class="bal-item">Missing significance of abnormal values</div>
+        <div class="bal-item">Flattening nuanced clinical thinking into simple statements</div>
+        <div class="bal-item">Failing to flag information outside the record it accessed</div>
+        <div class="bal-item">Missing clinically significant trends (improving vs. worsening)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Five Specific Ways AI Summaries Fail</h2>
+    <p>These failure patterns appear consistently in AI-generated healthcare summaries. Click each one to see what it looks like in practice:</p>
+    <div class="failure-cards" id="failureCards"></div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="pull-quote"><p>The most dangerous AI summaries aren't the ones that contain obvious errors. They're the ones that are almost entirely correct but miss the one thing that changes everything.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Trust or Verify? Practice Reading AI Summaries Critically</h2>
+    <div class="trust-quiz">
+      <div class="tq-label">🔍 Critical Review Practice</div>
+      <div class="tq-title">What's Wrong With This AI Summary?</div>
+      <div class="tq-sub">Each AI-generated summary has a specific failure. Identify it.</div>
+      <div class="tq-items" id="tqItems"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">An AI generates this summary statement: "Patient's blood pressure is well-controlled at 128/78." You review the underlying records and find that the patient's BP was 168/102 three weeks ago, 155/94 last week, and 128/78 today — the improvement is due to a new medication started two weeks ago. What is wrong with the AI's summary?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Nothing — 128/78 is a well-controlled blood pressure, so the summary is accurate</button>
+        <button class="qopt" onclick="cq(this,true)">The AI reported the most recent value without the clinical context: BP was severely elevated 3 weeks ago and has only recently normalized due to a new medication — the provider needs to know this trend, because it means the medication is working and should not be discontinued, and the BP needs continued monitoring to confirm stability</button>
+        <button class="qopt" onclick="cq(this,false)">The AI should have reported all three blood pressure readings instead of just the most recent</button>
+        <button class="qopt" onclick="cq(this,false)">The AI used casual language ("well-controlled") instead of clinical language</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Five specific AI summary failure modes: presenting uncertainty as certainty, omitting context that changes meaning, missing the significance of abnormal values, flattening clinical nuance, and missing trends (only seeing the most recent value without the trajectory).</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI reports what it found in the data without judgment about what it means. A normal-looking current value may represent dangerous improvement from a critical baseline. A condition labeled "stable" may be the AI's interpretation of "not mentioned as unstable." Context and clinical significance require human judgment.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The review standard for AI summaries: don't just check if the values are correct — check whether the summary tells the right clinical story. A summary can have accurate facts and still mislead a provider if critical context, trends, or uncertainty signals are absent.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const failures=[
+  {icon:'❓',title:'Presenting uncertain information as definite fact',desc:'AI uses the language of certainty even when the underlying clinical picture is uncertain. "Patient has X" sounds more definitive than the actual clinical note, which may say "suspected X" or "X cannot be ruled out."',bad:'AI summary: "Patient has bacterial pneumonia."',good:'What the note actually said: "Chest X-ray shows infiltrate consistent with pneumonia, bacterial vs. viral etiology pending culture results."',whyMatters:'Antibiotic decisions depend entirely on whether this is bacterial (needs antibiotics) or viral (antibiotics won\'t help and carry risks). The word "has" rather than "suspected" is a clinical decision that AI made without clinical authority.'},
+  {icon:'🔍',title:'Omitting context that changes meaning entirely',desc:'AI extracts the fact but drops the context that makes it clinically meaningful. A fact without context can be actively misleading.',bad:'AI summary: "Patient\'s INR is 3.8."',good:'What was omitted: Patient is on warfarin for a mechanical heart valve replacement — therapeutic target for mechanical valves is 2.5–3.5, so 3.8 is supratherapeutic but less urgently so than it would be for AFib (target 2.0–3.0). The indication determines whether this INR requires urgent action.',whyMatters:'Without knowing the indication, a provider might over-react (holding warfarin when it\'s only slightly elevated for the specific target) or under-react (missing a truly dangerous level for a different indication). Context is not decoration — it determines the clinical response.'},
+  {icon:'📊',title:'Missing the clinical significance of abnormal values',desc:'AI includes an abnormal value but doesn\'t flag it as abnormal, or doesn\'t connect it to the clinical implications it carries.',bad:'AI summary: "K+ 5.8 mEq/L."',good:'What a human reviewer would flag: K+ 5.8 is hyperkalemia — a potentially life-threatening electrolyte abnormality, especially in a patient on ACE inhibitors or with kidney disease. It requires immediate assessment and management. Simply listing it without a flag treats it the same as a normal potassium.',whyMatters:'A provider scanning a summary looks for signals. An unflagged K+ of 5.8 among a list of other lab values can be missed during a busy shift. "K+ 5.8 ↑↑ HYPERKALEMIA — requires urgent review" communicates the same fact with the clinical weight it deserves.'},
+  {icon:'🎭',title:'Flattening nuanced clinical thinking into oversimplifications',desc:'Clinical notes often contain nuanced reasoning — differential diagnoses, qualified assessments, probabilities. AI summaries tend to flatten this into simpler statements that lose the clinical complexity.',bad:'AI summary: "Diagnosis: Heart failure."',good:'What the clinical notes said: "Presentation is consistent with acute decompensated heart failure vs. COPD exacerbation — BNP elevated at 1,240, but patient has significant history of COPD with CO2 retention. Treating empirically for both pending further workup. Clinical picture will guide treatment direction."',whyMatters:'This isn\'t pedantry — the treatment for COPD exacerbation and heart failure have critical differences. If the summary reads "diagnosis: heart failure," the next provider may not know that the diagnosis was actually uncertain and that treatment was empirical.'},
+  {icon:'📈',title:'Reporting values without clinical trajectories',desc:'A single value often means much less than the trend. AI summaries frequently report the most recent value without the context of whether the patient is improving, worsening, or stable.',bad:'AI summary: "Creatinine 2.1 mg/dL."',good:'What the trend shows: Creatinine was 1.4 on admission 5 days ago, rose to 1.9 on day 3 (flagged as possible AKI), and is now 2.1 — continuing to worsen. This is an active AKI trajectory requiring immediate attention.',whyMatters:'Creatinine of 2.1 in a patient with known CKD at baseline 2.1 is entirely different from creatinine of 2.1 in a patient who started at 1.4 and has been worsening for 5 days. The same number means two completely different things depending on trajectory.'}
+];
+const fcContainer=document.getElementById('failureCards');
+failures.forEach((f,i)=>{
+  const div=document.createElement('div');div.className='fc-card';
+  div.innerHTML=`<div class="fc-header" onclick="toggleFc(this)"><div class="fc-icon">${f.icon}</div><div class="fc-title">${f.title}</div><div class="fc-toggle">▼</div></div><div class="fc-body"><div class="fc-desc">${f.desc}</div><div class="fc-example"><div class="fce-col bad"><div class="fce-label">❌ AI Summary Says</div><div class="fce-text">${f.bad}</div></div><div class="fce-col good"><div class="fce-label">✅ Full Clinical Picture</div><div class="fce-text">${f.good}</div></div></div><div style="background:var(--orange-pale);border-radius:8px;padding:8px 12px;font-size:13px;color:var(--orange);margin-top:8px;">⚠️ Why this matters: ${f.whyMatters}</div></div>`;
+  fcContainer.appendChild(div);
+});
+function toggleFc(header){header.classList.toggle('open');}
+
+const tqData=[
+  {summary:`AI SUMMARY (simulated): Patient is a 64-year-old male admitted for chest pain. Cardiac workup was negative. Patient is stable and improving. Discharge planned for tomorrow.`,
+  q:'What critical information is missing from this summary?',
+  opts:[{text:'The AI should have included more medical abbreviations to make it more professional',correct:false,fb:'❌ Abbreviations are a style choice, not a safety issue here.'},{text:'The summary presents the situation as fully resolved ("negative workup," "stable and improving") but doesn\'t indicate what the chest pain was — a patient discharged without a diagnosis needs clear follow-up guidance, and the summary gives no indication of what\'s been ruled in vs. ruled out',correct:true,fb:'✅ Correct! "Cardiac workup was negative" is incomplete — negative for what, specifically? Troponin only? Full STEMI workup? Stress test? A provider reading this doesn\'t know what was ruled out and what remains possible. "Stable and improving" without a working diagnosis means the next provider has no framework for managing a recurrence. This is the "flattening nuance" failure — a clinically uncertain situation presented as resolved.'},{text:'The patient\'s vital signs should be included',correct:false,fb:'❌ Vital signs are useful detail but not the critical missing element. The clinical reasoning gap — what was ruled out, what remains the working diagnosis — is the safety issue.'}]},
+  {summary:`AI SUMMARY (simulated): Medication reconciliation: Patient takes metformin 1000mg twice daily, lisinopril 10mg daily, and atorvastatin 40mg daily. Medications continued.`,
+  q:'What failure mode does this summary demonstrate?',
+  opts:[{text:'The doses are formatted incorrectly',correct:false,fb:'❌ The dose formatting is fine.'},{text:'The summary lists medications but omits whether any were recently changed, held, or newly started — and omits the indication for each medication, which matters when the medication list is used by providers who don\'t know the patient',correct:true,fb:'✅ Correct! A medication list without context of recent changes is a common AI failure. Was the lisinopril dose recently reduced for a developing AKI? Was metformin held during a procedure? Was atorvastatin just escalated from 20mg? A static medication list without the "story" of recent changes misses the clinical information that matters most at transitions of care.'},{text:'The summary should have listed medications in alphabetical order',correct:false,fb:'❌ Order is a stylistic choice. The clinical content problem is what matters here.'}]}
+];
+const tqAnswers={};
+const tqContainer=document.getElementById('tqItems');
+tqData.forEach((item,i)=>{
+  const div=document.createElement('div');div.className='tq-item';
+  div.innerHTML=`<div class="tq-summary">${item.summary}</div><div class="tq-q">${item.q}</div><div class="tq-opts">${item.opts.map((o,oi)=>`<button class="tq-opt" id="tqo${i}_${oi}" onclick="pickTq(${i},${oi})">${o.text}</button><div class="tq-fb" id="tqfb${i}_${oi}"></div>`).join('')}</div>`;
+  tqContainer.appendChild(div);
+});
+function pickTq(i,oi){
+  if(tqAnswers[i]!==undefined)return;tqAnswers[i]=oi;
+  const opt=tqData[i].opts[oi];
+  document.getElementById('tqo'+i+'_'+oi).className='tq-opt '+(opt.correct?'correct':'wrong');
+  if(!opt.correct)tqData[i].opts.forEach((o,j)=>{if(o.correct)document.getElementById('tqo'+i+'_'+j).className='tq-opt correct';});
+  const fb=document.getElementById('tqfb'+i+'_'+oi);fb.textContent=opt.fb;fb.className='tq-fb show '+(opt.correct?'ok':'bad');
+}
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct! This is the "missing trajectory" failure. 128/78 is technically a well-controlled blood pressure — that part is accurate. But the clinical story is that this patient was severely hypertensive just three weeks ago and has only recently reached this level due to a new medication. The provider needs to know: (1) this improvement is medication-dependent — don\'t discontinue the new medication; (2) the improvement needs to be confirmed stable over time — it\'s early; (3) the history of severe hypertension means if BP rises again, it needs rapid evaluation. None of this is communicated by "well-controlled at 128/78."';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('reported the most recent value'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ The current value of 128/78 is accurate. The problem is the absent trajectory. A provider reading "well-controlled at 128/78" has no reason to investigate further or ensure the new medication continues. They don\'t know this patient was in hypertensive range 3 weeks ago, or that the normalization is medication-dependent, or that sustained monitoring is needed. Listing all three readings would help, but the more important thing is communicating the clinical significance of the trend.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

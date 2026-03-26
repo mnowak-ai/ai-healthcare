@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Is a Patient Summary? — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--red:#DC2626;--red-pale:#FFF1F1;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,56px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+/* Reader cards */
+.reader-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;}
+.reader-card{border-radius:18px;padding:20px;background:var(--white);border:1.5px solid var(--purple-mid);}
+.reader-icon{font-size:32px;margin-bottom:10px;}
+.reader-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.reader-time{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:3px 10px;border-radius:100px;margin-bottom:8px;}
+.reader-need{font-size:13px;line-height:1.6;color:var(--gray-text);}
+.rc-1 .reader-time{background:#DBEAFE;color:#1D4ED8;}
+.rc-2 .reader-time{background:var(--purple-pale);color:var(--purple);}
+.rc-3 .reader-time{background:var(--red-pale);color:var(--red);}
+.rc-4 .reader-time{background:var(--green-pale);color:var(--green);}
+.rc-5 .reader-time{background:var(--orange-pale);color:var(--orange);}
+/* Stakes explorer */
+.stakes-box{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.sb-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.sb-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.sb-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.sb-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+.sb-tab{padding:8px 14px;border-radius:10px;border:1.5px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.sb-tab.active{background:var(--purple);border-color:var(--purple);color:white;}
+.sb-panel{display:none;animation:fadeIn .3s ease;}
+.sb-panel.active{display:block;}
+.sb-scenario{background:var(--white);border-left:4px solid var(--orange);padding:14px 18px;border-radius:0 12px 12px 0;font-size:14px;line-height:1.7;margin-bottom:12px;}
+.sb-compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.sb-bad{background:var(--red-pale);border:1.5px solid #FCA5A5;border-radius:12px;padding:14px;}
+.sb-good{background:var(--green-pale);border:1.5px solid #86EFAC;border-radius:12px;padding:14px;}
+.sb-col-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.sb-bad .sb-col-label{color:var(--red);}
+.sb-good .sb-col-label{color:var(--green);}
+.sb-col-text{font-size:13px;line-height:1.7;font-family:monospace;}
+.sb-outcome{border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.6;}
+.sb-bad-outcome{background:var(--red-pale);color:var(--red);}
+.sb-good-outcome{background:var(--green-pale);color:var(--green);}
+/* Summary anatomy */
+.anatomy{display:flex;flex-direction:column;gap:10px;margin:24px 0;}
+.anat-row{display:flex;gap:14px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:14px 16px;align-items:flex-start;}
+.anat-tag{min-width:120px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:4px 10px;border-radius:6px;flex-shrink:0;margin-top:2px;text-align:center;}
+.anat-body h4{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:3px;}
+.anat-body p{font-size:13px;line-height:1.6;color:var(--gray-text);margin:0;}
+.anat-row.cc .anat-tag{background:#DBEAFE;color:#1D4ED8;}
+.anat-row.hx .anat-tag{background:var(--purple-pale);color:var(--purple);}
+.anat-row.med .anat-tag{background:var(--orange-pale);color:var(--orange);}
+.anat-row.labs .anat-tag{background:var(--green-pale);color:var(--green);}
+.anat-row.plan .anat-tag{background:#F0F9FF;color:#0369A1;}
+.anat-row.fu .anat-tag{background:var(--red-pale);color:var(--red);}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:640px){.hero,.content{padding-left:24px;padding-right:24px;}.reader-grid{grid-template-columns:1fr 1fr;}.sb-compare{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 2.4 · Patient Summaries</div>
+  <h1>What Is a Patient Summary and Why Does It Matter? A Beginner's Guide</h1>
+  <p class="hero-sub">A patient summary is one of the most important documents in healthcare — and one of the easiest to get wrong. Understanding what it is, who reads it, and what happens when it fails is essential before you ever try to write or improve one.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>What a Patient Summary Actually Is</h2>
+    <p>A patient summary is a condensed version of a patient's most important health information — designed to give a care provider everything they need to make good decisions about that patient's care, as quickly as possible.</p>
+    <p>Think about what a healthcare provider actually faces when they're about to see a patient: there might be hundreds of pages of medical history, labs, notes, and records. They can't read all of it before every visit. A good summary distills that mountain of information down to <mark>the handful of facts that matter most, right now.</mark></p>
+    <p>Patient summaries go by different names depending on the context: handoff notes, care summaries, transition-of-care documents, discharge summaries, SBAR reports. The format changes. The purpose doesn't: get the right provider the right information at the right time.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Who Reads a Patient Summary — and How Much Time They Have</h2>
+    <p>The most important thing to understand about patient summaries is the reader. Different readers have different contexts, different needs, and very different amounts of time. A summary that works perfectly for one reader may completely fail another:</p>
+    <div class="reader-grid">
+      <div class="reader-card rc-1"><div class="reader-icon">🌙</div><div class="reader-title">Incoming Night Nurse</div><div class="reader-time">~2–3 min per patient</div><div class="reader-need">Receiving handoff from day shift. Needs: current status, active issues to watch overnight, any pending orders or labs, and who to call if something changes.</div></div>
+      <div class="reader-card rc-2"><div class="reader-icon">🔬</div><div class="reader-title">Specialist Seeing Patient for First Time</div><div class="reader-time">~5 min before visit</div><div class="reader-need">Coming in cold. Needs: the reason for referral, key history that's relevant to their specialty, what the referring doctor is asking them to evaluate. Everything else is noise.</div></div>
+      <div class="reader-card rc-3"><div class="reader-icon">🚨</div><div class="reader-title">ER Doctor</div><div class="reader-time">~30 seconds</div><div class="reader-need">Patient just arrived. May or may not be conscious. Needs: What happened today. Key conditions. Current medications — especially anything that affects emergency treatment. Allergies.</div></div>
+      <div class="reader-card rc-4"><div class="reader-icon">🏠</div><div class="reader-title">Home Health Nurse</div><div class="reader-time">~10 min before first visit</div><div class="reader-need">Seeing a patient who just left the hospital. Needs: what was done in the hospital, what the patient is going home to manage, what warning signs to watch for, when to escalate.</div></div>
+      <div class="reader-card rc-5"><div class="reader-icon">👤</div><div class="reader-title">Patient</div><div class="reader-time">Varies — may read slowly</div><div class="reader-need">Needs plain language. No abbreviations. Clear instructions for what to do next. Knows their own body — but may not know medical terminology or why it matters.</div></div>
+    </div>
+    <p>Each of these readers needs different things from the same patient's information. That's why <mark>knowing your reader is the first step in writing any summary.</mark></p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What's in a Strong Patient Summary</h2>
+    <p>While the exact format varies by context, a strong patient summary typically contains these core elements — in this order:</p>
+    <div class="anatomy">
+      <div class="anat-row cc"><div class="anat-tag">Chief Complaint</div><div class="anat-body"><h4>Why is the patient here?</h4><p>One or two sentences: what brought this patient in, what they're being treated for right now. Everything else connects back to this.</p></div></div>
+      <div class="anat-row hx"><div class="anat-tag">Key History</div><div class="anat-body"><h4>What does the provider need to know about the past?</h4><p>Relevant past diagnoses, surgeries, family history, and social history. Not all of it — only what's medically relevant to the current situation.</p></div></div>
+      <div class="anat-row med"><div class="anat-tag">Current Medications</div><div class="anat-body"><h4>What is the patient taking right now?</h4><p>Every medication, dose, and frequency. This is non-negotiable — medications interact, and a provider treating a patient without knowing their medications is flying blind.</p></div></div>
+      <div class="anat-row labs"><div class="anat-tag">Recent Test Results</div><div class="anat-body"><h4>What did the tests show?</h4><p>Key labs, imaging, and diagnostic results — with dates. Flag anything abnormal. Skip results that are normal and not relevant to the current issue.</p></div></div>
+      <div class="anat-row plan"><div class="anat-tag">Current Plan</div><div class="anat-body"><h4>What is the team doing right now?</h4><p>Active treatments, current orders, pending tests. The incoming provider needs to know what's already in motion so they don't duplicate or contradict it.</p></div></div>
+      <div class="anat-row fu"><div class="anat-tag">Follow-Up Needed</div><div class="anat-body"><h4>What needs to happen next?</h4><p>Outstanding items, pending decisions, specific things to monitor. Who is responsible for each item. Any deadlines or time-sensitive items flagged explicitly.</p></div></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>When the Summary Fails: See the Stakes in Action</h2>
+    <p>A bad patient summary isn't just an imperfect document — it can directly change what happens to a patient. Click through these scenarios to see exactly how:</p>
+    <div class="stakes-box">
+      <div class="sb-label">⚖️ Stakes Explorer</div>
+      <div class="sb-title">What Happens When the Summary Is Wrong</div>
+      <div class="sb-sub">The same patient, the same situation — the only difference is the quality of the summary.</div>
+      <div class="sb-tabs">
+        <button class="sb-tab active" onclick="showSb(0)">Scenario 1: Allergy Missing</button>
+        <button class="sb-tab" onclick="showSb(1)">Scenario 2: Wrong Medication</button>
+        <button class="sb-tab" onclick="showSb(2)">Scenario 3: Missing History</button>
+      </div>
+      <div id="sbContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="pull-quote"><p>A patient summary is a clinical decision support tool. When it's accurate and complete, it protects patients. When it's wrong, it misleads the people responsible for their care.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">An ER doctor has 30 seconds to review a patient's summary before entering the room. The patient is in acute respiratory distress. Which piece of information is most critical for the summary to include in that 30-second window?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">The patient's full social and family history so the doctor has complete context</button>
+        <button class="qopt" onclick="cq(this,false)">A detailed timeline of all previous hospitalizations over the past five years</button>
+        <button class="qopt" onclick="cq(this,true)">Current medications (especially respiratory medications, anticoagulants, or anything affecting emergency treatment), known allergies, and the specific presenting complaint — because these directly shape the immediate treatment decisions the doctor must make in the next 5 minutes</button>
+        <button class="qopt" onclick="cq(this,false)">The patient's preferred pharmacy and insurance information for billing purposes</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>A patient summary condenses a patient's most important health information so a provider can make good decisions quickly. Different readers — ER doctors, incoming nurses, specialists, patients — have very different amounts of time and very different needs from the same information.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The six core elements of a strong patient summary: Chief complaint, Key history, Current medications, Recent test results, Current care plan, Follow-up needed. The order matters — the most urgent, actionable information comes first.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>A bad summary isn't just incomplete — it actively misleads the provider. A missing allergy, a wrong medication, an omitted diagnosis: these aren't documentation errors, they're clinical hazards that can directly change what happens to a patient.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const sbData=[
+  {title:'The Missing Allergy',scenario:'Patient Maria Santos, 68, admitted for pneumonia. Has a documented penicillin allergy — severe rash and throat swelling. She was discharged from a different hospital 6 months ago and her summary from that stay is available.',
+  bad:`SUMMARY — Maria Santos, 68
+Chief complaint: Community-acquired pneumonia
+History: Hypertension, Type 2 diabetes
+Medications: Metformin 500mg BID, lisinopril 10mg QD
+Plan: IV antibiotics, supportive care`,
+  badOutcome:'❌ The allergy is not in the summary. The admitting physician orders amoxicillin-clavulanate — a penicillin-class antibiotic. The pharmacist catches the allergy during order verification. Near-miss. If the pharmacist had missed it, Maria could have experienced anaphylaxis.',
+  good:`SUMMARY — Maria Santos, 68
+⚠️ ALLERGY: Penicillin — severe (anaphylaxis risk — throat swelling documented 2019)
+Chief complaint: Community-acquired pneumonia
+History: Hypertension, Type 2 diabetes
+Medications: Metformin 500mg BID, lisinopril 10mg QD
+Plan: IV antibiotics — NOTE: penicillin-class contraindicated, use azithromycin or respiratory fluoroquinolone`,
+  goodOutcome:'✅ The allergy is prominently flagged at the top. The physician orders azithromycin. No near-miss. The summary note even suggests the alternative antibiotic class, saving time and preventing a dangerous error from ever occurring.'},
+  {title:'The Wrong Medication',scenario:'Patient David Kim, 55, comes to the ER with chest pain. His previous summary from a cardiology visit lists his medications.',
+  bad:`SUMMARY — David Kim, 55
+Chief complaint: Chest pain, onset 2 hours ago
+History: Coronary artery disease, prior MI 2021
+Medications: Aspirin 81mg, atorvastatin 40mg, metoprolol 25mg
+Plan: EKG, troponin, chest X-ray`,
+  badOutcome:'❌ David\'s actual prescription is metoprolol 25mg TWICE daily — but the summary says once daily. The ER nurse calculates his last dose timing based on once-daily dosing. This affects decisions about whether he can receive additional rate-control medications safely.',
+  good:`SUMMARY — David Kim, 55
+Chief complaint: Chest pain, onset 2 hours ago
+History: Coronary artery disease, prior MI 2021
+Medications: Aspirin 81mg QD · Atorvastatin 40mg QD · Metoprolol 25mg BID (last dose 7am today)
+Plan: EKG, troponin, chest X-ray`,
+  goodOutcome:'✅ The correct frequency (BID — twice daily) and last dose time are included. The ER team has accurate information to make medication decisions. A small detail — one word, "BID" — with significant clinical impact.'},
+  {title:'The Hidden Diagnosis',scenario:'Patient James Park, 72, is transferred from a skilled nursing facility to the hospital for evaluation of confusion. The transfer summary focuses on the acute issue.',
+  bad:`TRANSFER SUMMARY — James Park, 72
+Reason for transfer: Acute confusion, onset this morning
+Current meds: Lisinopril 10mg, furosemide 40mg, potassium chloride 20mEq
+Vitals stable. Labs pending.`,
+  badOutcome:'❌ The summary omits that James has a history of dementia and that his baseline cognitive function is already significantly impaired. The ER team pursues an extensive workup for a "new" neurological event. Hours are spent before someone finds the old records and realizes this is likely a minor delirium superimposed on his existing dementia — not a stroke.',
+  good:`TRANSFER SUMMARY — James Park, 72
+Reason for transfer: Acute confusion — NOTE: BASELINE COGNITION IMPAIRED (moderate dementia, dx 2021). Today's change is beyond his baseline.
+Current meds: Lisinopril 10mg, furosemide 40mg, potassium chloride 20mEq
+Relevant history: Dementia (Alzheimer type), prior delirium episodes (hospitalization 2023)
+Vitals stable. Labs pending. `,
+  goodOutcome:'✅ The baseline cognitive status is clearly flagged. The ER team immediately frames this as "acute-on-chronic" confusion and focuses the workup on likely delirium triggers (infection, medication, dehydration) rather than pursuing an expensive and time-consuming stroke workup first.'}
+];
+let currentSb=0;
+function showSb(i){currentSb=i;document.querySelectorAll('.sb-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));renderSb();}
+function renderSb(){const d=sbData[currentSb];document.getElementById('sbContainer').innerHTML=`<div class="sb-panel active"><div class="sb-scenario"><strong>📋 Situation:</strong> ${d.scenario}</div><div class="sb-compare"><div class="sb-bad"><div class="sb-col-label">❌ Weak Summary</div><div class="sb-col-text">${d.bad.replace(/\n/g,'<br>')}</div></div><div class="sb-good"><div class="sb-col-label">✅ Strong Summary</div><div class="sb-col-text">${d.good.replace(/\n/g,'<br>')}</div></div></div><div class="sb-outcome sb-bad-outcome" style="margin-bottom:8px">${d.badOutcome}</div><div class="sb-outcome sb-good-outcome">${d.goodOutcome}</div></div>`;}
+renderSb();
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct! In a 30-second emergency context, the information that drives immediate life-or-death treatment decisions must come first. Current medications affect what the ER doctor can safely give — certain drugs can\'t be combined, and knowing what the patient is already on is critical for safe dosing. Allergies can kill if missed. The presenting complaint is the starting point for the clinical assessment. Social history, hospitalization timelines, and insurance information — while eventually relevant — are not what saves a life in the first five minutes of an acute respiratory emergency.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('Current medications'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ In an acute emergency, the summary must prioritize what drives the immediate treatment decision. Full social history, detailed hospitalization timelines, and billing information are important but not time-critical in the first 30 seconds. The ER doctor needs to know what the patient is currently taking, what they\'re allergic to, and why they\'re here — because those three things directly shape what treatments are safe and appropriate right now.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

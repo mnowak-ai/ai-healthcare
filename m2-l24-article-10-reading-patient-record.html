@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading a Hypothetical Patient Record — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--red:#DC2626;--red-pale:#FFF1F1;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,54px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.intro-note{background:var(--purple-pale);border:1.5px solid var(--purple-mid);border-radius:16px;padding:18px 22px;margin:24px 0;font-size:14px;line-height:1.7;color:var(--purple-dark);}
+/* Record viewer */
+.record-viewer{margin:24px 0;}
+.rv-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:0;padding:16px 16px 0;background:var(--gray-soft);border-radius:16px 16px 0 0;border:1.5px solid var(--purple-mid);border-bottom:none;}
+.rv-tab{padding:8px 14px;border-radius:8px 8px 0 0;font-size:12px;font-weight:600;cursor:pointer;color:var(--gray-muted);background:transparent;border:none;transition:all .2s;}
+.rv-tab.active{background:var(--white);color:var(--purple);border-bottom:2px solid var(--white);}
+.rv-panel{display:none;background:var(--white);border:1.5px solid var(--purple-mid);border-top:none;border-radius:0 0 16px 16px;padding:20px;}
+.rv-panel.active{display:block;animation:fadeIn .3s ease;}
+.rv-section-name{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--purple);margin-bottom:4px;}
+.rv-section-what{font-size:13px;color:var(--gray-muted);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--purple-mid);}
+.rv-record{background:var(--gray-soft);border-radius:10px;padding:14px 16px;font-size:13px;line-height:1.85;font-family:monospace;margin-bottom:14px;border:1px solid var(--purple-mid);}
+.rv-annotations{display:flex;flex-direction:column;gap:8px;}
+.rv-ann{display:flex;gap:10px;padding:8px 12px;border-radius:8px;font-size:13px;line-height:1.55;}
+.rv-ann.purple{background:var(--purple-pale);}
+.rv-ann.green{background:var(--green-pale);}
+.rv-ann.orange{background:var(--orange-pale);}
+.rv-ann.red{background:var(--red-pale);}
+.rv-ann-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+.rv-ann-text{color:var(--gray-text);}
+/* Abbreviations reference */
+.abbr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:24px 0;}
+.abbr-item{background:var(--gray-soft);border-radius:8px;padding:8px 12px;}
+.abbr-code{font-size:13px;font-weight:700;font-family:monospace;color:var(--purple-dark);margin-bottom:2px;}
+.abbr-meaning{font-size:12px;color:var(--gray-text);}
+/* Reading challenge */
+.read-challenge{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.rc-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.rc-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.rc-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.rc-record{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;padding:14px 16px;font-size:13px;line-height:1.85;font-family:monospace;margin-bottom:16px;}
+.rc-items{display:flex;flex-direction:column;gap:12px;}
+.rc-item{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;padding:14px;}
+.rc-q{font-size:13px;font-weight:600;color:var(--purple-dark);margin-bottom:8px;}
+.rc-opts{display:flex;flex-direction:column;gap:6px;}
+.rc-opt{font-size:13px;padding:8px 12px;border-radius:8px;border:1.5px solid var(--purple-mid);cursor:pointer;background:var(--white);transition:all .2s;text-align:left;}
+.rc-opt:hover{border-color:var(--purple);}
+.rc-opt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.rc-opt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.rc-fb{font-size:13px;line-height:1.6;padding:8px 12px;border-radius:8px;margin-top:6px;display:none;}
+.rc-fb.show{display:block;}
+.rc-fb.ok{background:var(--green-pale);color:var(--green);}
+.rc-fb.bad{background:var(--red-pale);color:var(--red);}
+/* Main quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:640px){.hero,.content{padding-left:24px;padding-right:24px;}.abbr-grid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 2.4 · Patient Summaries</div>
+  <h1>Reading a Hypothetical Patient Record: A Guided Walkthrough for Beginners</h1>
+  <p class="hero-sub">If you've never worked in a clinical setting, a patient record can look like another language. This article walks through a complete simulated patient record — section by section — so that when you practice writing summaries, you understand exactly what you're looking at.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <div class="intro-note">📌 <strong>Everything in this article is completely simulated.</strong> "Elena Vasquez" is a fictional patient. All clinical details, dates, and records are invented for educational purposes only. No real patient data was used.</div>
+    <h2>Why You Need to Know How to Read a Record</h2>
+    <p>You can't write a good patient summary if you don't understand what you're reading. A patient chart isn't organized for casual reading — it's organized for rapid clinical lookup. Understanding the structure means you can navigate it quickly, find the clinically important information, and understand what's normal versus what needs attention.</p>
+    <p>The record we'll walk through belongs to Elena Vasquez — a 68-year-old simulated patient who has been admitted to a hospital. <mark>Click through each section of her record to learn what it means and what to look for.</mark></p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Elena's Simulated Patient Record — Click Each Section to Explore</h2>
+    <div class="record-viewer">
+      <div class="rv-tabs" id="rvTabs"></div>
+      <div id="rvPanels"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Common Abbreviations Decoder</h2>
+    <p>Clinical records are packed with abbreviations. Here are the most common ones you'll see. Bookmark this section for reference when practicing:</p>
+    <div class="abbr-grid">
+      <div class="abbr-item"><div class="abbr-code">QD / QD</div><div class="abbr-meaning">Once daily</div></div>
+      <div class="abbr-item"><div class="abbr-code">BID</div><div class="abbr-meaning">Twice daily</div></div>
+      <div class="abbr-item"><div class="abbr-code">TID</div><div class="abbr-meaning">Three times daily</div></div>
+      <div class="abbr-item"><div class="abbr-code">PRN</div><div class="abbr-meaning">As needed</div></div>
+      <div class="abbr-item"><div class="abbr-code">PO</div><div class="abbr-meaning">By mouth (oral)</div></div>
+      <div class="abbr-item"><div class="abbr-code">IV</div><div class="abbr-meaning">Intravenous</div></div>
+      <div class="abbr-item"><div class="abbr-code">SC / SQ</div><div class="abbr-meaning">Subcutaneous (under skin)</div></div>
+      <div class="abbr-item"><div class="abbr-code">HTN</div><div class="abbr-meaning">Hypertension (high BP)</div></div>
+      <div class="abbr-item"><div class="abbr-code">DM / T2DM</div><div class="abbr-meaning">Diabetes mellitus / Type 2</div></div>
+      <div class="abbr-item"><div class="abbr-code">HF / CHF</div><div class="abbr-meaning">Heart failure</div></div>
+      <div class="abbr-item"><div class="abbr-code">EF</div><div class="abbr-meaning">Ejection fraction (heart pumping %)</div></div>
+      <div class="abbr-item"><div class="abbr-code">CKD</div><div class="abbr-meaning">Chronic kidney disease</div></div>
+      <div class="abbr-item"><div class="abbr-code">eGFR</div><div class="abbr-meaning">Estimated kidney function rate</div></div>
+      <div class="abbr-item"><div class="abbr-code">HbA1c</div><div class="abbr-meaning">3-month blood sugar average</div></div>
+      <div class="abbr-item"><div class="abbr-code">BNP</div><div class="abbr-meaning">Heart strain marker (heart failure)</div></div>
+      <div class="abbr-item"><div class="abbr-code">Cr / SCr</div><div class="abbr-meaning">Creatinine (kidney marker)</div></div>
+      <div class="abbr-item"><div class="abbr-code">K+</div><div class="abbr-meaning">Potassium (electrolyte)</div></div>
+      <div class="abbr-item"><div class="abbr-code">s/p</div><div class="abbr-meaning">Status post (had this procedure)</div></div>
+      <div class="abbr-item"><div class="abbr-code">CC</div><div class="abbr-meaning">Chief complaint</div></div>
+      <div class="abbr-item"><div class="abbr-code">Dx</div><div class="abbr-meaning">Diagnosis</div></div>
+      <div class="abbr-item"><div class="abbr-code">Hx</div><div class="abbr-meaning">History</div></div>
+      <div class="abbr-item"><div class="abbr-code">Rx</div><div class="abbr-meaning">Prescription / treatment</div></div>
+      <div class="abbr-item"><div class="abbr-code">A&O ×3</div><div class="abbr-meaning">Alert and oriented to person, place, time</div></div>
+      <div class="abbr-item"><div class="abbr-code">NKDA</div><div class="abbr-meaning">No known drug allergies</div></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Now You Try: Read and Find the Key Facts</h2>
+    <div class="read-challenge">
+      <div class="rc-label">✏️ Record Reading Practice</div>
+      <div class="rc-title">Extract the Summary-Ready Information</div>
+      <div class="rc-sub">Read this simulated record excerpt and answer the questions. These are the same skills you use when writing a patient summary.</div>
+      <div class="rc-record">SIMULATED PATIENT RECORD EXCERPT — Fictional patient for practice only
+
+Patient: James Okafor (fictional) | 71M | MRN: SIMULATED
+Admitting Dx: Acute exacerbation of COPD
+Admitted: [Date] | Day 3 of admission
+
+PMHx: COPD (GOLD Stage III), HTN, T2DM, s/p MI 2019 (stented × 1)
+⚠️ ALLERGY: Sulfa drugs — severe rash
+
+Current Medications:
+• Tiotropium 18mcg inhaled QD (COPD)
+• Albuterol 2.5mg NEB Q4H PRN (COPD — escalated from Q6H today)
+• Prednisone 40mg PO QD (started on admission — COPD exacerbation)
+• Metformin 1000mg PO BID — HELD (contrast study pending)
+• Lisinopril 10mg PO QD (HTN)
+• Aspirin 81mg PO QD (cardiac history)
+
+Vitals (today 0800): BP 144/88 · HR 96 · RR 22 · O2 sat 91% on 3L NC (was 88% on admission)
+Temp 37.4°C (normal)
+
+Labs today: WBC 11.2 (mildly elevated) · Glucose 218 ↑ (elevated — likely steroid effect) · K+ 3.6 (low normal) · Cr 1.3 (stable, baseline 1.2)
+
+Plan: Continue current respiratory protocol. CT chest ordered — r/o PE. Albuterol escalated. Endocrine consulted re: steroid-induced hyperglycemia.
+Pending: CT results expected today afternoon. Endocrine consult note expected tomorrow AM.</div>
+      <div class="rc-items" id="rcItems"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">When reading a patient record to write a summary, you notice that a medication on the current medication list is marked "HELD." What does this mean and why is it important to include in a summary?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">It means the medication was discontinued and should be removed from the summary entirely</button>
+        <button class="qopt" onclick="cq(this,false)">It means the medication hasn't been started yet — it should be noted as a future prescription</button>
+        <button class="qopt" onclick="cq(this,true)">It means the medication is temporarily paused for a specific reason (a procedure, a lab result, a drug interaction) and must be included in the summary with the reason — because the next provider needs to know not to restart it without understanding why it was held, and needs to know when it can resume</button>
+        <button class="qopt" onclick="cq(this,false)">It's a documentation reminder to the prescribing physician — it doesn't affect the summary</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>A patient record has distinct sections — demographics, allergies, PMHx, medications, vitals, labs, and the clinical plan — each serving a specific purpose. Knowing what each section contains lets you navigate efficiently and know exactly where to find the information you need for a summary.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Three things to always flag immediately when reading a record: allergies (top priority — always), held medications with reasons (critical for continuity), and pending items (tests, consults, decisions not yet resolved). These are the most likely sources of care errors if missed in a summary.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Clinical abbreviations are a language — learn the core ones. "QD BID TID PRN PO IV HTN DM HF EF CKD s/p" appear in almost every record. Recognizing them instantly makes you faster, more confident, and more useful in any clinical support role.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const sections=[
+  {tab:'Patient Demographics',name:'Demographics & Identifiers',what:'The top of every record. Contains the patient\'s name, date of birth, medical record number (MRN), and contact information. This section exists to verify you\'re looking at the right patient — always check this first.',
+  record:`PATIENT DEMOGRAPHICS — SIMULATED
+Name: Elena Vasquez (FICTIONAL)
+DOB: March 14, 1956 | Age: 68
+MRN: SIMULATED-001 (fictional number)
+Address: [Simulated]
+Primary Insurance: Medicare Part A & B
+Emergency Contact: Rosa Vasquez (daughter) — (555) 310-0099
+Primary Care Physician: Dr. Kim — Green Valley Clinic
+Preferred Language: Spanish (interpreter available)`,
+  anns:[{t:'purple',i:'📋',text:'The MRN is the unique identifier — every action in the hospital is linked to this number. A wrong MRN means the wrong patient. Always verify name + DOB + MRN match.'},{t:'green',i:'✅',text:'Preferred language is clinically important — it affects how instructions are delivered and whether an interpreter is needed for informed consent.'},{t:'orange',i:'📌',text:'Emergency contact is the person to notify and often the one who brings in information about the patient\'s baseline at home.'}]},
+  {tab:'Allergies',name:'Allergy List',what:'One of the most important sections in the entire record. Must be the first thing you check when reviewing any record. Every allergy is listed with the reaction type — because "rash" and "anaphylaxis" require very different responses.',
+  record:`ALLERGY DOCUMENTATION — SIMULATED
+⚠️ PENICILLIN — Reaction: Anaphylaxis (throat swelling, documented 2018)
+    Class alert: Avoid ALL penicillin-class antibiotics (amoxicillin, ampicillin, etc.)
+⚠️ CODEINE — Reaction: Nausea/vomiting (moderate)
+    Alternative: Non-opioid pain management preferred; use non-codeine opioids if necessary
+NKDA to: Sulfa drugs, NSAIDs, contrast dye (all tolerated historically)`,
+  anns:[{t:'red',i:'⚠️',text:'Anaphylaxis to penicillin is a life-threatening allergy. This MUST appear in every summary for this patient. Prescribing a penicillin-class antibiotic to this patient could kill her.'},{t:'purple',i:'📋',text:'Note the class alert — penicillin allergy extends to all penicillin-class antibiotics, not just penicillin itself. That clinical detail matters for prescribing.'},{t:'green',i:'✅',text:'The NKDA (no known drug allergies) section for other categories is also useful — it tells providers what she has tolerated, which helps when selecting alternatives.'}]},
+  {tab:'Medical History',name:'Past Medical & Surgical History',what:'Everything clinically significant that has happened before this admission. This section tells providers what chronic conditions are being managed, what surgeries have been done, and what baseline to expect.',
+  record:`PAST MEDICAL HISTORY (PMHx) — SIMULATED
+Chronic Conditions:
+• Type 2 Diabetes Mellitus — dx 2015, HbA1c 8.4% (last: 3 months ago)
+• Hypertension — dx 2010, controlled on medications
+• Heart Failure with reduced Ejection Fraction (HFrEF) — dx 2021, EF 35% on last echo
+• Chronic Kidney Disease Stage 3 — baseline Cr 1.4 mg/dL, eGFR 42 mL/min
+
+Surgical History:
+• Appendectomy — 2001 (laparoscopic, uncomplicated)
+• Left knee replacement — 2019 (no complications)
+
+Social History:
+• Non-smoker (quit 2000, 20 pack-year history)
+• Occasional alcohol (1–2 drinks/week, self-reported)
+• Lives alone, daughter assists with medications`,
+  anns:[{t:'purple',i:'📋',text:'EF 35% and CKD Stage 3 together are critical context for almost every treatment decision — certain medications are dosed differently or contraindicated in kidney disease, and cardiac drugs interact with her EF.'},{t:'orange',i:'📌',text:'"Lives alone" is clinical information — it affects discharge planning, medication adherence assessment, and who to contact if she can\'t care for herself at home.'},{t:'green',i:'✅',text:'The appendectomy and knee replacement are documented but are unlikely to affect most acute treatment decisions. A good summary would include EF and CKD stage but might omit the surgical history unless relevant.'}]},
+  {tab:'Medications',name:'Current Medication List',what:'Everything the patient is currently prescribed — with dose, route, and frequency. This is the section most likely to contain critical information and most likely to be out of date. Always verify medication list accuracy, especially at transitions of care.',
+  record:`CURRENT MEDICATIONS — SIMULATED (verified on admission)
+1. Metformin 1000mg PO BID — T2DM
+   ⚠️ HELD: Contrast study scheduled — DO NOT administer until 48hrs post-contrast
+2. Lisinopril 5mg PO QD — HTN + HFrEF (reduced dose — CKD)
+3. Carvedilol 6.25mg PO BID — HFrEF
+4. Furosemide 40mg PO QD — HFrEF / volume management
+5. Spironolactone 25mg PO QD — HFrEF (mortality benefit)
+6. Atorvastatin 40mg PO QHS (at bedtime) — cardiovascular
+7. Insulin glargine 20 units SQ QHS — T2DM (added due to poor HbA1c control)
+8. Aspirin 81mg PO QD — cardiovascular protection`,
+  anns:[{t:'red',i:'⚠️',text:'Metformin is HELD — this is critical. If a summary doesn\'t note the hold and the reason, the next provider might restart it when it\'s contraindicated after contrast. Always flag held medications with the reason.'},{t:'purple',i:'📋',text:'Lisinopril is at a reduced dose (5mg, not the standard 10mg) specifically because of her CKD — a provider who doesn\'t know the dose was intentionally reduced might try to "optimize" it to a higher dose at the wrong time.'},{t:'orange',i:'📌',text:'"QHS" means at bedtime — this matters for insulin timing. A summary that just says "insulin glargine 20 units" without the timing could lead to an administration error.'}]},
+  {tab:'Vitals & Labs',name:'Vital Signs & Laboratory Results',what:'The real-time data that shows what is actually happening in the patient\'s body right now. Vitals show hemodynamic status. Labs give objective numbers for specific organ systems. Abnormal values should always be flagged, never buried.',
+  record:`VITALS (Admission — today) — SIMULATED
+BP: 158/94 | HR: 104 | RR: 20 | Temp: 37.1°C | O2 sat: 88% on room air → 94% on 2L NC
+Weight: 172 lbs (up 8 lbs from last outpatient visit 2 weeks ago)
+
+LABORATORY RESULTS — SIMULATED (today)
+BNP: 2,480 pg/mL ↑↑ (severely elevated — heart failure marker; normal <100)
+Creatinine: 1.7 mg/dL ↑ (baseline 1.4 — worsening kidney function)
+eGFR: 34 mL/min ↓ (was 42 — acute decline, CKD worsening)
+K+: 5.1 mEq/L ↑ (high normal — monitor closely with spironolactone)
+HbA1c: 8.4% (poorly controlled diabetes — same as 3 months ago)
+Glucose (fasting): 234 mg/dL ↑
+WBC: 8.4 (normal — no sign of infection)
+Na+: 136 mEq/L (normal)`,
+  anns:[{t:'red',i:'⚠️',text:'The 8 lb weight gain in 2 weeks is as important as the BNP. Fluid weight gain is the hallmark of decompensating heart failure — this is the clinical data that explains why she\'s here.'},{t:'red',i:'⚠️',text:'K+ 5.1 with spironolactone is a monitoring flag — spironolactone retains potassium. If K+ rises further, spironolactone may need to be held. A summary must flag this active monitoring item.'},{t:'orange',i:'📌',text:'Creatinine 1.7 vs. baseline 1.4 is an acute change — this needs to be in the summary as "acute worsening from baseline 1.4" not just "1.7". Without the baseline context, the number loses most of its meaning.'}]},
+  {tab:'Clinical Plan',name:'Assessment & Plan',what:'The clinical team\'s working diagnosis and what they\'re doing about it. The most action-oriented section of the record. This is where you find what\'s being treated, why decisions were made, and what needs to happen next.',
+  record:`ASSESSMENT & PLAN — SIMULATED (Attending note)
+
+Assessment: Acute decompensated heart failure (HFrEF, EF 35%) — likely triggered by dietary sodium indiscretion (patient reports eating at a family event 3 days ago).
+
+Plan:
+1. VOLUME MANAGEMENT: IV furosemide 80mg BID — goal: net negative 1.5–2L daily, weight ≤165 lbs before discharge
+2. CARDIAC: Continue carvedilol, spironolactone, lisinopril (current doses — CKD limits uptitration)
+   → Echo ordered — repeat EF assessment (last was 6 months ago)
+3. RENAL: Monitor Cr and K+ daily — CKD + loop diuretic = nephrotoxicity risk
+   → If Cr rises >2.0 or K+ >5.5 → contact renal
+4. DIABETES: Endocrine consulted — glucose management plan expected tomorrow
+   → Hold metformin until 48hrs post-contrast
+5. PENDING: CT chest (scheduled today) — r/o PE given elevated RR
+   Cardiology consult confirmed for tomorrow
+
+Disposition: Expected discharge in 3–4 days pending clinical response to diuresis.`,
+  anns:[{t:'purple',i:'📋',text:'The "likely trigger" (sodium indiscretion at a family event) is clinical reasoning that belongs in a summary — it tells the outpatient team what education is needed and why this happened.'},{t:'orange',i:'📌',text:'Specific targets (net negative 1.5–2L, weight ≤165 lbs) are what the nursing staff and incoming teams need. A summary that says "on diuretics" without the target gives the next team nothing to manage toward.'},{t:'red',i:'⚠️',text:'Pending items — the CT and endocrine consult — must be in the handoff note. The incoming team needs to actively watch for those results and act on them.'}]}
+];
+const rvTabs=document.getElementById('rvTabs');
+const rvPanels=document.getElementById('rvPanels');
+sections.forEach((s,i)=>{
+  const btn=document.createElement('button');btn.className='rv-tab'+(i===0?' active':'');btn.textContent=s.tab;btn.onclick=()=>{document.querySelectorAll('.rv-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));document.querySelectorAll('.rv-panel').forEach((p,pi)=>p.classList.toggle('active',pi===i));};
+  rvTabs.appendChild(btn);
+  const panel=document.createElement('div');panel.className='rv-panel'+(i===0?' active':'');
+  panel.innerHTML=`<div class="rv-section-name">${s.name}</div><div class="rv-section-what">${s.what}</div><div class="rv-record">${s.record.replace(/\n/g,'<br>')}</div><div class="rv-annotations">${s.anns.map(a=>`<div class="rv-ann ${a.t}"><div class="rv-ann-icon">${a.i}</div><div class="rv-ann-text">${a.text}</div></div>`).join('')}</div>`;
+  rvPanels.appendChild(panel);
+});
+
+const rcData=[
+  {q:'Looking at James\'s medication list, which medication has been held and why?',opts:[{text:'Tiotropium was held due to his COPD exacerbation',correct:false,fb:'❌ Tiotropium is listed as active (QD). It\'s his long-acting COPD inhaler and would typically be continued during an exacerbation.'},{text:'Metformin 1000mg BID was held because of a contrast study — it cannot be given until 48 hours after contrast',correct:true,fb:'✅ Correct! Metformin is held because contrast dye can cause acute kidney injury, and metformin combined with acute kidney injury can cause a dangerous buildup of lactic acid. The hold must be noted in any summary — the next provider needs to know not to restart it until 48 hours after the CT scan.'},{text:'Prednisone was held because it\'s causing his elevated glucose',correct:false,fb:'❌ The elevated glucose is noted as "likely steroid effect" but prednisone was not held — it\'s the primary treatment for his COPD exacerbation. The team is managing the glucose separately via the endocrine consult.'}]},
+  {q:'What pending item is most time-sensitive for the incoming evening team?',opts:[{text:'The endocrine consult note — expected tomorrow morning',correct:false,fb:'❌ The endocrine consult is expected tomorrow AM — not tonight. It\'s important for long-term glucose management but not the most time-sensitive item for the evening team.'},{text:'The CT chest results — expected this afternoon. If the CT shows a pulmonary embolism, the team must be ready to act immediately.',correct:true,fb:'✅ Correct! The CT chest is expected "this afternoon" — which means the results will likely land during or shortly after shift change. The evening team needs to know to actively watch for those results, because a positive PE finding requires immediate action (anticoagulation). A handoff that doesn\'t mention the pending CT means the evening team might not check for it in time.'},{text:'The albuterol escalation — it was increased today and may need to be increased again',correct:false,fb:'❌ The albuterol escalation has already happened (Q6H → Q4H). While respiratory status should continue to be monitored, the albuterol order is already in place. The time-sensitive pending item is the CT result.'}]},
+  {q:'James\'s allergy is sulfa drugs (severe rash). His CT scan may require IV contrast dye. Based on the allergy list, what should the care team verify before administering contrast?',opts:[{text:'Nothing — sulfa allergy doesn\'t affect contrast dye',correct:false,fb:'❌ This is a debated area — some providers pre-medicate patients with prior contrast reactions before repeat contrast, and sulfa allergy has historically been cited (though the connection is debated). The key point is that the care team should discuss this with radiology/the ordering physician before assuming it\'s safe.'},{text:'The care team should flag the sulfa allergy to radiology and the ordering physician, who will determine whether pre-medication or alternative imaging is appropriate — because allergy documentation should always be communicated before any procedure involving potential allergens',correct:true,fb:'✅ Correct! Regardless of the clinical evidence on sulfa/contrast relationships, the professional standard is to flag all allergies before procedures involving potential allergen exposure. The allergy documentation exists to prompt this conversation. Contrast dye is a special situation that should involve explicit discussion and the radiology team — not an assumption that everything is fine.'},{text:'Administer IV diphenhydramine (Benadryl) before the contrast as standard pre-medication for all allergies',correct:false,fb:'❌ Pre-medication is a physician decision that depends on the specific allergy, the specific contrast agent, and the clinical situation. A nurse or care coordinator should not independently decide to administer pre-medication — they should flag the allergy and let the appropriate clinical decision-makers determine the plan.'}]}
+];
+const rcAnswers={};
+const rcContainer=document.getElementById('rcItems');
+rcData.forEach((item,i)=>{
+  const div=document.createElement('div');div.className='rc-item';
+  div.innerHTML=`<div class="rc-q">${item.q}</div><div class="rc-opts">${item.opts.map((o,oi)=>`<button class="rc-opt" id="rco${i}_${oi}" onclick="pickRc(${i},${oi})">${o.text}</button><div class="rc-fb" id="rcfb${i}_${oi}"></div>`).join('')}</div>`;
+  rcContainer.appendChild(div);
+});
+function pickRc(i,oi){
+  if(rcAnswers[i]!==undefined)return;rcAnswers[i]=oi;
+  const opt=rcData[i].opts[oi];
+  document.getElementById('rco'+i+'_'+oi).className='rc-opt '+(opt.correct?'correct':'wrong');
+  if(!opt.correct)rcData[i].opts.forEach((o,j)=>{if(o.correct)document.getElementById('rco'+i+'_'+j).className='rc-opt correct';});
+  const fb=document.getElementById('rcfb'+i+'_'+oi);fb.textContent=opt.fb;fb.className='rc-fb show '+(opt.correct?'ok':'bad');
+}
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct! A "held" medication is not discontinued — it\'s temporarily paused and expected to resume under specific conditions. It must appear in the summary because: (1) the next provider needs to know not to restart it until the hold condition is met (in this case, 48 hours post-contrast), and (2) the next provider needs to know there\'s an active medication that will need to be restarted and managed. Removing a held medication from the summary completely would give a false picture of the patient\'s chronic medication regimen and create the risk that it never gets restarted at all.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('temporarily paused'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ A held medication is neither discontinued nor a future prescription — it\'s a current medication that\'s temporarily paused for a specific, documented reason. The distinction matters enormously: if you remove it from the summary, the next provider doesn\'t know it exists. If you list it as active, they might give it when it\'s contraindicated. The correct approach is to list it as held with the explicit reason and the condition for resuming.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

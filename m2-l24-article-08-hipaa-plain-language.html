@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Is HIPAA, Really? — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--red:#DC2626;--red-pale:#FFF1F1;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,54px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+/* Timeline */
+.timeline{display:flex;flex-direction:column;gap:0;margin:24px 0;}
+.tl-item{display:flex;gap:0;}
+.tl-left{width:60px;display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+.tl-dot{width:14px;height:14px;border-radius:50%;background:var(--purple);flex-shrink:0;margin-top:4px;}
+.tl-line{width:2px;background:var(--purple-mid);flex:1;min-height:16px;margin-top:4px;}
+.tl-item:last-child .tl-line{display:none;}
+.tl-content{padding:0 0 20px 12px;flex:1;}
+.tl-year{font-size:12px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.tl-title{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.tl-desc{font-size:13px;line-height:1.65;color:var(--gray-text);}
+/* Rules grid */
+.rules-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;}
+.rule-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:18px;}
+.rule-icon{font-size:28px;margin-bottom:8px;}
+.rule-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.rule-desc{font-size:13px;line-height:1.6;color:var(--gray-text);}
+.rule-ai{font-size:12px;padding:6px 10px;border-radius:6px;margin-top:8px;background:var(--orange-pale);color:var(--orange);}
+/* Scenario cards */
+.scenario-cards{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
+.sc-item{border-radius:16px;padding:18px;display:flex;gap:14px;}
+.sc-item.ok{background:var(--green-pale);border:1.5px solid #86EFAC;}
+.sc-item.bad{background:var(--red-pale);border:1.5px solid #FCA5A5;}
+.sc-icon{font-size:22px;flex-shrink:0;}
+.sc-body h4{font-size:14px;font-weight:700;margin-bottom:4px;}
+.sc-item.ok .sc-body h4{color:var(--green);}
+.sc-item.bad .sc-body h4{color:var(--red);}
+.sc-body p{font-size:13px;line-height:1.6;color:var(--gray-text);margin:0;}
+/* Career stakes */
+.career-stakes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.cs-card{border-radius:16px;padding:20px;}
+.cs-card.serious{background:var(--red-pale);border:2px solid #FCA5A5;}
+.cs-card.protect{background:var(--green-pale);border:2px solid #86EFAC;}
+.cs-icon{font-size:26px;margin-bottom:8px;}
+.cs-title{font-size:14px;font-weight:700;margin-bottom:6px;}
+.cs-card.serious .cs-title{color:var(--red);}
+.cs-card.protect .cs-title{color:var(--green);}
+.cs-text{font-size:13px;line-height:1.6;color:var(--gray-text);}
+/* AI-specific risks */
+.ai-risks{display:flex;flex-direction:column;gap:10px;margin:24px 0;}
+.ar-item{display:flex;gap:12px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;padding:14px;}
+.ar-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.ar-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:3px;}
+.ar-desc{font-size:13px;line-height:1.6;color:var(--gray-text);margin:0;}
+.ar-rule{font-size:12px;background:var(--purple-pale);color:var(--purple);padding:4px 10px;border-radius:5px;margin-top:5px;display:inline-block;}
+/* Flip quiz */
+.flip-quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.fq-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.fq-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.fq-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.fq-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.fq-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:16px;cursor:pointer;min-height:100px;display:flex;flex-direction:column;justify-content:center;transition:all .2s;}
+.fq-card:hover{border-color:var(--purple);background:var(--purple-pale);}
+.fq-card.revealed.hipaa{background:var(--red-pale);border-color:var(--red);}
+.fq-card.revealed.ok{background:var(--green-pale);border-color:var(--green);}
+.fq-card-q{font-size:14px;font-weight:600;color:var(--purple-dark);margin-bottom:6px;}
+.fq-card-a{font-size:13px;line-height:1.6;display:none;}
+.fq-card.revealed .fq-card-a{display:block;}
+.fq-card.revealed.hipaa .fq-card-a{color:var(--red);}
+.fq-card.revealed.ok .fq-card-a{color:var(--green);}
+.fq-card-hint{font-size:11px;color:var(--gray-muted);margin-top:8px;}
+.fq-card.revealed .fq-card-hint{display:none;}
+/* Main quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:640px){.hero,.content{padding-left:24px;padding-right:24px;}.rules-grid{grid-template-columns:1fr;}.career-stakes{grid-template-columns:1fr;}.fq-cards{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 2.4 · Privacy & HIPAA</div>
+  <h1>What Is HIPAA, Really? A Plain-Language Guide for People Just Starting Their Healthcare Career</h1>
+  <p class="hero-sub">Most people have heard of HIPAA. Almost nobody starting out in healthcare fully understands what it actually covers, why it exists, what it means for AI tools specifically, or what happens to your career if you violate it. This article changes that.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>HIPAA in One Paragraph</h2>
+    <p>HIPAA — the Health Insurance Portability and Accountability Act — is a federal law passed in 1996 that sets the national rules for protecting patients' health information. At its core, it does one thing: it says that <mark>the personal health information a patient shares with their care team belongs to that patient, not to the healthcare organization</mark>, and that healthcare organizations must handle it with specific legal protections in place.</p>
+    <p>Before HIPAA, there was no federal standard. A hospital could share your medical records with your employer. An insurer could tell your landlord about your diagnosis. Your health data could be sold. HIPAA said: that era is over. Patient health information has legal protections, and violating those protections has real consequences.</p>
+    <div class="pull-quote"><p>HIPAA isn't bureaucratic paperwork. It's the legal framework that gives patients the right to control one of the most sensitive things that exists: information about their own health.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>A Brief History: Why HIPAA Was Created</h2>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-year">Pre-1996</div><div class="tl-title">No federal standard for health data protection</div><div class="tl-desc">Health records were paper-based and protected inconsistently by state laws. As insurance companies and employers gained more access to health data, abuses became common. Patients had little legal recourse.</div></div></div>
+      <div class="tl-item"><div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-year">1996</div><div class="tl-title">HIPAA signed into law</div><div class="tl-desc">President Clinton signed HIPAA primarily to address insurance portability — making it easier to keep health insurance when changing jobs. The privacy and security standards were built alongside to protect patient data as healthcare shifted toward electronic records.</div></div></div>
+      <div class="tl-item"><div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-year">2003</div><div class="tl-title">Privacy Rule takes effect</div><div class="tl-desc">The HIPAA Privacy Rule established national standards for protecting individually identifiable health information (PHI). For the first time, patients had a federal right to access their own records and control how their information was used.</div></div></div>
+      <div class="tl-item"><div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-year">2009</div><div class="tl-title">HITECH Act strengthens penalties</div><div class="tl-desc">The Health Information Technology for Economic and Clinical Health Act dramatically increased HIPAA enforcement. Financial penalties were raised significantly. Breach notification requirements were added — organizations must now notify patients when their data is exposed.</div></div></div>
+      <div class="tl-item"><div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-year">2020s–Now</div><div class="tl-title">AI creates new compliance challenges</div><div class="tl-desc">The widespread adoption of AI tools in healthcare has created HIPAA compliance challenges that the original law didn't anticipate. Organizations and regulators are actively working through how HIPAA applies to AI-generated records, cloud-based AI tools, and the use of patient data to train AI models.</div></div></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Three HIPAA Rules You Need to Know</h2>
+    <p>HIPAA has three major rules that affect how healthcare workers handle information every day:</p>
+    <div class="rules-grid">
+      <div class="rule-card">
+        <div class="rule-icon">🔒</div>
+        <div class="rule-title">The Privacy Rule</div>
+        <div class="rule-desc">Defines what Protected Health Information (PHI) is and sets strict limits on who can access it and how it can be used or shared. PHI can only be used for treatment, payment, and healthcare operations — or with explicit patient authorization.</div>
+        <div class="rule-ai">🤖 AI impact: Entering PHI into any unapproved AI tool is a Privacy Rule violation — even if no one else ever sees it.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-icon">🛡️</div>
+        <div class="rule-title">The Security Rule</div>
+        <div class="rule-desc">Requires healthcare organizations to implement specific technical, physical, and administrative safeguards to protect electronic PHI (ePHI). Encryption, access controls, and audit trails are all Security Rule requirements.</div>
+        <div class="rule-ai">🤖 AI impact: AI tools used with patient data must meet Security Rule requirements — most consumer AI tools do not.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-icon">📢</div>
+        <div class="rule-title">The Breach Notification Rule</div>
+        <div class="rule-desc">Requires covered entities to notify affected patients, the Department of HHS, and (for large breaches) the media when an unsecured breach of PHI occurs. Large breaches are publicly listed on HHS's website.</div>
+        <div class="rule-ai">🤖 AI impact: An AI tool that inadvertently exposes patient data may trigger mandatory breach notification affecting thousands of patients.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>AI and HIPAA: The New Challenges Nobody Warned You About</h2>
+    <p>HIPAA was written in 1996 — years before AI tools like ChatGPT existed. The law still applies, but the technology has created new ways to violate it that healthcare workers are only beginning to understand. Here are the four AI-specific HIPAA challenges you'll face in real work:</p>
+    <div class="ai-risks">
+      <div class="ar-item"><div class="ar-icon">☁️</div><div><div class="ar-title">Cloud-based AI tools send your input to external servers</div><div class="ar-desc">When you type into ChatGPT, Claude, or any standard AI tool, your text leaves your device and is processed on the AI company's servers. If that text contains PHI, you've just transmitted patient data to an external organization that has no HIPAA agreement with your employer — that's a violation regardless of what happens to the data after.</div><div class="ar-rule">Rule: Only use AI tools your organization has approved and signed a Business Associate Agreement (BAA) with.</div></div></div>
+      <div class="ar-item"><div class="ar-icon">🧠</div><div><div class="ar-title">AI companies may use your input to train future models</div><div class="ar-desc">Many AI tools explicitly state in their terms of service that conversations may be used to improve the model. Even if training is "anonymized," entering PHI creates the risk that patient-specific details could resurface in unpredictable ways. This is why HIPAA-compliant AI tools explicitly contractually prohibit training on customer data.</div><div class="ar-rule">Rule: Check whether the AI tool you're using has agreed not to train on your inputs. If you can't confirm this, don't enter PHI.</div></div></div>
+      <div class="ar-item"><div class="ar-icon">📸</div><div><div class="ar-title">Photos and screenshots of clinical documents are PHI</div><div class="ar-desc">A growing source of accidental HIPAA violations: healthcare workers photograph a patient's chart, whiteboard, or screen to help write a note, then upload that photo to an AI tool. The photo contains PHI — patient name, diagnosis, medications. The upload is a violation even if the intent was completely innocent.</div><div class="ar-rule">Rule: Never photograph or screenshot identifiable patient information and upload it to any external AI tool. Use typed, de-identified descriptions instead.</div></div></div>
+      <div class="ar-item"><div class="ar-icon">🔗</div><div><div class="ar-title">Copying and pasting from the EHR creates a disclosure risk</div><div class="ar-desc">Copy-pasting patient information from an electronic health record into an external AI tool is functionally identical to emailing that data to a third party. The fact that you're doing it for a legitimate purpose (writing a better note) doesn't change the legal status of the data transfer.</div><div class="ar-rule">Rule: If you need AI help with documentation, describe the clinical scenario in general terms with no identifying information, or use an AI tool integrated directly into your approved EHR.</div></div></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What HIPAA Violations Actually Look Like in Real Healthcare Careers</h2>
+    <div class="scenario-cards">
+      <div class="sc-item ok"><div class="sc-icon">✅</div><div class="sc-body"><h4>Safe: Using AI to practice with fictional scenarios</h4><p>A medical assistant student uses Claude to practice writing discharge letters using completely invented patient scenarios — "Maria Santos, 45, fictional patient with Type 2 diabetes." No real patient information, no PHI, no violation. This is exactly how to use AI tools for healthcare learning.</p></div></div>
+      <div class="sc-item bad"><div class="sc-icon">❌</div><div class="sc-body"><h4>Violation: Texting a patient's name and diagnosis to a friend</h4><p>A new nursing assistant tells a friend about an interesting patient case — including the patient's name, diagnosis, and treatment. Even in a casual conversation, sharing identifiable patient information with someone who doesn't need it for care is a HIPAA violation. This type of violation gets people fired.</p></div></div>
+      <div class="sc-item bad"><div class="sc-icon">❌</div><div class="sc-body"><h4>Violation: Pasting a patient summary into ChatGPT to "clean up the language"</h4><p>A care coordinator copies a patient summary (including the patient's name, MRN, and diagnosis) from the EHR into ChatGPT to help improve the writing. The patient's information has just been transmitted to OpenAI's servers — a company that has no BAA with the healthcare organization. This is a reportable breach.</p></div></div>
+      <div class="sc-item ok"><div class="sc-icon">✅</div><div class="sc-body"><h4>Safe: Using Epic's built-in AI tools for approved documentation</h4><p>A physician uses Epic's AI-assisted note drafting feature (which Epic provides under a BAA) to help structure a clinical note. The patient data never leaves the Epic system and is handled under a formal HIPAA-compliant agreement. This is exactly how approved AI tools in healthcare should work.</p></div></div>
+      <div class="sc-item bad"><div class="sc-icon">❌</div><div class="sc-body"><h4>Violation: Accessing a coworker's medical record out of curiosity</h4><p>A nurse notices a colleague has been out sick and looks up their medical record in the EHR out of concern. Accessing any patient's record without a legitimate clinical need — including a coworker's — is a HIPAA violation. The "minimum necessary" standard means you only access what you need for your specific job function.</p></div></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What's at Stake: HIPAA and Your Career</h2>
+    <div class="career-stakes">
+      <div class="cs-card serious"><div class="cs-icon">⚠️</div><div class="cs-title">What violations can cost you</div><div class="cs-text">Immediate termination from your job. Fines ranging from $100 to $250,000+ depending on severity. Criminal charges for intentional violations (up to 10 years prison). Loss of professional license for licensed healthcare workers. Permanent barrier to future healthcare employment — violations follow your record.</div></div>
+      <div class="cs-card serious"><div class="cs-icon">📊</div><div class="cs-title">How often violations are caught</div><div class="cs-text">EHR systems log every access event — who opened which record, when, from which computer. Audits are routine. Investigators can see exactly who accessed a record and whether they had a legitimate clinical reason. "I didn't think anyone would notice" is never a defense — the audit trail is automatic and permanent.</div></div>
+      <div class="cs-card protect"><div class="cs-icon">🛡️</div><div class="cs-title">How to protect yourself</div><div class="cs-text">Three rules: (1) Only access patient records you have a legitimate clinical need to access. (2) Never share patient information outside approved channels — no texting, no personal email, no unapproved AI tools. (3) When unsure if a tool is approved, ask your supervisor or compliance team before using it — not after.</div></div>
+      <div class="cs-card protect"><div class="cs-icon">🤖</div><div class="cs-title">The AI-specific rule to memorize</div><div class="cs-text">If the AI tool wasn't deployed by your organization, hasn't signed a Business Associate Agreement, and wasn't specifically approved for PHI use — treat it as off-limits for any identifiable patient information, period. The time saved by using an unapproved shortcut is never worth the career risk.</div></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Quick Review: HIPAA Scenario Cards</h2>
+    <p>Click each card to reveal whether the scenario is a HIPAA violation and why:</p>
+    <div class="flip-quiz">
+      <div class="fq-label">🧠 HIPAA Scenario Practice</div>
+      <div class="fq-title">Violation or Not? Tap to Find Out</div>
+      <div class="fq-sub">Each card describes a real-world scenario. Click to reveal the answer.</div>
+      <div class="fq-cards" id="fqCards"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A hospital implements a new AI documentation assistant that helps nurses write shift notes more quickly. Under HIPAA, what is the minimum requirement before nurses can use this tool with real patient data?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">The tool must be approved by the hospital's IT department for cybersecurity</button>
+        <button class="qopt" onclick="cq(this,false)">Nurses must complete a 30-minute HIPAA refresher training before using it</button>
+        <button class="qopt" onclick="cq(this,true)">The AI vendor must have signed a Business Associate Agreement (BAA) with the hospital, confirming they will handle PHI in compliance with HIPAA — because any external party that creates, receives, maintains, or transmits PHI on behalf of a covered entity is a "business associate" and must be contractually bound to HIPAA requirements</button>
+        <button class="qopt" onclick="cq(this,false)">The hospital must notify all patients that an AI tool will be used in their care</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>HIPAA is the federal law that protects patients' health information. Its three main rules — Privacy, Security, and Breach Notification — set the legal framework every healthcare worker operates within. Violations carry serious personal and career consequences regardless of intent.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI creates four new HIPAA risks: cloud transmission of PHI to unapproved servers, training data exposure, photo/screenshot uploads of clinical documents, and copy-paste disclosures from the EHR. None of these require malicious intent — they're all easy, accidental violations that end careers.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The AI compliance rule to memorize: before using any AI tool with real patient data, confirm it has a signed Business Associate Agreement (BAA) with your organization. If you're not certain — don't use it. The audit trail in your EHR is permanent and automatic. Violations are caught. The career consequences are real.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const fqData=[
+  {q:'A medical assistant tells her sister — who is not in healthcare — that she treated a famous local athlete today and mentions the diagnosis.',type:'hipaa',a:'❌ HIPAA Violation. Sharing identifiable patient information (the patient\'s name + diagnosis) with anyone who doesn\'t need it for care purposes is a Privacy Rule violation. Celebrity or public figure status doesn\'t change a patient\'s HIPAA rights. This type of violation is one of the most common and gets people fired.'},
+  {q:'A physician discusses a patient\'s case with a specialist in the hospital hallway — they both need the information for the patient\'s care.',type:'ok',a:'✅ Not a violation. HIPAA explicitly permits sharing PHI for treatment purposes among members of the care team. "Minimum necessary" applies — share what\'s needed for care. This is exactly the appropriate use of patient information.'},
+  {q:'A nurse uses her personal iPhone to take a photo of a patient\'s whiteboard (showing name and diagnosis) to remember the information while writing her note.',type:'hipaa',a:'❌ HIPAA Violation. Photographing identifiable patient information on a personal device creates an unauthorized copy of PHI outside of the approved healthcare system. Personal devices are not HIPAA-compliant storage. Even if the photo is only for personal use, the act of creating it on an unapproved device is a violation.'},
+  {q:'A hospital uses an AI documentation tool that their organization has a signed Business Associate Agreement with, and the tool never stores patient data beyond the active session.',type:'ok',a:'✅ Not a violation — if properly implemented. A BAA-covered AI tool that meets HIPAA Security Rule requirements and handles patient data appropriately is compliant. This is the correct model for HIPAA-compliant AI in healthcare.'},
+  {q:'A medical student accesses the EHR of a patient who was admitted to the hospital to look up their own blood test results from a prior visit.',type:'hipaa',a:'❌ HIPAA Violation. The "minimum necessary" standard requires that access to records be limited to what\'s needed for a specific job function. The medical student has no clinical need to access this patient\'s record. Accessing your own records — or records of anyone you\'re not actively involved in caring for — through clinical systems is still a HIPAA violation.'},
+  {q:'A care coordinator de-identifies a patient scenario completely (removes all 18 HIPAA identifiers) and uses it as a fictional training example.',type:'ok',a:'✅ Not a violation. Properly de-identified data — with all 18 HIPAA identifiers removed — is no longer considered PHI under HIPAA. Using de-identified data for training, education, or practice is compliant. The key word is "properly de-identified" — changing just the name is not sufficient.'}
+];
+const fqContainer=document.getElementById('fqCards');
+fqData.forEach((f,i)=>{
+  const div=document.createElement('div');div.className='fq-card';
+  div.innerHTML=`<div class="fq-card-q">${f.q}</div><div class="fq-card-a">${f.a}</div><div class="fq-card-hint">👆 Click to reveal</div>`;
+  div.onclick=()=>{if(!div.classList.contains('revealed')){div.classList.add('revealed',f.type);}};
+  fqContainer.appendChild(div);
+});
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct! Under HIPAA, any external company that handles PHI on behalf of a covered entity (like a hospital) is classified as a "Business Associate." Business Associates must sign a BAA that legally binds them to HIPAA requirements — including how they store, process, and protect the data. Without a BAA, using the AI tool with real patient data is a HIPAA violation regardless of the tool\'s actual security practices. The BAA is the legal contract that makes compliance possible. IT security approval and staff training are also important, but they don\'t substitute for the vendor\'s legal obligation under HIPAA.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('Business Associate Agreement'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ IT security approval and staff training are both good practices, but they don\'t address the fundamental HIPAA requirement: the AI vendor must be contractually bound to HIPAA through a Business Associate Agreement. Without a BAA, the vendor has no legal obligation to protect the patient data they process — and the hospital is liable for the violation. Patient notification requirements under HIPAA don\'t extend to every use of technology — only to certain treatment uses and to breaches. The BAA is the legal prerequisite for using any AI tool with real patient data.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

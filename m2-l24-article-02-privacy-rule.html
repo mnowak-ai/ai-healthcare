@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Privacy Rule You Cannot Break — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--red:#DC2626;--red-pale:#FFF1F1;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,56px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.alert-box{background:var(--red-pale);border:2px solid var(--red);border-radius:16px;padding:24px 28px;margin:24px 0;}
+.alert-icon{font-size:28px;margin-bottom:8px;}
+.alert-title{font-size:17px;font-weight:700;color:var(--red);margin-bottom:8px;}
+.alert-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.phi-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.phi-col{border-radius:16px;padding:18px;}
+.phi-col.is{background:var(--red-pale);border:2px solid #FCA5A5;}
+.phi-col.not{background:var(--green-pale);border:2px solid #86EFAC;}
+.phi-col-title{font-size:13px;font-weight:700;margin-bottom:10px;}
+.phi-col.is .phi-col-title{color:var(--red);}
+.phi-col.not .phi-col-title{color:var(--green);}
+.phi-item{font-size:13px;line-height:1.5;padding:5px 0;border-bottom:1px solid rgba(0,0,0,.06);}
+.phi-item:last-child{border-bottom:none;}
+.consequences{display:flex;flex-direction:column;gap:10px;margin:24px 0;}
+.con-row{display:flex;gap:14px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:14px 16px;}
+.con-icon{font-size:22px;flex-shrink:0;margin-top:2px;}
+.con-body h4{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.con-body p{font-size:13px;line-height:1.6;color:var(--gray-text);margin:0;}
+.con-body .fine{font-size:12px;font-weight:700;color:var(--red);background:var(--red-pale);padding:3px 8px;border-radius:5px;margin-top:5px;display:inline-block;}
+/* Scenario sorter */
+.sorter{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.sr-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.sr-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.sr-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.sr-items{display:flex;flex-direction:column;gap:12px;}
+.sr-item{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:16px;}
+.sr-scenario{font-size:14px;line-height:1.65;margin-bottom:10px;}
+.sr-opts{display:flex;gap:8px;}
+.sr-opt{padding:7px 18px;border-radius:8px;border:1.5px solid var(--purple-mid);font-size:13px;font-weight:600;cursor:pointer;background:var(--white);transition:all .2s;}
+.sr-opt:hover{border-color:var(--purple);}
+.sr-opt.ok-style{border-color:var(--green);background:var(--green-pale);color:var(--green);}
+.sr-opt.bad-style{border-color:var(--red);background:var(--red-pale);color:var(--red);}
+.sr-opt.wrong-style{border-color:var(--orange);background:var(--orange-pale);color:var(--orange);}
+.sr-fb{font-size:13px;line-height:1.6;padding:10px 14px;border-radius:8px;margin-top:8px;display:none;}
+.sr-fb.show{display:block;animation:fadeIn .3s ease;}
+.sr-fb.ok{background:var(--green-pale);color:var(--green);}
+.sr-fb.bad{background:var(--red-pale);color:var(--red);}
+.safe-rule{background:var(--purple-pale);border-radius:16px;padding:24px;margin:24px 0;}
+.safe-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--purple-dark);margin-bottom:16px;}
+.safe-steps{display:flex;flex-direction:column;gap:10px;}
+.safe-step{display:flex;gap:12px;align-items:flex-start;}
+.safe-num{width:28px;height:28px;background:var(--purple);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;margin-top:2px;}
+.safe-text{font-size:14px;line-height:1.6;color:var(--purple-dark);}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:640px){.hero,.content{padding-left:24px;padding-right:24px;}.phi-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 2.4 · Privacy & HIPAA</div>
+  <h1>The Privacy Rule You Cannot Break: Why You Never Use Real Patient Data With AI Tools</h1>
+  <p class="hero-sub">This is the most important rule in this entire lesson — and possibly the most important rule in your healthcare career. Entering real patient information into an AI tool is a federal law violation. This article explains why, what could happen to you, and exactly what to do instead.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <div class="alert-box">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-title">Before You Read Further — The Rule in One Sentence</div>
+      <div class="alert-text">You must never enter real patient information — any information that could identify a real person — into an AI tool (like ChatGPT, Claude, or any other AI system) unless that tool has been specifically approved and configured for HIPAA compliance by your healthcare organization. If you're not certain it's approved, don't use it.</div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What Is HIPAA and Why Does It Exist?</h2>
+    <p>HIPAA stands for the Health Insurance Portability and Accountability Act. It's a federal law passed in 1996 that sets the rules for how healthcare organizations handle patients' personal health information.</p>
+    <p>Here's the core idea behind HIPAA: <mark>your health information is intensely personal.</mark> It can affect your job, your insurance, your relationships, and your sense of dignity. You have the right to control who sees it. Healthcare providers need it to treat you — but they shouldn't be able to share it freely with anyone else, and they certainly shouldn't accidentally expose it to outside systems.</p>
+    <p>HIPAA created a specific category of protected information called Protected Health Information — or PHI — and established strict rules for how it must be handled, stored, and shared.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What Counts as PHI — and What Doesn't</h2>
+    <p>PHI is any information that could be used to identify a specific patient AND relates to their health, healthcare, or payment for healthcare. The list of identifiers is broader than most people expect:</p>
+    <div class="phi-grid">
+      <div class="phi-col is">
+        <div class="phi-col-title">🚫 This IS PHI — Never enter into AI</div>
+        <div class="phi-item">Patient's full name</div>
+        <div class="phi-item">Date of birth</div>
+        <div class="phi-item">Address (street, city, zip code)</div>
+        <div class="phi-item">Phone number or email address</div>
+        <div class="phi-item">Social Security Number</div>
+        <div class="phi-item">Medical record number (MRN)</div>
+        <div class="phi-item">Health insurance account numbers</div>
+        <div class="phi-item">Specific dates of care (admission, discharge, appointment)</div>
+        <div class="phi-item">Photos that could identify the person</div>
+        <div class="phi-item">Any combination of details that identifies someone</div>
+      </div>
+      <div class="phi-col not">
+        <div class="phi-col-title">✅ This is NOT PHI — Safe to practice with</div>
+        <div class="phi-item">Invented/fictional patient names ("Jane Smith")</div>
+        <div class="phi-item">Fake dates and ages (not tied to real people)</div>
+        <div class="phi-item">Invented diagnoses and medication lists</div>
+        <div class="phi-item">Fictional scenario descriptions</div>
+        <div class="phi-item">General clinical information with no patient attached</div>
+        <div class="phi-item">Completely de-identified data (18 specific identifiers removed)</div>
+        <div class="phi-item">Published case studies (where identifiers removed)</div>
+        <div class="phi-item">Your own fabricated practice scenarios</div>
+      </div>
+    </div>
+    <p>The key question is always: <mark>Could this be traced back to a real, specific person?</mark> If yes — it's PHI. If it's completely made up and couldn't identify anyone — it's safe to use for practice.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Why AI Tools Create a Specific HIPAA Risk</h2>
+    <p>When you type information into a standard AI tool like a public version of ChatGPT or Claude, that information may be sent to the AI company's servers and could potentially be used to train future AI models. <mark>You have no control over what happens to it once it leaves your screen.</mark></p>
+    <p>Even if the AI company keeps the data secure, entering PHI into an unapproved external tool is a HIPAA violation regardless of what happens to the data afterward. The act of entering it is the violation — because the patient didn't consent to their information being shared with that AI provider.</p>
+    <div class="pull-quote"><p>You don't need to have a data breach for a HIPAA violation to occur. Putting real patient data into an unapproved AI tool is itself the violation — even if nothing bad happens to the data.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What HIPAA Violations Can Actually Cost You</h2>
+    <p>HIPAA violations aren't just a workplace policy issue — they carry real legal and financial consequences:</p>
+    <div class="consequences">
+      <div class="con-row"><div class="con-icon">💰</div><div class="con-body"><h4>Civil financial penalties</h4><p>HIPAA violations carry tiered civil penalties based on the level of negligence and the number of violations. Even unintentional violations can carry significant fines.</p><div class="fine">$100–$50,000 per violation · Up to $1.9 million per year for repeated violations of the same type</div></div></div>
+      <div class="con-row"><div class="con-icon">⚖️</div><div class="con-body"><h4>Criminal charges for intentional violations</h4><p>If someone knowingly discloses PHI, criminal charges are possible — including potential prison time. Criminal HIPAA penalties apply to individuals, not just organizations.</p><div class="fine">Up to $250,000 in fines and up to 10 years imprisonment for the most serious violations</div></div></div>
+      <div class="con-row"><div class="con-icon">👔</div><div class="con-body"><h4>Job termination</h4><p>Healthcare organizations are legally required to take HIPAA seriously. Employees who violate HIPAA — even accidentally — are often terminated immediately, especially if the violation involved an outside system like an unapproved AI tool.</p></div></div>
+      <div class="con-row"><div class="con-icon">🪪</div><div class="con-body"><h4>License revocation</h4><p>For licensed healthcare professionals (nurses, medical assistants, physicians, therapists), a HIPAA violation can result in investigation by the licensing board and potential loss of the license to practice — ending a career.</p></div></div>
+      <div class="con-row"><div class="con-icon">📰</div><div class="con-body"><h4>Public reporting</h4><p>The Department of Health and Human Services maintains a public "Wall of Shame" — an online database of healthcare organizations that have had data breaches affecting 500 or more individuals. Breaches are publicly visible and damaging to an organization's reputation.</p></div></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>PHI or Not? Practice Identifying the Line</h2>
+    <div class="sorter">
+      <div class="sr-label">🔍 PHI Identification Practice</div>
+      <div class="sr-title">Would You Enter This Into an AI Tool?</div>
+      <div class="sr-sub">For each scenario, decide: is this safe to enter into a standard AI tool, or does it contain PHI?</div>
+      <div class="sr-items" id="srItems"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Safe Practice Rule: Always Use Simulated Data</h2>
+    <p>When you're learning, practicing, or building AI workflows for healthcare documentation, you need a way to work with realistic scenarios without using real patient data. The answer is simple: <strong>always use completely invented, simulated data.</strong></p>
+    <div class="safe-rule">
+      <div class="safe-title">🛡️ How to Practice Safely</div>
+      <div class="safe-steps">
+        <div class="safe-step"><div class="safe-num">1</div><div class="safe-text"><strong>Invent everything:</strong> Use a completely made-up name, age, and scenario. "Maria Santos, 45, admitted for chest pain" — where Maria Santos doesn't exist and the details are fictional.</div></div>
+        <div class="safe-step"><div class="safe-num">2</div><div class="safe-text"><strong>Never borrow from real cases:</strong> Even if you change a name, if the rest of the details are from a real patient you've encountered, it may still constitute a violation. Start from scratch with invented information.</div></div>
+        <div class="safe-step"><div class="safe-num">3</div><div class="safe-text"><strong>In real work, use only HIPAA-approved tools:</strong> Before using any AI tool in an actual clinical setting, confirm with your supervisor or compliance team that it has a Business Associate Agreement (BAA) with your organization and is approved for PHI.</div></div>
+        <div class="safe-step"><div class="safe-num">4</div><div class="safe-text"><strong>When in doubt, don't:</strong> If you're not certain whether an AI tool is approved for use with real patient data, treat it as unapproved. The cost of a HIPAA violation is not worth the time saved by using an unapproved shortcut.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A new medical assistant wants to use an AI writing tool to practice drafting patient discharge letters. She decides to use a real patient case from last week — but changes the patient's name to "John Doe" and removes the phone number. Is this safe?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Yes — she removed the name and phone number, which are the most identifiable pieces of PHI</button>
+        <button class="qopt" onclick="cq(this,false)">Yes — as long as she's using the data only for practice and not sharing it, no HIPAA violation occurs</button>
+        <button class="qopt" onclick="cq(this,true)">No — changing the name and removing the phone number is not sufficient de-identification. The specific medical details (diagnosis, dates, medications, procedures) from a real patient could still identify that person, especially in combination. She should use completely invented, fictional patient scenarios instead.</button>
+        <button class="qopt" onclick="cq(this,false)">Only if she gets the patient's verbal permission first</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>HIPAA protects Protected Health Information (PHI) — any information that could identify a real patient and relates to their health, care, or payment. PHI includes names, dates, MRNs, addresses, phone numbers, and any combination of details that could identify someone.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Entering PHI into any AI tool not specifically approved by your organization for HIPAA compliance is a federal law violation — regardless of whether any harm results. The consequences include financial penalties, job termination, license revocation, and criminal charges in serious cases.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The safe practice rule: always use completely invented, fictional patient data when practicing AI documentation workflows. Changing a real patient's name is not sufficient de-identification — you must start from entirely made-up scenarios.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const srData=[
+  {scenario:'You type into an AI tool: "Help me draft a discharge letter for a 67-year-old patient with Type 2 diabetes, recently prescribed metformin 500mg, being discharged after a 3-day hospital stay for hyperglycemia control." No names, no dates, no MRN.',opts:[{text:'✅ Safe to use',correct:true,fb:'✅ Safe. This contains no identifying information — it\'s a general clinical scenario that could describe thousands of patients. There\'s no name, date, MRN, address, or any other identifier. This is a good example of how to practice with AI while respecting HIPAA.'},{text:'🚫 Contains PHI',correct:false,fb:'❌ This does NOT contain PHI. There are no identifiers here — no name, date, MRN, address, or anything that could point to a specific person. Clinical descriptions without any identifying information are safe to use with AI tools. The key HIPAA question is: could this be traced back to a real, specific individual? In this case, no.'}]},
+  {scenario:'You paste the following into an AI tool to help draft a referral letter: "Patient: Rosa Martinez, DOB 4/12/1965, MRN 77832, diagnosed with moderate-severity rheumatoid arthritis. Referring to rheumatology. Current medications: hydroxychloroquine 200mg BID."',opts:[{text:'✅ Safe to use',correct:false,fb:'❌ This absolutely contains PHI. Rosa Martinez\'s full name, exact date of birth, and medical record number are all direct identifiers under HIPAA. Even if the medical information alone wasn\'t identifying, the name + DOB + MRN combination is clearly PHI. Never enter this into a standard AI tool.'},{text:'🚫 Contains PHI',correct:true,fb:'✅ Correct — this contains multiple pieces of PHI: full name (Rosa Martinez), date of birth (4/12/1965), and medical record number (MRN 77832). All three are direct identifiers under HIPAA. This information should never be entered into any AI tool unless that tool has a signed BAA with your organization and is specifically approved for PHI.'}]},
+  {scenario:'Your supervisor asks you to use an AI tool to help create sample patient education materials for newly diagnosed hypertension patients. You\'re going to make up fictional example scenarios.',opts:[{text:'✅ Safe to use',correct:true,fb:'✅ Safe. Creating fictional, invented scenarios for patient education materials is exactly the appropriate use of AI in healthcare. No real patient data is involved — you\'re generating practice or template content using entirely made-up examples. This is the recommended approach when using AI for healthcare documentation practice.'},{text:'🚫 Contains PHI',correct:false,fb:'❌ This does NOT involve PHI — you\'re creating fictional, invented scenarios, not using real patient information. This is precisely the safe, appropriate way to use AI tools in healthcare settings. Made-up practice scenarios with no identifiable information are not PHI.'}]},
+  {scenario:'A nurse takes a photo of a patient\'s whiteboard — which shows the patient\'s name, room number, diagnosis, and care team — and uploads it to an AI app to help her generate shift notes.',opts:[{text:'✅ Safe to use',correct:false,fb:'❌ This is a serious HIPAA violation. The photo contains PHI: the patient\'s name, their diagnosis, and information about their care. Uploading this image to any AI application — even for a legitimate documentation purpose — constitutes an unauthorized disclosure of PHI. The nurse should use a text description of the clinical information with all identifiers removed, never a photo of identifiable patient information.'},{text:'🚫 Contains PHI',correct:true,fb:'✅ Correct — this is a HIPAA violation. The whiteboard photo contains the patient\'s name and diagnosis, which are both PHI. Uploading a photo of identifiable patient information to any AI app (unless it\'s specifically HIPAA-approved by the organization) is an unauthorized disclosure. This type of violation — casual, well-intentioned, and not malicious — is one of the most common ways healthcare workers accidentally violate HIPAA with AI tools.'}]}
+];
+const srAnswers={};
+const srContainer=document.getElementById('srItems');
+srData.forEach((item,i)=>{
+  const div=document.createElement('div');div.className='sr-item';
+  div.innerHTML=`<div class="sr-scenario">${item.scenario}</div><div class="sr-opts"><button class="sr-opt" id="sr${i}_0" onclick="pickSr(${i},0)">${item.opts[0].text}</button><button class="sr-opt" id="sr${i}_1" onclick="pickSr(${i},1)">${item.opts[1].text}</button></div><div class="sr-fb" id="srfb${i}"></div>`;
+  srContainer.appendChild(div);
+});
+function pickSr(i,oi){
+  if(srAnswers[i]!==undefined)return;srAnswers[i]=oi;
+  const opt=srData[i].opts[oi];
+  document.getElementById('sr'+i+'_'+oi).className='sr-opt '+(opt.correct?'ok-style':'bad-style');
+  if(!opt.correct)document.getElementById('sr'+i+'_'+(1-oi)).className='sr-opt ok-style';
+  const fb=document.getElementById('srfb'+i);fb.textContent=opt.fb;fb.className='sr-fb show '+(opt.correct?'ok':'bad');
+}
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct! Proper HIPAA de-identification requires removing all 18 specific types of identifiers — including the patient\'s name AND all specific dates (admission, discharge, appointment dates), geographic data, and any other details that could be used to re-identify someone. Removing just the name leaves a profile rich enough with specific medical details (exact medication, specific diagnosis, exact duration of stay) that could identify the patient, especially if combined with other information. The safe approach for practice is always to invent entirely fictional scenarios from scratch — not to modify real ones.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('entirely invented'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ Removing a name and phone number is not HIPAA de-identification. True de-identification requires removing all 18 types of identifiers defined by HIPAA — including dates of service, specific geographic information, and any combination of details that could identify someone. A scenario with a specific diagnosis, specific medication, and specific hospitalization duration can still potentially identify a real person. The only safe approach for AI practice is to use entirely invented, fictional scenarios.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
