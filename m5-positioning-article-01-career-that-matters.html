@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You're Not Just Learning AI — You're Building a Career That Will Still Matter in 10 Years</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;
+  --white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;
+  --green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;
+  --teal:#0D7490;--teal-pale:#E0F7FA;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;transition:width .1s;}
+
+/* Hero */
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.module-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.module-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,58px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+
+/* Content */
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* Timeline: Then vs Now vs Future */
+.timeline{margin:28px 0;display:flex;flex-direction:column;gap:0;}
+.tl-item{display:flex;gap:20px;align-items:flex-start;padding:20px 0;}
+.tl-item:not(:last-child){border-bottom:1px solid var(--purple-mid);}
+.tl-dot-col{display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0;}
+.tl-dot{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0;}
+.tl-dot.past{background:var(--gray-soft);border:2px solid #D1C4E9;color:var(--gray-muted);}
+.tl-dot.now{background:var(--purple);border:2px solid var(--purple-dark);color:white;}
+.tl-dot.future{background:var(--purple-dark);border:2px solid var(--purple);color:white;}
+.tl-body{flex:1;}
+.tl-year{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-muted);margin-bottom:4px;}
+.tl-title{font-family:'Fraunces',serif;font-size:19px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.tl-desc{font-size:14px;line-height:1.65;color:var(--gray-text);}
+
+/* The Two Paths comparison */
+.two-paths{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:28px 0;}
+.path-card{border-radius:20px;padding:24px;}
+.path-card.risky{background:#FFF1F1;border:2px solid #FECACA;}
+.path-card.smart{background:var(--green-pale);border:2px solid #86EFAC;}
+.path-icon{font-size:28px;margin-bottom:8px;}
+.path-label{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;}
+.path-card.risky .path-label{color:#DC2626;}
+.path-card.smart .path-label{color:var(--green);}
+.path-title{font-family:'Fraunces',serif;font-size:18px;font-weight:700;margin-bottom:10px;}
+.path-card.risky .path-title{color:#991B1B;}
+.path-card.smart .path-title{color:var(--green);}
+.path-items{display:flex;flex-direction:column;gap:7px;}
+.path-item{font-size:13px;line-height:1.55;display:flex;gap:8px;align-items:flex-start;}
+.path-item::before{content:'';flex-shrink:0;margin-top:6px;width:6px;height:6px;border-radius:50%;}
+.path-card.risky .path-item::before{background:#DC2626;}
+.path-card.smart .path-item::before{background:var(--green);}
+
+/* Skills that survive widget */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0;}
+.skill-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:18px;cursor:pointer;transition:all .25s;text-align:center;}
+.skill-card:hover{border-color:var(--purple);background:var(--purple-pale);transform:translateY(-2px);}
+.skill-card.expanded{border-color:var(--purple);background:var(--purple-pale);}
+.skill-icon{font-size:26px;margin-bottom:8px;}
+.skill-name{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.skill-why{font-size:13px;line-height:1.55;color:var(--gray-text);display:none;margin-top:8px;text-align:left;}
+.skill-card.expanded .skill-why{display:block;}
+.skills-hint{font-size:13px;color:var(--gray-muted);text-align:center;margin-bottom:12px;font-style:italic;}
+
+/* Stat callout */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0;}
+.stat-card{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:16px;padding:22px;text-align:center;}
+.stat-number{font-family:'Fraunces',serif;font-size:42px;font-weight:900;color:var(--purple);line-height:1;}
+.stat-label{font-size:13px;line-height:1.5;color:var(--gray-text);margin-top:8px;}
+
+/* The honest fear-address */
+.fear-box{background:var(--orange-pale);border:2px solid #FDE68A;border-radius:20px;padding:28px;margin:24px 0;}
+.fear-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;}
+.fear-q{font-family:'Fraunces',serif;font-size:19px;font-weight:700;color:#92400E;margin-bottom:12px;}
+.fear-a{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+/* Interactive reflection */
+.reflection{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.ref-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.ref-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ref-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.ref-options{display:flex;flex-direction:column;gap:10px;}
+.ref-opt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;display:flex;gap:12px;align-items:flex-start;}
+.ref-opt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.ref-opt.selected{border-color:var(--purple);background:var(--purple-pale);}
+.ref-opt-icon{font-size:20px;flex-shrink:0;}
+.ref-opt-text{flex:1;}
+.ref-opt-title{font-weight:600;color:var(--purple-dark);font-size:14px;margin-bottom:3px;}
+.ref-opt-sub{font-size:13px;color:var(--gray-muted);}
+.ref-response{background:var(--purple-pale);border-radius:14px;padding:18px 22px;margin-top:14px;font-size:15px;line-height:1.7;color:var(--purple-dark);display:none;animation:fadeIn .3s ease;}
+.ref-response.show{display:block;}
+
+/* Quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:#FFF1F1;border-color:#DC2626;color:#DC2626;}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:#FFF1F1;color:#DC2626;}
+
+/* Summary */
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){
+  .hero,.content{padding-left:24px;padding-right:24px;}
+  .two-paths{grid-template-columns:1fr;}
+  .skills-grid{grid-template-columns:1fr 1fr;}
+  .stat-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+
+<div class="hero">
+  <div class="module-tag">Module 5 · Positioning</div>
+  <h1>You're Not Just Learning AI — You're Building a Career That Will Still Matter in 10 Years</h1>
+  <p class="hero-sub">You've made it to the final module. Before we get into privacy rules, communication strategies, and career growth tactics — you deserve to understand the bigger picture. What does it actually mean that you're learning this? And why does it matter more than you might think?</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Let's Be Honest About What's Happening</h2>
+    <p>The healthcare industry is changing faster right now than it has in the past 30 years. New AI tools are being introduced into hospitals, clinics, and care facilities every single month. Some of these tools schedule appointments. Some transcribe doctor's notes. Some flag which patients might be getting sicker before their care team notices.</p>
+    <p>Here's the truth that a lot of people won't say directly: <mark>the healthcare workers who understand how these tools work — what they're good at, what they get wrong, and how to use them responsibly — are going to have a significant advantage</mark> over those who don't. Not in 10 years. Right now. Today.</p>
+    <p>This certification isn't just about learning facts. It's about becoming the kind of healthcare professional that the industry is actively looking for — someone who can work alongside AI without being intimidated by it, and who understands it well enough to catch it when it makes mistakes.</p>
+    <div class="pull-quote"><p>The goal isn't to become a tech expert. The goal is to become a healthcare professional who can't be replaced by one.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>How Healthcare Careers Have Always Survived Change</h2>
+    <p>This isn't the first time technology changed healthcare dramatically. Every major technological shift created fear — and then created opportunity for the people who adapted. Click through to see the pattern:</p>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot-col"><div class="tl-dot past">📋</div></div>
+        <div class="tl-body">
+          <div class="tl-year">1990s – Early 2000s</div>
+          <div class="tl-title">Paper Charts Become Electronic Health Records (EHRs)</div>
+          <div class="tl-desc">Healthcare moved from handwritten notes in physical folders to digital records stored in computer systems. Many workers resisted the change. The ones who learned EHR systems early became indispensable. Entire new roles — like Health Information Technician — were created because of this shift. Today, EHR skills are a basic job requirement for nearly every healthcare position.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot-col"><div class="tl-dot past">📱</div></div>
+        <div class="tl-body">
+          <div class="tl-year">2010s</div>
+          <div class="tl-title">Telehealth and Patient Portals Went Mainstream</div>
+          <div class="tl-desc">Video appointments, online prescription refills, and patient messaging systems became standard. Workers who embraced these tools — learning to coordinate virtual care, manage portal communications, and support remote patients — became more valuable. Workers who avoided them fell behind. The technology wasn't optional; the question was only whether you'd be ahead of it or behind it.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot-col"><div class="tl-dot now">🤖</div></div>
+        <div class="tl-body">
+          <div class="tl-year">Right Now</div>
+          <div class="tl-title">AI Tools Are Entering Every Area of Healthcare Work</div>
+          <div class="tl-desc">Scheduling AI. Documentation AI. Clinical decision support. Administrative automation. The shift is happening whether or not any individual worker is ready for it. The window to be "early" to this transition is open right now — and this certification is your opportunity to walk through it before most of your future colleagues even know it exists.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot-col"><div class="tl-dot future">🔮</div></div>
+        <div class="tl-body">
+          <div class="tl-year">5–10 Years From Now</div>
+          <div class="tl-title">AI Fluency Will Be a Basic Hiring Requirement</div>
+          <div class="tl-desc">Just like EHR experience is required today, understanding AI tools will be an entry-level expectation in most healthcare roles. The people who learn it now, while it still counts as differentiation, will have a significant head start on everyone who waits.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Real Numbers</h2>
+    <p>This isn't speculation. Healthcare organizations are actively investing in AI right now — which means they're actively looking for people who can work with it.</p>
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-number">$45B</div>
+        <div class="stat-label">Projected value of the AI in healthcare market by 2026, up from $11B in 2021 — a 4x increase in 5 years</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">76%</div>
+        <div class="stat-label">of healthcare executives say AI skills are important or very important when hiring, according to a 2023 Deloitte healthcare workforce survey</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">#1</div>
+        <div class="stat-label">Healthcare is the top industry for AI job postings that also require clinical or administrative expertise — a combination that's still rare in the workforce</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Two Paths Forward — Which One Are You On?</h2>
+    <p>When it comes to AI in healthcare careers, there are really two types of workers emerging. This isn't about technical skill — it's about mindset and preparation:</p>
+    <div class="two-paths">
+      <div class="path-card risky">
+        <div class="path-icon">😰</div>
+        <div class="path-label">The Unprepared Path</div>
+        <div class="path-title">Waiting for Someone Else to Figure It Out</div>
+        <div class="path-items">
+          <div class="path-item">Feels intimidated by AI tools, avoids them</div>
+          <div class="path-item">Doesn't understand why AI makes mistakes, blames the technology when things go wrong</div>
+          <div class="path-item">Can't evaluate whether an AI tool's output is trustworthy</div>
+          <div class="path-item">Misses privacy risks because they don't know what to look for</div>
+          <div class="path-item">Gets passed over for promotions as employers prioritize AI-fluent staff</div>
+        </div>
+      </div>
+      <div class="path-card smart">
+        <div class="path-icon">💡</div>
+        <div class="path-label">The Prepared Path</div>
+        <div class="path-title">Building Skills That Compound Over Time</div>
+        <div class="path-items">
+          <div class="path-item">Understands what AI can and can't do — uses it confidently within those limits</div>
+          <div class="path-item">Knows why AI makes mistakes, catches them before they cause harm</div>
+          <div class="path-item">Recognized as someone who can be trusted with new technology</div>
+          <div class="path-item">Protects the organization by understanding privacy rules around AI</div>
+          <div class="path-item">Becomes the person colleagues and managers turn to when AI questions come up</div>
+        </div>
+      </div>
+    </div>
+    <p>The good news: you're already on the second path. That's exactly what this certification is building.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Skills That Survive Every Wave of Technology</h2>
+    <p>AI will change. The specific tools you learn today will be replaced by better ones. But the skills underneath the tools — the ones this certification is really building — those compound over an entire career. Click each skill to understand why it survives:</p>
+    <p class="skills-hint">👆 Click any skill card to learn why it stays valuable</p>
+    <div class="skills-grid" id="skillsGrid">
+      <div class="skill-card" onclick="toggleSkill(this)">
+        <div class="skill-icon">🧠</div>
+        <div class="skill-name">Critical Thinking About AI Output</div>
+        <div class="skill-why">AI tools will keep changing — but the skill of asking "Is this output actually right? What could be wrong here?" never goes out of date. Every AI system has limitations. The professional who can evaluate outputs thoughtfully is valuable with every tool, forever.</div>
+      </div>
+      <div class="skill-card" onclick="toggleSkill(this)">
+        <div class="skill-icon">🔒</div>
+        <div class="skill-name">Patient Privacy Judgment</div>
+        <div class="skill-why">Privacy laws evolve, but the core principle — patients have a right to control their information — doesn't change. Understanding HIPAA and applying it to new technologies is a skill that protects your career and your patients for your entire working life.</div>
+      </div>
+      <div class="skill-card" onclick="toggleSkill(this)">
+        <div class="skill-icon">💬</div>
+        <div class="skill-name">Clear Professional Communication</div>
+        <div class="skill-why">AI can draft messages, but it can't own them. The healthcare worker who communicates clearly, accurately, and professionally — especially when technology produces a flawed draft — becomes more valuable as AI handles more of the routine work.</div>
+      </div>
+      <div class="skill-card" onclick="toggleSkill(this)">
+        <div class="skill-icon">⚖️</div>
+        <div class="skill-name">Ethical Judgment</div>
+        <div class="skill-why">When an AI recommendation seems wrong, biased, or potentially harmful, someone has to catch it. Ethical judgment — the ability to say "this doesn't feel right, let me check" — is a distinctly human skill that becomes more important as AI makes more recommendations.</div>
+      </div>
+      <div class="skill-card" onclick="toggleSkill(this)">
+        <div class="skill-icon">🔄</div>
+        <div class="skill-name">Adaptability to New Tools</div>
+        <div class="skill-why">The specific AI tool you learn today may not exist in 5 years. But the skill of learning a new tool, understanding its limitations, and integrating it into your workflow — that transfers to every tool you'll ever encounter.</div>
+      </div>
+      <div class="skill-card" onclick="toggleSkill(this)">
+        <div class="skill-icon">🤝</div>
+        <div class="skill-name">Human-Centered Patient Care</div>
+        <div class="skill-why">No matter how advanced AI gets, patients need human beings — people who listen, who notice fear in someone's eyes, who hold a hand. The healthcare workers who combine technical AI awareness with genuine human care are irreplaceable.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Addressing the Fear Directly</h2>
+    <p>A lot of people coming into this module have a question they haven't said out loud. Let's just answer it:</p>
+    <div class="fear-box">
+      <div class="fear-label">😟 The Real Question</div>
+      <div class="fear-q">"Will AI replace my job?"</div>
+      <div class="fear-a">Probably not the whole job — but it will almost certainly change it. The tasks that are most repetitive, most data-heavy, and most rule-based are already being automated. That's not the same as your job disappearing — it means your job is evolving toward the work that requires judgment, empathy, communication, and accountability. The healthcare workers at highest risk aren't the ones AI can replace. They're the ones who refuse to learn how to work alongside it. You're not doing that. You're here.</div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What This Module Is Really About</h2>
+    <p>Module 5 is called "AI for Healthcare Careers and Workforce Readiness" — but it's really about three things that every single healthcare worker needs before they step into an AI-equipped workplace:</p>
+    <p><strong>Privacy.</strong> Understanding what you can and can't do with patient data when AI is involved. This isn't optional knowledge — it's career-protecting knowledge. A privacy mistake can end a healthcare career before it really begins.</p>
+    <p><strong>Communication.</strong> Learning to use AI as a tool that makes your communication better — not a replacement for the judgment and care that professional communication requires.</p>
+    <p><strong>Growth mindset.</strong> Building the habits and skills that will keep you relevant not just today, but as healthcare keeps changing. <mark>The goal isn't to know every AI tool. The goal is to be the kind of professional who can learn any AI tool, evaluate it, use it responsibly, and teach others to do the same.</mark></p>
+  </div>
+
+  <div class="section fade-in">
+    <div class="reflection">
+      <div class="ref-label">🪞 Before You Begin — A Quick Reflection</div>
+      <div class="ref-title">Which best describes where you are right now?</div>
+      <div class="ref-sub">Be honest. There's no wrong answer — just different starting points.</div>
+      <div class="ref-options">
+        <div class="ref-opt" onclick="selectRef(this, 'A')">
+          <div class="ref-opt-icon">😬</div>
+          <div class="ref-opt-text"><div class="ref-opt-title">I'm nervous about AI in healthcare</div><div class="ref-opt-sub">It feels like a lot to take on and I'm not sure I belong in this conversation</div></div>
+        </div>
+        <div class="ref-opt" onclick="selectRef(this, 'B')">
+          <div class="ref-opt-icon">🤔</div>
+          <div class="ref-opt-text"><div class="ref-opt-title">I understand the concepts but I'm not sure how they apply to me</div><div class="ref-opt-sub">The ideas make sense — I'm just not sure how they connect to my actual career path</div></div>
+        </div>
+        <div class="ref-opt" onclick="selectRef(this, 'C')">
+          <div class="ref-opt-icon">💪</div>
+          <div class="ref-opt-text"><div class="ref-opt-title">I'm excited and ready to use this knowledge</div><div class="ref-opt-sub">I can already see how this connects to what I want to do professionally</div></div>
+        </div>
+        <div class="ref-opt" onclick="selectRef(this, 'D')">
+          <div class="ref-opt-icon">😐</div>
+          <div class="ref-opt-text"><div class="ref-opt-title">I'm here because I need the certification</div><div class="ref-opt-sub">I haven't thought much yet about how this applies to my actual work</div></div>
+        </div>
+      </div>
+      <div class="ref-response" id="refResponse"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A healthcare worker says: "I don't need to learn about AI tools — I'll just wait until my employer trains me." What's the most important problem with this thinking?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">It assumes the employer will provide good training, which isn't guaranteed</button>
+        <button class="qopt" onclick="cq(this,true)">By the time employer-mandated training arrives, early-adopting colleagues will already have a significant advantage in skills, trust, and career opportunities</button>
+        <button class="qopt" onclick="cq(this,false)">AI tools are too complicated to learn without formal training</button>
+        <button class="qopt" onclick="cq(this,false)">Employers rarely train staff on new technology at all</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Carry Into This Module</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Healthcare has always evolved through technology — EHRs, telehealth, and now AI. In every previous wave, early adopters gained lasting career advantages. That window is open right now.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI won't replace healthcare workers — but it will change what their jobs require. Workers who can evaluate AI, catch its mistakes, and use it responsibly within privacy rules are the ones organizations need most.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Module 5 covers privacy, communication, and career growth — three areas where AI fluency translates directly into being a safer, more trusted, and more hirable healthcare professional.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The skills that matter most — critical thinking, ethical judgment, patient privacy, clear communication — don't become obsolete when new AI tools appear. They compound over an entire career.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.addEventListener('scroll',()=>{
+  const e=document.documentElement;
+  document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';
+});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+function toggleSkill(card){
+  const wasExpanded=card.classList.contains('expanded');
+  document.querySelectorAll('.skill-card').forEach(c=>c.classList.remove('expanded'));
+  if(!wasExpanded)card.classList.add('expanded');
+}
+
+const refResponses={
+  A:"That nervousness is completely normal — and it's actually a sign of good judgment. AI in healthcare is serious, it does carry real risks, and anyone who feels cavalier about it probably doesn't fully understand it yet. The fact that you're taking it seriously means you're going to be careful with it. That's the most important thing. Module 5 is going to give you the specific knowledge you need to feel genuinely confident, not just reassured.",
+  B:"That's actually the perfect mindset to bring into this module. You've built the conceptual foundation — now Module 5 is where it gets concrete and personal. The privacy section, the communication section, and the career growth section are all designed to answer the question 'yes, but what does this actually mean for me?' You're about to get those answers.",
+  C:"That energy is going to serve you well. Use it to go deep on the material rather than just scanning for the key points — the nuances matter in healthcare, especially around privacy. And once you finish, think about how you can share what you've learned with your team. The most effective healthcare professionals don't just use AI well — they help the people around them use it better too.",
+  D:"Honest. And fair. Not everyone arrives at this material feeling personally connected to it. Here's one thing worth knowing: the privacy section alone could protect you from a career-ending mistake. Not hypothetically — this is something that happens to healthcare workers who use AI tools without understanding the rules. By the end of Module 5, there's a real chance this feels less abstract and more like something you're glad you know."
+};
+
+function selectRef(el,key){
+  document.querySelectorAll('.ref-opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  const r=document.getElementById('refResponse');
+  r.textContent=refResponses[key];
+  r.className='ref-response show';
+}
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){
+    fb.className='qfb show cfb';
+    fb.textContent='✅ Correct. Employer training is reactive — it happens after the tool has already been adopted, often after colleagues have already built familiarity with it. The person who arrives already knowing what AI is, what it can get wrong, and how to use it responsibly has a head start that\'s very hard to close. That head start is what this certification is building.';
+  } else {
+    document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('early-adopting'))o.classList.add('correct');});
+    fb.className='qfb show wfb';
+    fb.textContent='❌ Employer training is a real concern, but the bigger issue is timing. When an organization adopts a new AI tool, the workers who already understand it become the informal experts, get trusted with more responsibility, and establish a reputation for being ahead of the curve. That advantage belongs to the people who learned before it was required — which is exactly what you\'re doing right now.';
+  }
+}
+</script>
+</body>
+</html>

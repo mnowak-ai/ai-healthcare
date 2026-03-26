@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Healthcare Employers Actually Look for When AI Is in the Job Description</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;
+  --white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;
+  --green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.module-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.module-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,58px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* Fake job posting simulator */
+.job-sim{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.job-sim-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.job-sim-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.job-sim-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.job-tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.job-tab{padding:8px 16px;border-radius:10px;border:1.5px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.job-tab.active{background:var(--purple);border-color:var(--purple);color:white;}
+.job-panel{display:none;animation:fadeIn .3s ease;}
+.job-panel.active{display:block;}
+.job-posting{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:24px;}
+.job-header{border-bottom:2px solid var(--purple-mid);padding-bottom:14px;margin-bottom:14px;}
+.job-org{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--purple);margin-bottom:4px;}
+.job-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.job-meta{font-size:13px;color:var(--gray-muted);}
+.job-section-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin:12px 0 6px;}
+.job-req{font-size:14px;line-height:1.6;margin-bottom:6px;display:flex;gap:10px;align-items:flex-start;}
+.job-req-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px;}
+.job-req.ai-skill .job-req-dot{background:var(--purple);}
+.job-req.human-skill .job-req-dot{background:var(--green);}
+.job-req.both .job-req-dot{background:var(--orange);}
+.job-req.ai-skill{background:var(--purple-pale);border-radius:8px;padding:8px 10px;}
+.job-req.highlighted .job-req-dot{background:var(--purple);}
+.job-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;padding:10px 14px;background:var(--gray-soft);border-radius:10px;}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gray-text);}
+.legend-dot{width:10px;height:10px;border-radius:50%;}
+.job-insight{background:var(--orange-pale);border:1.5px solid #FDE68A;border-radius:10px;padding:12px 16px;margin-top:12px;font-size:14px;line-height:1.6;color:#92400E;}
+
+/* Skills translation table */
+.skills-table{width:100%;border-collapse:collapse;margin:24px 0;border-radius:14px;overflow:hidden;border:1.5px solid var(--purple-mid);}
+.skills-table th{background:var(--purple);color:white;padding:12px 16px;font-size:13px;font-weight:600;text-align:left;}
+.skills-table td{padding:11px 16px;font-size:13px;border-bottom:1px solid var(--purple-mid);vertical-align:top;line-height:1.55;}
+.skills-table tr:last-child td{border-bottom:none;}
+.skills-table tr:nth-child(even) td{background:var(--gray-soft);}
+.cert-badge{display:inline-block;background:var(--purple-pale);color:var(--purple);font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;border:1px solid var(--purple-mid);}
+
+/* Interview question simulator */
+.interview-sim{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.int-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.int-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.int-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.int-question{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:18px 20px;margin-bottom:12px;}
+.int-q-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-muted);margin-bottom:6px;}
+.int-q-text{font-size:16px;font-weight:600;color:var(--gray-text);margin-bottom:12px;}
+.int-answers{display:flex;flex-direction:column;gap:8px;}
+.int-answer{padding:10px 14px;border-radius:10px;border:1.5px solid var(--purple-mid);background:var(--white);cursor:pointer;font-size:13px;line-height:1.55;transition:all .2s;}
+.int-answer:hover{border-color:var(--purple);background:var(--purple-pale);}
+.int-answer.strong{background:var(--green-pale);border-color:var(--green);}
+.int-answer.weak{background:#FFF1F1;border-color:#FECACA;}
+.int-answer.revealed-strong{background:var(--green-pale);border-color:var(--green);}
+.int-fb{font-size:14px;line-height:1.65;padding:12px 16px;border-radius:10px;margin-top:8px;display:none;}
+.int-fb.show{display:block;animation:fadeIn .3s ease;}
+.int-fb.good{background:var(--green-pale);color:var(--green);}
+.int-fb.bad{background:#FFF1F1;color:#DC2626;}
+
+/* What employers REALLY mean */
+.decode-cards{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
+.decode-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;overflow:hidden;cursor:pointer;transition:border-color .2s;}
+.decode-card:hover{border-color:var(--purple);}
+.decode-card.open{border-color:var(--purple);}
+.decode-header{padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;}
+.decode-phrase{font-size:15px;font-weight:600;color:var(--purple-dark);}
+.decode-arrow{font-size:18px;transition:transform .25s;flex-shrink:0;}
+.decode-card.open .decode-arrow{transform:rotate(180deg);}
+.decode-body{display:none;padding:0 20px 16px;border-top:1px solid var(--purple-mid);}
+.decode-card.open .decode-body{display:block;animation:fadeIn .25s ease;}
+.decode-what{font-size:13px;color:var(--gray-muted);font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin:12px 0 6px;}
+.decode-text{font-size:14px;line-height:1.65;color:var(--gray-text);}
+.decode-example{background:var(--purple-pale);border-radius:8px;padding:10px 14px;margin-top:10px;font-size:13px;color:var(--purple-dark);}
+
+/* Quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:#FFF1F1;border-color:#DC2626;color:#DC2626;}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:#FFF1F1;color:#DC2626;}
+
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.job-tabs{flex-direction:column;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="module-tag">Module 5 · Positioning</div>
+  <h1>What Healthcare Employers Actually Look for When AI Is in the Job Description</h1>
+  <p class="hero-sub">Job postings have started saying things like "AI fluency preferred" and "experience with AI-assisted workflows." But what does that actually mean? And what's the gap between having a certification and being the candidate an employer remembers?</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>The Job Market Is Already Speaking a New Language</h2>
+    <p>If you look at healthcare job postings from five years ago and compare them to today, something has shifted. The old postings said things like "EHR experience required" and "strong documentation skills." The new ones increasingly include phrases like "comfortable working with AI-assisted tools," "experience reviewing AI-generated outputs," and "understanding of data privacy in digital health environments."</p>
+    <p>This isn't everywhere yet — but it's in the most competitive, best-paying positions. <mark>The skills that separate a good candidate from a great one in 2025 healthcare hiring are exactly the skills this certification builds.</mark></p>
+    <p>Let's look at what this actually looks like in real job postings — and what employers are really asking for when they use this language.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Read Real Job Posting Examples — Annotated</h2>
+    <p>These are three representative healthcare job postings showing how AI-related requirements show up across different role types. Click through each one to see what's highlighted and why:</p>
+    <div class="job-sim">
+      <div class="job-sim-label">📋 Job Posting Explorer</div>
+      <div class="job-sim-title">See How AI Requirements Appear Across Healthcare Roles</div>
+      <div class="job-sim-sub">Purple highlights = AI-related requirements. See the annotations to understand what employers actually mean.</div>
+      <div class="job-tabs">
+        <button class="job-tab active" onclick="showJob(0)">Medical Assistant</button>
+        <button class="job-tab" onclick="showJob(1)">Patient Services Coordinator</button>
+        <button class="job-tab" onclick="showJob(2)">Health IT Specialist</button>
+      </div>
+      <div id="jobContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Decoding What Employers Really Mean</h2>
+    <p>Healthcare employers often use vague language in job descriptions. Here's a translator for the most common AI-related phrases you'll see — click each phrase to see what it actually means and how to demonstrate it:</p>
+    <div class="decode-cards">
+      <div class="decode-card" onclick="toggleDecode(this)">
+        <div class="decode-header"><div class="decode-phrase">💼 "AI fluency preferred"</div><div class="decode-arrow">▼</div></div>
+        <div class="decode-body">
+          <div class="decode-what">What they actually mean:</div>
+          <div class="decode-text">They want someone who isn't scared of new technology and won't need a week of hand-holding every time a new tool is introduced. "Fluency" doesn't mean you've programmed an AI — it means you understand what AI tools do, have used at least one, and can think critically about the output rather than just accepting it.</div>
+          <div class="decode-example">✅ How to demonstrate it: "In my training, I worked with AI documentation tools and learned to review AI-generated outputs for accuracy before finalizing them. I also understand when not to trust AI output and what to check."</div>
+        </div>
+      </div>
+      <div class="decode-card" onclick="toggleDecode(this)">
+        <div class="decode-header"><div class="decode-phrase">💼 "Comfortable working with AI-assisted workflows"</div><div class="decode-arrow">▼</div></div>
+        <div class="decode-body">
+          <div class="decode-what">What they actually mean:</div>
+          <div class="decode-text">They're describing a workplace where AI handles some tasks automatically and staff is expected to work alongside it without friction. They want someone who won't fight the technology or pretend it doesn't exist — but who also brings judgment to the process rather than just doing whatever the AI suggests.</div>
+          <div class="decode-example">✅ How to demonstrate it: "I understand that AI-assisted workflows are designed to handle repetitive tasks so staff can focus on patient care and judgment calls. I'm prepared to use these tools effectively while maintaining my responsibility for reviewing their outputs."</div>
+        </div>
+      </div>
+      <div class="decode-card" onclick="toggleDecode(this)">
+        <div class="decode-header"><div class="decode-phrase">💼 "Understanding of healthcare data privacy requirements"</div><div class="decode-arrow">▼</div></div>
+        <div class="decode-body">
+          <div class="decode-what">What they actually mean:</div>
+          <div class="decode-text">This is not optional language — it's a legal protection for the organization. They need to hire someone who won't accidentally create a HIPAA violation by using an unauthorized AI tool with patient data. This requirement is showing up more frequently as employers have seen costly privacy incidents from well-meaning but uninformed staff.</div>
+          <div class="decode-example">✅ How to demonstrate it: "I've completed training on HIPAA requirements as they apply to AI tools in healthcare settings, including understanding what counts as protected health information and what AI tools can and can't be used with patient data."</div>
+        </div>
+      </div>
+      <div class="decode-card" onclick="toggleDecode(this)">
+        <div class="decode-header"><div class="decode-phrase">💼 "Ability to critically evaluate AI-generated content"</div><div class="decode-arrow">▼</div></div>
+        <div class="decode-body">
+          <div class="decode-what">What they actually mean:</div>
+          <div class="decode-text">This is the most valuable and rarest skill on this list. They've experienced AI tools producing confident-sounding wrong answers, and they need staff who catch those errors before they affect patients or records. Someone who simply accepts AI output is actually a liability — someone who reviews it critically is genuinely valuable.</div>
+          <div class="decode-example">✅ How to demonstrate it: "I understand that AI can produce incorrect outputs with complete confidence — especially around patient-specific information, commitments, and context it doesn't have. My training focused specifically on where AI commonly makes mistakes and what to verify before acting on AI-generated content."</div>
+        </div>
+      </div>
+      <div class="decode-card" onclick="toggleDecode(this)">
+        <div class="decode-header"><div class="decode-phrase">💼 "Experience with EHR and AI-integrated documentation tools"</div><div class="decode-arrow">▼</div></div>
+        <div class="decode-body">
+          <div class="decode-what">What they actually mean:</div>
+          <div class="decode-text">EHR systems are increasingly integrating AI features — auto-complete suggestions, AI-generated notes, predictive text for documentation. Employers want someone who understands that these aren't just fancy spell-check — they're AI outputs that require the same critical review as any other AI-generated content, but now embedded in the official medical record.</div>
+          <div class="decode-example">✅ How to demonstrate it: "I understand how AI integrates into EHR documentation, including the importance of reviewing AI-suggested content in patient records before it becomes official documentation, since errors in medical records can directly affect patient care."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>How Your Certification Translates to Real Job Skills</h2>
+    <p>Every major topic in this certification maps directly to something healthcare employers are actively evaluating in candidates. Here's the direct translation:</p>
+    <div style="overflow-x:auto;">
+      <table class="skills-table">
+        <thead><tr><th>What You Learned</th><th>What Employers Call It</th><th>Why It Matters to Them</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>What AI is, how it learns, and why it makes mistakes</td>
+            <td>AI literacy / AI fluency</td>
+            <td>Staff who understand AI limitations don't blindly trust AI errors into patient records</td>
+          </tr>
+          <tr>
+            <td>HIPAA basics and patient data privacy rules</td>
+            <td>Healthcare data privacy compliance</td>
+            <td>One HIPAA violation can cost a healthcare org $100,000+ in fines — they need staff who know the rules</td>
+          </tr>
+          <tr>
+            <td>How AI is used in scheduling, documentation, and workflows</td>
+            <td>Experience with AI-assisted healthcare workflows</td>
+            <td>Reduces onboarding time and means the employee adds value faster</td>
+          </tr>
+          <tr>
+            <td>Reviewing and editing AI-generated outputs</td>
+            <td>Critical evaluation of AI-generated content</td>
+            <td>This is the highest-value skill — the ability to catch AI errors before they cause harm</td>
+          </tr>
+          <tr>
+            <td>Professional communication with and about AI tools</td>
+            <td>Professional communication in digital health environments</td>
+            <td>Employers need staff who can explain AI to patients, colleagues, and leadership without causing confusion or fear</td>
+          </tr>
+          <tr>
+            <td>Ethical judgment around AI use in healthcare</td>
+            <td>Responsible AI use / AI ethics awareness</td>
+            <td>Healthcare organizations are increasingly being held accountable for how AI affects patient care — they need staff with good judgment</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Practice: How Would You Answer This?</h2>
+    <p>Healthcare hiring managers are increasingly asking AI-related questions in interviews. Practice identifying the strongest response — the one that shows real understanding, not just buzzword familiarity:</p>
+    <div class="interview-sim">
+      <div class="int-label">🎤 Interview Practice</div>
+      <div class="int-title">Pick the Strongest Interview Answer</div>
+      <div class="int-sub">For each question, select what you think is the best answer. Then see the feedback.</div>
+      <div id="interviewContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="pull-quote"><p>The most valuable healthcare worker isn't the one who uses AI the most — it's the one who uses it most responsibly.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A healthcare employer lists "ability to critically evaluate AI-generated content" as a preferred qualification. What does this most directly mean they need?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Someone who has programmed or built an AI tool</button>
+        <button class="qopt" onclick="cq(this,false)">Someone who is enthusiastic about AI and uses it constantly</button>
+        <button class="qopt" onclick="cq(this,true)">Someone who reviews AI outputs carefully, knows they can be wrong, and doesn't put incorrect AI-generated content into patient records or official communications</button>
+        <button class="qopt" onclick="cq(this,false)">Someone who can explain how AI algorithms work technically</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI-related requirements are already appearing in healthcare job postings — especially in the most competitive positions. The language is often vague, but each phrase maps to a specific skill that this certification directly addresses.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The most valued AI skill in healthcare isn't enthusiasm or technical knowledge — it's critical evaluation. Employers need people who review AI outputs, catch errors, and don't let wrong information enter patient records or communications.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Every major area of this certification — AI basics, privacy, documentation review, professional communication — translates directly to skills that healthcare employers are explicitly asking for in 2025.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+const jobs=[
+  {
+    org:'Regional Medical Center',title:'Medical Assistant – Primary Care Clinic',meta:'Full-time · Entry Level · $18–22/hr',
+    reqs:[
+      {text:'High school diploma or equivalent; MA certification preferred',ai:false},
+      {text:'Minimum 1 year of clinical experience in a healthcare setting',ai:false},
+      {text:'Proficiency with EHR systems; experience with AI-assisted documentation tools a plus',ai:true},
+      {text:'Strong attention to detail when reviewing documentation for accuracy',ai:true},
+      {text:'Ability to take and record patient vitals accurately and completely',ai:false},
+      {text:'Understanding of HIPAA and patient data privacy requirements',ai:true},
+      {text:'Comfortable working in a fast-paced, technology-integrated environment',ai:true},
+    ],
+    insight:'This is an entry-level posting that already includes 4 AI-related requirements. Note how "reviewing documentation for accuracy" is an AI skill — AI tools often generate documentation that needs human review before it goes in the record.'
+  },
+  {
+    org:'Integrated Health Network',title:'Patient Services Coordinator',meta:'Full-time · Associate Level · $20–26/hr',
+    reqs:[
+      {text:'Experience with patient scheduling systems and insurance verification processes',ai:false},
+      {text:'Familiarity with AI-powered scheduling and patient communication tools',ai:true},
+      {text:'Ability to manage high volume of patient contacts across phone, portal, and chat',ai:false},
+      {text:'Experience reviewing AI-generated appointment confirmations and communications before sending',ai:true},
+      {text:'Understanding of patient data privacy, including what information can be shared via digital channels',ai:true},
+      {text:'Strong written and verbal communication skills; professional tone in all patient interactions',ai:false},
+      {text:'Comfort explaining digital health tools and AI features to patients who may be unfamiliar with technology',ai:true},
+    ],
+    insight:'This patient-facing role is particularly interesting — it requires staff who can explain AI tools to patients. "Comfort explaining digital health tools and AI features" is a new skill category that didn\'t exist in healthcare roles 5 years ago.'
+  },
+  {
+    org:'Academic Medical Center',title:'Health IT Support Specialist',meta:'Full-time · Mid-Level · $28–36/hr',
+    reqs:[
+      {text:'Associate degree in Health Information Technology or equivalent work experience',ai:false},
+      {text:'Working knowledge of EHR systems, with experience supporting AI-integrated modules',ai:true},
+      {text:'Understanding of how AI tools are implemented in clinical workflows and where failure points occur',ai:true},
+      {text:'Ability to identify and escalate AI-related errors or unexpected outputs in clinical systems',ai:true},
+      {text:'Strong understanding of HIPAA, including requirements for AI tools that process patient data',ai:true},
+      {text:'Experience communicating technical concepts to non-technical clinical staff',ai:false},
+      {text:'Familiarity with vendor contracts and business associate agreements for third-party AI tools',ai:true},
+    ],
+    insight:'Notice "identify and escalate AI-related errors" — this is a formal job duty now. Understanding where AI makes mistakes isn\'t just good practice, it\'s becoming a documented professional responsibility in healthcare IT roles.'
+  }
+];
+
+let jobIdx=0;
+function showJob(i){
+  jobIdx=i;
+  document.querySelectorAll('.job-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));
+  renderJob();
+}
+function renderJob(){
+  const j=jobs[jobIdx];
+  const reqs=j.reqs.map(r=>`
+    <div class="job-req ${r.ai?'ai-skill':''}">
+      <div class="job-req-dot"></div>
+      <div>${r.text}</div>
+    </div>`).join('');
+  document.getElementById('jobContainer').innerHTML=`
+    <div class="job-panel active">
+      <div class="job-posting">
+        <div class="job-header">
+          <div class="job-org">${j.org}</div>
+          <div class="job-title">${j.title}</div>
+          <div class="job-meta">${j.meta}</div>
+        </div>
+        <div class="job-section-title">Requirements</div>
+        ${reqs}
+        <div class="job-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div>AI-related requirement</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--gray-muted)"></div>Traditional requirement</div>
+        </div>
+        <div class="job-insight">💡 <strong>Insight:</strong> ${j.insight}</div>
+      </div>
+    </div>`;
+}
+renderJob();
+
+function toggleDecode(card){
+  const isOpen=card.classList.contains('open');
+  document.querySelectorAll('.decode-card').forEach(c=>c.classList.remove('open'));
+  if(!isOpen)card.classList.add('open');
+}
+
+const interviews=[
+  {
+    q:'"Have you worked with any AI tools in a healthcare setting?"',
+    answers:[
+      {text:'"I use AI all the time — ChatGPT for everything. It\'s great."',strong:false,fb:'This answer shows familiarity but raises immediate red flags. A healthcare employer\'s first thought: "Do they know HIPAA? Are they using ChatGPT with patient data?" Comfort with AI is good; this answer suggests no awareness of the limits.'},
+      {text:'"Not professionally yet, but through my certification training I learned how AI is used in healthcare workflows — scheduling, documentation tools like Nuance, and decision support. I also learned what can go wrong and how to review AI outputs critically."',strong:true,fb:'This is the strongest answer. It\'s honest about not having direct workplace experience, but shows real understanding. "I learned what can go wrong" and "review outputs critically" — these are exactly what an employer needs to hear.'},
+      {text:'"No, I haven\'t used AI tools yet."',strong:false,fb:'This is honest but a missed opportunity. You have training knowledge — don\'t leave it out. Even if you haven\'t used tools professionally, your certification demonstrates conceptual understanding that has real value.'},
+      {text:'"Yes, I\'m very comfortable with AI. I learn new software quickly."',strong:false,fb:'This is vague and generic. Any candidate could say this. The employer can\'t tell what you actually know about AI in healthcare specifically — and they\'re wondering if you understand the privacy implications.'},
+    ]
+  },
+  {
+    q:'"An AI tool generates a patient appointment confirmation with the wrong date. You notice it before it\'s sent. What do you do?"',
+    answers:[
+      {text:'"I\'d correct the date and send it."',strong:false,fb:'Partially right — correcting it is correct. But this answer doesn\'t demonstrate awareness of why this happened or what it means. A stronger answer shows you understand that AI errors require a process, not just a quick fix.'},
+      {text:'"I\'d report it to IT immediately so they can fix the AI."',strong:false,fb:'This over-escalates a common AI error and misses the point. Not every AI mistake requires an IT ticket. The employer wants to know you can handle routine AI errors as part of normal workflow.'},
+      {text:'"I\'d correct the confirmation before sending, note that the AI made an error on this type of task, and flag it to my supervisor if this is a pattern — because consistent errors in a specific area suggest the tool may need adjustment."',strong:true,fb:'This is the strongest answer. It shows: (1) practical ability to fix the immediate problem, (2) awareness that AI errors have patterns worth tracking, and (3) appropriate escalation judgment. This is what a thoughtful, AI-fluent healthcare worker actually does.'},
+      {text:'"I\'d send it anyway — patients can call to confirm."',strong:false,fb:'This would be a concerning answer to any employer. It suggests the candidate doesn\'t take AI error correction seriously and is willing to let inaccurate information reach patients. Never the right answer.'},
+    ]
+  }
+];
+
+let intAnswered=[];
+function renderInterviews(){
+  const container=document.getElementById('interviewContainer');
+  container.innerHTML=interviews.map((q,qi)=>`
+    <div class="int-question">
+      <div class="int-q-label">Interview Question ${qi+1}</div>
+      <div class="int-q-text">${q.q}</div>
+      <div class="int-answers">
+        ${q.answers.map((a,ai)=>`
+          <div class="int-answer" id="ia-${qi}-${ai}" onclick="selectAnswer(${qi},${ai})">
+            ${String.fromCharCode(65+ai)}. ${a.text}
+          </div>`).join('')}
+      </div>
+      <div class="int-fb" id="ifb-${qi}"></div>
+    </div>`).join('');
+}
+renderInterviews();
+
+function selectAnswer(qi,ai){
+  if(intAnswered[qi])return;
+  intAnswered[qi]=true;
+  const ans=interviews[qi].answers[ai];
+  document.getElementById(`ia-${qi}-${ai}`).classList.add(ans.strong?'strong':'weak');
+  if(ans.strong){
+    document.getElementById(`ia-${qi}-${ai}`).classList.add('revealed-strong');
+  } else {
+    interviews[qi].answers.forEach((a,idx)=>{
+      if(a.strong)document.getElementById(`ia-${qi}-${idx}`).classList.add('revealed-strong');
+    });
+  }
+  const fb=document.getElementById(`ifb-${qi}`);
+  fb.textContent=(ans.strong?'✅ ':'❌ ')+ans.fb;
+  fb.className=`int-fb show ${ans.strong?'good':'bad'}`;
+}
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Exactly right. The most valuable AI skill in healthcare isn\'t enthusiasm or technical knowledge — it\'s the judgment to review AI outputs carefully and catch errors before they affect patients. Healthcare employers have learned this the hard way: AI-generated content that isn\'t reviewed can end up in medical records, patient communications, and clinical decisions. The person who catches those errors is genuinely valuable.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('doesn\'t put incorrect'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ Healthcare employers aren\'t looking for AI builders or AI enthusiasts — they\'re looking for AI-responsible professionals. The ability to explain how AI algorithms work is nice but not what a clinical setting needs. What they need is someone who won\'t let AI errors slip into patient records, communications, or care decisions. That requires critical review skills, not technical expertise.';}
+}
+</script>
+</body>
+</html>
