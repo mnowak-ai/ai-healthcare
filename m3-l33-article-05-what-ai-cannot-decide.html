@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What AI Cannot Decide in Healthcare — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}.section{padding:36px 0 0;}h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:24px 0;}.card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px;}.card-icon{font-size:28px;margin-bottom:8px;}.card-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}.card-body{font-size:13px;line-height:1.65;color:var(--gray-text);}
+.scenario-box{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.sb2-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.sb2-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.sb2-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.situation{background:var(--white);border-left:4px solid var(--orange);border-radius:0 12px 12px 0;padding:16px 18px;font-size:15px;line-height:1.75;color:var(--gray-text);margin-bottom:16px;}
+.sim-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+.sim-tab{padding:8px 16px;border-radius:100px;border:2px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.sim-tab:hover{border-color:var(--purple);color:var(--purple);}.sim-tab.active{background:var(--purple);border-color:var(--purple);color:white;}
+.sim-panel{display:none;animation:fadeIn .3s ease;}.sim-panel.active{display:block;}
+.panel-content{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:18px;font-size:14px;line-height:1.75;color:var(--gray-text);}
+.panel-header{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;}
+.highlight-box{border-radius:10px;padding:12px 16px;margin:10px 0;font-size:13px;line-height:1.65;}
+.highlight-box.good{background:var(--green-pale);color:var(--green);}.highlight-box.bad{background:var(--red-pale);color:var(--red);}.highlight-box.info{background:var(--purple-pale);color:var(--purple-dark);}
+.stage-steps{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
+.stage{display:flex;gap:14px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:18px;cursor:pointer;transition:all .2s;}
+.stage:hover{border-color:var(--purple);}.stage.open{border-color:var(--purple);background:var(--purple-pale);}
+.stage-num{width:40px;height:40px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;color:white;font-size:16px;flex-shrink:0;}
+.stage-title{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:3px;}
+.stage-subtitle{font-size:12px;color:var(--gray-muted);}
+.stage-detail{font-size:14px;line-height:1.7;color:var(--gray-text);margin-top:10px;display:none;}
+.stage.open .stage-detail{display:block;}
+.workflow-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0;}
+.wf-item{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:16px;cursor:pointer;transition:all .2s;}
+.wf-item:hover{border-color:var(--purple);}.wf-item.open{border-color:var(--purple);background:var(--purple-pale);}
+.wf-icon{font-size:24px;margin-bottom:6px;}.wf-name{font-size:13px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.wf-brief{font-size:12px;color:var(--gray-muted);}
+.wf-detail{font-size:13px;line-height:1.65;color:var(--gray-text);margin-top:8px;display:none;}
+.wf-human{background:var(--orange-pale);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--gray-text);margin-top:6px;}
+.wf-item.open .wf-detail,.wf-item.open .wf-human{display:block;}
+.failure-cards{display:flex;flex-direction:column;gap:14px;margin:24px 0;}
+.fc{border:1.5px solid var(--purple-mid);border-radius:16px;overflow:hidden;cursor:pointer;}
+.fc-header{display:flex;gap:12px;align-items:center;padding:16px 20px;background:var(--white);}
+.fc-icon{font-size:22px;}.fc-title{font-size:14px;font-weight:700;color:var(--purple-dark);flex:1;}
+.fc-toggle{font-size:12px;color:var(--purple);font-weight:700;}
+.fc-body{display:none;padding:0 20px 18px;background:var(--white);}
+.fc.open .fc-body{display:block;}
+.fc-what{background:var(--red-pale);border-radius:10px;padding:12px 16px;font-size:13px;line-height:1.65;margin-bottom:8px;}
+.fc-lesson{background:var(--green-pale);border-radius:10px;padding:12px 16px;font-size:13px;line-height:1.65;}
+.week-schedule{background:#1A1035;border-radius:16px;padding:20px;margin:20px 0;}
+.ws-header{font-size:10px;font-weight:700;text-transform:uppercase;color:rgba(255,255,255,.4);letter-spacing:.12em;margin-bottom:14px;}
+.ws-day-row{display:flex;gap:6px;margin-bottom:8px;align-items:center;}
+.ws-day-label{font-size:11px;font-weight:700;color:rgba(255,255,255,.5);width:36px;flex-shrink:0;}
+.ws-slots{display:flex;gap:4px;flex:1;flex-wrap:wrap;}
+.ws-slot{border-radius:6px;padding:4px 8px;font-size:10px;font-weight:600;cursor:pointer;transition:all .2s;}
+.ws-slot.booked{background:rgba(74,222,128,.2);color:#4ADE80;}
+.ws-slot.empty{background:rgba(248,113,113,.2);color:#F87171;}
+.ws-slot.flagged{background:rgba(251,191,36,.2);color:#FCD34D;}
+.ws-slot.selected{outline:2px solid white;transform:scale(1.1);}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}.qfb.show{display:block;animation:fadeIn .35s ease;}.qfb.cfb{background:var(--green-pale);color:var(--green);}.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}.sdot svg{width:12px;height:12px;}.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.card-grid{grid-template-columns:1fr;}.workflow-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.3 · Using AI for Decision Support</div>
+  <h1>What AI Cannot Decide in Healthcare — And Why That Line Is Non-Negotiable</h1>
+  <p class="hero-sub">AI can recommend. AI can predict. AI can surface patterns invisible to humans. But there are three things AI structurally cannot do in healthcare operations — and getting clear on those limits is as important as understanding the capabilities.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+<div class="section fade-in">
+<h2>The Line That Doesn't Move</h2>
+<p>Throughout this module, you've learned about the powerful things AI can do in healthcare operations — predict patient volume, flag staffing shortfalls, surface anomalies, optimize schedules. Now it's equally important to understand what AI genuinely cannot do. Not "can't do yet." Not "might do someday with better training." Things that are structurally outside the scope of what AI can legitimately own in a healthcare context — today, and for the foreseeable future.</p>
+<p>This isn't about being anti-AI. It's about being clear-eyed. <mark>The organizations that use AI most effectively are the ones that are most explicit about where the human responsibility boundary is — and that enforce it consistently, not just when it's convenient.</mark></p>
+</div>
+
+<div class="section fade-in">
+<h2>The Three Things AI Cannot Do in Healthcare Operations</h2>
+<div class="card-grid" style="grid-template-columns:1fr;">
+<div class="card" style="border-left:5px solid var(--red);">
+  <div class="card-icon">⚖️</div>
+  <div class="card-title" style="font-size:16px;">AI Cannot Own Final Decisions</div>
+  <div class="card-body">When a staffing decision leads to a patient safety event, accountability belongs to a human. When a scheduling decision means a patient doesn't get seen in time, accountability belongs to a human. When an administrative workflow error causes a billing violation, accountability belongs to a human. AI systems are tools. Tools don't hold professional licenses. Tools can't appear before a medical board. Tools can't be held legally liable. Every consequential decision in healthcare must have a human who owns it — regardless of what the AI recommended.</div>
+</div>
+<div class="card" style="border-left:5px solid var(--red);">
+  <div class="card-icon">🧠</div>
+  <div class="card-title" style="font-size:16px;">AI Cannot Exercise Human Judgment</div>
+  <div class="card-body">AI processes patterns. Humans exercise judgment — which is different in kind, not just degree. A nurse manager who knows that a specific nurse is struggling after a personal loss and adjusts their assignment accordingly is exercising judgment that no amount of data can replicate. A patient discharge decision that accounts for a patient's home environment, family support, and anxiety about leaving — beyond what's in any chart — requires human judgment. AI can surface data. It cannot weigh competing values, read a room, or make the contextual call that decades of professional experience enable.</div>
+</div>
+<div class="card" style="border-left:5px solid var(--red);">
+  <div class="card-icon">🤝</div>
+  <div class="card-title" style="font-size:16px;">AI Cannot Make Ethical Choices</div>
+  <div class="card-body">Healthcare is full of situations where data alone doesn't tell you what to do — it only tells you what the options are. When two patients need the same bed and one is more acute but the other has been waiting longer, a human makes that call and owns it. When following an AI recommendation would technically meet the minimum ratio but feels wrong given a particular patient population, a human's professional judgment overrides the number. Ethics requires reasoning, values, and moral responsibility — none of which AI systems possess.</div>
+</div>
+</div>
+</div>
+
+<div class="section fade-in">
+<h2>The Scenario: "The Data Supports It. But Something Feels Wrong."</h2>
+<p>Read this scenario carefully. Then explore what happens at each stage — what the AI says, what the data shows, and what the nurse notices that no dashboard can capture.</p>
+<div class="scenario-box">
+  <div class="sb2-label">🏥 Real-World Scenario</div>
+  <div class="sb2-title">AI Recommends Discharge. A Nurse Sees Something Different.</div>
+  <div class="sb2-sub">Click each perspective to see what each party knows — and why the human judgment layer is non-negotiable here.</div>
+  <div class="situation">Mr. Chen, 74, has been in the hospital for 4 days following hip replacement surgery. His vital signs are stable. His pain scores are controlled. His lab values are within normal ranges. The AI discharge prediction model gives him an 89% probability of being discharge-ready today, which triggers an alert to the bed management team: "Patient in Room 412 — predicted discharge-ready."</div>
+  <div class="sim-tabs">
+    <button class="sim-tab active" onclick="showPerspective(0)">📊 What the AI Sees</button>
+    <button class="sim-tab" onclick="showPerspective(1)">👩‍⚕️ What the Nurse Sees</button>
+    <button class="sim-tab" onclick="showPerspective(2)">⚖️ What Happens Next</button>
+    <button class="sim-tab" onclick="showPerspective(3)">💡 The Principle</button>
+  </div>
+  <div id="perspContainer"></div>
+</div>
+</div>
+
+<div class="section fade-in">
+<h2>Why This Line Must Stay Non-Negotiable</h2>
+<p>There's always pressure, in busy healthcare environments, to let AI recommendations become automatic. The justification usually sounds reasonable: "We approve 90% of them anyway." "It saves so much time to just trust it." "The AI has better data than we do." None of these justifications should move the line. Here's why:</p>
+<div class="stage-steps" id="stageSteps"></div>
+</div>
+<div class="quiz fade-in">
+  <div class="quiz-label">🧠 Quick Check</div>
+  <div class="quiz-q">An AI discharge prediction system flags 8 patients as discharge-ready. A nurse manager reviews the list and approves 7. For the 8th, she has a concern — the patient lives alone and seemed unusually anxious during morning rounds. The data doesn't reflect this. She decides to hold the discharge pending a social work assessment. The AI was statistically right 7/8 times. Was the manager's override of the 8th recommendation appropriate?</div>
+  <div class="qopts"><button class="qopt" onclick="cq(this,false)">No — 7/8 is excellent accuracy and the manager should trust the model more</button><button class="qopt" onclick="cq(this,false)">No — subjective impressions like 'seemed anxious' shouldn't override data-based recommendations</button><button class="qopt" onclick="cq(this,true)">Yes — the nurse observed something the data doesn't capture (social isolation risk, anxiety signaling potential post-discharge complication) and applied clinical and human judgment to make a safer decision. This is exactly when the human override is appropriate.</button><button class="qopt" onclick="cq(this,false)">Yes, but only if she documents a specific medical reason — subjective observations don't count</button></div>
+  <div class="qfb" id="qfb"></div>
+</div>
+<script>
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  if(!correct)document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('Yes — the nurse observed something the d'))o.classList.add('correct');});
+  const fb=document.getElementById('qfb');
+  fb.className='qfb show '+(correct?'cfb':'wfb');
+  fb.textContent=correct?'Exactly right. The nurse noticed something real: the patient's social situation (lives alone) and behavioral signal (anxious during rounds) are meaningful predictors of post-discharge complications that no discharge algorithm is designed to capture. The AI's 89% confidence was based on clinical metrics. The nurse added non-clinical context that changed the risk profile. This override is the human judgment layer functioning correctly — and it may have prevented a readmission.':'Subjective observations by experienced clinical staff are not noise to be filtered out — they're information that data systems can't capture. 'Seemed unusually anxious' from a nurse who has worked with dozens of post-surgical patients is a meaningful clinical signal, particularly when combined with a known social risk factor (lives alone). The human override here is appropriate, well-reasoned, and represents the system working exactly as intended.';
+}
+</script><div class="summary fade-in"><div class="summary-label">📌 Key Takeaways</div><h2>What to Remember From This Article</h2><div class="spoints"><div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI cannot own final decisions, exercise human judgment, or make ethical choices. These are structural limits, not temporary gaps waiting to be filled by better technology.</p></div><div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Data-supported AI recommendations can still be wrong for the specific patient in front of you today. The human review step exists precisely to catch the cases where the model's aggregate pattern-matching doesn't fit the individual situation.</p></div><div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The line between AI support and AI decision-making must be enforced consistently — not just when it's convenient. The 90% of recommendations that are correct make it tempting to skip review. The 10% that need human judgment make review essential.</p></div><div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Professional accountability is non-delegable. No matter how confident the AI recommendation, the professional who acts on it owns the decision. 'The AI told me to' has never been and will never be an acceptable professional or legal defense in healthcare.</p></div></div></div>
+</div>
+<script>
+const perspectives=[
+  {label:'What the AI Sees',
+   header:'📊 The AI's Assessment',
+   content:'Vital signs: stable across all 96-hour stay. Pain score: 2/10 (controlled). Lab values: within normal ranges for all 18 monitored parameters. Mobility assessment: completed PT session yesterday, passed all discharge criteria. Surgical site: documented as healing appropriately. Insurance authorization: confirmed for discharge today. Historical pattern match: 89% of patients with identical clinical profiles were successfully discharged on day 4.',
+   hl_cls:'info',hl:'The AI has complete visibility into every clinical metric in Mr. Chen's chart. All indicators point toward successful discharge. The 89% confidence is legitimately high given the data.'},
+  {label:'What the Nurse Sees',
+   header:'👩‍⚕️ What the Nurse Observes',
+   content:'During morning rounds, the nurse notices: Mr. Chen seems notably quieter than he has been over the past three days. When she asks how he's feeling about going home, his answer is technically positive ("I suppose I'm ready") but his affect seems flat. He mentions, almost as an aside, that his daughter had to leave town unexpectedly — she was supposed to be his primary caregiver for the first two weeks home. He lives alone and the next-door neighbor who was his backup is also traveling this week.',
+   hl_cls:'bad',hl:'None of this is in the chart. The AI cannot see affect, tone of voice, or the conversation about the daughter. It cannot see that his social support structure changed overnight. All of this is known only to the nurse standing at his bedside.'},
+  {label:'What Happens Next',
+   header:'⚖️ What the Nurse Does',
+   content:'The nurse flags the discharge recommendation to the charge nurse and requests a brief social work consultation before discharge proceeds. She documents her observation: "Patient's primary caregiver unexpectedly unavailable. Patient appears anxious about returning to an unsupported home environment. Social work consult recommended prior to discharge to assess home support and consider options including brief sub-acute rehab placement or home health arrangement." The discharge is delayed 4 hours while social work meets with Mr. Chen.',
+   hl_cls:'good',hl:'Social work assessment reveals Mr. Chen has significant anxiety about managing stairs and self-care alone. A 3-day sub-acute rehab placement is arranged. He is discharged safely on Day 7 with a home health plan. He does not experience a fall or readmission in the 30-day post-discharge period.'},
+  {label:'The Principle',
+   header:'💡 What This Teaches Us',
+   content:'The AI was statistically right. For 89% of patients with identical clinical profiles, Day 4 discharge is appropriate. Mr. Chen himself might have been fine. But the nurse had information the AI could not access — his change in social support, his behavioral signals, his emotional state. She exercised judgment by acting on that information. The AI did its job: it identified that clinical criteria were met. The nurse did her job: she identified that something beyond clinical criteria mattered here.',
+   hl_cls:'info',hl:'This is not a story about AI being wrong. It's a story about human judgment adding something irreplaceable — exactly as the "AI supports, humans decide" framework requires.'}
+];
+function showPerspective(i){
+  document.querySelectorAll('.sim-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));
+  const d=perspectives[i];
+  document.getElementById('perspContainer').innerHTML=`<div class="sim-panel active"><div class="panel-content"><div class="panel-header" style="color:var(--purple);">${d.header}</div><p style="font-size:14px;line-height:1.75;">${d.content}</p><div class="highlight-box ${d.hl_cls}" style="margin-top:10px;">${d.hl}</div></div></div>`;
+}
+showPerspective(0);
+
+const stages=[
+  {title:"The 10% problem: you can't know which 10% in advance",subtitle:"Why selective review fails",detail:"If an AI system is right 90% of the time, the natural human response is to start skimming or rubber-stamping reviews. But you never know which recommendation is in the problematic 10% until you actually review it. The moment review becomes performative rather than genuine, the safety net disappears for exactly the cases where it was most needed."},
+  {title:"Skill erosion: what happens when humans stop exercising judgment",subtitle:"The competency trap",detail:"Healthcare professionals who routinely defer to AI recommendations without genuine evaluation gradually lose the independent judgment that makes them competent reviewers in the first place. When the AI system fails, is unavailable, or encounters a novel situation outside its training data, the human needs to be capable of making the decision alone. That capability requires continuous practice — not occasional engagement."},
+  {title:"Legal and regulatory reality: accountability is non-negotiable",subtitle:"Why 'the AI said so' never works",detail:"Healthcare regulations in virtually every jurisdiction require that clinical and safety-relevant decisions are made by licensed, credentialed human professionals. This requirement exists because liability, professional accountability, and patient rights all depend on there being a human who made the decision and can be held responsible. Automating away that accountability doesn't just create legal risk — it violates the fundamental framework of regulated healthcare."},
+];
+const ss=document.getElementById('stageSteps');
+stages.forEach((s,i)=>{
+  const el=document.createElement('div');
+  el.className='stage';
+  el.innerHTML=`<div class="stage-num">${i+1}</div><div><div class="stage-title">${s.title}</div><div class="stage-subtitle">${s.subtitle}</div><div class="stage-detail">${s.detail}</div></div>`;
+  el.onclick=()=>el.classList.toggle('open');
+  ss.appendChild(el);
+});
+</script>
+<script>
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

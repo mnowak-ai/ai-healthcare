@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Powered Scheduling in Healthcare — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+.section{padding:36px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* DATA SOURCES VISUAL */
+.data-sources{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;}
+.ds-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:18px;}
+.ds-icon{font-size:28px;margin-bottom:8px;}
+.ds-name{font-size:13px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.ds-items{font-size:12px;line-height:1.7;color:var(--gray-text);}
+.ds-arrow{display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--purple-mid);}
+
+/* BEFORE/AFTER A DAY */
+.day-compare{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.dc-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.dc-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.dc-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.dc-toggle{display:flex;gap:0;border-radius:14px;overflow:hidden;border:2px solid var(--purple-mid);margin-bottom:20px;}
+.dc-btn{flex:1;padding:12px;text-align:center;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .2s;background:var(--white);color:var(--gray-muted);}
+.dc-btn.active{background:var(--purple);color:white;}
+.dc-panel{display:none;animation:fadeIn .3s ease;}
+.dc-panel.active{display:block;}
+.timeline{display:flex;flex-direction:column;gap:0;}
+.tl-item{display:flex;gap:14px;align-items:flex-start;padding-bottom:14px;}
+.tl-time{width:60px;font-size:12px;font-weight:700;color:var(--purple);flex-shrink:0;padding-top:3px;}
+.tl-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.tl-dot.good{background:var(--green);}
+.tl-dot.ok{background:var(--orange);}
+.tl-dot.bad{background:var(--red);}
+.tl-dot.neutral{background:var(--purple);}
+.tl-connector{width:2px;background:var(--purple-mid);flex-shrink:0;margin-left:5px;}
+.tl-content{flex:1;background:var(--white);border-radius:10px;padding:10px 14px;}
+.tl-title{font-size:13px;font-weight:700;color:var(--gray-text);margin-bottom:3px;}
+.tl-desc{font-size:12px;color:var(--gray-muted);line-height:1.55;}
+
+/* HOW NO-SHOW PREDICTION WORKS */
+.nsp-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:24px 0;}
+.nsp-step{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:16px;text-align:center;}
+.nsp-num{width:32px;height:32px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:white;margin:0 auto 8px;}
+.nsp-title{font-size:12px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.nsp-desc{font-size:11px;line-height:1.5;color:var(--gray-muted);}
+
+/* COORDINATOR TOOLS */
+.tools-explorer{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.te-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.te-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.te-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.te-tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+.te-tool-btn{padding:8px 16px;border-radius:100px;border:2px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.te-tool-btn:hover{border-color:var(--purple);color:var(--purple);}
+.te-tool-btn.active{background:var(--purple);border-color:var(--purple);color:white;}
+.te-detail{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:22px;display:none;animation:fadeIn .3s ease;}
+.te-detail.active{display:block;}
+.te-detail-header{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--purple-dark);margin-bottom:8px;}
+.te-what{background:var(--purple-pale);border-radius:10px;padding:12px 16px;font-size:14px;line-height:1.7;color:var(--purple-dark);margin-bottom:10px;}
+.te-human{background:var(--orange-pale);border:1.5px solid #FDE68A;border-radius:10px;padding:12px 16px;font-size:14px;line-height:1.7;color:var(--gray-text);}
+.te-human-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--orange);letter-spacing:.08em;margin-bottom:4px;}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.data-sources{grid-template-columns:1fr;}.nsp-steps{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.3 · Using AI for Decision Support</div>
+  <h1>AI-Powered Scheduling in Healthcare: How Hospitals Predict Busy Times, Reduce No-Shows, and Balance Workloads</h1>
+  <p class="hero-sub">Healthcare scheduling used to mean filling slots on a calendar. AI has transformed it into something much more powerful — predicting patient demand days in advance, reducing the no-show rate through intelligent outreach, and automatically surfacing opportunities to serve patients who are waiting. This article teaches you the full picture.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Why Scheduling Is More Complex Than It Looks</h2>
+    <p>At first glance, healthcare scheduling seems straightforward: a patient calls, you find an open slot, you book them in. But at any medium-to-large healthcare facility, the reality is dramatically more complex. On any given Monday morning, a scheduling team might be managing dozens of providers across multiple locations, thousands of appointment slots of varying types and durations, a waitlist of patients trying to get in sooner, predictable no-show patterns that empty slots that could serve other patients, and seasonal demand surges that overwhelm capacity if not anticipated weeks in advance.</p>
+    <p>Before AI tools, healthcare schedulers managed this complexity through experience, pattern recognition developed over years, and a lot of reactive firefighting. A slow Tuesday would only become apparent when Tuesday morning arrived. A no-show problem would only surface in the weekly report. <mark>AI scheduling tools change the fundamental timeline — from reactive to predictive, from noticing problems to preventing them.</mark></p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What AI Scheduling Tools Actually See: The Data Sources</h2>
+    <p>The predictive power of AI scheduling comes from combining multiple data streams that no human could monitor simultaneously. Here are the main sources a modern healthcare AI scheduling system typically draws from:</p>
+    <div class="data-sources">
+      <div class="ds-card">
+        <div class="ds-icon">📅</div>
+        <div class="ds-name">Historical Appointment Data</div>
+        <div class="ds-items">• 2–5 years of past appointment records<br>• No-show rates by appointment type, day of week, time of day, and provider<br>• Average appointment duration by procedure type<br>• Patient demographics and attendance patterns</div>
+      </div>
+      <div class="ds-card">
+        <div class="ds-icon">🌡️</div>
+        <div class="ds-name">External Signals</div>
+        <div class="ds-items">• Local flu and illness trends (CDC data)<br>• Weather forecasts (severe weather correlates with cancellations)<br>• Local events (sporting events affect afternoon no-show rates)<br>• School calendar (pediatric volume peaks at school breaks)</div>
+      </div>
+      <div class="ds-card">
+        <div class="ds-icon">🏥</div>
+        <div class="ds-name">Internal Operational Data</div>
+        <div class="ds-items">• Current waitlist depth by appointment type<br>• Provider availability and vacation schedules<br>• Current booking pace vs. historical averages<br>• Recent cancellation and rescheduling patterns</div>
+      </div>
+    </div>
+    <p>By combining these sources, an AI scheduling tool can answer questions that were previously unanswerable until it was too late — like "Will next Thursday afternoon be understaffed relative to patient demand?" or "Which patients on our waitlist have the highest likelihood of accepting a short-notice opening?"</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>A Scheduling Coordinator's Day: Before vs. After AI Tools</h2>
+    <p>The same job looks very different when the tools change. Toggle between the pre-AI and AI-assisted versions of a scheduling coordinator's morning:</p>
+    <div class="day-compare">
+      <div class="dc-label">📅 Day-in-the-Life Comparison</div>
+      <div class="dc-title">Monday Morning at a Busy Outpatient Clinic</div>
+      <div class="dc-sub">Toggle to see how the same morning plays out with and without AI scheduling tools.</div>
+      <div class="dc-toggle">
+        <button class="dc-btn active" onclick="showDC('before')">📋 Before AI Tools</button>
+        <button class="dc-btn" onclick="showDC('after')">🤖 With AI Scheduling</button>
+      </div>
+      <div id="dcContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>How AI Reduces No-Shows: The Prediction-to-Action Pipeline</h2>
+    <p>No-shows are one of the most damaging and solvable problems in healthcare scheduling. A 20% no-show rate means 1 in 5 appointment slots serves no one — while patients on a waitlist go unseen. AI reduces this through a 4-step pipeline:</p>
+    <div class="nsp-steps">
+      <div class="nsp-step"><div class="nsp-num">1</div><div class="nsp-title">Risk Scoring</div><div class="nsp-desc">AI scores every upcoming appointment for no-show probability based on patient history, appointment type, day of week, distance, and time.</div></div>
+      <div class="nsp-step"><div class="nsp-num">2</div><div class="nsp-title">Targeted Outreach</div><div class="nsp-desc">High-risk patients receive earlier, more frequent reminders — calls, texts, or app notifications. Low-risk patients receive standard reminders.</div></div>
+      <div class="nsp-step"><div class="nsp-num">3</div><div class="nsp-title">Proactive Waitlist</div><div class="nsp-desc">AI contacts the most appropriate waitlist patients before a gap opens — not after. Waitlist patients are ranked by availability probability, appointment type match, and recency of request.</div></div>
+      <div class="nsp-step"><div class="nsp-num">4</div><div class="nsp-title">Strategic Overbooking</div><div class="nsp-desc">For high-risk slots (Monday 8AM historically shows 35% no-show rate), AI may suggest slight overbooking — booking 5 patients for 4 effectively-available slots — with human approval required.</div></div>
+    </div>
+    <div class="pull-quote"><p>A scheduling coordinator who knows a patient has a 68% no-show probability can call that patient the day before and potentially save the slot. That's not guesswork — it's AI giving the human something actionable to do.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Scheduling Coordinator's AI Toolkit: What Each Tool Does (and What You Still Control)</h2>
+    <p>Click each tool to understand what it does, how it helps, and — critically — what the human coordinator still controls:</p>
+    <div class="tools-explorer">
+      <div class="te-label">🔧 Scheduling AI Toolkit</div>
+      <div class="te-title">What the Tools Do and What You Still Own</div>
+      <div class="te-sub">Click any tool to see its function and the human judgment it still requires.</div>
+      <div class="te-tools">
+        <button class="te-tool-btn active" onclick="showTool(0)">📊 Volume Predictor</button>
+        <button class="te-tool-btn" onclick="showTool(1)">🚫 No-Show Predictor</button>
+        <button class="te-tool-btn" onclick="showTool(2)">📋 Waitlist Optimizer</button>
+        <button class="te-tool-btn" onclick="showTool(3)">🗓️ Schedule Builder</button>
+        <button class="te-tool-btn" onclick="showTool(4)">📱 Auto-Reminder Engine</button>
+      </div>
+      <div id="teDetailContainer"></div>
+    </div>
+  </div>
+
+  <div class="quiz fade-in">
+    <div class="quiz-label">🧠 Quick Check</div>
+    <div class="quiz-q">An AI scheduling tool predicts that Friday afternoon will have a 31% no-show rate based on historical data for that time slot. The scheduling coordinator decides to overbook by 2 patients. On Friday, only 1 patient no-shows — leaving the clinic with 1 extra patient in an already-full afternoon. Who made the decision that led to that outcome?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="cq(this,false)">The AI — it predicted the no-show rate inaccurately, which caused the problem</button>
+      <button class="qopt" onclick="cq(this,false)">Nobody — it was an unpredictable outcome that nobody could have prevented</button>
+      <button class="qopt" onclick="cq(this,true)">The scheduling coordinator — the AI provided a probability estimate (31% no-show rate), not an instruction to overbook. The coordinator made the judgment call to overbook by 2. The AI's estimate was correct on average, but this particular Friday had only a 1 no-show. The coordinator owns the overbooking decision.</button>
+      <button class="qopt" onclick="cq(this,false)">The clinic manager who approved the overbooking policy</button>
+    </div>
+    <div class="qfb" id="qfb"></div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Key Takeaways</div>
+    <h2>What to Remember From This Article</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI scheduling tools combine historical appointment data, external signals (flu trends, weather, events), and internal operational data to predict patient demand and no-show risk days in advance — not hours after the fact.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The no-show reduction pipeline — risk scoring → targeted outreach → proactive waitlist → strategic overbooking — gives schedulers specific, actionable tasks. The AI identifies the problem and the opportunity; the human coordinators act on them.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>A scheduling coordinator working with AI tools shifts from reactive (responding to gaps after they open) to proactive (anticipating gaps before they occur). The job requires more judgment, not less — because you're now making consequential calls with better information.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The human coordinator still controls: which waitlist patients get called first (patient circumstances), whether to overbook and by how much, which AI-flagged anomalies require investigation vs. acceptance, and any decision that affects a specific patient's care access.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const dcData = {
+  before: [
+    {time:'7:30am', dot:'ok', title:'Review yesterday\'s no-shows manually', desc:'Pull a printed or spreadsheet report from the previous day. No predictive data — just what already happened.'},
+    {time:'8:00am', dot:'bad', title:'Discover Thursday has 4 open slots', desc:'Four cancellations came in over the weekend. No automated process in place — the slots are sitting empty until someone acts.'},
+    {time:'8:30am', dot:'ok', title:'Call through the waitlist manually', desc:'Work through a paper or spreadsheet waitlist in order. No information about which patients are most likely to accept short-notice, which appointment types match the open slots, or patient availability.'},
+    {time:'10:00am', dot:'bad', title:'Only 2 of 4 slots filled after 90 minutes', desc:'2 patients declined, 1 unreachable. 2 slots remain empty — lost clinical time for Thursday.'},
+    {time:'11:00am', dot:'neutral', title:'Prepare next week\'s schedule', desc:'Build template based on general historical patterns and provider availability. No predictive volume data — next week\'s unusually high-demand Wednesday afternoon won\'t be visible until Wednesday morning.'},
+    {time:'2:00pm', dot:'bad', title:'Wednesday rush hits unexpectedly', desc:'Significantly above-average patient volume arrives Wednesday afternoon. Waiting room backs up. Staff stretched. No advance warning was available.'}
+  ],
+  after: [
+    {time:'7:30am', dot:'good', title:'Review AI dashboard: week\'s predictions loaded', desc:'AI has already processed weekend data. Dashboard shows Thursday at 71% fill with 4 open slots, Friday predicted at 28% no-show risk, and 6 high-priority waitlist patients matched to open appointment types.'},
+    {time:'7:45am', dot:'good', title:'AI has pre-ranked waitlist for Thursday openings', desc:'The 6 top-ranked waitlist patients have already been sorted by appointment type match, recency of request, and historical attendance reliability. You start calls in the right order immediately.'},
+    {time:'8:30am', dot:'good', title:'All 4 Thursday slots filled in 35 minutes', desc:'3 of the top 6 ranked patients accept. All 4 open slots are filled. 35 minutes instead of 90 — because you called the right patients first.'},
+    {time:'9:00am', dot:'good', title:'AI flags next Wednesday for elevated volume', desc:'AI predicts Wednesday afternoon at 38% above baseline based on post-holiday patterns from 3 previous years. You have 9 days to adjust staffing.'},
+    {time:'10:00am', dot:'neutral', title:'Review Friday high-risk no-show list', desc:'AI has flagged 7 Friday patients at >60% no-show risk. You review the list, confirm it looks reasonable, and trigger targeted reminder calls for those specific patients — not the whole schedule.'},
+    {time:'2:00pm', dot:'good', title:'Proactive Wednesday staffing adjustment made', desc:'Based on AI volume prediction, you\'ve requested one additional clinical assistant for Wednesday afternoon — confirmed 9 days in advance instead of discovered when it\'s too late to fix.'}
+  ]
+};
+
+function showDC(mode) {
+  document.querySelectorAll('.dc-btn').forEach((b, bi) => b.classList.toggle('active', (bi===0 && mode==='before') || (bi===1 && mode==='after')));
+  const items = dcData[mode];
+  const html = `<div class="timeline">${items.map(i => `
+    <div class="tl-item">
+      <div class="tl-time">${i.time}</div>
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div class="tl-dot ${i.dot}"></div>
+        <div class="tl-connector" style="height:40px;"></div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-title">${i.title}</div>
+        <div class="tl-desc">${i.desc}</div>
+      </div>
+    </div>`).join('')}</div>`;
+  document.getElementById('dcContainer').innerHTML = `<div class="dc-panel active">${html}</div>`;
+}
+showDC('before');
+
+const tools = [
+  { name:'Volume Predictor', icon:'📊',
+    what: 'Analyzes historical appointment data, external signals (flu trends, weather forecasts, local events, school calendar), and current booking pace to predict patient volume by day, time slot, and provider — up to 3 weeks in advance.',
+    human: 'You decide what to do with the prediction. A predicted high-volume Wednesday means nothing unless someone acts on it — adjusting staffing, reducing non-essential meetings, alerting providers. The AI gives you the forecast; you make the operational response.' },
+  { name:'No-Show Predictor', icon:'🚫',
+    what: 'Scores every upcoming appointment for no-show probability based on: the patient\'s personal history, appointment type, day of week, time of day, lead time between booking and appointment, reminder response history, and external factors like weather.',
+    human: 'You review the high-risk list and decide who gets personal outreach vs. automated reminders. You also decide whether to overbook, by how much, and which slots — using the AI probability as input, not as an instruction. You own the patient relationship consequences.' },
+  { name:'Waitlist Optimizer', icon:'📋',
+    what: 'When a slot opens, the AI scans the entire waitlist and ranks patients by: appointment type match, recency of request, availability probability (based on their history of accepting short-notice openings), and care urgency flags.',
+    human: 'You review the ranked list before calling. You may have context the AI doesn\'t — a patient who specifically said they can only do mornings, a patient whose circumstances have changed since they were waitlisted, a patient the provider has asked to prioritize. You make the final call order.' },
+  { name:'Schedule Builder', icon:'🗓️',
+    what: 'Generates a draft schedule based on provider availability, predicted volume patterns, appointment type mix, and target fill rate. Automatically blocks appropriate slot durations for different appointment types and flags scheduling conflicts.',
+    human: 'Every draft schedule requires manager review before being published or sent to providers. You check for accuracy (leave requests, certification changes), appropriateness (provider-patient match issues), and practicality (is the mix of appointment types workable for that day\'s support staff?). Draft ≠ final.' },
+  { name:'Auto-Reminder Engine', icon:'📱',
+    what: 'Sends appointment reminders via text, email, or phone based on the patient\'s preferred contact method and timing. For high no-show risk patients, increases reminder frequency. Automatically logs all contact attempts and patient responses.',
+    human: 'You set the reminder rules (how many days in advance, what message, which channel for which patients). You review response data — patients who haven\'t confirmed high-risk appointments by a day before need human follow-up. And any reminder content that mentions specific care instructions needs clinical review before it goes out.' }
+];
+
+function showTool(i) {
+  document.querySelectorAll('.te-tool-btn').forEach((b, bi) => b.classList.toggle('active', bi === i));
+  document.getElementById('teDetailContainer').innerHTML = `
+    <div class="te-detail active">
+      <div class="te-detail-header">${tools[i].icon} ${tools[i].name}</div>
+      <div class="te-what"><strong>What the AI does:</strong> ${tools[i].what}</div>
+      <div class="te-human"><div class="te-human-label">👩‍💼 What you still control</div>${tools[i].human}</div>
+    </div>`;
+}
+showTool(0);
+
+function cq(btn, correct) {
+  if (document.querySelector('.qopt.correct') || document.querySelector('.qopt.wrong')) return;
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) document.querySelectorAll('.qopt').forEach(o => { if (o.textContent.includes('The scheduling coordinator')) o.classList.add('correct'); });
+  const fb = document.getElementById('qfb');
+  fb.className = 'qfb show ' + (correct ? 'cfb' : 'wfb');
+  fb.textContent = correct
+    ? '✅ Correct. This is a precise illustration of the decision support principle. The AI provided a probability estimate — 31% historical no-show rate for this slot. The scheduling coordinator used that estimate to make a judgment: overbook by 2. That judgment was reasonable given the data, but it was still a judgment — and this particular Friday had below-average no-shows. The AI\'s estimate was accurate in aggregate (over many Fridays, about 31% don\'t show). This specific Friday was just on the favorable end of the distribution. The coordinator owns the overbooking decision and its consequences — including this outcome.'
+    : '❌ The AI provided data. The coordinator made the decision. A 31% historical no-show rate is a probability estimate, not an instruction to overbook. The coordinator chose to overbook by 2 — that\'s a judgment call using AI data as an input. When the outcome was suboptimal (only 1 no-show instead of the expected ~2), it\'s not the AI\'s fault for being wrong — probability estimates are averages, not certainties. The coordinator made a reasonable call that had an unlucky outcome. That\'s the accountability structure of decision support.';
+}
+
+window.addEventListener('scroll', () => { const e = document.documentElement; document.getElementById('pb').style.width = ((e.scrollTop / (e.scrollHeight - e.clientHeight)) * 100) + '%'; });
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: .1 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

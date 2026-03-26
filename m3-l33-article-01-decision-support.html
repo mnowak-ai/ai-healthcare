@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Is Decision Support, Really? — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+.section{padding:36px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* RECOMMENDING VS DECIDING SPECTRUM */
+.spectrum{background:var(--gray-soft);border-radius:20px;padding:28px;margin:28px 0;border:1.5px solid var(--purple-mid);}
+.spec-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--purple-dark);margin-bottom:16px;}
+.spec-bar{position:relative;height:10px;background:linear-gradient(to right, var(--green),#A3E635,var(--orange),var(--red));border-radius:5px;margin:20px 0 32px;}
+.spec-labels{display:flex;justify-content:space-between;margin-top:-24px;margin-bottom:8px;}
+.spec-label{font-size:11px;font-weight:700;text-align:center;max-width:100px;}
+.spec-label.g{color:var(--green);}
+.spec-label.r{color:var(--red);}
+.spec-examples{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px;}
+.spec-ex{border-radius:12px;padding:12px;font-size:12px;line-height:1.5;}
+.spec-ex.ai-good{background:var(--green-pale);border:1.5px solid #86EFAC;}
+.spec-ex.ai-ok{background:var(--orange-pale);border:1.5px solid #FDE68A;}
+.spec-ex.ai-bad{background:var(--red-pale);border:1.5px solid #FCA5A5;}
+.spec-ex-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;}
+.spec-ex.ai-good .spec-ex-label{color:var(--green);}
+.spec-ex.ai-ok .spec-ex-label{color:var(--orange);}
+.spec-ex.ai-bad .spec-ex-label{color:var(--red);}
+
+/* WHAT MAKES IT DECISION SUPPORT */
+.ds-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;}
+.ds-pillar{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px;}
+.ds-pillar-icon{font-size:28px;margin-bottom:8px;}
+.ds-pillar-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ds-pillar-body{font-size:13px;line-height:1.6;color:var(--gray-text);}
+
+/* DECISION SIMULATION — centrepiece */
+.dec-sim{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.ds-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.ds-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ds-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.ai-rec-card{background:#1A1035;border-radius:16px;padding:20px;margin-bottom:16px;}
+.arc-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.arc-badge{background:var(--purple);color:white;font-size:10px;font-weight:700;padding:4px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:.1em;}
+.arc-title{font-family:'Fraunces',serif;font-size:17px;font-weight:700;color:white;}
+.arc-rec{background:rgba(255,255,255,.08);border-radius:10px;padding:14px;margin-bottom:10px;}
+.arc-rec-label{font-size:10px;font-weight:700;text-transform:uppercase;color:rgba(255,255,255,.5);letter-spacing:.1em;margin-bottom:6px;}
+.arc-rec-text{font-size:15px;font-weight:600;color:white;}
+.arc-data-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.arc-data{background:rgba(255,255,255,.06);border-radius:8px;padding:10px;}
+.arc-data-label{font-size:9px;text-transform:uppercase;color:rgba(255,255,255,.45);letter-spacing:.08em;margin-bottom:4px;}
+.arc-data-val{font-size:14px;font-weight:700;color:white;}
+.arc-confidence{display:flex;align-items:center;gap:8px;margin-top:10px;}
+.arc-conf-label{font-size:11px;color:rgba(255,255,255,.5);}
+.arc-conf-bar{flex:1;height:6px;background:rgba(255,255,255,.15);border-radius:3px;}
+.arc-conf-fill{height:100%;border-radius:3px;background:#4ADE80;}
+.arc-conf-pct{font-size:11px;font-weight:700;color:#4ADE80;}
+.question-flow{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px;}
+.qf-step{margin-bottom:16px;display:none;animation:fadeIn .3s ease;}
+.qf-step.active{display:block;}
+.qf-q-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.1em;margin-bottom:6px;}
+.qf-q-text{font-size:15px;font-weight:600;color:var(--purple-dark);margin-bottom:12px;line-height:1.4;}
+.qf-opts{display:flex;flex-direction:column;gap:7px;}
+.qf-opt{background:var(--gray-soft);border:2px solid var(--purple-mid);border-radius:10px;padding:12px 16px;cursor:pointer;font-size:14px;transition:all .2s;text-align:left;}
+.qf-opt:hover:not(:disabled){border-color:var(--purple);background:var(--purple-pale);}
+.qf-opt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qf-opt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qf-fb{font-size:13px;line-height:1.65;padding:12px 16px;border-radius:10px;margin-top:8px;display:none;}
+.qf-fb.show{display:block;}
+.qf-fb.ok{background:var(--green-pale);color:var(--green);}
+.qf-fb.bad{background:var(--red-pale);color:var(--red);}
+.qf-next{background:var(--purple);color:white;border:none;border-radius:10px;padding:10px 22px;font-size:14px;font-weight:700;cursor:pointer;margin-top:10px;display:none;}
+.qf-next.show{display:inline-block;}
+.sim-complete{background:var(--purple-dark);border-radius:14px;padding:22px;text-align:center;color:white;display:none;}
+.sim-complete.show{display:block;animation:fadeIn .4s ease;}
+.sim-complete-title{font-family:'Fraunces',serif;font-size:22px;font-weight:900;margin-bottom:8px;}
+
+/* LEGAL-ETHICAL BOX */
+.legal-box{background:var(--purple-dark);border-radius:20px;padding:28px;margin:28px 0;}
+.lb-label{font-size:11px;font-weight:700;text-transform:uppercase;color:rgba(255,255,255,.5);letter-spacing:.12em;margin-bottom:8px;}
+.lb-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:white;margin-bottom:14px;}
+.lb-points{display:flex;flex-direction:column;gap:10px;}
+.lb-point{display:flex;gap:10px;align-items:flex-start;background:rgba(255,255,255,.08);border-radius:10px;padding:12px 16px;}
+.lb-icon{font-size:18px;flex-shrink:0;}
+.lb-text{font-size:14px;color:rgba(255,255,255,.85);line-height:1.6;}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.ds-pillars{grid-template-columns:1fr;}.spec-examples{grid-template-columns:repeat(2,1fr);}.arc-data-row{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.3 · Using AI for Decision Support</div>
+  <h1>What Is Decision Support, Really? The Difference Between AI Recommending and AI Deciding</h1>
+  <p class="hero-sub">Healthcare AI tools don't make decisions — people do. But understanding exactly where the line is between "supporting a decision" and "making a decision" is one of the most important conceptual skills in this entire certification. Get this wrong, and AI becomes a liability instead of a tool.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>The Most Important Sentence in This Lesson</h2>
+    <p>Here it is: <strong>An AI recommendation is information. Acting on it is a decision. These are two different things — and only one of them is the AI's job.</strong></p>
+    <p>This sounds simple. In practice, it gets blurry very quickly. When an AI staffing system says "add 2 nurses to Tuesday morning," that feels like a decision. When a scheduling tool automatically fills open appointment slots using waitlist patients, that feels like a decision. When an AI flags a patient as discharge-ready and notifies the bed management team, that certainly feels like a decision has been made.</p>
+    <p>But none of those are decisions — they're all recommendations or automated actions within a boundary a human already set. <mark>A decision in healthcare is an act with consequences that a human is accountable for.</mark> The AI is never accountable. The person who acted on the AI's recommendation — or who designed the system boundary that allowed the automation — is accountable.</p>
+    <p>Understanding this distinction keeps you legally protected, ethically grounded, and professionally effective in any role that uses AI tools.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Decision Spectrum: Where AI Belongs</h2>
+    <p>Not all AI actions are the same. Some are clearly fine to automate. Others require careful human judgment. The spectrum below shows where different types of AI actions sit — and where the human review requirement kicks in.</p>
+    <div class="spectrum">
+      <div class="spec-title">The AI Action Spectrum in Healthcare Operations</div>
+      <div class="spec-bar"></div>
+      <div class="spec-labels">
+        <div class="spec-label g">✅ Safe to<br>Automate</div>
+        <div class="spec-label" style="color:var(--orange);">⚠️ Automate with<br>Human Review</div>
+        <div class="spec-label" style="color:var(--orange);">⚠️ Recommend,<br>Human Decides</div>
+        <div class="spec-label r">❌ Human<br>Decision Only</div>
+      </div>
+      <div class="spec-examples">
+        <div class="spec-ex ai-good">
+          <div class="spec-ex-label">✅ Safe to Automate</div>
+          Sending appointment reminders to patients on a schedule. Reordering office supplies when they hit a preset threshold. Generating a weekly performance report for manager review.
+        </div>
+        <div class="spec-ex ai-ok">
+          <div class="spec-ex-label">⚠️ Automate + Review</div>
+          Filling open appointment slots from the waitlist (automated, but manager reviews before sending confirmations). Generating a staffing schedule draft (automated, but nurse manager approves every shift).
+        </div>
+        <div class="spec-ex ai-ok">
+          <div class="spec-ex-label">⚠️ Recommend Only</div>
+          "AI suggests: add 2 nurses Tuesday morning." Manager reviews, questions, then approves or modifies. Flagging a patient as potentially discharge-ready — clinician confirms before any action.
+        </div>
+        <div class="spec-ex ai-bad">
+          <div class="spec-ex-label">❌ Human Only</div>
+          Discharging a patient. Reducing care staff below safe minimums. Any decision that could directly affect patient safety, violate a regulation, or require professional accountability.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Three Pillars of Genuine Decision Support</h2>
+    <p>For an AI tool to qualify as genuine decision support — rather than decision-making or decision theater — it needs to do three specific things:</p>
+    <div class="ds-pillars">
+      <div class="ds-pillar">
+        <div class="ds-pillar-icon">📊</div>
+        <div class="ds-pillar-title">Show the Evidence</div>
+        <div class="ds-pillar-body">Good decision support shows the data behind the recommendation, not just the recommendation itself. "Add 2 nurses Tuesday" is a directive. "Add 2 nurses Tuesday — historical data shows Tuesday 8–11am averages 34% above baseline patient volume, and current scheduling has the floor 2 staff below what that volume historically requires" is decision support. You can evaluate it.</div>
+      </div>
+      <div class="ds-pillar">
+        <div class="ds-pillar-icon">🧭</div>
+        <div class="ds-pillar-title">Preserve Human Choice</div>
+        <div class="ds-pillar-body">Genuine decision support always has a clear path to override, modify, or reject the recommendation. If acting on the AI's suggestion is the path of least resistance and questioning it requires significant extra steps, that's not decision support — that's social engineering toward automation. The override path should be as easy as the approval path.</div>
+      </div>
+      <div class="ds-pillar">
+        <div class="ds-pillar-icon">⚖️</div>
+        <div class="ds-pillar-title">Acknowledge Limits</div>
+        <div class="ds-pillar-body">A trustworthy decision support system tells you what it doesn't know. "Confidence: 78% — based on 12 weeks of historical data. Note: Does not account for staff preferences, certification requirements, or personal schedule constraints." That honesty is what makes it a support tool rather than a decision-maker pretending to be one.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Simulation: The AI Says to Add 2 Nurses. What Do You Ask?</h2>
+    <p>This is the most important skill in this lesson: receiving an AI recommendation and knowing what questions to ask before acting on it. Work through the scenario below — you're a nurse manager reviewing a staffing recommendation from your facility's AI scheduling tool.</p>
+    <div class="dec-sim">
+      <div class="ds-label">🎯 Decision Support Simulation</div>
+      <div class="ds-title">You Received an AI Staffing Recommendation</div>
+      <div class="ds-sub">Read the AI recommendation carefully. Then work through the questions a professional manager should ask before acting on it.</div>
+      <div class="ai-rec-card">
+        <div class="arc-header">
+          <span class="arc-badge">🤖 AI Recommendation</span>
+          <span class="arc-title">Staffing Adjustment — Tuesday Morning</span>
+        </div>
+        <div class="arc-rec">
+          <div class="arc-rec-label">Recommendation</div>
+          <div class="arc-rec-text">Add 2 additional nurses to Tuesday, April 15 — Morning shift (6AM–2PM), Medical-Surgical Floor 3</div>
+        </div>
+        <div class="arc-data-row">
+          <div class="arc-data">
+            <div class="arc-data-label">Predicted patient volume</div>
+            <div class="arc-data-val">34% above baseline</div>
+          </div>
+          <div class="arc-data">
+            <div class="arc-data-label">Historical match</div>
+            <div class="arc-data-val">Based on 18 similar Tuesdays</div>
+          </div>
+          <div class="arc-data">
+            <div class="arc-data-label">Current scheduling</div>
+            <div class="arc-data-val">4 nurses scheduled; predicted need: 6</div>
+          </div>
+        </div>
+        <div class="arc-confidence">
+          <span class="arc-conf-label">AI Confidence:</span>
+          <div class="arc-conf-bar"><div class="arc-conf-fill" style="width:78%"></div></div>
+          <span class="arc-conf-pct">78%</span>
+        </div>
+      </div>
+      <div class="question-flow" id="qfContainer">
+        <div class="qf-step active" id="qfStep0">
+          <div class="qf-q-label">❓ Question 1 of 5 — Evaluate the Evidence</div>
+          <div class="qf-q-text">The AI says its prediction is based on "18 similar Tuesdays." As a manager reviewing this recommendation, what's the most important follow-up question about that data?</div>
+          <div class="qf-opts">
+            <button class="qf-opt" onclick="answerQF(0,0)">How long did it take the AI to generate this recommendation?</button>
+            <button class="qf-opt" onclick="answerQF(0,1)">What made those 18 Tuesdays "similar"? Were they from the same season, the same year, or across different operational conditions? Is Tuesday April 15 actually similar to those historical dates?</button>
+            <button class="qf-opt" onclick="answerQF(0,2)">Was the AI trained on this specific hospital or general hospital data?</button>
+            <button class="qf-opt" onclick="answerQF(0,3)">Why is the confidence only 78% and not higher?</button>
+          </div>
+          <div class="qf-fb" id="qfFb0"></div>
+          <button class="qf-next" id="qfNext0" onclick="nextQF(1)">Next Question →</button>
+        </div>
+        <div class="qf-step" id="qfStep1">
+          <div class="qf-q-label">❓ Question 2 of 5 — Check the Limits</div>
+          <div class="qf-q-text">The AI recommendation doesn't mention anything about which specific nurses would be added. Why is that a critical gap before acting on this recommendation?</div>
+          <div class="qf-opts">
+            <button class="qf-opt" onclick="answerQF(1,0)">It's not critical — the manager can figure out staffing assignments after approving the recommendation</button>
+            <button class="qf-opt" onclick="answerQF(1,1)">Adding "2 nurses" only works if available nurses have the right certifications for Medical-Surgical Floor 3, aren't already scheduled for another floor, and aren't at overtime risk — none of which the AI's volume prediction accounts for</button>
+            <button class="qf-opt" onclick="answerQF(1,2)">The AI should have included names — this is a system limitation that IT needs to fix</button>
+            <button class="qf-opt" onclick="answerQF(1,3)">This matters for HR tracking purposes but doesn't affect whether to approve the recommendation</button>
+          </div>
+          <div class="qf-fb" id="qfFb1"></div>
+          <button class="qf-next" id="qfNext1" onclick="nextQF(2)">Next Question →</button>
+        </div>
+        <div class="qf-step" id="qfStep2">
+          <div class="qf-q-label">❓ Question 3 of 5 — Context Check</div>
+          <div class="qf-q-text">You know that one of your best nurses, Dena, specifically requested Tuesday April 15 off for a family commitment — and that approval was informal, not yet entered in the system. The AI doesn't know about this. What does this situation tell you?</div>
+          <div class="qf-opts">
+            <button class="qf-opt" onclick="answerQF(2,0)">Dena's request is irrelevant — if the AI needs 6 nurses, the personal request has to be denied</button>
+            <button class="qf-opt" onclick="answerQF(2,1)">The AI's data is based on what's in the system. Your management knowledge includes things that aren't in any system. Both are inputs to the final decision — and the manager's judgment, not the AI's data, is what combines them correctly</button>
+            <button class="qf-opt" onclick="answerQF(2,2)">The system needs to be updated to include informal approvals before AI tools can be trusted</button>
+            <button class="qf-opt" onclick="answerQF(2,3)">This is a data quality problem — the AI recommendation should be rejected entirely until systems are more complete</button>
+          </div>
+          <div class="qf-fb" id="qfFb2"></div>
+          <button class="qf-next" id="qfNext2" onclick="nextQF(3)">Next Question →</button>
+        </div>
+        <div class="qf-step" id="qfStep3">
+          <div class="qf-q-label">❓ Question 4 of 5 — Consider Alternatives</div>
+          <div class="qf-q-text">The AI recommends adding 2 nurses. But you know that Floor 3 also has 3 patients predicted for discharge Tuesday morning. What's the right move?</div>
+          <div class="qf-opts">
+            <button class="qf-opt" onclick="answerQF(3,0)">Follow the AI recommendation — it said add 2 nurses, so add 2 nurses regardless of discharge predictions</button>
+            <button class="qf-opt" onclick="answerQF(3,1)">The 3 pending discharges change the picture. If those discharges happen before 10AM, the patient volume on Floor 3 may not actually require 2 additional nurses. You might approve adding 1 nurse as a buffer and confirm the discharge timeline before committing to the second. The AI doesn't know about the discharges' timing.</button>
+            <button class="qf-opt" onclick="answerQF(3,2)">The AI would have accounted for discharges in its volume prediction — trust the model</button>
+            <button class="qf-opt" onclick="answerQF(3,3)">Reject the recommendation entirely since the AI clearly has incomplete information</button>
+          </div>
+          <div class="qf-fb" id="qfFb3"></div>
+          <button class="qf-next" id="qfNext3" onclick="nextQF(4)">Next Question →</button>
+        </div>
+        <div class="qf-step" id="qfStep4">
+          <div class="qf-q-label">❓ Question 5 of 5 — Make the Decision</div>
+          <div class="qf-q-text">After working through all your questions, you decide to approve adding 1 nurse (not 2) and schedule a check-in at 9AM to assess whether the second is needed based on actual volume. Is this a good use of decision support?</div>
+          <div class="qf-opts">
+            <button class="qf-opt" onclick="answerQF(4,0)">No — if you modify the AI's recommendation, you've wasted the whole exercise. Either follow it or reject it.</button>
+            <button class="qf-opt" onclick="answerQF(4,1)">Yes — this is exactly what decision support is for. The AI gave you data that confirmed Tuesday needs more capacity. You applied your management knowledge (pending discharges, staff situation) to arrive at a more precise and contextually appropriate response than the AI could produce alone.</button>
+            <button class="qf-opt" onclick="answerQF(4,2)">It depends — if the AI is right and you needed 2 nurses, you'll have made the wrong call</button>
+            <button class="qf-opt" onclick="answerQF(4,3)">No — a manager who modifies AI recommendations should document why, or it creates liability</button>
+          </div>
+          <div class="qf-fb" id="qfFb4"></div>
+          <button class="qf-next" id="qfNext4" onclick="completeSim()">See Final Summary →</button>
+        </div>
+      </div>
+      <div class="sim-complete" id="simComplete">
+        <div class="sim-complete-title">✅ Decision Support Simulation Complete</div>
+        <div style="font-size:14px;opacity:.85;line-height:1.65;margin-top:8px;">You worked through all 5 evaluation questions — checking the evidence quality, identifying what the AI missed, applying contextual knowledge, considering alternatives, and making a modified decision. That process is what decision support looks like when it's done right. The AI gave you better information. Your judgment gave you a better decision than either you or the AI could have made alone.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="legal-box">
+      <div class="lb-label">⚖️ Why This Matters Beyond Good Practice</div>
+      <div class="lb-title">The Legal and Ethical Reality of AI Decision Support in Healthcare</div>
+      <div class="lb-points">
+        <div class="lb-point"><div class="lb-icon">📋</div><div class="lb-text"><strong>Legal accountability stays with humans.</strong> If an AI staffing recommendation leads to a patient safety event, the AI system's vendor is not the party facing a lawsuit or a regulatory violation. The organization and the individual who acted on the recommendation without appropriate review are. "The AI told me to" has never been a successful legal defense in healthcare.</div></div>
+        <div class="lb-point"><div class="lb-icon">🏛️</div><div class="lb-text"><strong>Healthcare regulations require human professional judgment.</strong> HIPAA, The Joint Commission, CMS, and state licensing boards all require that clinical and safety-relevant decisions involve qualified human professionals. These regulatory frameworks were built before AI tools existed and have not been replaced by them. Compliance requires human decision-making, not AI decision-making.</div></div>
+        <div class="lb-point"><div class="lb-icon">🤝</div><div class="lb-text"><strong>Patients have a right to human judgment in their care.</strong> When AI tools affect patient care — staffing levels, scheduling, discharge timing — patients have an implicit expectation that qualified humans are making those calls, not automating them. Eroding that expectation without disclosure and consent is an ethical problem that healthcare organizations are increasingly having to navigate explicitly.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz fade-in">
+    <div class="quiz-label">🧠 Quick Check</div>
+    <div class="quiz-q">A hospital administrator sets up their AI scheduling system to automatically confirm appointment slots for waitlisted patients whenever a cancellation occurs — no human review required. Is this decision support?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="cq(this,true)">It depends on what the slots are for. For routine appointments like annual check-ups, automated confirmation might be appropriate within pre-set boundaries. But for complex care, post-procedure follow-ups, or slots requiring specific preparation, auto-confirmation without human review crosses from automation of a routine task into automated decision-making about care appropriateness.</button>
+      <button class="qopt" onclick="cq(this,false)">Yes — this is exactly what decision support means. The AI handles the routine work so the administrator doesn't have to.</button>
+      <button class="qopt" onclick="cq(this,false)">No — any automation in healthcare scheduling is inappropriate. All appointment decisions require human review.</button>
+      <button class="qopt" onclick="cq(this,false)">Yes, and the administrator has set appropriate boundaries by configuring the system rules in advance.</button>
+    </div>
+    <div class="qfb" id="qfb"></div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Key Takeaways</div>
+    <h2>What to Remember From This Article</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>An AI recommendation is information. Acting on it is a decision. These are two completely different things — and only the decision carries accountability. The person who acts on an AI recommendation is the decision-maker, not the AI.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Genuine decision support shows its evidence, preserves the human's ability to override, and acknowledges its own limits. If a tool only shows the recommendation without the data behind it, or makes override difficult, it's not genuinely supporting your decision — it's nudging you toward the AI's answer.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The questions to ask before acting on any AI recommendation: What data is this based on? What does this model not know? Does my operational knowledge change the picture? Are there alternatives to the exact recommendation? The simulation in this article is the template — use it every time.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Modifying an AI recommendation is not a failure of the tool or your judgment — it's the system working correctly. The AI handles data. You handle context. The best decisions combine both.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const qfData = [
+  { correct: 1,
+    fb_ok: '✅ Right. The quality of historical data matters enormously. "18 similar Tuesdays" could mean 18 high-volume spring Tuesdays — or it could include Tuesdays during summer slowdowns, holidays, or pre-COVID patterns that don\'t reflect current operations. Before trusting a historical comparison, you need to know what made those dates similar and whether that similarity actually holds for April 15.',
+    fb_bad: '❌ The most critical question is about what makes those 18 Tuesdays "similar." An AI prediction is only as good as the data it was trained on. If the "similar" dates include conditions that don\'t apply to April 15, the prediction may be systematically wrong. The confidence rating matters, but the data quality matters more.' },
+  { correct: 1,
+    fb_ok: '✅ Exactly right. "Add 2 nurses" assumes 2 nurses are available, qualified, and legally schedulable on that day. The AI\'s volume model knows nothing about certification requirements, existing overtime hours, pending leave requests, or float pool availability. These are the human knowledge inputs that turn an AI volume prediction into an actionable staffing plan.',
+    fb_bad: '❌ Who specifically fills those 2 slots is critical before approving the recommendation. Medical-Surgical units often require specific certifications. Adding a nurse who\'s already at overtime creates both a cost problem and a potential safety issue. The AI model only sees volume — you have to verify that the staffing solution is actually executable.' },
+  { correct: 1,
+    fb_ok: '✅ This is the central insight of human-AI decision support. Your management knowledge — Dena\'s informal time-off approval — exists in your head, not in any database the AI can access. This doesn\'t mean you reject the recommendation. It means you apply your knowledge alongside the AI\'s data to arrive at a better decision than either source alone could produce.',
+    fb_bad: '❌ The right frame isn\'t "the system needs to be more complete" or "this invalidates the AI." It\'s that human managers always carry contextual knowledge that no system fully captures — informal agreements, staff circumstances, recent conversations. This knowledge is your contribution to the decision. The AI provides data. You provide context. Together they produce better decisions.' },
+  { correct: 1,
+    fb_ok: '✅ Excellent judgment. The AI recommendation was based on projected volume. New information (3 pending early-morning discharges) changes the volume picture. A decision support tool gives you a recommendation — your job is to update that recommendation with information that just became available. Acting on 1 nurse now with a 9AM check-in is more accurate and responsive than blindly following a recommendation built on yesterday\'s data.',
+    fb_bad: '❌ The AI\'s volume prediction was made without knowing the discharge timing. New information that meaningfully changes the patient count should always prompt a reconsideration of the recommendation — not blind adherence to what was generated earlier. Decision support means using AI data as a starting point, not an endpoint.' },
+  { correct: 1,
+    fb_ok: '✅ This is exactly what excellent decision support use looks like. You used the AI\'s prediction (Tuesday needs more capacity) as your foundation, applied your management knowledge (pending discharges, staff situation) to calibrate the response, and made a more precise decision than the AI alone could have made. The modified recommendation is better than either the AI\'s output or an unaided guess. The documentation you\'ll create will show your reasoning — which is the professional record of your decision.',
+    fb_bad: '❌ Modifying an AI recommendation is not a problem — it\'s the point. The AI provides data-based guidance. You apply contextual knowledge and professional judgment. The combination produces a better decision than either alone. A manager who always approves AI recommendations exactly as given isn\'t using decision support — they\'re delegating their judgment to the AI, which defeats the entire purpose.' }
+];
+
+let simDone = false;
+
+function answerQF(stepIdx, optIdx) {
+  const step = document.getElementById('qfStep' + stepIdx);
+  const opts = step.querySelectorAll('.qf-opt');
+  if ([...opts].some(o => o.classList.contains('correct') || o.classList.contains('wrong'))) return;
+  opts.forEach(o => o.disabled = true);
+  const correct = optIdx === qfData[stepIdx].correct;
+  opts[optIdx].classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) opts[qfData[stepIdx].correct].classList.add('correct');
+  const fb = document.getElementById('qfFb' + stepIdx);
+  fb.className = 'qf-fb show ' + (correct ? 'ok' : 'bad');
+  fb.textContent = correct ? qfData[stepIdx].fb_ok : qfData[stepIdx].fb_bad;
+  document.getElementById('qfNext' + stepIdx).classList.add('show');
+}
+
+function nextQF(nextIdx) {
+  document.querySelectorAll('.qf-step').forEach((s, si) => s.classList.toggle('active', si === nextIdx));
+}
+
+function completeSim() {
+  document.querySelectorAll('.qf-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('qfContainer').style.display = 'none';
+  document.getElementById('simComplete').classList.add('show');
+}
+
+function cq(btn, correct) {
+  if (document.querySelector('.qopt.correct') || document.querySelector('.qopt.wrong')) return;
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) document.querySelectorAll('.qopt').forEach(o => { if (o.textContent.includes('It depends')) o.classList.add('correct'); });
+  const fb = document.getElementById('qfb');
+  fb.className = 'qfb show ' + (correct ? 'cfb' : 'wfb');
+  fb.textContent = correct
+    ? '✅ Correct. The answer genuinely depends on context — and that context-dependency is itself the lesson. Automating routine scheduling confirmations for standard appointments within well-defined parameters is reasonable and is distinct from automated decision-making. But automation that affects whether a patient receives appropriate care, at the right time, with the right preparation, crosses into territory that requires human judgment. The administrator has set up the system — but they still need to define what the appropriate automation boundary is for each appointment type, which is itself a decision that requires human professional judgment.'
+    : '❌ The real answer is more nuanced: it depends on what kinds of slots are being auto-confirmed. Routine, low-stakes appointments within clear parameters can reasonably be automated as a task. But appointment slots requiring clinical assessment of appropriateness (post-surgical follow-ups, complex care coordination, appointments where patient preparation matters) involve care decisions that shouldn\'t be fully automated. The distinction is between automating a task (send confirmation) and automating a judgment (this patient is appropriate for this slot at this time).';
+}
+
+window.addEventListener('scroll', () => { const e = document.documentElement; document.getElementById('pb').style.width = ((e.scrollTop / (e.scrollHeight - e.clientHeight)) * 100) + '%'; });
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: .1 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Powered Staffing in Healthcare — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}.section{padding:36px 0 0;}h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.what-ai-sees{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.was-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:18px;}
+.was-icon{font-size:26px;margin-bottom:8px;}.was-title{font-size:13px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.was-items{font-size:12px;line-height:1.8;color:var(--gray-text);}
+.human-factors{background:var(--orange-pale);border:2px solid #FDE68A;border-radius:20px;padding:28px;margin:28px 0;}
+.hf-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--orange);letter-spacing:.12em;margin-bottom:8px;}
+.hf-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--gray-text);margin-bottom:14px;}
+.hf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.hf-item{background:rgba(255,255,255,.7);border-radius:12px;padding:14px;}
+.hf-item-icon{font-size:22px;margin-bottom:6px;}
+.hf-item-title{font-size:12px;font-weight:700;color:var(--orange);margin-bottom:4px;}
+.hf-item-body{font-size:12px;line-height:1.55;color:var(--gray-text);}
+.rec-flow{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.rf-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.rf-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.rf-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.flow-steps{display:flex;flex-direction:column;gap:10px;}
+.flow-step{display:flex;gap:14px;align-items:flex-start;background:var(--white);border-radius:14px;padding:16px 18px;border:1.5px solid var(--purple-mid);cursor:pointer;transition:all .2s;}
+.flow-step:hover{border-color:var(--purple);}
+.flow-step.expanded{border-color:var(--purple);background:var(--purple-pale);}
+.fs-num{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;flex-shrink:0;}
+.flow-step.ai .fs-num{background:var(--purple);color:white;}
+.flow-step.human .fs-num{background:var(--green);color:white;}
+.flow-step.both .fs-num{background:var(--orange);color:white;}
+.fs-content{flex:1;}
+.fs-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;}
+.flow-step.ai .fs-label{color:var(--purple);}
+.flow-step.human .fs-label{color:var(--green);}
+.flow-step.both .fs-label{color:var(--orange);}
+.fs-title{font-size:14px;font-weight:700;color:var(--gray-text);}
+.fs-detail{font-size:13px;line-height:1.65;color:var(--gray-text);margin-top:8px;display:none;}
+.flow-step.expanded .fs-detail{display:block;}
+.scenario-block{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px;margin:16px 0;}
+.sb-header{font-size:13px;font-weight:700;color:var(--purple-dark);margin-bottom:8px;}
+.sb-situation{background:var(--gray-soft);border-radius:8px;padding:10px 14px;font-size:13px;line-height:1.65;color:var(--gray-text);margin-bottom:10px;}
+.sb-opts{display:flex;flex-direction:column;gap:6px;}
+.sb-opt{background:var(--gray-soft);border:2px solid var(--purple-mid);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:13px;transition:all .2s;text-align:left;}
+.sb-opt:hover:not(:disabled){border-color:var(--purple);background:var(--purple-pale);}
+.sb-opt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.sb-opt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.sb-fb{font-size:13px;line-height:1.65;padding:10px 14px;border-radius:8px;margin-top:8px;display:none;}
+.sb-fb.show{display:block;}.sb-fb.ok{background:var(--green-pale);color:var(--green);}.sb-fb.bad{background:var(--red-pale);color:var(--red);}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}.qfb.show{display:block;animation:fadeIn .35s ease;}.qfb.cfb{background:var(--green-pale);color:var(--green);}.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}.sdot svg{width:12px;height:12px;}.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.what-ai-sees{grid-template-columns:1fr;}.hf-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.3 · Using AI for Decision Support</div>
+  <h1>AI-Powered Staffing in Healthcare: Matching People to Demand Before Problems Start</h1>
+  <p class="hero-sub">Staffing is the single most consequential operational decision in healthcare. Too few staff and patient safety suffers. Too many and the organization can't sustain financially. AI staffing tools give nurse managers something they've never had before: the ability to see staffing problems coming weeks in advance — before they become emergencies.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>Why Staffing Is So Hard to Get Right</h2>
+    <p>Healthcare staffing operates under a brutal combination of constraints: patient demand is unpredictable, the consequences of understaffing are serious, staff are human beings with preferences and limits, regulatory requirements set minimums, and the labor market for qualified nurses is highly competitive. Most nurse managers describe their staffing job as "always playing catch-up" — by the time they know they have a problem, it's already happening.</p>
+    <p>AI staffing tools attack this problem at its root by <mark>shifting the entire management timeline from reactive to predictive</mark>. Instead of discovering a staffing shortfall when the shift starts, a nurse manager gets a 5-day warning. That 5-day window is the difference between a calm phone call to the float pool and a panicked emergency scramble at 6:45 AM.</p>
+  </div>
+  <div class="section fade-in">
+    <h2>What AI Staffing Systems See — and What They Can't</h2>
+    <p>Understanding both sides is essential for using these tools wisely:</p>
+    <div class="what-ai-sees">
+      <div class="was-card">
+        <div class="was-icon">🤖</div>
+        <div class="was-title">What the AI Can See</div>
+        <div class="was-items">• Historical patient volume by unit, shift, day, and season<br>• Current census (how many patients are on each floor right now)<br>• Scheduled admissions and predicted discharges<br>• Existing staff schedule and hours worked this week<br>• Float pool and agency availability<br>• Certification and licensure data for each staff member<br>• Overtime hours accumulated per employee<br>• Historical overtime costs and patterns</div>
+      </div>
+      <div class="was-card">
+        <div class="was-icon">🧠</div>
+        <div class="was-title">What the AI Cannot See</div>
+        <div class="was-items">• A nurse who informally mentioned they need Friday off for a family emergency<br>• Staff morale and burnout that isn't yet showing in metrics<br>• Which staff work well together (or don't)<br>• A new nurse who's still building confidence and shouldn't be left as senior staff<br>• Patient complexity nuances that experienced nurses would catch<br>• The staff member dealing with a personal situation affecting their performance<br>• Informal agreements and staff loyalty considerations</div>
+      </div>
+    </div>
+  </div>
+  <div class="section fade-in">
+    <div class="human-factors">
+      <div class="hf-label">👩‍⚕️ The Human Factors AI Can Never Replace</div>
+      <div class="hf-title">The Staffing Decisions That Always Require a Manager's Judgment</div>
+      <div class="hf-grid">
+        <div class="hf-item"><div class="hf-item-icon">💙</div><div class="hf-item-title">Staff Wellbeing</div><div class="hf-item-body">A nurse who's been working consecutive high-stress shifts may need relief even if the metrics say they're "within limits." Burnout doesn't show up in a database until it's too late.</div></div>
+        <div class="hf-item"><div class="hf-item-icon">👥</div><div class="hf-item-title">Team Dynamics</div><div class="hf-item-body">Experienced managers know which staff combinations work well and which create friction. Pairing the right people on a complex patient day can prevent safety events no metric would predict.</div></div>
+        <div class="hf-item"><div class="hf-item-icon">🎓</div><div class="hf-item-title">Development Needs</div><div class="hf-item-body">A newer nurse might need to be scheduled alongside a mentor. A staff member seeking ICU certification needs rotations that the AI's efficiency optimization would never suggest.</div></div>
+        <div class="hf-item"><div class="hf-item-icon">🤝</div><div class="hf-item-title">Reciprocity</div><div class="hf-item-body">A nurse who covered an extra shift last month has earned some schedule consideration. Staff loyalty and fairness memory live in the manager's head, not in any system.</div></div>
+        <div class="hf-item"><div class="hf-item-icon">🔍</div><div class="hf-item-title">Context Signals</div><div class="hf-item-body">A staff member who's been unusually quiet lately, or has had two near-misses in a month, may need a lighter assignment regardless of what their performance data says.</div></div>
+        <div class="hf-item"><div class="hf-item-icon">⚖️</div><div class="hf-item-title">Ethical Trade-offs</div><div class="hf-item-body">When coverage is thin, the decision about which floor gets priority for the available float nurse involves clinical judgment, patient acuity, and ethical reasoning no algorithm can replicate.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="section fade-in">
+    <h2>How the AI Recommendation Workflow Actually Works</h2>
+    <p>Click each step to see what the AI does, what the human does, and how they work together:</p>
+    <div class="rec-flow">
+      <div class="rf-label">🔄 AI-Human Staffing Workflow</div>
+      <div class="rf-title">From Data to Decision: Every Step Explained</div>
+      <div class="rf-sub">Click each step to expand the full detail of what happens — and who owns it.</div>
+      <div class="flow-steps" id="flowSteps"></div>
+    </div>
+  </div>
+  <div class="section fade-in">
+    <h2>Scenario Practice: What Would You Do?</h2>
+    <p>Work through two real-world staffing judgment scenarios. In both cases, you've received an AI recommendation — your job is to decide what to do with it.</p>
+    <div class="scenario-block">
+      <div class="sb-header">Scenario 1: The AI Recommends Pulling a Float Nurse from Floor 2</div>
+      <div class="sb-situation">The AI has recommended moving the float nurse from Floor 2 (currently at 1:4.1 ratio) to Floor 4 (at 1:5.3 ratio). You know that Floor 2 has three complex post-surgical patients today, and the charge nurse on Floor 2 is a newer nurse who relies heavily on the float's experience when complex cases arise. The data supports the move. Your operational knowledge complicates it.</div>
+      <div class="sb-opts">
+        <button class="sb-opt" onclick="answerSB(0,0)">Follow the AI recommendation — Floor 4's ratio is more problematic and the data is clear</button>
+        <button class="sb-opt" onclick="answerSB(0,1)">Apply your contextual knowledge: keep the float on Floor 2 for now given the complex cases, but flag Floor 4 to the supervisor and request an additional coverage option by noon</button>
+        <button class="sb-opt" onclick="answerSB(0,2)">Reject the recommendation entirely — the AI doesn't understand complex post-surgical care</button>
+      </div>
+      <div class="sb-fb" id="sbFb0"></div>
+    </div>
+    <div class="scenario-block">
+      <div class="sb-header">Scenario 2: The AI Flags an "Overstaffed" Window</div>
+      <div class="sb-situation">The AI shows Floor 3 will be overstaffed on Tuesday afternoon — predicted volume is 20% below baseline. It suggests releasing one nurse early to save overtime costs. You know that Nurse Rodriguez has been working 5 consecutive demanding shifts and this Tuesday afternoon would give her a genuine rest window before a tough Wednesday. The cost savings are real. So is the wellbeing case.</div>
+      <div class="sb-opts">
+        <button class="sb-opt" onclick="answerSB(1,0)">Release Rodriguez early as the AI suggests — cost savings and she gets rest, so it's a clear win</button>
+        <button class="sb-opt" onclick="answerSB(1,1)">This is a case where following the recommendation serves both operational and human goals — the cost saving is a bonus on top of the right staffing call. Approve the early release, document it as a scheduled rest after consecutive demanding shifts.</button>
+        <button class="sb-opt" onclick="answerSB(1,2)">Override the AI — always keep full staffing regardless of predicted volume</button>
+      </div>
+      <div class="sb-fb" id="sbFb1"></div>
+    </div>
+  </div>
+  <div class="quiz fade-in">
+    <div class="quiz-label">🧠 Quick Check</div>
+    <div class="quiz-q">An AI staffing tool shows a nurse manager that Wednesday night's ICU will be understaffed by 1 nurse based on predicted admissions. The manager checks and finds no available float pool nurses and the on-call nurse is unavailable. What should the manager do — and what role did AI play in the outcome?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="cq(this,false)">The AI failed — it identified a problem but offered no solution, which makes it useless</button>
+      <button class="qopt" onclick="cq(this,true)">The AI succeeded at its job — it gave the manager a 2-3 day warning instead of a 2-hour emergency. The manager now has time to explore agency staffing, request a voluntary extra shift, review whether an elective admission can be rescheduled, or escalate to administration for options. Without the AI warning, these options wouldn't exist.</button>
+      <button class="qopt" onclick="cq(this,false)">The manager should override the AI's prediction — if no coverage is available, the problem doesn't exist yet</button>
+      <button class="qopt" onclick="cq(this,false)">The AI should automatically contact agency nursing services to fill the gap</button>
+    </div>
+    <div class="qfb" id="qfb"></div>
+  </div>
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Key Takeaways</div>
+    <h2>What to Remember From This Article</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI staffing tools shift the management timeline from reactive to predictive — turning a 2-hour emergency into a 3-day planning window. That time is the most valuable thing AI brings to healthcare staffing.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI sees data: volume, ratios, schedules, certifications, overtime hours. It cannot see: staff morale, team dynamics, burnout signals, informal agreements, or the clinical complexity nuances an experienced manager knows. Both sources of information are required for good staffing decisions.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The "AI recommends, humans verify" framework means reviewing every recommendation against your operational knowledge, asking what the model doesn't know, and making a decision that combines the AI's data with your contextual judgment. Blind approval and reflexive rejection are both failures of the framework.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const flowData=[
+  {type:'ai',label:'AI Does This',num:1,title:'Generates weekly demand forecast',detail:'The AI analyzes historical patient volume, current census, scheduled admissions, predicted discharges, and seasonal patterns to produce a shift-by-shift demand forecast for the next 7–14 days. Each shift gets a predicted patient count and a recommended staff-to-patient ratio.'},
+  {type:'ai',label:'AI Does This',num:2,title:'Drafts a staffing schedule',detail:'Using the demand forecast plus current staff availability (including approved time off, overtime hours accumulated, certifications, and unit assignments), the AI generates a draft staffing schedule for each shift. This draft attempts to minimize labor cost while meeting safe ratio targets.'},
+  {type:'human',label:'Manager Does This',num:3,title:'Reviews the draft schedule against operational knowledge',detail:'The nurse manager opens the draft schedule and reviews it not just as data, but as a plan that involves real people she knows. She checks for staff members at overtime risk, new nurses who need senior coverage, informal time-off understandings, team dynamics issues, and any patient complexity factors that the volume model wouldn\'t capture.'},
+  {type:'both',label:'Manager + AI',num:4,title:'Identifies gaps and considers modifications',detail:'The manager flags the shifts where she agrees with the AI draft and the shifts where she needs to make modifications. She may use the AI\'s what-if modeling (what happens to the ratio if I move this nurse?) to test alternatives before committing to a change.'},
+  {type:'human',label:'Manager Does This',num:5,title:'Makes final approval decisions on every shift',detail:'Every single shift assignment in the final schedule is reviewed and approved by the nurse manager — not generated by the AI and auto-published. This isn\'t a formality: it\'s where the manager\'s knowledge of staff circumstances, patient acuity, and operational context becomes the actual decision. The AI produces the draft. The manager produces the final schedule.'},
+  {type:'human',label:'Manager Does This',num:6,title:'Communicates decisions to staff',detail:'The approved schedule goes to staff through standard communication channels. When modifications differ from staff expectations or preferences, the manager communicates the reasoning. The AI recommendation is one of the inputs — the manager\'s professional judgment is the decision that staff are informed of. "The AI said so" is never a satisfactory explanation to a staff member.'}
+];
+const fsContainer=document.getElementById('flowSteps');
+flowData.forEach((s,i)=>{
+  const el=document.createElement('div');
+  el.className=`flow-step ${s.type}`;
+  el.innerHTML=`<div class="fs-num">${s.num}</div><div class="fs-content"><div class="fs-label">${s.type==='ai'?'🤖 AI':'🧑‍⚕️ Manager'}${s.type==='both'?' + Manager':''}</div><div class="fs-title">${s.title}</div><div class="fs-detail">${s.detail}</div></div>`;
+  el.onclick=()=>el.classList.toggle('expanded');
+  fsContainer.appendChild(el);
+});
+
+const sbData=[
+  [
+    {correct:false,fb:'❌ The ratio data supports the move, but your knowledge about the complex post-surgical patients and the newer charge nurse is equally valid operational information. Decision support means combining both. Blindly following the data when your contextual knowledge raises a legitimate safety concern is exactly what the "AI recommends, humans verify" framework is designed to prevent.'},
+    {correct:true,fb:'✅ This is excellent judgment. You\'re not rejecting the AI\'s concern about Floor 4 — you\'re applying your knowledge that Floor 2\'s specific situation today makes the move inadvisable right now. Keeping the float on Floor 2 and immediately escalating the Floor 4 situation gives both floors the attention they need. That\'s the human judgment layer adding value the model can\'t provide.'},
+    {correct:false,fb:'❌ The AI\'s concern about Floor 4\'s ratio is legitimate — you shouldn\'t dismiss it because the recommendation involved a complication. The right response is to address Floor 4\'s staffing need through an alternative path, not to treat the AI recommendation as simply wrong. The data was accurate; your contextual knowledge added a constraint the data didn\'t capture.'}
+  ],
+  [
+    {correct:false,fb:'❌ This framing misses the reasoning. "Clear win" suggests you\'re following the recommendation because it happens to align with what you wanted to do anyway. The better professional approach acknowledges: the AI identified a legitimate overstaffing window, the cost saving is real, and Rodriguez\'s wellbeing creates a secondary reason this decision is good. Understanding why you\'re making a decision matters as much as making the right one.'},
+    {correct:true,fb:'✅ This is the right framing. You\'re acknowledging the AI recommendation as operationally sound, noting that your management knowledge adds a second independent reason it\'s the right call, and documenting your decision appropriately. This is decision support working as designed: AI provides the volume prediction, human manager adds the context about staff wellbeing, and the combination produces a well-reasoned decision.'},
+    {correct:false,fb:'❌ "Always keep full staffing" regardless of predicted volume isn\'t a principle — it\'s a refusal to use valid information. If the AI shows a reliable overstaffing prediction for this window, acting on it (with appropriate human judgment) is the right operational response. Reflexive rejection of AI recommendations is as problematic as reflexive acceptance.'}
+  ]
+];
+function answerSB(si,oi){
+  const opts=document.querySelectorAll(`.scenario-block:nth-child(${si+1}) .sb-opt`);
+  if([...opts].some(o=>o.classList.contains('correct')||o.classList.contains('wrong')))return;
+  opts.forEach(o=>o.disabled=true);
+  opts[oi].classList.add(sbData[si][oi].correct?'correct':'wrong');
+  if(!sbData[si][oi].correct){const c=sbData[si].findIndex(d=>d.correct);opts[c].classList.add('correct');}
+  const fb=document.getElementById('sbFb'+si);
+  fb.className='sb-fb show '+(sbData[si][oi].correct?'ok':'bad');
+  fb.textContent=sbData[si][oi].fb;
+}
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  if(!correct)document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('2-3 day warning'))o.classList.add('correct');});
+  const fb=document.getElementById('qfb');
+  fb.className='qfb show '+(correct?'cfb':'wfb');
+  fb.textContent=correct?'✅ Exactly right. The AI\'s value wasn\'t finding a solution — it was buying the manager time to find one. Without the early warning, the manager discovers the shortfall at 5:45 AM Wednesday with essentially no options. With 2–3 days\' notice, multiple options become available: agency staff, voluntary overtime outreach, rescheduling elective admissions, or escalating to administration for an exception. The AI succeeded by identifying the problem early enough for human problem-solving to work. That\'s decision support.':'❌ The AI did its job: it identified a problem days in advance. The absence of an immediately obvious solution doesn\'t make the warning useless — it makes it essential. With the AI\'s warning, the manager has 2–3 days to explore agency staffing, voluntary overtime, admission rescheduling, or administrative escalation. Without the warning, those options don\'t exist. The AI cannot solve every problem it identifies — but giving humans time to solve problems they\'d otherwise face as emergencies is itself a major contribution.';
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

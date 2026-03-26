@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clinic Scheduling Scenario Activity — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}.section{padding:36px 0 0;}h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.activity-header{background:var(--purple-dark);border-radius:20px;padding:28px 32px;margin-bottom:28px;color:white;}
+.ah-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;opacity:.6;margin-bottom:6px;}
+.ah-title{font-family:'Fraunces',serif;font-size:24px;font-weight:900;margin-bottom:8px;}
+.ah-desc{font-size:14px;opacity:.8;line-height:1.55;margin-bottom:16px;}
+.ah-badges{display:flex;gap:8px;flex-wrap:wrap;}
+.ah-badge{background:rgba(255,255,255,.15);color:white;font-size:11px;font-weight:700;padding:4px 12px;border-radius:100px;}
+.slot-cards{display:flex;flex-direction:column;gap:14px;margin:28px 0;}
+.slot-card{border:1.5px solid var(--purple-mid);border-radius:18px;overflow:hidden;background:var(--white);}
+.slot-top{display:flex;gap:14px;align-items:flex-start;padding:18px 20px;cursor:pointer;}
+.slot-day-time{flex-shrink:0;text-align:center;background:var(--purple);color:white;border-radius:10px;padding:8px 12px;min-width:72px;}
+.slot-day{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;opacity:.85;}
+.slot-time{font-family:'Fraunces',serif;font-size:18px;font-weight:900;line-height:1;}
+.slot-meta{flex:1;}
+.slot-type{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.slot-patient{font-size:13px;color:var(--gray-muted);margin-bottom:6px;}
+.slot-flag{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:700;}
+.slot-flag.risk{background:var(--orange-pale);color:var(--orange);}
+.slot-flag.empty{background:var(--red-pale);color:var(--red);}
+.slot-flag.overbook{background:var(--purple-pale);color:var(--purple);}
+.slot-flag.ok{background:var(--green-pale);color:var(--green);}
+.slot-flag.info{background:var(--gray-soft);color:var(--gray-muted);}
+.slot-expand{font-size:18px;color:var(--purple-mid);transition:transform .3s;align-self:center;flex-shrink:0;}
+.slot-card.open .slot-expand{transform:rotate(180deg);}
+.slot-body{display:none;padding:0 20px 20px;border-top:1.5px solid var(--purple-mid);margin-top:0;}
+.slot-card.open .slot-body{display:block;animation:fadeIn .3s ease;}
+.slot-ai-detail{background:var(--purple-pale);border-radius:10px;padding:12px 16px;font-size:13px;line-height:1.7;color:var(--purple-dark);margin:14px 0 12px;}
+.slot-ai-label{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.1em;margin-bottom:4px;}
+.slot-q{font-size:14px;font-weight:600;color:var(--purple-dark);margin-bottom:10px;}
+.slot-opts{display:flex;flex-direction:column;gap:6px;}
+.slot-opt{background:var(--gray-soft);border:2px solid var(--purple-mid);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:13px;transition:all .2s;text-align:left;}
+.slot-opt:hover:not(:disabled){border-color:var(--purple);background:var(--purple-pale);}
+.slot-opt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.slot-opt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.slot-fb{font-size:13px;line-height:1.65;padding:10px 14px;border-radius:8px;margin-top:8px;display:none;}
+.slot-fb.show{display:block;}.slot-fb.ok{background:var(--green-pale);color:var(--green);}.slot-fb.bad{background:var(--red-pale);color:var(--red);}
+.completion{background:var(--purple-dark);border-radius:20px;padding:36px;text-align:center;margin:28px 0;display:none;}
+.completion.show{display:block;animation:fadeIn .5s ease;}
+.comp-title{font-family:'Fraunces',serif;font-size:30px;font-weight:900;color:white;margin-bottom:8px;}
+.comp-body{font-size:15px;color:rgba(255,255,255,.8);line-height:1.65;max-width:520px;margin:0 auto;}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}.sdot svg{width:12px;height:12px;}.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.3 · Activity</div>
+  <h1>Clinic Scheduling Scenario: A Guided Practice Exercise With AI Decision Support</h1>
+  <p class="hero-sub">Five appointment slots. Five AI recommendations. Five decisions. Work through each one using the frameworks from this lesson — approve, question, or modify. This is what a scheduling coordinator using AI tools actually does every morning.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <div class="activity-header">
+      <div class="ah-label">🎯 Guided Practice Activity</div>
+      <div class="ah-title">Millbrook Family Health Center — Monday Morning Review</div>
+      <div class="ah-desc">You are the scheduling coordinator. Below are this week's five flagged appointment situations. Each one comes with an AI recommendation and a decision question. Your job: think through the recommendation, apply what you know, and decide what to do.</div>
+      <div class="ah-badges"><span class="ah-badge">📅 5 Situations to Review</span><span class="ah-badge">🎯 Approve, Modify, or Override</span><span class="ah-badge">⏱️ ~15 minutes</span></div>
+    </div>
+  </div>
+  <div class="section fade-in">
+    <h2>Work Through the Week's Flagged Slots</h2>
+    <p>Click each slot to open its full AI recommendation and decision question. Work through all five before looking at the completion summary.</p>
+    <div class="slot-cards" id="slotContainer"></div>
+    <div class="completion" id="completionPanel">
+      <div class="comp-title">✅ All Five Reviewed</div>
+      <div class="comp-body">You worked through all five appointment situations — applying the frameworks from this lesson to real scheduling decisions. The pattern across all five: AI recommendations are information, not instructions. Your operational knowledge is what makes them useful.</div>
+    </div>
+  </div>
+  <div class="summary fade-in">
+    <div class="summary-label">📌 What This Activity Practiced</div>
+    <h2>The Skills You Just Used</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Reading AI flags as starting points, not instructions — every flag required you to think about what the AI knew and what it didn't before deciding how to respond.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Applying contextual knowledge the AI lacks — patient circumstances, appointment type nuances, operational factors specific to this week — to arrive at better decisions than the AI's data alone could produce.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Recognizing that both blind approval and reflexive rejection of AI recommendations are failures. The goal is informed judgment that combines AI data with professional knowledge.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+var slots = [
+  {
+    day:'MON', time:'9:00 AM',
+    type:'Annual Physical — Dr. Reyes',
+    patient:'Patient: Carlos M. · History: 3 no-shows in 12 months',
+    flagCls:'risk', flagText:'⚠️ No-Show Risk: 74%',
+    aiDetail:'AI has scored this patient at 74% no-show probability based on his attendance history, appointment type, and day-of-week pattern. He has no-showed 3 of his last 4 annual physicals.',
+    question:'The AI flags this patient at 74% no-show risk. What is the appropriate action?',
+    opts:[
+      'Cancel the slot now and replace it with a waitlist patient — why risk it?',
+      'Add Carlos to the targeted reminder call list for tomorrow morning. A personal call the day before has measurably higher impact for high-risk patients than automated reminders. Keep the slot booked.',
+      'Ignore the flag — the appointment is already booked and the AI cannot cancel it anyway.',
+      'Ask the front desk to call Carlos today and require confirmation or lose the slot.'
+    ],
+    correct:1,
+    fbOk:'Right. The AI flag is information, not an instruction to cancel. The appropriate action is targeted outreach — a personal call meaningfully reduces no-show rates for high-risk patients. The slot stays booked until the patient confirms or fails to show.',
+    fbBad:'The AI flag tells you the risk, not what to do about it. Canceling a booked appointment based on a risk score is an overreaction. A targeted personal call is the proportionate, evidence-based intervention. The slot stays booked.'
+  },
+  {
+    day:'TUE', time:'2:00 PM',
+    type:'Cardiology Follow-Up (Open Slot)',
+    patient:'Slot Type: 30-minute follow-up · Waitlist: 8 patients waiting',
+    flagCls:'empty', flagText:'⬜ Open Slot — AI matched 3 waitlist patients',
+    aiDetail:'AI has ranked the top 3 waitlist patients for this open Tuesday slot by appointment type match, recency of request, and historical attendance reliability. Patient ranked #1 has been waiting 18 days.',
+    question:'The AI has ranked 3 waitlist patients for this open cardiology slot. What is your first step?',
+    opts:[
+      'Auto-confirm the top-ranked patient immediately — the AI ranked them first for a reason.',
+      'Review the ranked list first: verify that each patient\'s appointment type genuinely matches this specific slot (follow-up, not initial consultation), then call in the AI\'s suggested order starting with #1.',
+      'Call all 3 simultaneously and take whoever responds first.',
+      'Skip the AI list and call the most recent waitlist addition — they have been waiting the least and the AI ranking may be outdated.'
+    ],
+    correct:1,
+    fbOk:'Correct. The AI ranking is a starting point, not an instruction. Review it first — is each patient\'s appointment type actually a match for this specific cardiology follow-up slot? Not all cardiology patients need the same type of visit. Then call in ranked order. That combination — AI efficiency plus your verification — produces the best outcome.',
+    fbBad:'Auto-confirmation without review skips an important check: does this patient\'s appointment type actually match this specific slot? Calling all 3 simultaneously creates a booking conflict. The right sequence is: review the list, verify appointment type match, then call in ranked order.'
+  },
+  {
+    day:'WED', time:'11:00 AM',
+    type:'General Intake (Overbook Recommendation)',
+    patient:'Wednesday 11AM — Historical no-show rate: 31%',
+    flagCls:'overbook', flagText:'🔄 Overbook Recommendation — Needs Approval',
+    aiDetail:'AI recommends overbooking Wednesday 11AM by 1 patient based on a 31% historical no-show rate for this specific slot. Confidence: 76%. Data from 22 comparable Wednesdays.',
+    question:'Before approving or rejecting this overbook recommendation, what is the most important thing to check?',
+    opts:[
+      'Approve immediately — 31% no-show rate is high enough to justify overbooking.',
+      'Reject all overbook recommendations on principle — overbooking always creates problems if no-shows don\'t materialize.',
+      'Check whether this specific Wednesday has any unusual characteristics — holiday proximity, operational changes, or known patient factors — that might make the historical 31% not apply. Then decide.',
+      'Ask a physician before approving any overbooking decision.'
+    ],
+    correct:2,
+    fbOk:'Exactly right. The 31% historical average is a population statistic. This specific Wednesday may or may not fit that population. Before approving an overbooking decision with direct patient experience consequences, you check whether the historical pattern applies to this specific date. That is critical thinking in practice.',
+    fbBad:'A 31% historical average is meaningful but not deterministic for this specific Wednesday. The critical thinking step is asking whether this Wednesday fits the historical pattern. Approving without that check treats a recommendation as an instruction. Rejecting on principle discards valid data.'
+  },
+  {
+    day:'THU', time:'3:30 PM',
+    type:'General Intake (Buffer Recommendation)',
+    patient:'Open slot · AI suggests: hold as capacity buffer',
+    flagCls:'info', flagText:'ℹ️ AI: Hold as Capacity Buffer',
+    aiDetail:'AI suggests keeping Thursday 3:30 PM empty as a capacity buffer during an elevated census week. A waitlist patient has been waiting 3 weeks for this appointment type.',
+    question:'The AI suggests holding this slot empty as a buffer. A patient has been waiting 3 weeks for exactly this appointment type. What is the right call?',
+    opts:[
+      'Follow the AI suggestion — buffer capacity is always more important than individual waitlist patients.',
+      'Book the waitlist patient — AI suggestions to leave slots empty are never appropriate.',
+      'Assess the actual Thursday afternoon census projection. If the buffer risk is genuinely high, hold the slot. If census is manageable and the buffer is precautionary, book the 3-week waitlist patient. Neither automatic compliance nor automatic override is correct here.',
+      'Ask the physician covering Thursday to decide — this is too complex for a scheduling coordinator.'
+    ],
+    correct:2,
+    fbOk:'Right. The AI buffer recommendation reflects real census data. But a 3-week waitlist patient also has a legitimate claim. The right response is evaluating the actual census risk rather than automatically deferring to or overriding the AI. That evaluation is your judgment to make — and making it is exactly what decision support requires.',
+    fbBad:'Neither automatic compliance nor automatic override is correct. The AI has real data about census. The waitlist patient has a real need. The coordinator has the contextual knowledge to evaluate whether this specific Thursday\'s census risk genuinely requires this buffer or whether the slot can safely be used for the waiting patient.'
+  },
+  {
+    day:'FRI', time:'10:00 AM',
+    type:'New Patient Intake — 60 minutes',
+    patient:'New patient · Multiple chronic conditions documented · AI: No flags',
+    flagCls:'ok', flagText:'✅ No AI Flags',
+    aiDetail:'This is a routine new patient intake booking. The AI shows no flags — standard booking, standard slot duration, no risk indicators.',
+    question:'There are no AI flags on this booking. Is there anything you should still check before leaving it as-is?',
+    opts:[
+      'Nothing — no AI flags means everything is fine. Move on.',
+      'Flag it for physician review — new patients with chronic conditions should always be pre-screened.',
+      'Verify the slot duration is sufficient. New patients with multiple chronic conditions often require 75-90 minutes. If the standard slot is 60 minutes, this patient may need to be informed of time constraints or moved to an extended slot.',
+      'Add this patient to the no-show risk list — new patients always have higher no-show rates.'
+    ],
+    correct:2,
+    fbOk:'Correct. The absence of an AI flag does not mean nothing needs attention. Your operational knowledge — that complex new patients often run long — is context the AI scheduling model may not be reading. Checking slot duration fit is exactly the kind of nuanced judgment that AI tools currently do not handle well. This is your value-add.',
+    fbBad:'No AI flags is a positive signal, but not a complete picture. Your professional knowledge that new patients with multiple chronic conditions often require more time than standard slots is operational context the AI is not evaluating. The duration check is the human layer that makes the booking actually work for this specific patient.'
+  }
+];
+
+var answeredCount = 0;
+
+slots.forEach(function(s, i) {
+  var card = document.createElement('div');
+  card.className = 'slot-card';
+  card.id = 'sc' + i;
+  var optsHtml = s.opts.map(function(o, oi) {
+    return '<button class="slot-opt" onclick="answerSlot(' + i + ',' + oi + ')">' + o + '</button>';
+  }).join('');
+  card.innerHTML =
+    '<div class="slot-top" onclick="toggleSlot(' + i + ')">' +
+      '<div class="slot-day-time"><div class="slot-day">' + s.day + '</div><div class="slot-time">' + s.time + '</div></div>' +
+      '<div class="slot-meta">' +
+        '<div class="slot-type">' + s.type + '</div>' +
+        '<div class="slot-patient">' + s.patient + '</div>' +
+        '<span class="slot-flag ' + s.flagCls + '">' + s.flagText + '</span>' +
+      '</div>' +
+      '<div class="slot-expand">▼</div>' +
+    '</div>' +
+    '<div class="slot-body">' +
+      '<div class="slot-ai-detail"><div class="slot-ai-label">🤖 AI Detail</div>' + s.aiDetail + '</div>' +
+      '<div class="slot-q">' + s.question + '</div>' +
+      '<div class="slot-opts">' + optsHtml + '</div>' +
+      '<div class="slot-fb" id="sfb' + i + '"></div>' +
+    '</div>';
+  document.getElementById('slotContainer').appendChild(card);
+});
+
+function toggleSlot(i) {
+  document.getElementById('sc' + i).classList.toggle('open');
+}
+
+function answerSlot(slotIdx, optIdx) {
+  var card = document.getElementById('sc' + slotIdx);
+  var opts = card.querySelectorAll('.slot-opt');
+  if ([].some.call(opts, function(o) { return o.classList.contains('correct') || o.classList.contains('wrong'); })) return;
+  [].forEach.call(opts, function(o) { o.disabled = true; });
+  var correct = optIdx === slots[slotIdx].correct;
+  opts[optIdx].classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) opts[slots[slotIdx].correct].classList.add('correct');
+  var fb = document.getElementById('sfb' + slotIdx);
+  fb.className = 'slot-fb show ' + (correct ? 'ok' : 'bad');
+  fb.textContent = correct ? slots[slotIdx].fbOk : slots[slotIdx].fbBad;
+  answeredCount++;
+  if (answeredCount >= slots.length) {
+    setTimeout(function() {
+      document.getElementById('completionPanel').classList.add('show');
+    }, 600);
+  }
+}
+
+window.addEventListener('scroll', function() { var e=document.documentElement; document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%'; });
+var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(function(el){obs.observe(el);});
+</script>
+</body>
+</html>

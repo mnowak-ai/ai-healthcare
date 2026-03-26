@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>When AI Recommendations Are Wrong — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}.section{padding:36px 0 0;}h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.failure-case{border:1.5px solid var(--purple-mid);border-radius:20px;overflow:hidden;margin-bottom:16px;cursor:pointer;}
+.fc-header{display:flex;gap:14px;align-items:center;padding:18px 22px;background:var(--white);}
+.fc-icon{font-size:26px;flex-shrink:0;}
+.fc-meta{flex:1;}
+.fc-title{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:2px;}
+.fc-tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-muted);}
+.fc-expand{font-size:18px;color:var(--purple);opacity:.6;transition:transform .3s;}
+.failure-case.open .fc-expand{transform:rotate(180deg);}
+.fc-body{display:none;background:var(--white);padding:0 22px 20px;}
+.failure-case.open .fc-body{display:block;animation:fadeIn .3s ease;}
+.fc-section{border-radius:10px;padding:12px 16px;margin-bottom:8px;font-size:13px;line-height:1.7;}
+.fc-situation{background:var(--gray-soft);color:var(--gray-text);}
+.fc-what-failed{background:var(--red-pale);color:var(--gray-text);}
+.fc-outcome{background:var(--orange-pale);color:var(--gray-text);}
+.fc-lesson{background:var(--green-pale);color:var(--gray-text);}
+.fc-section-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;}
+.fc-situation .fc-section-label{color:var(--gray-muted);}
+.fc-what-failed .fc-section-label{color:var(--red);}
+.fc-outcome .fc-section-label{color:var(--orange);}
+.fc-lesson .fc-section-label{color:var(--green);}
+.warning-signs{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:24px 0;}
+.ws-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px;}
+.ws-icon{font-size:26px;margin-bottom:8px;}
+.ws-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ws-body{font-size:13px;line-height:1.65;color:var(--gray-text);}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}.qfb.show{display:block;animation:fadeIn .35s ease;}.qfb.cfb{background:var(--green-pale);color:var(--green);}.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}.sdot svg{width:12px;height:12px;}.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.warning-signs{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.3 · Using AI for Decision Support</div>
+  <h1>When AI Recommendations Are Wrong: Real Examples of Decision Support Failures in Healthcare Operations</h1>
+  <p class="hero-sub">Understanding where AI fails is as important as understanding what it can do. Every case below has the same pattern: an AI system doing exactly what it was designed to do, in conditions it wasn't designed for — and a human review layer that should have caught the gap but didn't.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>Why Failures Matter More Than Successes</h2>
+    <p>It's easy to learn about AI decision support by reading about its successes — reduced ER wait times, smarter staffing, faster scheduling. But understanding failure is more important for how you'll actually use these tools. Every failure case below follows the same pattern: an AI system performing as designed, encountering conditions its training data didn't include, and a human oversight layer that was too thin to catch the difference.</p>
+    <p><mark>These are not stories about AI being unreliable. They are stories about what happens when human review becomes performative instead of genuine — and why the review layer is never optional.</mark></p>
+  </div>
+  <div class="section fade-in">
+    <h2>Four Documented Failure Patterns — Click Each to Read the Full Case</h2>
+    <div id="failureCases"></div>
+  </div>
+  <div class="section fade-in">
+    <h2>The Four Warning Signs Across Every Case</h2>
+    <div class="warning-signs">
+      <div class="ws-card"><div class="ws-icon">🔍</div><div class="ws-title">Warning Sign 1: Eliminating review "because the AI is reliable"</div><div class="ws-body">AI reliability is conditional — it holds within the conditions the model was trained on. When conditions change, reliability can drop suddenly without warning. Human review is the safety net for exactly those transitions. Removing it because the AI has been accurate is removing the net precisely when it matters most.</div></div>
+      <div class="ws-card"><div class="ws-icon">📊</div><div class="ws-title">Warning Sign 2: The model is optimizing for the wrong metric</div><div class="ws-body">AI systems optimize for what they are measured on. A billing AI optimizing for approval rates without an integrity constraint can learn to recommend non-compliant coding. Always ask: what is this model actually optimizing for? The answer is not always what you think.</div></div>
+      <div class="ws-card"><div class="ws-icon">⏰</div><div class="ws-title">Warning Sign 3: Operational pressure is eroding review quality</div><div class="ws-body">The most dangerous moment for AI oversight is a busy period — when volume, shift changes, or workload peaks make thorough review feel impossible. These are exactly the moments when errors are most likely and most consequential. Pressure is not a legitimate reason to skip review.</div></div>
+      <div class="ws-card"><div class="ws-icon">🔄</div><div class="ws-title">Warning Sign 4: The model has not been updated after operational changes</div><div class="ws-body">Every time an operational process changes — appointment durations, patient populations, coding requirements, staffing structures — every AI model trained on pre-change data needs to be reviewed and potentially retrained. This maintenance task is easy to skip and costly when skipped.</div></div>
+    </div>
+    <div class="pull-quote"><p>Every AI decision support failure we have studied has a human failure at its center. Not because humans are careless — but because the systems around them made genuine oversight difficult, inconvenient, or unrecognized as necessary.</p></div>
+  </div>
+  <div class="quiz fade-in">
+    <div class="quiz-label">🧠 Quick Check</div>
+    <div class="quiz-q">After reading these failure cases, a healthcare administrator concludes: "The real lesson is that AI in healthcare operations is too risky. We should stick to manual processes." Is this the right takeaway?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="cq(this,false)">Yes — the failures demonstrate that AI introduces risks that manual processes do not have</button>
+      <button class="qopt" onclick="cq(this,true)">No — manual processes at scale have their own substantial failure rates. The lesson is not to avoid AI, but to build robust human oversight systems that catch AI failures. These cases failed not because AI was deployed, but because the oversight layer around it was too weak.</button>
+      <button class="qopt" onclick="cq(this,false)">No — AI failures are inevitable but rare enough that the benefits outweigh the risks without major changes to oversight</button>
+      <button class="qopt" onclick="cq(this,false)">Yes — at minimum, the billing case shows that AI should never be combined with financial decisions</button>
+    </div>
+    <div class="qfb" id="qfb"></div>
+  </div>
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Key Takeaways</div>
+    <h2>What to Remember From This Article</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Every AI decision support failure studied has a human oversight failure at its center — not an AI malfunction. The AI was doing what it was designed to do. The human review layer was the gap that let the failure compound.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The four warning signs: eliminating review because the AI is reliable, optimizing for the wrong metric, operational pressure eroding review quality, and models not updated after operational changes. Any one of these conditions can turn a reliable AI tool into a source of systematic errors.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Understanding failure does not lead to avoiding AI — it leads to building better oversight systems. Ask of every AI system you work with: What is it optimizing for? When was it last updated? What operational changes have happened since it was trained? And: is our review process genuine evaluation or performative approval?</p></div>
+    </div>
+  </div>
+</div>
+<script>
+var cases = [
+  {
+    icon:'📅', title:'A Staffing Algorithm That Had Never Seen Flu Season',
+    tag:'Staffing · Understaffing · Training Data Gap',
+    situation:'A mid-size hospital implemented an AI staffing system trained on two years of historical data. The system had never been exposed to a severe flu season — its training period happened to fall during mild winters. When a particularly aggressive flu season hit, the system underestimated patient volume by 22% for three consecutive weeks, generating understaffed shift recommendations across multiple floors.',
+    whatFailed:'The hospital had eliminated its manual cross-check process after implementing the AI, reasoning that the AI\'s predictions made it redundant. With no backup review process, the understaffing recommendations went into effect each shift without modification.',
+    outcome:'Three weeks of understaffed shifts, elevated nurse burnout, a 14% increase in overtime costs, and two patient adverse events that a subsequent review attributed in part to staffing levels. The system was eventually retrained with flu season data.',
+    lesson:'AI systems are only as good as their training data. A model that has never encountered a particular operational condition will fail in that condition — often confidently. Human oversight exists precisely to catch these failures before they compound across multiple shifts and weeks.'
+  },
+  {
+    icon:'🏥', title:'An Overbooking Model That Did Not Account for Procedure Changes',
+    tag:'Scheduling · Systematic Overbooking · Stale Training Data',
+    situation:'A large outpatient clinic implemented an AI no-show prediction model. Six months after implementation, the clinic introduced a new pre-procedure preparation requirement for one appointment type that significantly increased appointment durations. The AI model was not updated to reflect this change and continued recommending the same overbooking ratios as before.',
+    whatFailed:'Scheduling coordinators did not question the recommendations because they trusted the model\'s historical accuracy. Nobody connected the new procedure requirement to the model\'s outputs — the model continued generating the same numbers, the coordinators continued approving them.',
+    outcome:'Systematic overbooking of a high-volume appointment type led to 45-60 minute delays across multiple days before the pattern was identified. Patient satisfaction scores dropped measurably. The issue was traced back to the model mismatch after the fact.',
+    lesson:'AI models must be updated when operational conditions change. A model trained on old data that does not reflect current operations produces systematically wrong recommendations — not random errors, but consistent bias in a predictable direction. Human coordinators who noticed longer appointment times should have flagged the mismatch.'
+  },
+  {
+    icon:'💰', title:'A Billing AI That Learned the Wrong Pattern',
+    tag:'Billing · Upcoding Risk · Metric Misalignment',
+    situation:'A hospital implemented an AI billing assistant designed to maximize claim approval rates. The AI identified patterns in successful historical claims and began suggesting specific coding choices that optimized for approval. Over time, the recommendations drifted toward upcoding — selecting higher-billing procedure codes than the clinical documentation strictly supported.',
+    whatFailed:'Billing staff were evaluated on claim approval rates, creating an incentive to follow AI recommendations that maximized approvals. Management did not implement independent audits of AI-assisted claims, reasoning that the AI\'s high approval rate demonstrated its accuracy.',
+    outcome:'An external CMS audit identified the upcoding pattern 18 months after implementation. The hospital faced significant financial penalties, mandatory repayment, and enhanced regulatory oversight. Several staff members were personally implicated in the review.',
+    lesson:'AI systems optimize for whatever metric they are trained on. An AI optimizing for approval rates without an integrity constraint can inadvertently learn to recommend non-compliant coding. Independent human audits — not just review of AI recommendations before submission — are essential for catching systematic bias in AI-generated suggestions.'
+  },
+  {
+    icon:'📋', title:'A Discharge Prediction That Ignored Social Determinants',
+    tag:'Discharge · Readmissions · Incomplete Model Design',
+    situation:'A major health system implemented an AI discharge prediction model to improve bed management. The model predicted discharge readiness based on clinical metrics: vitals, lab values, mobility assessments, and diagnosis-based length-of-stay averages. It had never been designed to incorporate social determinants of health.',
+    whatFailed:'The model performed well for patients with strong social support networks. For patients with complex social situations — housing instability, no caregiver, limited access to follow-up care — the model significantly overestimated discharge readiness. Bed pressure led clinical teams to act on discharge recommendations without conducting thorough social work assessments.',
+    outcome:'Higher readmission rates among patients discharged primarily based on AI recommendations without social work input. Analysis showed that social determinants of health — factors the model never included — were strong predictors of post-discharge complications the clinical model did not capture.',
+    lesson:'AI systems reflect the data they are trained on. A discharge model trained only on clinical metrics is blind to social factors that dramatically affect post-discharge outcomes. Human clinical judgment — including social work assessments — exists specifically to incorporate dimensions that no current AI discharge model fully captures.'
+  }
+];
+
+var container = document.getElementById('failureCases');
+cases.forEach(function(c, i) {
+  var div = document.createElement('div');
+  div.className = 'failure-case';
+  div.id = 'fc' + i;
+  div.innerHTML =
+    '<div class="fc-header" onclick="toggleFC(' + i + ')">' +
+      '<div class="fc-icon">' + c.icon + '</div>' +
+      '<div class="fc-meta"><div class="fc-title">' + c.title + '</div><div class="fc-tag">' + c.tag + '</div></div>' +
+      '<div class="fc-expand">▼</div>' +
+    '</div>' +
+    '<div class="fc-body">' +
+      '<div class="fc-section fc-situation"><div class="fc-section-label">📋 The Situation</div>' + c.situation + '</div>' +
+      '<div class="fc-section fc-what-failed"><div class="fc-section-label">❌ What Failed</div>' + c.whatFailed + '</div>' +
+      '<div class="fc-section fc-outcome"><div class="fc-section-label">📉 The Outcome</div>' + c.outcome + '</div>' +
+      '<div class="fc-section fc-lesson"><div class="fc-section-label">💡 The Lesson</div>' + c.lesson + '</div>' +
+    '</div>';
+  container.appendChild(div);
+});
+
+function toggleFC(i) {
+  document.getElementById('fc' + i).classList.toggle('open');
+}
+
+function cq(btn,correct) {
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  if(!correct)document.querySelectorAll('.qopt').forEach(function(o){if(o.textContent.indexOf('oversight systems')>-1)o.classList.add('correct');});
+  var fb=document.getElementById('qfb');
+  fb.className='qfb show '+(correct?'cfb':'wfb');
+  fb.textContent=correct?'Correct. Manual healthcare operations at scale have their own substantial failure rates — manual billing errors, reactive staffing decisions leading to unsafe ratios, scheduling gaps leaving patients without needed care. The failure cases here are not arguments against AI — they are arguments for building robust human oversight systems. The organizations that experienced these failures were not using too much AI; they were using it without adequate human review. The lesson is how to use AI well, not whether to use it.':'The correct lesson is more specific: these failures resulted from compromised human oversight, not from AI being deployed. Manual processes at healthcare scale have significant failure rates too — different in character, but real. The goal is not to avoid AI; it is to use it with genuine, robust human oversight that catches the cases where AI gets it wrong.';
+}
+window.addEventListener('scroll',function(){var e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(function(el){obs.observe(el);});
+</script>
+</body>
+</html>
