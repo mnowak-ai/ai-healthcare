@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Writing Tools in Healthcare: A Field Guide — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--red:#DC2626;--red-pale:#FFF1F1;--orange:#D97706;--orange-pale:#FFFBEB;--teal:#0891B2;--teal-pale:#ECFEFF;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,56px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0;}
+.filter-btn{padding:8px 18px;border-radius:100px;border:1.5px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.filter-btn:hover{border-color:var(--purple);}
+.filter-btn.active{background:var(--purple);border-color:var(--purple);color:white;}
+.tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0 0 24px;}
+.tool-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:18px;padding:20px;transition:all .2s;cursor:pointer;}
+.tool-card:hover{border-color:var(--purple);box-shadow:0 4px 16px rgba(123,47,190,.1);}
+.tool-card.selected{border-color:var(--purple);background:var(--purple-pale);}
+.tool-card.hidden{display:none;}
+.tool-icon{font-size:26px;margin-bottom:8px;}
+.tool-name{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.tool-company{font-size:12px;color:var(--gray-muted);margin-bottom:8px;}
+.tool-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+.tool-tag{font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;}
+.tag-clinical{background:var(--purple-pale);color:var(--purple);}
+.tag-admin{background:var(--teal-pale);color:var(--teal);}
+.tag-ambient{background:var(--green-pale);color:var(--green);}
+.tag-general{background:#F1F5F9;color:#475569;}
+.tool-desc{font-size:13px;line-height:1.55;color:var(--gray-muted);}
+.tool-detail{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:18px;padding:24px;margin-bottom:16px;display:none;animation:fadeIn .3s ease;}
+.tool-detail.show{display:block;}
+.td-name{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.td-company{font-size:13px;color:var(--gray-muted);margin-bottom:14px;}
+.td-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.td-col{background:var(--white);border-radius:10px;padding:12px 14px;border:1px solid var(--purple-mid);}
+.td-col-title{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.08em;margin-bottom:6px;}
+.td-col-item{font-size:13px;line-height:1.6;padding:3px 0;}
+.td-caution{background:var(--orange-pale);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--orange);}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:640px){.hero,.content{padding-left:24px;padding-right:24px;}.tool-grid{grid-template-columns:1fr;}.td-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 2.2 · Using AI to Draft Documentation</div>
+  <h1>AI Writing Tools in Healthcare: A Field Guide to the Tools You'll Actually Encounter</h1>
+  <p class="hero-sub">Healthcare workers increasingly encounter AI documentation tools on the job — often with minimal training. This guide gives you a clear overview of the major tools in the field, what they do, and what you need to know before using each one.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>Why You Need to Know the Landscape</h2>
+    <p>Walking into a new healthcare job and encountering an AI documentation tool for the first time without any context is increasingly common — and uncomfortable. You might not know what the tool does, whether it's approved for certain types of documentation, or what your review responsibilities are.</p>
+    <p><mark>This field guide gives you a baseline so you're never starting from zero.</mark> You won't be an expert in every tool, but you'll understand the categories, know the key questions to ask, and have a framework for using any AI documentation tool responsibly.</p>
+    <div class="pull-quote"><p>You don't need to know every AI tool in healthcare. You need to know how to think about any AI tool — what it does, what it can't do, and what review it requires from you.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Healthcare AI Documentation Tool Landscape</h2>
+    <p>Filter by category to explore the tools most relevant to your role. Click any tool card for a detailed breakdown:</p>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterTools('all')">All Tools</button>
+      <button class="filter-btn" onclick="filterTools('clinical')">🩺 Clinical Documentation</button>
+      <button class="filter-btn" onclick="filterTools('ambient')">🎙️ Ambient AI</button>
+      <button class="filter-btn" onclick="filterTools('admin')">📋 Administrative</button>
+      <button class="filter-btn" onclick="filterTools('general')">💻 General AI</button>
+    </div>
+    <div class="tool-detail" id="toolDetail"></div>
+    <div class="tool-grid" id="toolGrid"></div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A hospital has deployed an ambient clinical intelligence tool that listens to physician-patient conversations and generates documentation automatically. A medical assistant is asked to use it to document patient intake conversations. What is the most important question to ask before using this tool in this context?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">How accurate is the tool's speech recognition for the accents common in this patient population?</button>
+        <button class="qopt" onclick="cq(this,true)">Is this tool approved and configured for medical assistant use and intake documentation — or was it deployed specifically for physician clinical notes? Different tools have different approved use cases, user roles, and review requirements.</button>
+        <button class="qopt" onclick="cq(this,false)">Does the tool integrate with the EHR system being used?</button>
+        <button class="qopt" onclick="cq(this,false)">What is the cost per use of the tool?</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Healthcare AI documentation tools fall into four main categories: clinical documentation AI (trained on medical data), ambient AI (listens and auto-drafts), administrative AI (scheduling, billing, communications), and general AI tools (not healthcare-specific). Each has different capabilities and different review requirements.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Before using any AI documentation tool at work, ask four questions: Is it approved for this use case and user role? Has it been reviewed for HIPAA compliance? What are the review requirements? Who is accountable for the output?</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>General AI tools (ChatGPT, Claude, Gemini) can be useful for healthcare writing tasks but must never receive real patient information. They are not HIPAA-compliant, not trained on clinical data, and not approved for clinical documentation. Use them for learning, drafting templates, and non-PHI tasks only.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const tools=[
+  {icon:'🎙️',name:'Nuance DAX (Dragon Ambient eXperience)',company:'Microsoft / Nuance',categories:['ambient','clinical'],tags:['Ambient AI','Clinical'],tagClasses:['tag-ambient','tag-clinical'],desc:'Listens to physician-patient conversations and automatically drafts clinical notes.',uses:['Real-time conversation capture during patient encounters','Auto-generation of structured clinical notes by specialty','Direct integration with Epic and Cerner EHRs'],limits:['Requires physician review and sign-off on every note','Cannot capture non-verbal clinical observations','Not appropriate for non-physician roles without specific configuration'],caution:'⚠️ This tool is deployed for physician use specifically. Medical assistants and nurses typically have different approved tools or workflows.'},
+  {icon:'📝',name:'3M M*Modal Fluency Direct',company:'Solventum (formerly 3M Health Information Systems)',categories:['clinical'],tags:['Clinical'],tagClasses:['tag-clinical'],desc:'Voice-to-text clinical documentation with AI-powered note structuring and coding assistance.',uses:['Physician dictation to structured EHR notes','Clinical coding suggestions (ICD-10, CPT)','Documentation completeness flags and quality alerts'],limits:['Accuracy varies with background noise and strong accents','Clinical coding suggestions require human verification','Not a general writing tool — optimized for clinical documentation formats'],caution:'⚠️ AI coding suggestions are prompts for human review, not final billing decisions. Errors in suggested codes can result in claim denials or overbilling compliance issues.'},
+  {icon:'⚡',name:'Epic Ambient AI / SmartText',company:'Epic Systems',categories:['clinical','ambient'],tags:['Ambient AI','Clinical'],tagClasses:['tag-ambient','tag-clinical'],desc:'Epic\'s built-in AI documentation features including ambient note capture and SmartText templates.',uses:['Ambient documentation within the Epic EHR environment','Pre-built SmartText templates that pull structured patient data','Automated draft generation based on structured EHR data'],limits:['Available only in Epic environments','Feature availability depends on institutional configuration','SmartText auto-populate requires careful review — pulls from EHR data which may be outdated'],caution:'⚠️ Auto-populated fields in Epic notes come from the existing EHR record. If the record has outdated medication or allergy information, the auto-populated note will too.'},
+  {icon:'🔊',name:'Abridge',company:'Abridge',categories:['ambient'],tags:['Ambient AI'],tagClasses:['tag-ambient'],desc:'AI that listens to clinical conversations and generates AI-drafted notes in real time, designed for both physicians and advanced practice providers.',uses:['Real-time clinical conversation documentation','Works across specialties','Generates structured notes aligned with EHR requirements'],limits:['Requires patient consent for conversation recording','Works best with structured clinical conversations','Output requires physician/APP review before entering record'],caution:'⚠️ Patient consent for AI recording is a workflow step that must be completed before each encounter — it is not a one-time consent.'},
+  {icon:'📧',name:'Healthcare-Specific Email/Communication Platforms',company:'Various (TigerConnect, Imprivata, etc.)',categories:['admin'],tags:['Administrative'],tagClasses:['tag-admin'],desc:'HIPAA-compliant communication platforms with AI-assisted drafting features for internal clinical team communications.',uses:['Secure staff-to-staff messaging about patients','AI-assisted drafting for routine clinical communications','Auto-suggested responses for common message types'],limits:['Different from general email — designed for clinical team workflow','AI suggestions require clinical review before sending','Not appropriate for all patient communication types'],caution:'⚠️ Even on HIPAA-compliant platforms, AI-drafted messages about patients require human review. The platform\'s HIPAA compliance doesn\'t make the AI content clinically accurate.'},
+  {icon:'📊',name:'AI-Assisted Discharge Summary Tools',company:'Various (integrated in EHR systems)',categories:['clinical'],tags:['Clinical'],tagClasses:['tag-clinical'],desc:'Tools that draft discharge summaries by pulling structured data from the inpatient EHR record — diagnoses, medications, procedures, lab trends.',uses:['Draft discharge summary from inpatient encounter data','Identify missing elements required for complete discharge documentation','Generate patient-friendly versions of discharge instructions'],limits:['Draft quality depends on completeness of structured EHR data','Complex cases require substantial physician customization','Auto-populated medication lists may not reflect changes made during admission'],caution:'⚠️ Discharge summaries are high-stakes documents — they travel with the patient to their next care setting. Every auto-populated element requires verification.'},
+  {icon:'💻',name:'General AI Writing Tools (ChatGPT, Claude, Gemini)',company:'OpenAI, Anthropic, Google',categories:['general'],tags:['General AI'],tagClasses:['tag-general'],desc:'General-purpose AI assistants capable of drafting, editing, and improving written documents.',uses:['Drafting templates for common communication types','Learning and practicing healthcare writing skills','Editing and improving non-patient-specific documents'],limits:['NOT HIPAA-compliant — never enter real patient information','Not trained on clinical data — medical details may be inaccurate','Not configured for clinical documentation formats'],caution:'🔴 CRITICAL: Never enter real patient names, dates of birth, MRNs, diagnoses, or any Protected Health Information into public AI tools. This is a HIPAA violation with potential federal consequences.'},
+  {icon:'🤖',name:'EHR-Native AI Summarization (Varied)',company:'Epic, Oracle Health, MEDITECH',categories:['clinical','admin'],tags:['Clinical','Administrative'],tagClasses:['tag-clinical','tag-admin'],desc:'AI features built directly into major EHR platforms that generate summaries, flags, and documentation suggestions from existing patient data.',uses:['Patient summary generation for handoffs','Risk flag identification from structured data','Prior authorization draft generation from clinical notes'],limits:['Availability varies significantly by EHR version and institutional configuration','Accuracy depends on completeness of the underlying EHR data','Some features are preview/beta and may not meet production accuracy standards'],caution:'⚠️ EHR-native AI features are often deployed in phases — check with your IT or informatics team about which features are considered production-ready vs. in pilot testing at your facility.'}
+];
+let currentFilter='all';let selectedTool=null;
+function renderTools(){
+  const grid=document.getElementById('toolGrid');grid.innerHTML='';
+  tools.forEach((tool,i)=>{
+    const show=currentFilter==='all'||tool.categories.includes(currentFilter);
+    const div=document.createElement('div');div.className='tool-card'+(show?'':' hidden')+(selectedTool===i?' selected':'');
+    div.innerHTML=`<div class="tool-icon">${tool.icon}</div><div class="tool-name">${tool.name}</div><div class="tool-company">${tool.company}</div><div class="tool-tags">${tool.tags.map((t,ti)=>`<span class="tool-tag ${tool.tagClasses[ti]}">${t}</span>`).join('')}</div><div class="tool-desc">${tool.desc}</div>`;
+    div.onclick=()=>selectTool(i);grid.appendChild(div);
+  });
+}
+function filterTools(f){currentFilter=f;document.querySelectorAll('.filter-btn').forEach((b,bi)=>b.classList.toggle('active',['all','clinical','ambient','admin','general'][bi]===f));renderTools();}
+function selectTool(i){
+  if(selectedTool===i){selectedTool=null;document.getElementById('toolDetail').className='tool-detail';renderTools();return;}
+  selectedTool=i;
+  const t=tools[i];
+  document.getElementById('toolDetail').innerHTML=`<div class="td-name">${t.icon} ${t.name}</div><div class="td-company">${t.company}</div><div class="td-grid"><div class="td-col"><div class="td-col-title">✅ What it's used for</div>${t.uses.map(u=>`<div class="td-col-item">• ${u}</div>`).join('')}</div><div class="td-col"><div class="td-col-title">⚠️ Limitations & watch-fors</div>${t.limits.map(l=>`<div class="td-col-item">• ${l}</div>`).join('')}</div></div><div class="td-caution">${t.caution}</div>`;
+  document.getElementById('toolDetail').className='tool-detail show';renderTools();
+}
+renderTools();
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct! Healthcare AI tools are often deployed with a specific user role and use case in mind. A tool deployed for physician clinical documentation may not be configured, validated, or approved for use by a medical assistant for intake documentation. Using a tool outside its approved scope can create documentation that doesn\'t meet the intended format, generates incorrect output for that workflow, or violates facility policy. Before using any AI tool at a new job or in a new workflow, always verify: what user role is this tool approved for, and what is its approved use case?';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('approved and configured'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ While speech recognition accuracy and EHR integration are real considerations, the most fundamental question is whether the tool is approved for this specific use. Healthcare AI tools are typically validated and deployed for specific clinical workflows and user roles. Using them outside those parameters can produce documentation that doesn\'t meet standards, violates facility policy, or creates compliance issues.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

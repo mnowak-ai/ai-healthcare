@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Prompt Is Everything — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--red:#DC2626;--red-pale:#FFF1F1;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,56px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* PROMPT ANATOMY */
+.prompt-anatomy{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.pa-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.pa-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.pa-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.annotated-prompt{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:20px;font-size:14px;line-height:2.2;font-family:monospace;}
+.anno{border-radius:4px;padding:2px 6px;cursor:pointer;transition:all .2s;position:relative;}
+.anno:hover{opacity:.8;}
+.anno.doc-type{background:#DBEAFE;color:#1D4ED8;}
+.anno.audience{background:var(--purple-pale);color:var(--purple-dark);}
+.anno.tone{background:var(--green-pale);color:var(--green);}
+.anno.facts{background:#FEF3C7;color:#92400E;}
+.anno.constraint{background:var(--red-pale);color:var(--red);}
+.anno.action{background:var(--orange-pale);color:var(--orange);}
+.anno-legend{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px;}
+.anno-item{display:flex;gap:8px;align-items:center;font-size:12px;}
+.anno-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0;}
+
+/* WEAK vs STRONG */
+.prompt-compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.pc-col{border-radius:18px;padding:20px;}
+.pc-col.weak{background:var(--red-pale);border:2px solid #FCA5A5;}
+.pc-col.strong{background:var(--green-pale);border:2px solid #86EFAC;}
+.pc-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;}
+.pc-col.weak .pc-label{color:var(--red);}
+.pc-col.strong .pc-label{color:var(--green);}
+.pc-prompt{background:rgba(255,255,255,.7);border-radius:10px;padding:12px;font-size:13px;font-family:monospace;line-height:1.7;margin-bottom:10px;}
+.pc-output{background:rgba(255,255,255,.5);border-radius:10px;padding:10px 12px;font-size:12px;font-family:monospace;line-height:1.65;color:var(--gray-muted);}
+.pc-output-label{font-size:10px;font-weight:700;text-transform:uppercase;margin-bottom:4px;}
+.pc-col.weak .pc-output-label{color:var(--red);}
+.pc-col.strong .pc-output-label{color:var(--green);}
+
+/* PROMPT BUILDER ACTIVITY */
+.prompt-builder{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.pb-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.pb-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.pb-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.pb-scenario{background:var(--purple-pale);border-left:4px solid var(--purple);padding:14px 18px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.7;margin-bottom:20px;}
+.pb-components{display:flex;flex-direction:column;gap:12px;margin-bottom:18px;}
+.pb-component{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;padding:14px 16px;}
+.pb-comp-label{font-size:12px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.pb-opts{display:flex;flex-direction:column;gap:6px;}
+.pb-opt{font-size:13px;padding:8px 14px;border-radius:8px;border:1.5px solid var(--purple-mid);cursor:pointer;background:var(--white);transition:all .2s;text-align:left;}
+.pb-opt:hover{border-color:var(--purple);}
+.pb-opt.selected-good{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.pb-opt.selected-bad{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.pb-preview{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;padding:14px 16px;min-height:60px;}
+.pb-preview-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--gray-muted);margin-bottom:8px;letter-spacing:.08em;}
+.pb-preview-text{font-size:13px;line-height:1.7;font-family:monospace;color:var(--gray-text);}
+.pb-result{font-size:14px;line-height:1.6;padding:12px 16px;border-radius:10px;margin-top:12px;display:none;}
+.pb-result.show{display:block;animation:fadeIn .35s ease;}
+.pb-result.good{background:var(--green-pale);color:var(--green);}
+
+/* CHEAT SHEET */
+.cheat-sheet{background:var(--white);border:2px solid var(--purple-mid);border-radius:20px;padding:24px;margin:24px 0;}
+.cs-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.cs-sub{font-size:13px;color:var(--gray-muted);margin-bottom:16px;}
+.cs-template{background:var(--purple-pale);border-radius:12px;padding:16px;font-size:14px;font-family:monospace;line-height:2;}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:640px){.hero,.content{padding-left:24px;padding-right:24px;}.prompt-compare{grid-template-columns:1fr;}.anno-legend{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 2.2 · Using AI to Draft Documentation</div>
+  <h1>The Prompt Is Everything: How to Give AI Clear Instructions for Healthcare Writing</h1>
+  <p class="hero-sub">The quality of what AI produces is almost entirely determined by the quality of what you ask for. A vague prompt produces a generic draft. A specific, context-rich prompt produces something you can actually use. This article teaches you exactly how to write one.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Why Prompting Is a Skill</h2>
+    <p>Think of an AI writing tool like a very capable assistant who just joined your team. They're smart, fast, and willing to help — but they know nothing about your workplace, your patients, your documentation standards, or the specific situation you're dealing with. If you walk up to them and say "write an email," they'll write something generic and technically correct but completely useless for your actual situation.</p>
+    <p>Now imagine you give that assistant every piece of relevant context: who the email is for, what it needs to say, what tone is appropriate, how long it should be, and what specific action you need the reader to take. Suddenly, the assistant can produce something that actually works. <mark>That's prompting. The difference between a great AI output and a useless one is usually the difference between a great prompt and a bad one.</mark></p>
+    <div class="pull-quote"><p>You are not describing what you want. You are writing instructions for a very literal, very capable assistant who will do exactly what you say — and only what you say.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Anatomy of a Strong Healthcare Prompt</h2>
+    <p>Every high-quality prompt for healthcare documentation contains these six elements. Hover over each colored section to see what role it plays:</p>
+    <div class="prompt-anatomy">
+      <div class="pa-label">🔬 Prompt Anatomy</div>
+      <div class="pa-title">What Makes a Healthcare Prompt Work</div>
+      <div class="pa-sub">Each color represents a different ingredient. All six are needed for a complete prompt.</div>
+      <div class="annotated-prompt">
+        <span class="anno doc-type">Write a professional internal memo</span> <span class="anno audience">addressed to all nursing staff at Green Valley Clinic from Charge Nurse Patel</span>, <span class="anno facts">announcing that effective Monday June 17, all nurses must document patient vital signs within 15 minutes of assessment in the EHR under the patient's current visit. This change follows a Joint Commission recommendation</span>. <span class="anno tone">Tone should be professional but warm — explain the reason, not just the mandate</span>. <span class="anno constraint">Approximately 150 words</span>. <span class="anno action">End with a specific call to action and contact information for questions</span>.
+      </div>
+      <div class="anno-legend">
+        <div class="anno-item"><div class="anno-dot" style="background:#DBEAFE;border:1px solid #1D4ED8"></div><span><strong style="color:#1D4ED8">Document type</strong> — what to write</span></div>
+        <div class="anno-item"><div class="anno-dot" style="background:var(--purple-pale);border:1px solid var(--purple)"></div><span><strong style="color:var(--purple)">Audience</strong> — who reads it</span></div>
+        <div class="anno-item"><div class="anno-dot" style="background:#FEF3C7;border:1px solid #92400E"></div><span><strong style="color:#92400E">Facts</strong> — key information to include</span></div>
+        <div class="anno-item"><div class="anno-dot" style="background:var(--green-pale);border:1px solid var(--green)"></div><span><strong style="color:var(--green)">Tone</strong> — how it should feel</span></div>
+        <div class="anno-item"><div class="anno-dot" style="background:var(--red-pale);border:1px solid var(--red)"></div><span><strong style="color:var(--red)">Constraint</strong> — length or format</span></div>
+        <div class="anno-item"><div class="anno-dot" style="background:var(--orange-pale);border:1px solid var(--orange)"></div><span><strong style="color:var(--orange)">Action</strong> — what the document should do</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Weak Prompt vs. Strong Prompt: Side by Side</h2>
+    <p>The same task — writing a patient follow-up reminder — produces completely different results depending on how the prompt is written:</p>
+    <div class="prompt-compare">
+      <div class="pc-col weak">
+        <div class="pc-label">❌ Weak Prompt</div>
+        <div class="pc-prompt">"Write a reminder for patients about their follow-up appointment."</div>
+        <div class="pc-output-label">AI Output (Typical Result)</div>
+        <div class="pc-output">"Dear Patient,\nThis is a reminder that you have an upcoming follow-up appointment. Please contact our office to confirm or reschedule.\nThank you,\n[Clinic Name]"</div>
+        <div style="background:rgba(220,38,38,.1);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--red);margin-top:8px;">Why it fails: Generic template with zero patient-specific information. No appointment date, no clinic name, no phone number, no instructions. Needs to be entirely rewritten.</div>
+      </div>
+      <div class="pc-col strong">
+        <div class="pc-label">✅ Strong Prompt</div>
+        <div class="pc-prompt">"Write a friendly patient reminder letter for a follow-up appointment at Green Valley Family Clinic. Appointment is Tuesday June 25 at 2:30pm with Dr. Reyes. Patient should arrive 10 minutes early and bring their updated medication list. Include our number (555-204-1100) to reschedule. Warm but professional tone. 100 words max."</div>
+        <div class="pc-output-label">AI Output (Typical Result)</div>
+        <div class="pc-output">"Dear [Patient Name],\nThis is a friendly reminder of your follow-up appointment with Dr. Reyes at Green Valley Family Clinic on Tuesday, June 25th at 2:30pm.\nPlease plan to arrive 10 minutes early and bring an updated list of your current medications.\nIf you need to reschedule, please call us at (555) 204-1100.\nWe look forward to seeing you!\nGreen Valley Family Clinic"</div>
+        <div style="background:rgba(39,103,73,.1);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--green);margin-top:8px;">Why it works: All key facts included, correct contact info, appropriate warm tone, ready to use with only the patient name to add.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Build a Strong Prompt: Activity</h2>
+    <p>A clinic administrator needs to write an internal memo about a new patient check-in procedure. Practice building the best prompt by selecting the right option for each component:</p>
+    <div class="prompt-builder">
+      <div class="pb-label">✏️ Prompt Builder Activity</div>
+      <div class="pb-title">Assemble the Best Prompt</div>
+      <div class="pb-sub">For each component, choose the option that will produce the best AI output.</div>
+      <div class="pb-scenario">📋 Situation: Starting July 1st, all patients at Riverside Medical Clinic must check in using a new digital kiosk instead of the front desk. Front desk staff will still be available for patients who need assistance. The admin wants to inform all clinic staff before patients start asking questions.</div>
+      <div class="pb-components" id="pbComponents"></div>
+      <div class="pb-preview-label">🤖 Your Prompt Preview</div>
+      <div class="pb-preview"><div class="pb-preview-text" id="pbPreview">Select options above to build your prompt...</div></div>
+      <div class="pb-result" id="pbResult"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Your Healthcare Prompt Template</h2>
+    <p>Save this template and adapt it to any healthcare documentation task. Fill in the brackets for any document type:</p>
+    <div class="cheat-sheet">
+      <div class="cs-title">📋 The Universal Healthcare Prompt Template</div>
+      <div class="cs-sub">Copy this structure for any professional healthcare document</div>
+      <div class="cs-template">Write a [DOCUMENT TYPE] from [SENDER/ROLE] to [RECIPIENT/AUDIENCE].<br>Purpose: [ONE CLEAR SENTENCE describing the main point].<br>Key facts to include: [BULLET THE SPECIFIC INFORMATION].<br>Tone: [professional / warm / clinical / formal / etc.].<br>Length: approximately [WORD COUNT or "short / medium / full"].<br>End with: [action step / contact info / deadline / etc.].<br>Do NOT include: [real patient names / sensitive data / placeholder text].</div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A nurse needs to write a shift handoff note using AI assistance. Which prompt will produce the most useful draft?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Option A: "Write a shift handoff note."</button>
+        <button class="qopt" onclick="cq(this,false)">Option B: "Write a nursing shift handoff summary for the incoming nurse, covering patient status, medications given, and follow-up needed."</button>
+        <button class="qopt" onclick="cq(this,true)">Option C: "Write a professional nursing shift handoff note from the outgoing night nurse to the incoming day shift. Include sections for: current patient status, vital signs trend, medications administered during shift, any incidents or changes in condition, pending test results, and specific items for the day team to monitor. Use clinical language appropriate for a registered nurse. Format as a structured list by patient. Approximately 200 words per patient."</button>
+        <button class="qopt" onclick="cq(this,false)">Option D: "Write the best possible shift handoff note with all the relevant information a nurse would need."</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>A strong healthcare prompt has six components: document type, audience, key facts, tone, constraint (length/format), and action (what the document needs to achieve). Missing any of these produces a weaker, more generic output that requires more editing.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The gap between a weak prompt and a strong prompt is the difference between a generic template you have to rewrite and a working draft you only need to refine. Investing 60 seconds in a better prompt saves 10 minutes of editing.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Never include real patient information in public AI tool prompts — use descriptive placeholders instead (e.g., "a patient with diabetes and hypertension" not a real name and DOB). This is both an ethical responsibility and a HIPAA compliance requirement.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const pbData=[
+  {label:'Document Type & Sender',opts:[{text:'"Write a memo"',good:false,fb:'Too vague — what kind of memo? Who is it from?'},{text:'"Write a professional internal memo from the clinic administrator to all Riverside Medical Clinic staff"',good:true,fb:'✅ Perfect. Document type is clear, sender is identified, recipient audience is specific.'},{text:'"Write an announcement"',good:false,fb:'Too vague — announcement in what format? For what channel?'}]},
+  {label:'Purpose & Key Facts',opts:[{text:'"about a new procedure starting soon"',good:false,fb:'"Soon" is vague. What procedure? What specifically changes?'},{text:'"announcing that starting July 1st, all patients will check in at the new digital kiosk instead of the front desk. Front desk staff remain available for patients who need help."',good:true,fb:'✅ The effective date, the exact change, and the important exception (front desk still available) are all included.'},{text:'"about the check-in changes the clinic is making"',good:false,fb:'No date, no specifics about what changes — the AI will have to invent these details.'}]},
+  {label:'Tone & Length',opts:[{text:'"tone: professional"',good:false,fb:'Better than nothing, but more specificity would help — professional AND what else?'},{text:'"Tone: professional and reassuring — staff need to feel confident they can help patients with the transition. Length: approximately 150 words."',good:true,fb:'✅ The tone instruction tells the AI what emotional effect the memo should have. The word count sets a useful constraint.'},{text:'"keep it short"',good:false,fb:'"Short" means different things to different people. A specific word count is always more useful.'}]},
+  {label:'Closing Action',opts:[{text:'"end with something nice"',good:false,fb:'The AI will add a generic friendly closing with no actionable information.'},{text:'"End with a contact name and extension for staff who have questions, and note that a brief staff meeting will be held June 28th at 8am to answer questions."',good:true,fb:'✅ The closing now creates a specific call to action — who to contact, when to show up.'},{text:'"thank the staff"',good:false,fb:'A closing thank-you without a call to action leaves staff with no next step.'}]}
+];
+const pbSelections={};
+function updatePbPreview(){
+  const parts={type:null,facts:null,tone:null,action:null};
+  Object.entries(pbSelections).forEach(([fi,oi])=>{
+    const opt=pbData[fi].opts[oi];
+    if(fi==0)parts.type=opt.good?opt.text:'[DOC TYPE NEEDED]';
+    if(fi==1)parts.facts=opt.good?opt.text:'[FACTS NEEDED]';
+    if(fi==2)parts.tone=opt.good?opt.text:'[TONE NEEDED]';
+    if(fi==3)parts.action=opt.good?opt.text:'[ACTION NEEDED]';
+  });
+  document.getElementById('pbPreview').textContent=`${parts.type||'—'} ${parts.facts||''} ${parts.tone||''} ${parts.action||''}`.trim()||'Select options above to build your prompt...';
+  if(Object.keys(pbSelections).length===4){
+    const allGood=Object.entries(pbSelections).every(([fi,oi])=>pbData[fi].opts[oi].good);
+    const res=document.getElementById('pbResult');res.className='pb-result show good';
+    res.textContent=allGood?'✅ Excellent prompt! You included all six components: document type, audience, key facts, tone, length constraint, and a specific closing action. This prompt will produce a working draft that needs minimal editing.':'📝 Good attempt! Review the components marked with issues — each one identifies a specific area where more specificity would improve your AI output.';
+  }
+}
+const pbContainer=document.getElementById('pbComponents');
+pbData.forEach((comp,fi)=>{
+  const div=document.createElement('div');div.className='pb-component';
+  div.innerHTML=`<div class="pb-comp-label">${comp.label}</div><div class="pb-opts">${comp.opts.map((opt,oi)=>`<button class="pb-opt" id="pbo${fi}_${oi}" onclick="pickPb(${fi},${oi})">${opt.text}</button><div style="font-size:12px;display:none;padding:4px 6px;border-radius:6px;margin-top:2px;" id="pbfb${fi}_${oi}"></div>`).join('')}</div>`;
+  pbContainer.appendChild(div);
+});
+function pickPb(fi,oi){
+  if(pbSelections[fi]!==undefined)return;
+  pbSelections[fi]=oi;
+  const opt=pbData[fi].opts[oi];
+  document.getElementById('pbo'+fi+'_'+oi).className='pb-opt '+(opt.good?'selected-good':'selected-bad');
+  const fb=document.getElementById('pbfb'+fi+'_'+oi);fb.textContent=opt.fb;fb.style.display='block';fb.style.background=opt.good?'var(--green-pale)':'var(--red-pale)';fb.style.color=opt.good?'var(--green)':'var(--red)';
+  updatePbPreview();
+}
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct! Option C specifies the document type (shift handoff note), the audience (incoming day shift nurse), the structure (sections for each required element), the language register (clinical, appropriate for RN), the format (structured list by patient), and the expected length. With this level of detail, the AI can generate a genuinely useful structural draft that the nurse only needs to fill in with the actual patient data. Options A and B are too vague. Option D sounds comprehensive but "best possible" and "all relevant information" give the AI no concrete guidance on structure, length, or clinical detail level.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('Option C'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ Compare the information density of Options A, B, C, and D. Option A has almost no information. Option B has document type and some structure but no format guidance. Option D sounds comprehensive but "best possible" is not an instruction — it\'s an expectation. Option C is the only one that gives the AI explicit structure sections, language register, format (list by patient), and length target — everything needed to produce a genuinely useful draft.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

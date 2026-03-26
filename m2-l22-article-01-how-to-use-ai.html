@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Actually Use AI to Draft a Healthcare Document — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--red:#DC2626;--red-pale:#FFF1F1;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,56px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* WORKFLOW STEPS */
+.workflow{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.wf-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.wf-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.wf-sub{font-size:15px;color:var(--gray-muted);margin-bottom:24px;}
+.wf-steps{display:flex;flex-direction:column;gap:0;}
+.wf-step{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--purple-mid);}
+.wf-step:last-child{border-bottom:none;}
+.wf-num{width:40px;height:40px;background:var(--purple);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:18px;font-weight:700;flex-shrink:0;margin-top:2px;}
+.wf-body h4{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.wf-body p{font-size:14px;line-height:1.65;color:var(--gray-text);margin:0;}
+.wf-tip{background:var(--white);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--purple-dark);margin-top:8px;border-left:3px solid var(--purple);}
+.wf-warning{background:var(--red-pale);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--red);margin-top:8px;border-left:3px solid var(--red);}
+
+/* WALKTHROUGH SIMULATOR */
+.walkthrough{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.wt-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.wt-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.wt-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.wt-scenario{background:var(--purple-pale);border-left:4px solid var(--purple);padding:14px 18px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.7;margin-bottom:20px;}
+.wt-stages{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.wt-stage{padding:8px 16px;border-radius:10px;border:1.5px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.wt-stage.active{background:var(--purple);border-color:var(--purple);color:white;}
+.wt-stage.done{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.wt-panel{display:none;animation:fadeIn .3s ease;}
+.wt-panel.active{display:block;}
+.wt-prompt-box{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:16px;margin-bottom:12px;}
+.wt-prompt-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);margin-bottom:8px;letter-spacing:.08em;}
+.wt-prompt-text{font-size:14px;line-height:1.7;font-family:monospace;color:var(--gray-text);}
+.wt-output-box{background:var(--green-pale);border:1.5px solid #86EFAC;border-radius:14px;padding:16px;margin-bottom:12px;}
+.wt-output-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--green);margin-bottom:8px;letter-spacing:.08em;}
+.wt-output-text{font-size:14px;line-height:1.75;font-family:monospace;color:var(--gray-text);}
+.wt-problem-box{background:var(--orange-pale);border:1.5px solid #FDE68A;border-radius:14px;padding:16px;margin-bottom:12px;}
+.wt-problem-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--orange);margin-bottom:8px;letter-spacing:.08em;}
+.wt-problem-text{font-size:14px;line-height:1.65;color:var(--gray-text);}
+.wt-fix-box{background:var(--green-pale);border:1.5px solid #86EFAC;border-radius:14px;padding:16px;}
+.wt-fix-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--green);margin-bottom:8px;letter-spacing:.08em;}
+.wt-fix-text{font-size:14px;line-height:1.75;font-family:monospace;color:var(--gray-text);}
+.wt-nav{display:flex;gap:10px;margin-top:14px;}
+.wt-btn{padding:10px 20px;border-radius:10px;border:1.5px solid var(--purple);background:var(--white);color:var(--purple);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.wt-btn:hover{background:var(--purple);color:white;}
+.wt-btn.primary{background:var(--purple);color:white;}
+
+/* DO/DON'T */
+.do-dont{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.dd-col{border-radius:18px;padding:20px;}
+.dd-col.do{background:var(--green-pale);border:2px solid #86EFAC;}
+.dd-col.dont{background:var(--red-pale);border:2px solid #FCA5A5;}
+.dd-col-title{font-size:14px;font-weight:700;margin-bottom:12px;}
+.dd-col.do .dd-col-title{color:var(--green);}
+.dd-col.dont .dd-col-title{color:var(--red);}
+.dd-item{font-size:13px;line-height:1.6;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.07);}
+.dd-item:last-child{border-bottom:none;}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:640px){.hero,.content{padding-left:24px;padding-right:24px;}.do-dont{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 2.2 · Using AI to Draft Documentation</div>
+  <h1>How to Actually Use AI to Draft a Healthcare Document: A Step-by-Step Walkthrough</h1>
+  <p class="hero-sub">The video explains what AI-assisted drafting is. This article shows you how to do it — from your first prompt to the moment you hit send. Every step, with real healthcare examples.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>AI Drafting Is a Skill, Not a Magic Button</h2>
+    <p>A lot of people try AI writing tools for the first time and feel disappointed. They type something vague, get a generic response, and conclude "this isn't useful for healthcare." The problem isn't the tool — it's the approach. AI-assisted drafting requires a specific workflow to produce useful results, especially in a healthcare context where accuracy and tone both matter.</p>
+    <p>The good news is that the workflow is learnable and repeatable. Once you know the steps, <mark>using AI to draft healthcare documents becomes one of the most genuinely time-saving professional skills you can develop.</mark> Here's exactly how it works.</p>
+    <div class="pull-quote"><p>AI doesn't replace your expertise. It takes the blank-page problem off the table so you can spend your time doing what you're actually good at — reviewing, improving, and owning the final result.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The 5-Step AI Drafting Workflow</h2>
+    <p>Every effective use of AI for healthcare documentation follows the same basic pattern. Skip a step and your output suffers. Follow all five and you'll consistently produce a strong working draft:</p>
+    <div class="workflow">
+      <div class="wf-label">🔄 The Drafting Workflow</div>
+      <div class="wf-title">Five Steps From Task to Final Document</div>
+      <div class="wf-sub">Follow these in order. Each step builds on the one before it.</div>
+      <div class="wf-steps">
+        <div class="wf-step"><div class="wf-num">1</div><div class="wf-body"><h4>Clarify what you actually need to write</h4><p>Before touching the AI tool, answer three questions: What type of document is this? Who will read it? What is the single most important thing it needs to communicate? If you can't answer these, the AI won't be able to either.</p><div class="wf-tip">📌 Example: "I need to write an internal memo to clinic staff announcing a new phone documentation policy, effective Monday, from the clinic manager."</div></div></div>
+        <div class="wf-step"><div class="wf-num">2</div><div class="wf-body"><h4>Write a specific, context-rich prompt</h4><p>Your prompt is your instruction to the AI. Give it the document type, audience, key facts to include, tone required, and approximate length. The more context you provide, the less correction you'll need to do afterward.</p><div class="wf-tip">📌 Vague: "Write a memo about phone calls." Specific: "Write a professional internal memo to clinic staff from the clinic manager, announcing that all patient phone calls must now be logged in the EHR within 30 minutes. Effective Monday June 17. Approx 150 words. Formal but friendly tone."</div></div></div>
+        <div class="wf-step"><div class="wf-num">3</div><div class="wf-body"><h4>Review the draft critically — before editing anything</h4><p>Read the entire AI output before making any changes. Ask: Is anything factually wrong? Is anything missing? Is the tone right for this audience? Does the structure make sense? Take notes on what needs to change before you start editing.</p><div class="wf-warning">⚠️ The most common mistake is editing line-by-line without reading the whole thing first. You might fix a sentence and miss a bigger structural problem three paragraphs later.</div></div></div>
+        <div class="wf-step"><div class="wf-num">4</div><div class="wf-body"><h4>Edit for accuracy, tone, and completeness</h4><p>Go through your notes from step 3 and make the changes. Correct any facts. Add anything missing. Adjust tone where it's off. Add your own voice where it needs to sound more like you. This is your document now — make it yours.</p><div class="wf-tip">📌 A useful question for each paragraph: "Is every word in here true and complete? Could a reader act on this information correctly?"</div></div></div>
+        <div class="wf-step"><div class="wf-num">5</div><div class="wf-body"><h4>Do a final read-aloud before sending</h4><p>Read the document aloud — or at minimum, read it as slowly as someone who has never seen it before. This catches phrasing that sounds wrong, sentences that are too long, and anything that might be misread. Then send.</p><div class="wf-tip">✅ Once you hit send or sign a document, you own it. This final step is your last chance to catch something before it becomes a permanent record.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>See It In Action: A Full Drafting Walkthrough</h2>
+    <p>Let's follow this exact workflow through a real healthcare scenario. You're a medical assistant and need to write a professional email to Dr. Nguyen about a patient medication concern. Click through each stage:</p>
+    <div class="walkthrough">
+      <div class="wt-label">🎯 Live Drafting Walkthrough</div>
+      <div class="wt-title">From Situation to Final Document — Step by Step</div>
+      <div class="wt-scenario">📋 Situation: A patient, Carla Mendez (MRN 77204, DOB 09/22/1961), called at 11:30am reporting that she ran out of her metoprolol 25mg three days ago and has been experiencing palpitations and mild chest tightness since yesterday. She is requesting a refill and asking if she should come in.</div>
+      <div class="wt-stages">
+        <button class="wt-stage active" onclick="showStage(0)">Step 1: Clarify</button>
+        <button class="wt-stage" onclick="showStage(1)">Step 2: Write Prompt</button>
+        <button class="wt-stage" onclick="showStage(2)">Step 3: AI Draft</button>
+        <button class="wt-stage" onclick="showStage(3)">Step 4: Review Issues</button>
+        <button class="wt-stage" onclick="showStage(4)">Step 5: Final Version</button>
+      </div>
+      <div id="wtContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What to Do (and Not Do) When AI Drafting</h2>
+    <div class="do-dont">
+      <div class="dd-col do">
+        <div class="dd-col-title">✅ Do These</div>
+        <div class="dd-item">Give AI the document type, audience, tone, and key facts in your prompt</div>
+        <div class="dd-item">Read the entire draft before editing any part of it</div>
+        <div class="dd-item">Check every proper noun — names, dates, medications, dosages</div>
+        <div class="dd-item">Add your own voice and specific details the AI can't know</div>
+        <div class="dd-item">Do a final read-aloud before submitting or sending</div>
+        <div class="dd-item">Treat the AI draft as a strong starting point, not a finished product</div>
+      </div>
+      <div class="dd-col dont">
+        <div class="dd-col-title">❌ Don't Do These</div>
+        <div class="dd-item">Give AI a one-sentence vague prompt and expect a usable result</div>
+        <div class="dd-item">Copy-paste the AI draft without reading it fully</div>
+        <div class="dd-item">Assume patient names, dates, and dosages are correct</div>
+        <div class="dd-item">Enter real patient information into public AI tools (HIPAA violation)</div>
+        <div class="dd-item">Use AI for sensitive clinical incidents, complaints, or complex empathy situations</div>
+        <div class="dd-item">Sign or send AI-generated content you don't fully stand behind</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A medical assistant types this prompt into an AI tool: "Write an email about the patient." The AI produces a generic template with placeholder text like [PATIENT NAME] and [ISSUE]. What went wrong and what should the assistant do?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">The AI tool is broken — try a different AI system</button>
+        <button class="qopt" onclick="cq(this,false)">The template is fine — just fill in the placeholders and send it</button>
+        <button class="qopt" onclick="cq(this,true)">The prompt was too vague — the AI had no document type, audience, tone, or facts to work with. The assistant should rewrite the prompt with specific context: document type (email to whom?), the key information to communicate, the required tone, and a target length — then generate a new draft</button>
+        <button class="qopt" onclick="cq(this,false)">This is normal — AI always produces templates that you fill in manually</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The 5-step AI drafting workflow: (1) clarify what you need, (2) write a specific prompt with context, (3) read the entire draft before editing, (4) edit for accuracy/tone/completeness, (5) final read-aloud before sending. Skip steps and quality drops.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The quality of your output is directly proportional to the quality of your prompt. Vague prompts produce generic drafts. Specific prompts with document type, audience, key facts, and tone produce working drafts that need minimal editing.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>You own every document you send or sign — regardless of how it was drafted. AI is a tool that helps you get to a strong first draft faster. The accuracy, completeness, and appropriateness of the final version is always your professional responsibility.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const stages=[
+  {title:'Step 1: Clarify What You Need',content:`<div class="wt-prompt-box"><div class="wt-prompt-label">🧠 Before touching the AI, answer these three questions:</div><div class="wt-prompt-text">1. What TYPE of document? → Professional email\n2. Who will READ it? → Dr. Nguyen (prescribing physician)\n3. What is the SINGLE most important thing to communicate? → Patient Carla Mendez has been without metoprolol for 3 days, now has symptoms (palpitations, chest tightness), and needs a response: refill decision and whether to come in.\n\nOptional: What TONE? → Professional, factual, urgent but not alarming\nApproximate LENGTH? → 150–200 words</div></div><div class="wt-fix-box"><div class="wt-fix-label">✅ Why this matters</div><div class="wt-fix-text">You can't write a clear prompt if you don't know what you need. Taking 2 minutes to clarify these questions before writing the prompt saves 10 minutes of editing afterward.</div></div>`},
+  {title:'Step 2: Write a Specific Prompt',content:`<div class="wt-prompt-box"><div class="wt-prompt-label">✏️ Your AI Prompt (Notice the specificity)</div><div class="wt-prompt-text">"Write a professional email from a medical assistant to Dr. Nguyen regarding patient Carla Mendez (use placeholder [PATIENT DOB] rather than real DOB). The patient called at 11:30am reporting she has been without her metoprolol 25mg for 3 days and is experiencing palpitations and mild chest tightness since yesterday. She is requesting a refill and asking whether she needs to come in. Tone: professional and factual, flagging clinical urgency without alarming the physician. Length: approx 150 words. Include a clear request for the physician's guidance on next steps."</div></div><div class="wt-problem-box"><div class="wt-problem-label">📌 Key: Notice what's in the prompt</div><div class="wt-problem-text">→ Document type (professional email)\n→ Sender and receiver (MA to Dr. Nguyen)\n→ Key clinical facts (medication, duration, symptoms)\n→ Patient identifier placeholder instead of real data\n→ Required tone and length\n→ Specific request (physician's guidance on next steps)</div></div>`},
+  {title:'Step 3: The AI Draft',content:`<div class="wt-output-box"><div class="wt-output-label">🤖 AI Generated Draft</div><div class="wt-output-text">Subject: Patient Message — Carla Mendez — Metoprolol — Urgent Review\n\nDear Dr. Nguyen,\n\nI am writing to flag an urgent patient concern. Carla Mendez ([PATIENT DOB], MRN 77204) contacted our office at 11:30am today reporting that she has been without her prescribed metoprolol 25mg for three days following an apparent gap in her refill.\n\nMs. Mendez reports experiencing palpitations and mild chest tightness beginning yesterday. She is requesting a prescription refill and asking whether she should schedule an in-person visit.\n\nGiven the symptom onset, I wanted to bring this to your attention promptly for your clinical guidance. Please advise on the refill and whether a same-day or urgent appointment is warranted.\n\nThank you,\n[Your Name], MA\n[Clinic Name] | [Extension]</div></div>`},
+  {title:'Step 4: Review the Draft',content:`<div class="wt-problem-box"><div class="wt-problem-label">🔍 What to Check Before Editing</div><div class="wt-problem-text">Read the whole thing first. Here's what needs attention:\n\n❌ "[PATIENT DOB]" placeholder still present — needs the actual DOB added (appropriate since this is an internal system email, not a public AI tool entry)\n\n❌ "[Your Name]" and "[Clinic Name]" placeholders need replacing with actual info\n\n✅ Tone is right — professional and flagging urgency without being alarmist\n\n✅ Clinical facts are correct — medication, duration, symptoms accurately represented\n\n✅ Clear action request — physician knows exactly what's being asked\n\n⚠️ Consider: Does "urgent" in the subject line accurately reflect the situation? Palpitations and chest tightness after 3 days without metoprolol IS clinically significant — yes, "urgent" is appropriate here.</div></div>`},
+  {title:'Step 5: Final Edited Version',content:`<div class="wt-fix-box"><div class="wt-fix-label">✅ Final Version — Ready to Send</div><div class="wt-fix-text">Subject: Patient Message — Carla Mendez — Metoprolol — Urgent Review\n\nDear Dr. Nguyen,\n\nI am writing to flag an urgent patient concern. Carla Mendez (DOB 09/22/1961, MRN 77204) contacted our office at 11:30am today reporting that she has been without her prescribed metoprolol 25mg for three days.\n\nMs. Mendez reports experiencing palpitations and mild chest tightness beginning yesterday. She is requesting a prescription refill and asking whether she should schedule an in-person visit.\n\nGiven the symptom onset, I wanted to bring this to your attention promptly for your clinical guidance. Please advise on the refill and whether a same-day or urgent appointment is warranted.\n\nThank you,\nJessica Rivera, MA\nGreen Valley Clinic | Ext. 204</div></div><div class="wt-problem-box" style="margin-top:12px"><div class="wt-problem-label">📋 What Changed</div><div class="wt-problem-text">• Replaced [PATIENT DOB] with actual DOB\n• Replaced [Your Name] with MA's real name and credentials\n• Added clinic name and extension\n• Verified all clinical facts match the original situation\n• Confirmed tone and urgency level are appropriate\n→ Total editing time: approximately 90 seconds</div></div>`}
+];
+let currentStage=0;
+function showStage(i){
+  currentStage=i;
+  document.querySelectorAll('.wt-stage').forEach((s,si)=>{s.classList.remove('active','done');if(si<i)s.classList.add('done');else if(si===i)s.classList.add('active');});
+  document.getElementById('wtContainer').innerHTML=`<div class="wt-panel active"><div style="font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--purple-dark);margin-bottom:14px;">${stages[i].title}</div>${stages[i].content}<div class="wt-nav">${i>0?'<button class="wt-btn" onclick="showStage('+(i-1)+')">← Previous</button>':''} ${i<stages.length-1?'<button class="wt-btn primary" onclick="showStage('+(i+1)+')">Next Step →</button>':'<div style="background:var(--green-pale);border-radius:10px;padding:10px 16px;font-size:14px;color:var(--green);font-weight:600;">✅ Walkthrough Complete — This document is ready to send!</div>'}</div></div>`;
+}
+showStage(0);
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct! "Write an email about the patient" gives AI almost nothing to work with — no document type context (internal email? patient letter?), no recipient, no subject matter, no facts, no tone. The AI produced the only thing it could: a generic template. The solution is a complete rewrite of the prompt with all the context the AI needs to produce a useful draft. A good prompt for this situation might be: "Write a professional internal email from a medical assistant to the attending physician, summarizing a patient phone call about [specific issue], flagging [specific concern], and requesting guidance on [specific decision]." With that level of detail, the AI output will be dramatically more useful.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('The prompt was too vague'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ AI tools aren\'t broken when they produce generic output — they\'re responding to what they were given. A vague prompt produces vague output; a specific prompt produces specific output. And filling in placeholders manually defeats the purpose of using AI to help — you end up doing all the actual writing yourself while the AI just provided formatting. The real fix is rewriting the prompt with specific context before generating a new draft.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

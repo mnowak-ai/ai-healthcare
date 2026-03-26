@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>When NOT to Use AI for Documentation — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--red:#DC2626;--red-pale:#FFF1F1;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height;6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,56px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.no-ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.no-ai-card{background:var(--white);border:2px solid #FCA5A5;border-radius:18px;padding:20px;}
+.nac-icon{font-size:28px;margin-bottom:8px;}
+.nac-title{font-size:15px;font-weight:700;color:var(--red);margin-bottom:8px;}
+.nac-reason{font-size:13px;line-height:1.6;color:var(--gray-text);margin-bottom:10px;}
+.nac-example{background:var(--red-pale);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--red);}
+.nac-instead{background:var(--green-pale);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--green);margin-top:6px;}
+.decision-tree{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.dt-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.dt-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.dt-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.dt-scenarios{display:flex;flex-direction:column;gap:10px;}
+.dt-scenario{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:14px 18px;cursor:pointer;transition:all .2s;}
+.dt-scenario:hover{border-color:var(--purple);}
+.dt-scenario-text{font-size:14px;line-height:1.6;margin-bottom:8px;}
+.dt-opts{display:flex;gap:8px;}
+.dt-opt{padding:6px 16px;border-radius:8px;border:1.5px solid var(--purple-mid);font-size:12px;font-weight:600;cursor:pointer;background:var(--white);transition:all .2s;}
+.dt-opt:hover{border-color:var(--purple);}
+.dt-opt.use{border-color:var(--green);background:var(--green-pale);color:var(--green);}
+.dt-opt.no-use{border-color:var(--red);background:var(--red-pale);color:var(--red);}
+.dt-opt.wrong-use{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.dt-opt.wrong-no{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.dt-fb{font-size:13px;line-height:1.6;padding:10px 14px;border-radius:8px;margin-top:8px;display:none;}
+.dt-fb.show{display:block;animation:fadeIn .3s ease;}
+.dt-fb.ok{background:var(--green-pale);color:var(--green);}
+.dt-fb.bad{background:var(--red-pale);color:var(--red);}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:640px){.hero,.content{padding-left:24px;padding-right:24px;}.no-ai-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 2.2 · Using AI to Draft Documentation</div>
+  <h1>When NOT to Use AI for Documentation: The Situations That Require Human Writing From Scratch</h1>
+  <p class="hero-sub">AI-assisted drafting is a powerful skill — but knowing when NOT to use it is just as important. Some situations require the full weight of human judgment, empathy, and accountability from the very first word.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>Not Every Document Should Start With AI</h2>
+    <p>Learning to use AI for drafting gives you a genuine professional advantage. But the best professionals aren't the ones who use AI for everything — they're the ones who know when AI adds value and when it gets in the way.</p>
+    <p>AI produces text by averaging over patterns in training data. It can draft a professional memo or a standard clinical note quite well. But some documents aren't about average patterns. <mark>They're about this specific person, in this specific moment, and what that moment demands.</mark> For those documents, the act of writing from scratch isn't inefficiency — it's the point.</p>
+    <div class="pull-quote"><p>Using AI for a letter to a patient who just received a terminal diagnosis isn't just bad writing practice. It's a failure of professional responsibility.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Six Situations That Require Human Writing From Scratch</h2>
+    <div class="no-ai-grid">
+      <div class="no-ai-card">
+        <div class="nac-icon">💔</div>
+        <div class="nac-title">Sensitive or Bad-News Patient Communication</div>
+        <div class="nac-reason">A letter telling a patient their biopsy came back positive, their condition is terminal, or their insurance has been denied for a critical procedure requires human empathy that AI cannot reliably provide. These moments define the patient's experience of care.</div>
+        <div class="nac-example">❌ "Dear Ms. Chen, We are writing to inform you that your pathology results indicate a diagnosis of Stage 3 breast cancer as described above..." — AI-generated language that sounds correct but delivers devastating news with no warmth.</div>
+        <div class="nac-instead">✅ Write this yourself. Take the time. The patient deserves a human response to a human moment.</div>
+      </div>
+      <div class="no-ai-card">
+        <div class="nac-icon">📋</div>
+        <div class="nac-title">Clinical Incident Reports and Near-Miss Documentation</div>
+        <div class="nac-reason">An incident report documents what actually happened during an error or near-miss event. It must be factual, precise, and objective — written entirely from your direct observation. AI cannot know what you saw; it will fill in plausible-sounding language that may misrepresent the event.</div>
+        <div class="nac-example">❌ AI-generated incident report filled with generic language about "the event" and "standard protocols" that doesn't accurately describe what specifically occurred.</div>
+        <div class="nac-instead">✅ Write this yourself, immediately after the event, based only on what you directly observed. Every word must be factual.</div>
+      </div>
+      <div class="no-ai-card">
+        <div class="nac-icon">⚖️</div>
+        <div class="nac-title">Documentation Involving Legal or Compliance Matters</div>
+        <div class="nac-reason">Any documentation related to a complaint, grievance, legal inquiry, or compliance investigation carries legal weight. The precision of each word matters. AI doesn't understand the legal context and can introduce ambiguity or language that inadvertently admits liability.</div>
+        <div class="nac-example">❌ AI-drafted response to a patient complaint that uses language like "we acknowledge that the situation could have been handled better" — an implied admission of fault.</div>
+        <div class="nac-instead">✅ Consult your supervisor, compliance officer, or legal team first. Write carefully with that guidance.</div>
+      </div>
+      <div class="no-ai-card">
+        <div class="nac-icon">🧠</div>
+        <div class="nac-title">Complex Clinical Assessments Requiring Judgment</div>
+        <div class="nac-reason">A physician's assessment and plan for a complex, atypical case requires clinical reasoning that AI cannot replicate. AI can structure the note, but the actual medical thinking — why this diagnosis, why this treatment, what was ruled out — must come from the clinician's expertise.</div>
+        <div class="nac-example">❌ AI-generated assessment that selects the most common explanation for a symptom pattern instead of the correct but less common diagnosis that an experienced physician identified through clinical reasoning.</div>
+        <div class="nac-instead">✅ Use AI to structure the note if helpful, but write the Assessment and Plan section from your own clinical reasoning.</div>
+      </div>
+      <div class="no-ai-card">
+        <div class="nac-icon">👥</div>
+        <div class="nac-title">Interpersonal Conflict or Colleague Communication</div>
+        <div class="nac-reason">Messages addressing a workplace conflict, a performance concern, or a difficult interpersonal dynamic require human judgment about tone, relationship, and context. AI will produce something that sounds professionally reasonable but may be exactly wrong for the specific situation.</div>
+        <div class="nac-example">❌ AI-drafted message to a colleague about a recurring workflow problem that comes across as accusatory when you intended it to be collaborative.</div>
+        <div class="nac-instead">✅ Write this yourself. Consider having a trusted colleague or supervisor review it before sending.</div>
+      </div>
+      <div class="no-ai-card">
+        <div class="nac-icon">🔏</div>
+        <div class="nac-title">Any Document Containing Real Patient Information</div>
+        <div class="nac-reason">This is a legal line, not just a best practice. Entering real patient names, DOBs, MRNs, diagnoses, or any Protected Health Information into public AI tools is a HIPAA violation. The document type doesn't matter — the moment you enter PHI into an unapproved tool, you've crossed a federal line.</div>
+        <div class="nac-example">❌ Copying a patient's name, diagnosis, and treatment into ChatGPT to "help draft a referral letter faster."</div>
+        <div class="nac-instead">✅ Use only approved, HIPAA-compliant AI tools with patient data, or use anonymized/fictional placeholder information when practicing.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Should You Use AI or Write It Yourself? Quick Decision Practice</h2>
+    <p>For each scenario below, decide whether AI assistance is appropriate or if this requires human writing from scratch:</p>
+    <div class="decision-tree">
+      <div class="dt-label">🎯 Decision Practice</div>
+      <div class="dt-title">AI or Human? Make the Call</div>
+      <div class="dt-sub">Read each scenario and decide whether AI drafting assistance is appropriate.</div>
+      <div class="dt-scenarios" id="dtScenarios"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A clinic manager needs to write a letter to a patient whose mother just passed away while in the clinic's care under circumstances that the family found distressing. The manager is considering using AI to help draft a condolence and explanation letter. What should they do?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Use AI to draft the letter and review it carefully before sending — this is exactly the kind of routine communication AI can help with</button>
+        <button class="qopt" onclick="cq(this,false)">Use AI to get a starting structure, then completely rewrite it to add a personal touch</button>
+        <button class="qopt" onclick="cq(this,true)">Write this from scratch with legal or compliance guidance, because it combines two "never use AI" categories: sensitive patient communication about a death AND a potential legal/complaint situation. The exact phrasing carries legal weight and the empathy must be genuine, not templated.</button>
+        <button class="qopt" onclick="cq(this,false)">Have the physician write this letter since it involves clinical care — administrative staff shouldn't write about medical events</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Six situations require human writing from scratch: sensitive/bad-news patient communications, clinical incident reports, legal and compliance documents, complex clinical assessments, interpersonal conflict communications, and any document that would require entering real patient PHI into an AI tool.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI produces text based on average patterns. Some documents need to respond to a specific human moment — a devastating diagnosis, an error that caused harm, a conflict that needs resolution. For those, the act of writing deliberately is not a workaround. It's a professional responsibility.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The question isn't "can AI help with this?" — AI can technically draft anything. The question is "should AI help with this?" Knowing the difference is what separates a thoughtful healthcare professional from someone who uses tools without judgment.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const dtData=[
+  {text:'A medical assistant needs to draft a routine appointment reminder email to patients scheduled for flu shots next week.',answer:'use',fbUse:'✅ Correct — use AI. Routine appointment reminders are high-volume, standardized communications where AI genuinely saves time. Key facts (date, time, location, any prep instructions) go in the prompt; the AI handles formatting and professional language.',fbNoUse:'❌ This is exactly the type of routine, standardized communication where AI assistance adds real value. Low stakes, high volume, standardized format — a great use case.'},
+  {text:'A charge nurse is writing a formal incident report after a medication was given to the wrong patient earlier in the shift.',answer:'no-use',fbUse:'❌ This requires human writing from scratch. An incident report documents what specifically happened, based on direct observation. AI doesn\'t know what you saw — it will fill in plausible language that may misrepresent the actual event. Every word in an incident report must be factually accurate and traceable to direct observation.',fbNoUse:'✅ Correct — write this yourself. Incident reports are legal documents that must reflect exactly what you directly observed. Never use AI for incident documentation.'},
+  {text:'A clinic coordinator needs to write a professional internal memo announcing new parking procedures for staff.',answer:'use',fbUse:'✅ Correct — AI is appropriate here. An internal staff memo about a procedural change is low-stakes, standardized, and benefits from AI\'s speed. Provide the key facts (what\'s changing, when, any action required) and let the AI handle the structure.',fbNoUse:'❌ A parking procedure announcement is exactly the kind of routine, low-stakes internal communication that AI handles well. No clinical content, no sensitive information, no legal complexity.'},
+  {text:'A physician needs to write a letter informing a patient that their Medicaid application was denied and they will now be responsible for the full cost of their upcoming surgery.',answer:'no-use',fbUse:'❌ This is sensitive patient communication with potential financial crisis implications and possible legal/appeal dimensions. An AI-drafted letter about this topic risks sounding cold at a moment requiring empathy, and may include language that affects the patient\'s rights in an appeal process. Write this with careful human judgment.',fbNoUse:'✅ Correct — write this yourself, ideally with guidance from your billing or compliance team. This is both sensitive patient communication and a situation with potential legal implications.'},
+  {text:'An administrative coordinator needs to draft templates for 10 different types of common patient follow-up messages.',answer:'use',fbUse:'✅ Correct — an excellent use of AI. Creating communication templates is exactly what AI does well. You provide the structure (template type, key elements to include, tone guidelines) and AI produces drafts that humans then review and approve as official templates.',fbNoUse:'❌ Template creation is a perfect AI use case. The templates themselves will undergo human review and approval before being used, and they don\'t contain real patient information at the drafting stage.'}
+];
+const dtAnswers={};
+const dtContainer=document.getElementById('dtScenarios');
+dtData.forEach((scenario,i)=>{
+  const div=document.createElement('div');div.className='dt-scenario';
+  div.innerHTML=`<div class="dt-scenario-text">${scenario.text}</div><div class="dt-opts"><button class="dt-opt" id="dto${i}_use" onclick="pickDt(${i},'use')">✅ Use AI</button><button class="dt-opt" id="dto${i}_no" onclick="pickDt(${i},'no-use')">✍️ Write from scratch</button></div><div class="dt-fb" id="dtfb${i}"></div>`;
+  dtContainer.appendChild(div);
+});
+function pickDt(i,action){
+  if(dtAnswers[i]!==undefined)return;
+  dtAnswers[i]=action;
+  const correct=action===dtData[i].answer;
+  document.getElementById('dto'+i+'_use').className='dt-opt '+(action==='use'?(correct?'use':'wrong-use'):'');
+  document.getElementById('dto'+i+'_no').className='dt-opt '+(action==='no-use'?(correct?'no-use':'wrong-no'):'');
+  const fb=document.getElementById('dtfb'+i);
+  fb.textContent=action==='use'?dtData[i].fbUse:dtData[i].fbNoUse;
+  fb.className='dt-fb show '+(correct?'ok':'bad');
+}
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct! This situation combines two categories that both require human writing from scratch: (1) it\'s a communication about a patient death, which is among the most sensitive moments in healthcare, and (2) the circumstances that the family found distressing suggest a potential complaint, grievance, or legal situation. The exact wording of this letter matters in ways AI cannot understand — every phrase will be read by a grieving family, possibly by legal counsel, possibly in a medical board proceeding. This deserves careful, deliberate human writing and legal/compliance review before sending.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('Write this from scratch'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ The combination of a patient death, family distress, and the implicit complaint/legal dimension makes this a situation where AI assistance — even with careful review — creates unacceptable risk. AI might produce language that sounds professionally appropriate but inadvertently admits fault, appears dismissive in a legal context, or fails to meet the genuine empathy this family deserves. This is a two-category "write from scratch" situation.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

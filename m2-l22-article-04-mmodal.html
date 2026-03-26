@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Real-World Spotlight: 3M M*Modal — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--red:#DC2626;--red-pale:#FFF1F1;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,56px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;}
+.stat-card{background:var(--purple-pale);border:2px solid var(--purple-mid);border-radius:18px;padding:22px;text-align:center;}
+.stat-num{font-family:'Fraunces',serif;font-size:36px;font-weight:900;color:var(--purple-dark);}
+.stat-label{font-size:13px;color:var(--gray-muted);margin-top:6px;line-height:1.4;}
+.feature-tabs{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.ft-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.ft-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ft-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.ft-nav{display:flex;gap:0;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;overflow:hidden;margin-bottom:20px;}
+.ft-btn{flex:1;padding:12px 8px;text-align:center;cursor:pointer;border:none;background:transparent;font-size:12px;font-weight:600;color:var(--gray-muted);border-right:1px solid var(--purple-mid);transition:all .2s;}
+.ft-btn:last-child{border-right:none;}
+.ft-btn.active{background:var(--purple);color:white;}
+.ft-panel{display:none;animation:fadeIn .3s ease;}
+.ft-panel.active{display:block;}
+.ft-feature-name{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ft-feature-desc{font-size:14px;line-height:1.7;color:var(--gray-text);margin-bottom:14px;}
+.ft-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.ft-col{background:var(--white);border-radius:12px;padding:14px 16px;border:1px solid var(--purple-mid);}
+.ft-col-title{font-size:12px;font-weight:700;text-transform:uppercase;color:var(--purple);margin-bottom:8px;letter-spacing:.08em;}
+.ft-col-item{font-size:13px;line-height:1.6;padding:4px 0;border-bottom:1px solid var(--purple-mid);}
+.ft-col-item:last-child{border-bottom:none;}
+.ft-insight{background:var(--green-pale);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--green);margin-top:12px;}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.compare-col{border-radius:18px;padding:20px;}
+.compare-col.old{background:#F1F5F9;border:2px solid #CBD5E1;}
+.compare-col.new{background:var(--green-pale);border:2px solid #86EFAC;}
+.compare-col-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;}
+.old .compare-col-label{color:#475569;}
+.new .compare-col-label{color:var(--green);}
+.compare-item{font-size:13px;line-height:1.6;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.07);}
+.compare-item:last-child{border-bottom:none;}
+.key-lesson{background:var(--white);border:2px solid var(--purple-mid);border-radius:18px;padding:22px;margin:24px 0;}
+.kl-icon{font-size:28px;margin-bottom:8px;}
+.kl-title{font-size:16px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.kl-text{font-size:14px;line-height:1.65;color:var(--gray-text);}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:640px){.hero,.content{padding-left:24px;padding-right:24px;}.stat-row,.compare-grid,.ft-grid{grid-template-columns:1fr;}.ft-btn{font-size:11px;padding:10px 4px;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 2.2 · Real-World Spotlight</div>
+  <h1>Real-World Spotlight: How 3M M*Modal Uses AI to Draft Clinical Summaries</h1>
+  <p class="hero-sub">3M M*Modal is one of the leading AI-powered clinical documentation systems used by health systems across the US. Understanding how it actually works — and what role humans play in the process — gives you a concrete mental model for AI-assisted drafting in any healthcare setting.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>Who Is 3M M*Modal?</h2>
+    <p>3M M*Modal (acquired by 3M Health Information Systems and now part of Solventum after a spin-off) is a company that has been building clinical documentation technology for over 20 years. Their flagship product, M*Modal Fluency Direct, is an AI-powered voice-to-text system used by physicians and clinical staff to dictate and draft medical documentation — directly inside EHR systems like Epic and Cerner.</p>
+    <p>Unlike general AI writing tools, <mark>M*Modal was trained specifically on clinical language from over 100 million medical documents.</mark> It understands medical terminology, clinical note structure, specialty-specific language, and even individual physician dictation patterns. When a cardiologist says "the patient had an NSTEMI with a peak troponin of 4.2 nanograms per milliliter," M*Modal knows exactly how to format that in a clinical note.</p>
+    <div class="stat-row">
+      <div class="stat-card"><div class="stat-num">100M+</div><div class="stat-label">Clinical documents in M*Modal's training dataset</div></div>
+      <div class="stat-card"><div class="stat-num">40%</div><div class="stat-label">Reduction in documentation time reported at implementing institutions</div></div>
+      <div class="stat-card"><div class="stat-num">300+</div><div class="stat-label">Health systems using M*Modal technology globally</div></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What M*Modal Actually Does — Explore Each Feature</h2>
+    <p>M*Modal isn't a single tool — it's a suite of capabilities that work together to streamline clinical documentation. Click each feature to understand what it does and how human review fits in:</p>
+    <div class="feature-tabs">
+      <div class="ft-label">🔬 M*Modal Feature Explorer</div>
+      <div class="ft-title">Four Core Capabilities</div>
+      <div class="ft-sub">Select each feature to see how it works and where human judgment is required.</div>
+      <div class="ft-nav">
+        <button class="ft-btn active" onclick="showFt(0)">Voice Recognition</button>
+        <button class="ft-btn" onclick="showFt(1)">AI Auto-Drafting</button>
+        <button class="ft-btn" onclick="showFt(2)">Clinical Coding Assist</button>
+        <button class="ft-btn" onclick="showFt(3)">Quality Flags</button>
+      </div>
+      <div id="ftContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The M*Modal Workflow: Before and After Implementation</h2>
+    <p>Here's what documentation workflows typically look like at health systems before and after implementing M*Modal:</p>
+    <div class="compare-grid">
+      <div class="compare-col old">
+        <div class="compare-col-label">📋 Before M*Modal</div>
+        <div class="compare-item">Physicians type notes after patient encounters — often hours later</div>
+        <div class="compare-item">Documentation happens at desktop workstations, not at point of care</div>
+        <div class="compare-item">Notes often completed at home ("pajama time") after shifts</div>
+        <div class="compare-item">Human transcriptionists review and format dictated notes</div>
+        <div class="compare-item">24–48 hour lag between encounter and finalized note</div>
+        <div class="compare-item">Note quality varies significantly by physician typing speed</div>
+      </div>
+      <div class="compare-col new">
+        <div class="compare-col-label">✅ After M*Modal</div>
+        <div class="compare-item">Physicians dictate in real time during or immediately after the patient encounter</div>
+        <div class="compare-item">Notes appear structured in the EHR within seconds of dictation</div>
+        <div class="compare-item">Documentation largely complete before leaving the exam room</div>
+        <div class="compare-item">AI replaces transcriptionist for routine cases; human review for complex ones</div>
+        <div class="compare-item">Notes available to the full care team almost immediately</div>
+        <div class="compare-item">Note completeness improved by AI prompts for missing clinical elements</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Human Review Step: What Physicians Still Do</h2>
+    <p>Despite M*Modal's capabilities, health systems using it are explicit: the physician's review of every AI-generated note is non-negotiable. Here's what the human review step actually looks like in practice:</p>
+    <div style="display:flex;flex-direction:column;gap:12px;margin:24px 0;">
+      <div class="key-lesson"><div class="kl-icon">✅</div><div class="kl-title">Verify every medication name, dose, and frequency</div><div class="kl-text">M*Modal is highly accurate with common medications but can mishear brand vs. generic names, confuse similar-sounding drugs, or capture dictated doses incorrectly. Every medication line in an AI draft requires a human verification check.</div></div>
+      <div class="key-lesson"><div class="kl-icon">🔍</div><div class="kl-title">Add context the AI couldn't capture</div><div class="kl-text">M*Modal processes speech — it cannot see that the patient was crying during the conversation about their diagnosis, or that the family member in the room reacted with alarm, or that the physician examined a specific rash that wasn't verbally described. These contextual details must be added manually.</div></div>
+      <div class="key-lesson"><div class="kl-icon">⚠️</div><div class="kl-title">Correct ambiguity resolutions the AI got wrong</div><div class="kl-text">When a dictated sentence is ambiguous ("the patient takes her medication twice" — twice what?), the AI makes a judgment call. Sometimes it's right. Sometimes it fills in with a plausible but incorrect interpretation. Review identifies these and corrects them before the note enters the record.</div></div>
+      <div class="key-lesson"><div class="kl-icon">📋</div><div class="kl-title">Confirm the assessment and plan match the encounter</div><div class="kl-text">The Assessment and Plan section — where the physician documents their clinical reasoning and treatment decisions — requires the most careful review. AI can draft the structure but cannot verify that the logic matches what actually happened in the room.</div></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="pull-quote"><p>M*Modal doesn't replace clinical judgment — it eliminates the friction between what a physician thinks and what ends up in the chart. The thinking is still entirely human.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A physician at a hospital using M*Modal dictates a note after seeing a patient. M*Modal generates the full note within 30 seconds and it appears in the EHR. The physician is running late for the next patient and signs the note without reading it. What is the risk, and who bears responsibility?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">No significant risk — M*Modal's accuracy rate is high enough that errors are rare</button>
+        <button class="qopt" onclick="cq(this,false)">3M bears responsibility — their system generated the note and should have caught any errors</button>
+        <button class="qopt" onclick="cq(this,true)">The physician bears full responsibility — by signing the note, they certified its accuracy. AI errors (misheard medications, wrong dosages, missing context) that would have been caught in review become part of the permanent record and the physician's legal accountability, regardless of how quickly the AI generated it.</button>
+        <button class="qopt" onclick="cq(this,false)">The hospital IT department — they implemented the system and should have trained the physician better</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>3M M*Modal is an AI-powered clinical documentation system trained on 100+ million clinical documents. It converts physician dictation into structured EHR notes, assists with clinical coding, and flags documentation gaps — reducing documentation time by approximately 40%.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Even with specialized clinical AI training, M*Modal requires physician review of every note — particularly for medication details, ambiguity resolutions, contextual information not captured in speech, and the accuracy of the assessment and plan section.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The signature step is the accountability step — regardless of which AI tool generated the note, signing it makes the physician legally and professionally responsible for every word. No AI company accepts that responsibility. The human always does.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const ftData=[
+  {name:'Voice Recognition & Real-Time Transcription',desc:'M*Modal listens as a physician dictates — during or immediately after a patient encounter — and converts speech to structured clinical text in seconds. Unlike consumer voice tools, it is trained specifically on medical language, handles complex terminology, and formats output according to clinical note conventions (SOAP, H&P, discharge summary, etc.).',what:['Converts dictated speech to structured EHR text in real time','Recognizes 100,000+ medical terms including drug names and diagnoses','Adapts to individual physician voice patterns and dictation style','Formats notes automatically into the correct clinical structure'],human:['Verify medications and dosages are transcribed correctly','Add non-verbal context from the encounter','Correct any misheard terms or ambiguous phrases','Confirm the note reflects what actually happened'],insight:'💡 Even at high accuracy rates, a 1% error rate across hundreds of notes per week generates multiple documentation errors that only human review can catch.'},
+  {name:'AI Auto-Drafting from Structured Data',desc:'Beyond voice transcription, M*Modal can pull structured data from the EHR — current medications, recent lab results, problem lists, prior visit notes — and incorporate it automatically into the drafted note. This means the physician doesn\'t have to re-state information already in the record.',what:['Auto-populates current medications from the medication list','Incorporates recent lab values into the appropriate note sections','References prior diagnoses from the problem list','Drafts routine sections (ROS, social history) from existing data'],human:['Verify all auto-populated data is current and accurate','Confirm medications list reflects what patient is actually taking (not just prescribed)','Identify any outdated information that was auto-included','Add any information not captured in the structured data'],insight:'💡 Auto-populated data comes from the chart, not from the encounter. If the chart is outdated or inaccurate, the note will be too — making it critical to verify before signing.'},
+  {name:'Clinical Coding Assistance',desc:'M*Modal can analyze a drafted note and suggest ICD-10 diagnosis codes and CPT procedure codes based on the documented clinical content. This helps ensure accurate medical billing and reduces coding errors that can lead to claim denials.',what:['Suggests ICD-10 codes based on documented diagnoses','Recommends CPT codes based on documented procedures','Flags documentation gaps that would prevent a code from being supported','Identifies when documentation suggests a higher complexity visit'],human:['Medical coders review all AI code suggestions before claim submission','Physicians may need to add documentation to support suggested codes','Final coding decisions always require human verification','Upcoding (billing for a more complex service) is a legal risk regardless of AI suggestion'],insight:'💡 A note that is clinically accurate but incompletely documented can still result in a denied insurance claim. AI helps close documentation gaps — but humans still own the billing accuracy.'},
+  {name:'Quality Flags & Completeness Alerts',desc:'M*Modal can analyze a draft note and flag areas where clinical documentation appears incomplete — a missing follow-up plan, an undocumented medication change, or a procedure mentioned without an associated diagnosis. These alerts appear during the review step.',what:['Flags notes where required elements appear missing','Alerts when a procedure lacks a supporting diagnosis code','Identifies when a medication change isn\'t reflected in the assessment','Highlights when a note is below expected completeness for the visit type'],human:['Physician reviews all flags before signing','Some flags are false positives — human judgment determines which to address','Adding information in response to a flag must be accurate, not just check a box','Missing elements may require going back to the patient for clarification'],insight:'💡 Quality flags help catch documentation gaps that would affect billing or compliance — but addressing them requires adding accurate clinical information, not just satisfying the alert.'}
+];
+let currentFt=0;
+function showFt(i){currentFt=i;document.querySelectorAll('.ft-btn').forEach((b,bi)=>b.classList.toggle('active',bi===i));renderFt();}
+function renderFt(){const f=ftData[currentFt];document.getElementById('ftContainer').innerHTML=`<div class="ft-panel active"><div class="ft-feature-name">${f.name}</div><div class="ft-feature-desc">${f.desc}</div><div class="ft-grid"><div class="ft-col"><div class="ft-col-title">✅ What the AI Does</div>${f.what.map(w=>`<div class="ft-col-item">• ${w}</div>`).join('')}</div><div class="ft-col"><div class="ft-col-title">👤 What Humans Must Still Do</div>${f.human.map(h=>`<div class="ft-col-item">• ${h}</div>`).join('')}</div></div><div class="ft-insight">${f.insight}</div></div>`;}
+renderFt();
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct! This scenario is one of the most well-documented risks associated with AI documentation tools in healthcare — clinicians becoming overconfident in AI accuracy and skipping the review step. M*Modal\'s accuracy is high, but "high accuracy" is not "perfect accuracy." A single note with a misheard medication dose, an incorrectly auto-populated allergy, or an ambiguously transcribed plan can cause patient harm — and the physician who signed without reviewing is professionally and legally responsible for that harm. 3M\'s terms of service explicitly state that the physician is responsible for reviewing and approving all AI-generated documentation before it becomes part of the medical record.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('physician bears full'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ AI tool companies are extremely explicit about liability: the healthcare provider who signs the note is responsible for its content, regardless of how it was generated. M*Modal\'s terms of service, like those of all clinical AI documentation companies, make clear that the tool is an assistive technology and that clinical and legal responsibility for the documentation rests entirely with the signing physician. High accuracy rates don\'t eliminate the review requirement — they make it easier to do quickly, not optional to skip.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
