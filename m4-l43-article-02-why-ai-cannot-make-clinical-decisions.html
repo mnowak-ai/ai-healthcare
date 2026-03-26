@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why AI Cannot Make Clinical Decisions — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.reasons{display:flex;flex-direction:column;gap:14px;margin:24px 0;}
+.reason{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px 22px;display:flex;gap:16px;align-items:flex-start;}
+.reason-num{width:36px;height:36px;background:var(--purple);color:white;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex-shrink:0;margin-top:2px;}
+.reason-body{flex:1;}
+.reason-title{font-size:16px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.reason-desc{font-size:14px;line-height:1.7;color:var(--gray-text);}
+.reason-example{background:var(--purple-pale);border-radius:8px;padding:8px 12px;font-size:13px;color:var(--purple-dark);margin-top:8px;}
+.ai-vs-human{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.avh-col{border-radius:16px;padding:20px;border:2px solid;}
+.avh-col.ai-side{background:#EEF2FF;border-color:#6366F1;}
+.avh-col.human-side{background:var(--green-pale);border-color:#86EFAC;}
+.avh-header{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.avh-col.ai-side .avh-header{color:#4338CA;}
+.avh-col.human-side .avh-header{color:var(--green);}
+.avh-item{font-size:13px;line-height:1.55;margin-bottom:8px;padding-left:14px;position:relative;color:var(--gray-text);}
+.avh-item::before{content:'→';position:absolute;left:0;font-weight:700;}
+.avh-col.ai-side .avh-item::before{color:#6366F1;}
+.avh-col.human-side .avh-item::before{color:var(--green);}
+.case-study{background:var(--white);border:2px solid var(--purple-mid);border-radius:20px;padding:28px;margin:24px 0;position:relative;overflow:hidden;}
+.case-study::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--red),#F87171);}
+.cs-badge{display:inline-flex;align-items:center;gap:6px;background:var(--red-pale);color:var(--red);font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;}
+.cs-title{font-family:'Fraunces',serif;font-size:19px;font-weight:700;color:var(--purple-dark);margin-bottom:10px;}
+.cs-body{font-size:15px;line-height:1.75;color:var(--gray-text);}
+.scope-chart{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:24px 0;}
+.scope-card{border-radius:14px;padding:16px;border:2px solid;text-align:center;}
+.scope-card.always{background:var(--green-pale);border-color:#86EFAC;}
+.scope-card.sometimes{background:var(--orange-pale);border-color:#FDE68A;}
+.scope-card.never{background:var(--red-pale);border-color:#FCA5A5;}
+.scope-icon{font-size:22px;margin-bottom:6px;}
+.scope-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
+.scope-card.always .scope-label{color:var(--green);}
+.scope-card.sometimes .scope-label{color:var(--orange);}
+.scope-card.never .scope-label{color:var(--red);}
+.scope-items{font-size:12px;line-height:1.7;color:var(--gray-text);text-align:left;}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.ai-vs-human{grid-template-columns:1fr;}.scope-chart{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 4.3 · Professional Boundaries</div>
+  <h1>Why AI Cannot Make Clinical Decisions — And What Happens When Healthcare Workers Forget That</h1>
+  <p class="hero-sub">The statement "AI shouldn't make clinical decisions" appears on a single slide in the video. It needs a full article. This is why that boundary exists, what it actually means across different healthcare roles, and what has happened in real cases when workers crossed it.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>What "Clinical Decision" Actually Means</h2>
+    <p>First, let's be precise. A clinical decision is any judgment that affects a patient's diagnosis, treatment, medication, care plan, or discharge — any determination that requires interpreting a patient's specific clinical situation and applying professional expertise to determine what should happen next.</p>
+    <p>AI can support clinical decisions in powerful ways — surfacing relevant information, flagging abnormal values, suggesting possibilities, checking for interactions. But <mark>the decision itself — the judgment call that a licensed professional is legally and ethically accountable for — must always be made by a human.</mark> Not reviewed by a human and rubber-stamped. Actually made.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Five Reasons AI Cannot Own Clinical Judgment</h2>
+    <div class="reasons">
+      <div class="reason">
+        <div class="reason-num">1</div>
+        <div class="reason-body">
+          <div class="reason-title">AI Cannot Be Held Accountable</div>
+          <div class="reason-desc">When a clinical decision harms a patient, someone is legally responsible. That person is the licensed professional — the physician, nurse, pharmacist, or PA who made or approved the decision. AI is software. It cannot be sued, have its license revoked, face criminal charges, or appear before a medical board. Accountability requires a human. Period.</div>
+          <div class="reason-example">💡 This isn't a technicality. It's the foundation of why medical licensing exists — to attach human accountability to clinical decisions.</div>
+        </div>
+      </div>
+      <div class="reason">
+        <div class="reason-num">2</div>
+        <div class="reason-body">
+          <div class="reason-title">AI Matches Patterns — It Doesn't Understand Patients</div>
+          <div class="reason-desc">AI identifies statistical patterns in data. It doesn't know that a patient is exhausted from caregiving, scared of hospitals due to a prior trauma, or that their reported pain level is underrepresented because they come from a community where expressing pain is culturally discouraged. Clinical judgment integrates all of this — AI can't even perceive it.</div>
+          <div class="reason-example">💡 A physician who knows their patient sees the whole person. AI sees the data points the patient's record happened to capture.</div>
+        </div>
+      </div>
+      <div class="reason">
+        <div class="reason-num">3</div>
+        <div class="reason-body">
+          <div class="reason-title">AI Cannot Apply Ethical Reasoning</div>
+          <div class="reason-desc">Clinical decisions frequently involve values — not just data. When a patient wants to refuse treatment. When family preferences conflict with patient preferences. When resources are limited and triage judgments must be made. When the medically indicated course of action isn't what the patient is able or willing to follow. These require ethical reasoning that AI cannot perform.</div>
+          <div class="reason-example">💡 Ethics isn't an optimization problem. It requires weighing incommensurable values — something AI can simulate but cannot genuinely do.</div>
+        </div>
+      </div>
+      <div class="reason">
+        <div class="reason-num">4</div>
+        <div class="reason-body">
+          <div class="reason-title">AI Doesn't Know What It Doesn't Know</div>
+          <div class="reason-desc">One of the most dangerous characteristics of AI in clinical settings is that it expresses uncertainty and certainty in the same confident tone. An AI that is 95% sure and an AI that is guessing look identical in their output. An experienced clinician develops calibrated uncertainty — knowing when they're confident and when they need to dig deeper. AI doesn't have this.</div>
+          <div class="reason-example">💡 "The AI said so confidently" is not a clinical rationale. Confidence in AI output is a property of the output format, not a measure of its reliability.</div>
+        </div>
+      </div>
+      <div class="reason">
+        <div class="reason-num">5</div>
+        <div class="reason-body">
+          <div class="reason-title">AI Recommendations May Not Apply to This Specific Patient</div>
+          <div class="reason-desc">Clinical AI tools are built from population-level patterns. They recommend what worked best, on average, for patients who looked similar in the data. But every patient is an individual. Comorbidities, medications, social circumstances, preferences, and anatomy can all make the population-average recommendation wrong for a specific person — and only a clinician with full context can make that judgment.</div>
+          <div class="reason-example">💡 "Works on average" is not the same as "right for this patient in front of me right now."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What AI Can and Cannot Do in Clinical Settings</h2>
+    <div class="ai-vs-human">
+      <div class="avh-col ai-side">
+        <div class="avh-header">🤖 What AI Can Legitimately Do</div>
+        <div class="avh-item">Surface relevant patient history the clinician might not have immediately recalled</div>
+        <div class="avh-item">Flag abnormal lab values or vital sign trends for human review</div>
+        <div class="avh-item">Check for drug interactions or contraindications</div>
+        <div class="avh-item">Suggest possible diagnoses for a clinician to consider and evaluate</div>
+        <div class="avh-item">Predict population-level risks to help prioritize attention</div>
+        <div class="avh-item">Draft documentation for human review and approval</div>
+        <div class="avh-item">Summarize a complex record to assist pre-visit preparation</div>
+      </div>
+      <div class="avh-col human-side">
+        <div class="avh-header">👨‍⚕️ What Must Stay Human</div>
+        <div class="avh-item">Diagnosing a condition</div>
+        <div class="avh-item">Ordering treatments or medications</div>
+        <div class="avh-item">Determining that a symptom does or doesn't require follow-up</div>
+        <div class="avh-item">Deciding on a care plan or discharge timing</div>
+        <div class="avh-item">Interpreting ambiguous or conflicting clinical information</div>
+        <div class="avh-item">Having conversations about prognosis, risk, or treatment options</div>
+        <div class="avh-item">Making triage decisions when resources are limited</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What Happens When This Boundary Gets Crossed</h2>
+    <div class="case-study">
+      <div class="cs-badge">📖 Real Case</div>
+      <div class="cs-title">IBM Watson for Oncology — When Confident AI Recommendations Were Wrong</div>
+      <div class="cs-body">IBM's Watson for Oncology was deployed at several major cancer centers internationally, marketed as an AI that could recommend cancer treatments. At some institutions, oncologists treated Watson's recommendations with a level of deference that went beyond appropriate consultation. Internal documents reviewed by STAT News revealed that Watson was producing "unsafe and incorrect" treatment recommendations — recommending treatments that the oncologists who helped build it said they would never use.<br><br>At one institution in South Korea, a review of 638 cancer patients found that Watson agreed with the treating oncologist in only 49% of lung cancer cases. At another hospital, Watson recommended chemotherapy for a patient who was actively bleeding — a contraindication a human clinician immediately recognized but the AI did not account for.<br><br>IBM discontinued the Watson for Oncology product in 2022. The cases highlight the exact failure mode this article addresses: when healthcare workers defer to AI rather than using it as one input among many, the results can be dangerous. Watson didn't harm patients by itself — it required human deference to do so.</div>
+    </div>
+    <div class="pull-quote"><p>AI tools don't cause harm by existing. They cause harm when healthcare workers treat their outputs as decisions rather than suggestions — and abdicate the professional judgment that licensing, training, and accountability exist to protect.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Scope Question: What Role Are You In?</h2>
+    <p>The clinical decision boundary isn't just about AI — it maps directly to your professional scope of practice. Understanding what AI can support in your specific role is essential:</p>
+    <div class="scope-chart">
+      <div class="scope-card always">
+        <div class="scope-icon">✅</div>
+        <div class="scope-label">Always Appropriate</div>
+        <div class="scope-items">Using AI to flag information for clinical staff · AI-assisted scheduling · AI documentation drafting (with review) · AI summarization for preparation · Automated reminders and follow-ups</div>
+      </div>
+      <div class="scope-card sometimes">
+        <div class="scope-icon">⚠️</div>
+        <div class="scope-label">Role-Dependent</div>
+        <div class="scope-items">AI diagnostic suggestions (physicians/NPs/PAs only, as one input) · AI risk scores (licensed clinicians interpreting, not acting automatically) · AI medication checks (pharmacist or prescriber verification required)</div>
+      </div>
+      <div class="scope-card never">
+        <div class="scope-icon">🚫</div>
+        <div class="scope-label">Never Appropriate</div>
+        <div class="scope-items">Telling a patient their diagnosis based on AI output · Changing a care plan because AI suggested it, without clinician review · Using AI to decide whether a symptom "needs attention" without clinical training · Treating AI output as a final answer rather than a prompt for human judgment</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A patient in the waiting room tells a front desk coordinator that they're feeling short of breath. The coordinator isn't sure how urgent this is, so she quickly enters the symptom into an AI symptom checker, which rates it as "low urgency." She tells the patient to wait their turn. What is the primary error here?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">The error is that the AI symptom checker was not approved by the organization</button>
+        <button class="qopt" onclick="cq(this,false)">There is no error — using AI to help with triage is a reasonable use of available technology</button>
+        <button class="qopt" onclick="cq(this,true)">The coordinator made a clinical triage decision based on AI output — this is entirely outside a front desk role and the AI's "low urgency" rating does not carry clinical authority; shortness of breath should be immediately escalated to clinical staff</button>
+        <button class="qopt" onclick="cq(this,false)">The error is that the coordinator didn't document her reasoning for not escalating</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI cannot make clinical decisions because it cannot be held accountable, cannot understand individual patients, cannot apply ethical reasoning, doesn't know what it doesn't know, and makes population-level recommendations that may not apply to specific patients.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI can support clinical decision-making powerfully — flagging information, checking interactions, drafting notes, predicting risk. But the actual decision — the judgment call a licensed professional is accountable for — must be made by a human every time.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Scope of practice applies to AI-assisted tasks just as it does to any other task. A front desk coordinator's scope doesn't expand because they have access to an AI tool — and neither does anyone else's.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. This is a scope of practice violation regardless of what tool was used. Front desk coordinators are not clinically licensed to make triage decisions — and using an AI tool doesn\'t grant that authority. Shortness of breath is a potentially serious symptom that requires immediate clinical assessment. The correct action is to notify clinical staff immediately, not to manage the situation with an AI tool. The "low urgency" AI rating has no clinical authority whatsoever in this context.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('clinical triage decision'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ The tool approval status is a secondary concern — the primary error is scope of practice. Front desk staff are not licensed to make clinical triage decisions, and using an AI tool doesn\'t change that. The AI\'s "low urgency" rating carries no clinical authority. Shortness of breath is a potentially serious cardiac or pulmonary symptom that must be assessed by clinical staff immediately. The coordinator\'s job when a patient reports a potentially urgent symptom is to escalate — not to independently evaluate urgency with or without AI assistance.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
