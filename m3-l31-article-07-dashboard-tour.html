@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Guided Tour of a Hospital Operations Dashboard — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+.section{padding:36px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* ── LIVE DASHBOARD MOCKUP ── */
+.dashboard-shell{background:#1A1035;border-radius:20px;padding:24px;margin:28px 0;position:relative;}
+.db-topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;}
+.db-title-area{}
+.db-facility{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.5);margin-bottom:2px;}
+.db-name{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:white;}
+.db-timestamp{font-size:12px;color:rgba(255,255,255,.4);margin-top:2px;}
+.db-status{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);border-radius:100px;padding:6px 14px;}
+.db-status-dot{width:8px;height:8px;background:#22C55E;border-radius:50%;animation:pulse 2s infinite;}
+.db-status-label{font-size:12px;font-weight:600;color:rgba(255,255,255,.75);}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+
+/* KPI ROW */
+.db-kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+.db-kpi{border-radius:14px;padding:16px;cursor:pointer;transition:all .2s;position:relative;border:2px solid transparent;}
+.db-kpi:hover{transform:translateY(-2px);}
+.db-kpi.selected{border-color:rgba(255,255,255,.5);}
+.db-kpi.status-good{background:rgba(39,103,73,.3);}
+.db-kpi.status-warn{background:rgba(217,119,6,.3);}
+.db-kpi.status-bad{background:rgba(220,38,38,.3);}
+.db-kpi.status-neutral{background:rgba(123,47,190,.25);}
+.db-kpi-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.55);margin-bottom:6px;}
+.db-kpi-value{font-family:'Fraunces',serif;font-size:28px;font-weight:900;color:white;line-height:1;margin-bottom:4px;}
+.db-kpi-unit{font-size:11px;color:rgba(255,255,255,.5);}
+.db-kpi-trend{font-size:11px;font-weight:700;margin-top:6px;}
+.db-kpi-trend.up-bad{color:#F87171;}
+.db-kpi-trend.up-good{color:#4ADE80;}
+.db-kpi-trend.down-good{color:#4ADE80;}
+.db-kpi-trend.down-bad{color:#F87171;}
+.db-kpi-trend.stable{color:rgba(255,255,255,.45);}
+.db-kpi-status-dot{width:8px;height:8px;border-radius:50%;position:absolute;top:12px;right:12px;}
+.status-good .db-kpi-status-dot{background:#22C55E;}
+.status-warn .db-kpi-status-dot{background:#F59E0B;}
+.status-bad .db-kpi-status-dot{background:#F87171;}
+.status-neutral .db-kpi-status-dot{background:#A78BFA;}
+
+/* SECOND ROW — charts placeholder area */
+.db-charts-row{display:grid;grid-template-columns:2fr 1fr;gap:10px;margin-bottom:14px;}
+.db-chart-box{background:rgba(255,255,255,.06);border-radius:14px;padding:16px;}
+.db-chart-title{font-size:11px;font-weight:700;text-transform:uppercase;color:rgba(255,255,255,.5);letter-spacing:.1em;margin-bottom:12px;}
+.db-mini-chart{display:flex;align-items:flex-end;gap:4px;height:60px;}
+.db-bar{border-radius:4px 4px 0 0;flex:1;transition:all .3s;}
+.db-bar.low{background:rgba(74,222,128,.7);}
+.db-bar.mid{background:rgba(251,191,36,.7);}
+.db-bar.high{background:rgba(248,113,113,.7);}
+.db-bar.today{outline:2px solid white;}
+.db-chart-labels{display:flex;gap:4px;margin-top:4px;}
+.db-bar-label{flex:1;text-align:center;font-size:9px;color:rgba(255,255,255,.4);}
+.db-donut-area{display:flex;align-items:center;justify-content:center;gap:12px;}
+.db-donut{position:relative;width:80px;height:80px;}
+.db-donut svg{transform:rotate(-90deg);}
+.db-donut-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
+.db-donut-num{font-family:'Fraunces',serif;font-size:18px;font-weight:900;color:white;line-height:1;}
+.db-donut-sub{font-size:9px;color:rgba(255,255,255,.5);}
+.db-donut-legend{font-size:11px;color:rgba(255,255,255,.6);line-height:1.6;}
+
+/* ALERTS STRIP */
+.db-alerts{display:flex;flex-direction:column;gap:6px;}
+.db-alert{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.06);border-radius:10px;padding:10px 14px;cursor:pointer;transition:all .2s;border-left:3px solid transparent;}
+.db-alert:hover{background:rgba(255,255,255,.1);}
+.db-alert.alert-red{border-left-color:#F87171;}
+.db-alert.alert-yellow{border-left-color:#F59E0B;}
+.db-alert.alert-green{border-left-color:#4ADE80;}
+.db-alert-icon{font-size:16px;flex-shrink:0;}
+.db-alert-text{font-size:12px;color:rgba(255,255,255,.8);flex:1;line-height:1.4;}
+.db-alert-time{font-size:10px;color:rgba(255,255,255,.35);}
+
+/* EXPLANATION PANEL */
+.explain-panel{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:20px;padding:28px;margin-top:16px;min-height:80px;animation:fadeIn .3s ease;}
+.ep-empty{color:var(--gray-muted);font-size:15px;text-align:center;padding:20px 0;}
+.ep-kpi-name{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.12em;margin-bottom:6px;}
+.ep-headline{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:10px;line-height:1.25;}
+.ep-body{font-size:15px;line-height:1.75;color:var(--gray-text);margin-bottom:14px;}
+.ep-zones{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+.ep-zone{padding:5px 12px;border-radius:8px;font-size:12px;font-weight:700;}
+.ep-zone.g{background:var(--green-pale);color:var(--green);}
+.ep-zone.o{background:var(--orange-pale);color:var(--orange);}
+.ep-zone.r{background:var(--red-pale);color:var(--red);}
+.ep-action{background:var(--purple-pale);border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:12px 16px;font-size:14px;color:var(--purple-dark);line-height:1.65;}
+.ep-action-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.08em;margin-bottom:4px;}
+
+/* READING ORDER GUIDE */
+.reading-order{margin:28px 0;}
+.ro-title{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);font-weight:700;margin-bottom:16px;}
+.ro-steps{display:flex;flex-direction:column;gap:10px;}
+.ro-step{display:flex;gap:14px;align-items:flex-start;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:16px 18px;}
+.ro-step-num{width:32px;height:32px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:white;flex-shrink:0;}
+.ro-step-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.ro-step-body{font-size:13px;line-height:1.6;color:var(--gray-text);}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+
+/* SUMMARY */
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:640px){
+  .hero,.content{padding-left:24px;padding-right:24px;}
+  .db-kpi-row{grid-template-columns:repeat(2,1fr);}
+  .db-charts-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Lesson 3.1 → 3.2 Bridge · Data Literacy</div>
+  <h1>A Guided Tour of a Hospital Operations Dashboard: What Every Number Means</h1>
+  <p class="hero-sub">Dashboards are how AI communicates with healthcare workers. Before Lesson 3.2 teaches you how to read them like a pro, this article gives you your first hands-on walkthrough — click any metric and learn exactly what it measures, what good looks like, and what a manager should do with it.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Your First Look Inside a Real Operations Dashboard</h2>
+    <p>In a hospital or clinic, a <strong>operations dashboard</strong> is a live screen — usually on a monitor at the nurses' station, in the administrator's office, or on a tablet — that pulls data from all of the facility's systems and shows the most important numbers in one place. It updates automatically, often in real time.</p>
+    <p>Think of it like a cockpit. A pilot doesn't watch the engines by going back and physically looking at them every few minutes. They have a panel of instruments that shows altitude, speed, fuel, and warnings — all at once, always current. An operations dashboard does the same thing for a healthcare facility: <mark>it gives the people running the building one place to see everything that matters.</mark></p>
+    <p>The interactive dashboard below is built from the same metrics you'd find at a real mid-size hospital. <strong>Click any metric tile to learn exactly what it means, what healthy ranges look like, and what the right response is when a number goes wrong.</strong></p>
+  </div>
+
+  <!-- THE DASHBOARD -->
+  <div class="fade-in">
+    <div style="font-size:13px;color:var(--gray-muted);margin-bottom:10px;text-align:center;">👇 Click any tile on the dashboard to see a full explanation below</div>
+    <div class="dashboard-shell">
+      <div class="db-topbar">
+        <div class="db-title-area">
+          <div class="db-facility">Riverside General Hospital</div>
+          <div class="db-name">Operations Dashboard</div>
+          <div class="db-timestamp" id="dbTimestamp">Loading...</div>
+        </div>
+        <div class="db-status">
+          <div class="db-status-dot"></div>
+          <div class="db-status-label">Live · Auto-updating</div>
+        </div>
+      </div>
+
+      <!-- KPI ROW -->
+      <div class="db-kpi-row">
+        <div class="db-kpi status-bad" onclick="explainKPI('occupancy')" id="kpi-occupancy">
+          <div class="db-kpi-status-dot"></div>
+          <div class="db-kpi-label">Bed Occupancy</div>
+          <div class="db-kpi-value">93<span style="font-size:18px;">%</span></div>
+          <div class="db-kpi-unit">of all beds filled</div>
+          <div class="db-kpi-trend up-bad">↑ +8% vs. yesterday</div>
+        </div>
+        <div class="db-kpi status-warn" onclick="explainKPI('wait')" id="kpi-wait">
+          <div class="db-kpi-status-dot"></div>
+          <div class="db-kpi-label">ER Avg. Wait</div>
+          <div class="db-kpi-value">38<span style="font-size:18px;">min</span></div>
+          <div class="db-kpi-unit">since midnight avg.</div>
+          <div class="db-kpi-trend up-bad">↑ +9 min vs. target</div>
+        </div>
+        <div class="db-kpi status-bad" onclick="explainKPI('ratio')" id="kpi-ratio">
+          <div class="db-kpi-status-dot"></div>
+          <div class="db-kpi-label">Nurse:Patient Ratio</div>
+          <div class="db-kpi-value">1:6</div>
+          <div class="db-kpi-unit">current shift avg.</div>
+          <div class="db-kpi-trend up-bad">↑ over safe threshold</div>
+        </div>
+        <div class="db-kpi status-good" onclick="explainKPI('satisfaction')" id="kpi-satisfaction">
+          <div class="db-kpi-status-dot"></div>
+          <div class="db-kpi-label">Patient Satisfaction</div>
+          <div class="db-kpi-value">87<span style="font-size:18px;">%</span></div>
+          <div class="db-kpi-unit">rolling 7-day score</div>
+          <div class="db-kpi-trend stable">→ stable vs. last week</div>
+        </div>
+      </div>
+
+      <div class="db-kpi-row">
+        <div class="db-kpi status-warn" onclick="explainKPI('fill')" id="kpi-fill">
+          <div class="db-kpi-status-dot"></div>
+          <div class="db-kpi-label">Schedule Fill Rate</div>
+          <div class="db-kpi-value">79<span style="font-size:18px;">%</span></div>
+          <div class="db-kpi-unit">today's appointments</div>
+          <div class="db-kpi-trend down-bad">↓ below 88% target</div>
+        </div>
+        <div class="db-kpi status-good" onclick="explainKPI('med')" id="kpi-med">
+          <div class="db-kpi-status-dot"></div>
+          <div class="db-kpi-label">Medication Accuracy</div>
+          <div class="db-kpi-value">99<span style="font-size:18px;">.1%</span></div>
+          <div class="db-kpi-unit">of doses this shift</div>
+          <div class="db-kpi-trend up-good">↑ above 98% target</div>
+        </div>
+        <div class="db-kpi status-warn" onclick="explainKPI('los')" id="kpi-los">
+          <div class="db-kpi-status-dot"></div>
+          <div class="db-kpi-label">Avg. Length of Stay</div>
+          <div class="db-kpi-value">4.3<span style="font-size:18px;">days</span></div>
+          <div class="db-kpi-unit">inpatient rolling avg.</div>
+          <div class="db-kpi-trend up-bad">↑ +0.5 vs. target</div>
+        </div>
+        <div class="db-kpi status-bad" onclick="explainKPI('supply')" id="kpi-supply">
+          <div class="db-kpi-status-dot"></div>
+          <div class="db-kpi-label">Supply Alerts</div>
+          <div class="db-kpi-value">3</div>
+          <div class="db-kpi-unit">items below threshold</div>
+          <div class="db-kpi-trend up-bad">↑ up from 1 yesterday</div>
+        </div>
+      </div>
+
+      <!-- MINI CHARTS ROW -->
+      <div class="db-charts-row">
+        <div class="db-chart-box">
+          <div class="db-chart-title">📈 ER Wait Time — Last 7 Days (min)</div>
+          <div class="db-mini-chart">
+            <div class="db-bar low" style="height:42%;"></div>
+            <div class="db-bar low" style="height:38%;"></div>
+            <div class="db-bar mid" style="height:58%;"></div>
+            <div class="db-bar low" style="height:44%;"></div>
+            <div class="db-bar mid" style="height:62%;"></div>
+            <div class="db-bar mid" style="height:55%;"></div>
+            <div class="db-bar high today" style="height:76%;"></div>
+          </div>
+          <div class="db-chart-labels">
+            <div class="db-bar-label">Mon</div><div class="db-bar-label">Tue</div><div class="db-bar-label">Wed</div>
+            <div class="db-bar-label">Thu</div><div class="db-bar-label">Fri</div><div class="db-bar-label">Sat</div>
+            <div class="db-bar-label" style="color:white;font-weight:700;">Today</div>
+          </div>
+        </div>
+        <div class="db-chart-box">
+          <div class="db-chart-title">🛏️ Bed Status Right Now</div>
+          <div class="db-donut-area">
+            <div class="db-donut">
+              <svg viewBox="0 0 36 36" width="80" height="80">
+                <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="3.8"/>
+                <circle cx="18" cy="18" r="15.9" fill="none" stroke="#F87171" stroke-width="3.8" stroke-dasharray="93 7" stroke-linecap="round"/>
+              </svg>
+              <div class="db-donut-label"><div class="db-donut-num">93%</div><div class="db-donut-sub">full</div></div>
+            </div>
+            <div class="db-donut-legend">
+              <span style="color:#F87171;">■</span> 186 occupied<br>
+              <span style="color:rgba(255,255,255,.3);">■</span> 14 available<br>
+              <span style="color:#F59E0B;">■</span> 4 in turnover
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ALERTS -->
+      <div class="db-chart-box" style="background:rgba(255,255,255,.04);">
+        <div class="db-chart-title">🔔 Active AI Alerts — Click to read</div>
+        <div class="db-alerts">
+          <div class="db-alert alert-red" onclick="explainAlert('staffing')">
+            <span class="db-alert-icon">🚨</span>
+            <span class="db-alert-text">Staffing shortfall projected for tonight's 7PM shift — current bookings 2 nurses below predicted demand</span>
+            <span class="db-alert-time">8 min ago</span>
+          </div>
+          <div class="db-alert alert-yellow" onclick="explainAlert('supply')">
+            <span class="db-alert-icon">⚠️</span>
+            <span class="db-alert-text">Exam gloves: 1.8 days remaining at current usage — reorder lead time is 2 days</span>
+            <span class="db-alert-time">23 min ago</span>
+          </div>
+          <div class="db-alert alert-yellow" onclick="explainAlert('schedule')">
+            <span class="db-alert-icon">📅</span>
+            <span class="db-alert-text">Thursday afternoon schedule at 71% fill — 8 open slots, 6 patients on waitlist</span>
+            <span class="db-alert-time">1 hr ago</span>
+          </div>
+          <div class="db-alert alert-green" onclick="explainAlert('discharge')">
+            <span class="db-alert-icon">✅</span>
+            <span class="db-alert-text">4 patients predicted ready for discharge today — discharge planning team notified</span>
+            <span class="db-alert-time">2 hrs ago</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXPLANATION PANEL -->
+    <div class="explain-panel" id="explainPanel">
+      <div class="ep-empty">👆 Click any metric tile or alert above to see a full explanation of what it means, what's healthy, and what to do about it.</div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>How to Read Any Dashboard: A 4-Step Approach</h2>
+    <p>Before Lesson 3.2 goes deeper on dashboard analysis, here's a simple framework you can use immediately. Every time you sit down in front of an operations dashboard, work through these four steps in order:</p>
+    <div class="reading-order">
+      <div class="ro-steps">
+        <div class="ro-step">
+          <div class="ro-step-num">1</div>
+          <div><div class="ro-step-title">Scan the status indicators first</div><div class="ro-step-body">Before reading any specific number, look at the color coding — red, yellow, green. This tells you instantly where the problems are. Don't start by reading everything left to right — start by finding what needs attention.</div></div>
+        </div>
+        <div class="ro-step">
+          <div class="ro-step-num">2</div>
+          <div><div class="ro-step-title">Read the trend arrows, not just the numbers</div><div class="ro-step-body">A number in isolation tells you the current state. The trend arrow tells you the direction. A bed occupancy of 85% is fine if the arrow is pointing down. The same 85% is alarming if the arrow has been pointing up for three days straight and the trend is accelerating.</div></div>
+        </div>
+        <div class="ro-step">
+          <div class="ro-step-num">3</div>
+          <div><div class="ro-step-title">Look for connected problems</div><div class="ro-step-body">Dashboard metrics don't exist in isolation. High bed occupancy + low nurse ratio + rising ER wait times are almost certainly connected. A single root cause (understaffing, for example) can drive three red metrics simultaneously. Finding the connection is the highest-value thing a human does with dashboard data.</div></div>
+        </div>
+        <div class="ro-step">
+          <div class="ro-step-num">4</div>
+          <div><div class="ro-step-title">Check the AI alerts last</div><div class="ro-step-body">After you've formed your own read on the dashboard, check the AI alerts. Sometimes they'll confirm what you saw. Sometimes they'll catch something you missed. Either way, seeing the alerts after you've already formed an independent read helps you evaluate them critically rather than just accepting them.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="pull-quote"><p>A dashboard doesn't make decisions. It makes it possible for you to make better ones — faster. The reading skill is what converts numbers into action.</p></div>
+  </div>
+
+  <div class="quiz fade-in">
+    <div class="quiz-label">🧠 Quick Check</div>
+    <div class="quiz-q">Looking at the Riverside General dashboard above: bed occupancy is 93% (red), ER wait time is 38 minutes (yellow), and nurse-to-patient ratio is 1:6 (red). A new administrator looking at this dashboard says, "We have three separate problems today." What's the more accurate read?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="cq(this,false)">She's correct — three different metrics are flagged, so there are three different problems that each need their own solution</button>
+      <button class="qopt" onclick="cq(this,true)">These three metrics are almost certainly connected — understaffing (1:6 ratio) is likely the root cause driving both the high occupancy (patients can't be processed and discharged efficiently) and the long ER wait times (not enough staff to move patients through quickly)</button>
+      <button class="qopt" onclick="cq(this,false)">The dashboard is unreliable — three red flags at once usually means a data quality problem, not a real operational crisis</button>
+      <button class="qopt" onclick="cq(this,false)">She should focus only on the most severe metric (occupancy) and ignore the others until that one is resolved</button>
+    </div>
+    <div class="qfb" id="qfb"></div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Key Takeaways</div>
+    <h2>What to Remember From This Article</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>An operations dashboard pulls live data from all a facility's systems into one view — giving the people running the building a real-time picture of everything that matters. It's updated automatically, not manually.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Each metric has a meaning, a target range, and a response. Understanding all three — not just the number — is what turns dashboard reading into a real skill. "93% occupancy" is only useful if you know what target it's being measured against and what you should do about it.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Dashboard metrics are connected. The most valuable thing a human brings to a dashboard is the ability to see that three red metrics might have one root cause — and to investigate the connection rather than treating each flag as a separate problem.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The 4-step reading approach: scan status colors first, read trend arrows not just numbers, look for connected problems, then check AI alerts. This order helps you form an independent view before the AI shapes your thinking.</p></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Timestamp
+document.getElementById('dbTimestamp').textContent = 'Last updated: ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) + ' · ' + new Date().toLocaleDateString([], {weekday:'long', month:'short', day:'numeric'});
+
+const kpiExplanations = {
+  occupancy: {
+    name: 'Bed Occupancy Rate',
+    headline: 'At 93%, this hospital is running critically close to capacity',
+    body: 'Bed occupancy rate measures what percentage of the hospital\'s licensed beds are currently filled with patients. At 93%, Riverside General has only 14 beds available out of 200 total — which means there\'s almost no buffer for emergency admissions or unexpected surges. Healthcare professionals generally consider 85% the upper safe limit for sustained operations. Above that, the system starts to strain: patients can\'t be moved from the ER to inpatient beds quickly enough, discharge planning gets rushed, and staff are stretched across too many patients.',
+    zones: ['✅ Good: 75–85%', '⚠️ Watch: 85–92%', '🚨 Critical: 92%+'],
+    action: 'At 93%, the right immediate actions are: (1) Activate the discharge planning team to identify patients ready to go home today — every discharge opens a bed. (2) Alert the ER to expect delays in patient transfers to inpatient floors. (3) Review the staffing schedule — high occupancy with understaffing is a patient safety combination. The AI has already flagged this and generated 4 discharge candidates.'
+  },
+  wait: {
+    name: 'ER Average Wait Time',
+    headline: 'At 38 minutes, ER wait time is above the 30-minute target — and climbing',
+    body: 'This metric shows the average time from when a patient arrives in the emergency room to when they are seen by a provider. Today\'s average of 38 minutes is 9 minutes above Riverside\'s 30-minute target. More importantly, looking at the bar chart above, today\'s wait time is the highest in 7 days and trending sharply upward through the morning. A number in isolation is one thing — a number that\'s getting worse over time is something that requires immediate attention.',
+    zones: ['✅ Good: under 25 min', '⚠️ Watch: 25–35 min', '🚨 Critical: 35+ min'],
+    action: 'The rising trend is the real concern, not just the current number. Actions: (1) Investigate the bottleneck — is it intake, provider availability, or inability to move treated patients to inpatient beds? (2) If it\'s the inpatient bed problem (which today\'s high occupancy suggests), expediting discharges is the root fix. (3) If it\'s a staffing issue in the ER itself, contact on-call staff now before the afternoon peak hits.'
+  },
+  ratio: {
+    name: 'Nurse-to-Patient Ratio',
+    headline: 'At 1:6, nurses are managing significantly more patients than is considered safe',
+    body: 'The nurse-to-patient ratio measures how many patients each nurse is directly responsible for on the current shift. Most healthcare safety guidelines and many state laws set the safe limit at 1:4 (one nurse per four patients) for medical-surgical floors, and 1:2 or 1:3 for ICU. At 1:6, nurses at Riverside are managing 50% more patients than the safe threshold. Research consistently shows that each additional patient per nurse above the safe ratio is associated with measurable increases in patient adverse events, medication errors, and patient mortality.',
+    zones: ['✅ Safe: 1:3 or 1:4', '⚠️ Watch: 1:5', '🚨 Critical: 1:6 or higher'],
+    action: 'This is the most urgent metric on today\'s dashboard. Actions: (1) Contact agency or float pool nurses immediately — this cannot wait until the situation gets worse. (2) Review whether any scheduled procedures can be deferred to reduce the patient count. (3) Alert the charge nurse and floor supervisors so they can prioritize patient monitoring. (4) Document the staffing ratio formally — if a patient adverse event occurs today, the documented staffing level is part of the clinical record.'
+  },
+  satisfaction: {
+    name: 'Patient Satisfaction Score',
+    headline: 'At 87%, satisfaction is above the 85% target — a bright spot on an otherwise challenging dashboard',
+    body: 'Patient satisfaction is measured through standardized surveys (the national standard is called HCAHPS — Hospital Consumer Assessment of Healthcare Providers and Systems) that ask patients to rate their experience: communication with nurses and doctors, responsiveness to needs, cleanliness, and overall rating. An 87% score with a stable trend means patients are currently having a positive experience — which is notable given the staffing and occupancy pressures visible elsewhere on today\'s dashboard. It may also be a lagging indicator: satisfaction surveys reflect past experiences, so today\'s staffing problems may show up in the satisfaction score next week.',
+    zones: ['✅ Good: above 85%', '⚠️ Watch: 75–85%', '🚨 Critical: under 75%'],
+    action: 'No immediate action needed — this is the one green metric today. However, watch it carefully over the next 7 days. Sustained staffing shortages and high occupancy almost always erode satisfaction scores with a 1–2 week lag. If today\'s operational problems aren\'t resolved, expect to see this number start declining by next week\'s report.'
+  },
+  fill: {
+    name: 'Schedule Fill Rate',
+    headline: 'At 79%, today\'s appointment schedule is significantly below the 88% target',
+    body: 'Fill rate measures what percentage of today\'s available appointment slots are actually booked with patients. At 79%, roughly 1 in 5 appointment slots is currently empty — which represents lost clinical time, lost revenue, and patients waiting on a waitlist who could have been seen. There are 8 open slots today according to the AI alert, and 6 patients on the waitlist. This is a solvable problem — but only if action is taken before those slots pass unused.',
+    zones: ['✅ Good: 90–95%', '⚠️ Watch: 80–90%', '🚨 Critical: under 80%'],
+    action: 'There are 6 waitlisted patients for 8 open slots — this is an immediate opportunity. Call the waitlist patients now. The closer to the appointment time, the less likely waitlist patients are available on short notice. Every hour that passes without action reduces the chance of filling these slots. The AI alert flagged this an hour ago — acting now rather than at end-of-day is the difference between 88% and 79%.'
+  },
+  med: {
+    name: 'Medication Accuracy Rate',
+    headline: 'At 99.1%, medication accuracy is above target — excellent performance under difficult conditions',
+    body: 'Medication accuracy measures what percentage of medication administrations this shift were completed correctly — right patient, right drug, right dose, right time, right route. The target at Riverside is 98%. At 99.1%, the nursing staff is performing above target despite being significantly understaffed today (1:6 ratio). This is a testament to staff professionalism, but it\'s also a number to monitor closely: medication errors are known to increase with nurse workload. A 99.1% rate with a 1:6 ratio today could easily slip to 98% or below if staffing doesn\'t improve.',
+    zones: ['✅ Good: above 98%', '⚠️ Watch: 97–98%', '🚨 Critical: under 97%'],
+    action: 'No immediate action needed — this is performing well. However, do not interpret this green metric as a reason to deprioritize the staffing issue. Medication accuracy is a lagging safety indicator: it reflects the errors that have already happened (or not happened). The conditions that cause medication errors — overworked nurses, too many patients — are present right now. Maintaining this number requires resolving the staffing problem.'
+  },
+  los: {
+    name: 'Average Length of Stay',
+    headline: 'At 4.3 days, patients are staying slightly longer than the 3.8-day target',
+    body: 'Average length of stay (ALOS) measures how many days inpatients stay in the hospital on average. The target at Riverside is 3.8 days based on the acuity mix of their patient population. At 4.3 days — half a day over target — the impact compounds quickly: at 200 beds, each extra half-day per patient means beds turn over slower, occupancy stays higher, and the ER backup worsens. ALOS creep can have many causes: clinical complexity (patients who are genuinely sicker), discharge planning delays (patients ready to leave but waiting for paperwork, transport, or a placement), or social factors (patients who have nowhere safe to go).',
+    zones: ['✅ Good: at or below target', '⚠️ Watch: 5–15% above target', '🚨 Critical: 15%+ above target'],
+    action: 'Combined with today\'s 93% occupancy, the elevated ALOS is a direct contributor to the capacity crisis. The fastest way to bring ALOS down is to identify patients who are medically ready to be discharged but haven\'t been yet — the "discharge-ready" patients sitting in beds waiting for logistics to be arranged. The AI has already flagged 4 such patients today. Getting those 4 discharged today opens beds, reduces occupancy, and gives ER patients somewhere to go.'
+  },
+  supply: {
+    name: 'Supply Alerts',
+    headline: '3 items are below their reorder threshold — one has urgent timing',
+    body: 'The supply alert count shows how many items in the facility\'s inventory are currently at or below their minimum safe stock level. Today\'s count of 3 (up from 1 yesterday) means three supplies are approaching shortage territory. The AI alert already identified exam gloves as the most urgent — 1.8 days of supply remaining with a 2-day reorder lead time means a shortage is mathematically possible if the reorder isn\'t placed today. The other two items haven\'t been identified in the alerts visible on this view and would require drilling down into the supply management module.',
+    zones: ['✅ Good: 0 alerts', '⚠️ Watch: 1–2 alerts', '🚨 Critical: 3+ alerts'],
+    action: 'For the gloves specifically: place the reorder immediately — today, not end of day. Given the 2-day lead time and 1.8-day supply, even a few hours of delay puts you in shortage territory. For the other 2 items, pull up the supply management detail view to identify what they are and assess urgency. A 3-item alert count on a high-occupancy day (high supply usage rates) is more urgent than the same count on a slow day.'
+  }
+};
+
+const alertExplanations = {
+  staffing: {
+    name: 'Staffing Alert',
+    headline: '2-nurse shortfall projected for tonight\'s 7PM shift',
+    body: 'The AI analyzed tonight\'s predicted patient volume (based on current occupancy, expected admissions from the ER, and historical Tuesday evening patterns) against the currently scheduled nursing staff. It projects the 7PM shift will be 2 nurses short of the level needed to maintain a safe nurse-to-patient ratio. This alert was generated 8 minutes ago — meaning there are still several hours to act before the shift starts.',
+    zones: ['⏰ Window to act: 8+ hours before shift'],
+    action: 'Contact the float pool or on-call nurses now. The earlier the request, the higher the chance of filling the gap. If float pool is unavailable, consider whether any of today\'s afternoon staff can be offered overtime to extend their shift. Document the attempt to find coverage regardless of outcome — this protects the organization if a patient adverse event occurs tonight.'
+  },
+  supply: {
+    name: 'Supply Alert: Exam Gloves',
+    headline: '1.8 days of glove supply vs. 2-day reorder lead time — order now',
+    body: 'This is a mathematically precise problem: the AI calculated current glove stock ÷ average daily usage rate = 1.8 days. The vendor\'s delivery lead time is 2 days. This means if the order is placed right now, delivery arrives just as supply runs out — leaving zero margin for higher-than-average usage today or tomorrow.',
+    zones: ['🚨 Act immediately — hours matter here'],
+    action: 'Place the reorder now and request expedited delivery if available. Also check if any neighboring departments have surplus gloves that could be temporarily shared. Notify the clinical manager that glove conservation may be advisable today — no behavioral change in procedure, but awareness that supplies are tight. Update the supply count after any large-scale procedure use today.'
+  },
+  schedule: {
+    name: 'Scheduling Alert: Thursday Fill Rate',
+    headline: '8 open slots Thursday afternoon, 6 patients on waitlist',
+    body: 'This is a solvable scheduling gap — but only if acted on before the appointment window passes. 8 open slots and 6 waitlisted patients means nearly all of the gap can be closed with proactive outreach. The AI flagged this 1 hour ago. For every hour that passes without action, the probability that waitlisted patients are available on short notice decreases.',
+    zones: ['⏰ Act today — Thursday is 2 days away'],
+    action: 'Have the scheduling team begin calling waitlist patients now. Prioritize patients who were waitlisted for the same appointment type as the open slots. Use calls rather than texts for patients who haven\'t responded to previous reminders — phone contact has significantly higher response rates for short-notice openings. Track fill rate in real time and report back to the operations team by end of day.'
+  },
+  discharge: {
+    name: 'Discharge Prediction Alert',
+    headline: '4 patients predicted medically ready for discharge today',
+    body: 'The AI analyzed clinical indicators for all current inpatients and identified 4 patients whose care progression suggests they are likely ready — or will be ready — for discharge today. The discharge planning team has already been notified. This is a proactive alert: if the discharge planning process starts now (contacting families, arranging transport, completing paperwork), these 4 patients can be discharged today. If planning waits until a physician formally orders the discharge, delays can push the actual discharge to tomorrow — keeping beds occupied one extra day.',
+    zones: ['✅ Proactive opportunity — act ahead of formal discharge order'],
+    action: 'The discharge planning team should begin pre-discharge workflows for these 4 patients now: confirm family or care placement availability, begin transportation arrangements, and prepare discharge paperwork. Coordinate with the nursing staff on each floor to flag these patients for priority physician rounds. Each successful early discharge today helps reduce the current 93% occupancy and creates capacity for ER patients waiting for inpatient beds.'
+  }
+};
+
+let selectedKPI = null;
+
+function explainKPI(key) {
+  // Deselect all
+  document.querySelectorAll('.db-kpi').forEach(k => k.classList.remove('selected'));
+  // Select this one
+  const kpiEl = document.getElementById('kpi-' + key);
+  if (kpiEl) kpiEl.classList.add('selected');
+  selectedKPI = key;
+  showExplanation(kpiExplanations[key]);
+}
+
+function explainAlert(key) {
+  document.querySelectorAll('.db-kpi').forEach(k => k.classList.remove('selected'));
+  selectedKPI = null;
+  showExplanation(alertExplanations[key]);
+}
+
+function showExplanation(data) {
+  const panel = document.getElementById('explainPanel');
+  const zonesHtml = data.zones.map(z => {
+    const cls = z.startsWith('✅') ? 'g' : z.startsWith('⚠️') ? 'o' : 'r';
+    return `<span class="ep-zone ${cls}">${z}</span>`;
+  }).join('');
+  panel.innerHTML = `
+    <div class="ep-kpi-name">${data.name}</div>
+    <div class="ep-headline">${data.headline}</div>
+    <div class="ep-body">${data.body}</div>
+    <div class="ep-zones">${zonesHtml}</div>
+    <div class="ep-action"><div class="ep-action-label">👩‍⚕️ What to do about it</div>${data.action}</div>`;
+}
+
+function cq(btn, correct) {
+  if (document.querySelector('.qopt.correct') || document.querySelector('.qopt.wrong')) return;
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) document.querySelectorAll('.qopt').forEach(o => { if (o.textContent.includes('root cause')) o.classList.add('correct'); });
+  const fb = document.getElementById('qfb');
+  fb.className = 'qfb show ' + (correct ? 'cfb' : 'wfb');
+  fb.textContent = correct
+    ? '✅ Exactly right. Three red metrics with a shared root cause is one of the most common patterns on healthcare operations dashboards — and one of the most important things a human brings to dashboard reading that AI can\'t do alone. The AI can flag each metric individually. It takes a human to recognize that understaffing → slow patient processing → beds stay full → ER patients can\'t move to inpatient floors → ER wait times climb. Treating these as three separate problems would produce three disconnected fixes. Recognizing the connection produces one targeted solution: get more nurses on the floor.'
+    : '❌ When multiple metrics are red simultaneously, they\'re usually connected rather than independent. In today\'s dashboard, the 1:6 nurse ratio is the most likely root cause: understaffed nurses can\'t process and discharge patients as quickly, which keeps occupancy high, which keeps ER patients waiting for inpatient beds, which extends wait times. Three metrics, one problem. The most valuable skill in dashboard reading is finding those connections — it\'s what separates a data-literate healthcare worker from someone who just reads numbers.';
+}
+
+window.addEventListener('scroll', () => {
+  const e = document.documentElement;
+  document.getElementById('pb').style.width = ((e.scrollTop / (e.scrollHeight - e.clientHeight)) * 100) + '%';
+});
+const obs = new IntersectionObserver(entries => entries.forEach(e => {
+  if (e.isIntersecting) e.target.classList.add('visible');
+}), { threshold: .1 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
