@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tone in Healthcare Writing — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--red:#DC2626;--red-pale:#FFF1F1;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,56px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.tone-spectrum{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.ts-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.ts-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ts-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.spectrum-track{background:linear-gradient(90deg,#EFF6FF 0%,var(--purple-pale) 50%,#FFF7ED 100%);height:12px;border-radius:100px;margin-bottom:20px;position:relative;}
+.spectrum-labels{display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:20px;}
+.spectrum-labels span:first-child{color:#1D4ED8;}
+.spectrum-labels span:last-child{color:var(--orange);}
+.spectrum-labels span:nth-child(2){color:var(--purple);}
+.tone-tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.tone-tab{padding:8px 16px;border-radius:10px;border:1.5px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.tone-tab.active{background:var(--purple);border-color:var(--purple);color:white;}
+.tone-panel{display:none;animation:fadeIn .3s ease;}
+.tone-panel.active{display:block;}
+.tone-example{background:var(--white);border-radius:12px;padding:14px 16px;margin-bottom:10px;border:1.5px solid var(--purple-mid);}
+.te-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
+.te-text{font-size:14px;line-height:1.75;font-family:monospace;}
+.te-why{font-size:13px;color:var(--gray-muted);padding:8px 12px;background:var(--gray-soft);border-radius:8px;margin-top:8px;}
+.rewrite-challenge{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.rc-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.rc-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.rc-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.rc-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+.rc-tab{padding:8px 14px;border-radius:10px;border:1.5px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.rc-tab.active{background:var(--purple);border-color:var(--purple);color:white;}
+.rc-panel{display:none;animation:fadeIn .3s ease;}
+.rc-panel.active{display:block;}
+.rc-context{font-size:13px;font-weight:600;color:var(--purple);margin-bottom:8px;}
+.rc-original{background:var(--red-pale);border:1.5px solid #FCA5A5;border-radius:10px;padding:12px 14px;margin-bottom:12px;}
+.rc-orig-label{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--red);margin-bottom:4px;letter-spacing:.08em;}
+.rc-opts{display:flex;flex-direction:column;gap:8px;}
+.rc-opt{font-size:13px;padding:10px 14px;border-radius:10px;border:1.5px solid var(--purple-mid);cursor:pointer;background:var(--white);transition:all .2s;text-align:left;}
+.rc-opt:hover{border-color:var(--purple);}
+.rc-opt.rc-correct{background:var(--green-pale);border-color:var(--green);}
+.rc-opt.rc-wrong{background:var(--red-pale);border-color:var(--red);}
+.rc-fb{font-size:13px;line-height:1.6;padding:10px 14px;border-radius:8px;margin-top:10px;display:none;}
+.rc-fb.show{display:block;animation:fadeIn .3s ease;}
+.rc-fb.good{background:var(--green-pale);color:var(--green);}
+.rc-fb.bad{background:var(--red-pale);color:var(--red);}
+.tone-words{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:24px 0;}
+.tw-col{border-radius:14px;padding:16px;}
+.tw-col.warm{background:var(--green-pale);border:2px solid #86EFAC;}
+.tw-col.cold{background:#EFF6FF;border:2px solid #BFDBFE;}
+.tw-col.fix{background:var(--purple-pale);border:2px solid var(--purple-mid);}
+.tw-col-title{font-size:13px;font-weight:700;margin-bottom:10px;}
+.tw-col.warm .tw-col-title{color:var(--green);}
+.tw-col.cold .tw-col-title{color:#1D4ED8;}
+.tw-col.fix .tw-col-title{color:var(--purple);}
+.tw-word{font-size:13px;padding:5px 0;border-bottom:1px solid rgba(0,0,0,.06);}
+.tw-word:last-child{border-bottom:none;}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:640px){.hero,.content{padding-left:24px;padding-right:24px;}.tone-words{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 2.3 · Editing AI Outputs</div>
+  <h1>Tone in Healthcare Writing: The Difference Between Clinical, Compassionate, and Just Plain Cold</h1>
+  <p class="hero-sub">Tone is the difference between a patient who feels cared for and one who feels processed. AI gets tone wrong in healthcare more often than any other quality — and because the information is correct, the tone problem can be easy to miss. This article teaches you to catch it and fix it.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>Why Tone Matters as Much as Accuracy in Healthcare</h2>
+    <p>A patient who receives an accurate letter written in a cold, robotic tone may understand what it says — but they may also feel dismissed, frightened, or unimportant. In healthcare, how information lands emotionally affects whether patients follow instructions, return for follow-ups, and trust their care team.</p>
+    <p>AI produces technically correct language with a default tone that trends toward formal and impersonal — what you might call "clinical cold." It rarely sounds warm. It almost never sounds like a person who genuinely cares. <mark>When you edit AI output for patient-facing documents, tone adjustment is often the most important change you'll make.</mark></p>
+    <div class="pull-quote"><p>The information might be perfect. But if the patient feels like they just got a form letter about their cancer diagnosis, something essential was lost.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Three Tone Zones in Healthcare Writing</h2>
+    <p>Healthcare writing operates on a spectrum. The target is always the middle — professional, warm, and clear. Click each zone to see real examples and understand what to edit:</p>
+    <div class="tone-spectrum">
+      <div class="ts-label">🎚️ Tone Spectrum Explorer</div>
+      <div class="ts-title">Clinical Cold → Professional Warm → Casual Unprofessional</div>
+      <div class="ts-sub">Only one zone is right for each document type. Click to explore all three.</div>
+      <div class="spectrum-track"></div>
+      <div class="spectrum-labels"><span>❄️ Clinical Cold</span><span>🎯 Professional Warm</span><span>🔥 Too Casual</span></div>
+      <div class="tone-tabs">
+        <button class="tone-tab active" onclick="showTone(0)">❄️ Too Clinical</button>
+        <button class="tone-tab" onclick="showTone(1)">🎯 Just Right</button>
+        <button class="tone-tab" onclick="showTone(2)">🔥 Too Casual</button>
+      </div>
+      <div id="toneContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Tone Rewrite Challenge: Fix the AI's Tone</h2>
+    <p>Each scenario below has an AI-generated document with the wrong tone. Select the version with the correct professional healthcare tone:</p>
+    <div class="rewrite-challenge">
+      <div class="rc-label">✏️ Tone Rewrite Challenge</div>
+      <div class="rc-title">Find the Right Tone for Each Situation</div>
+      <div class="rc-sub">Pick the rewrite with the most appropriate tone for the audience and context.</div>
+      <div class="rc-tabs">
+        <button class="rc-tab active" onclick="showRc(0)">Scenario 1</button>
+        <button class="rc-tab" onclick="showRc(1)">Scenario 2</button>
+        <button class="rc-tab" onclick="showRc(2)">Scenario 3</button>
+        <button class="rc-tab" onclick="showRc(3)">Scenario 4</button>
+      </div>
+      <div id="rcContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Words That Set Tone: A Quick Reference</h2>
+    <div class="tone-words">
+      <div class="tw-col warm">
+        <div class="tw-col-title">💚 Warm & Professional</div>
+        <div class="tw-word">"We want to make sure you have everything you need"</div>
+        <div class="tw-word">"Please don't hesitate to call us"</div>
+        <div class="tw-word">"We understand this can feel overwhelming"</div>
+        <div class="tw-word">"Your doctor would like to talk through the next steps"</div>
+        <div class="tw-word">"We look forward to seeing you"</div>
+        <div class="tw-word">"Please let us know if you have any questions"</div>
+      </div>
+      <div class="tw-col cold">
+        <div class="tw-col-title">❄️ Avoid — Too Cold</div>
+        <div class="tw-word">"The aforementioned patient"</div>
+        <div class="tw-word">"Per the attached documentation"</div>
+        <div class="tw-word">"Compliance with the prescribed regimen is required"</div>
+        <div class="tw-word">"The subject presents with..."</div>
+        <div class="tw-word">"Failure to respond will result in..."</div>
+        <div class="tw-word">"As per standard protocol..."</div>
+      </div>
+      <div class="tw-col fix">
+        <div class="tw-col-title">📌 AI Often Generates These — Fix Them</div>
+        <div class="tw-word">"I hope this message finds you well" (generic filler)</div>
+        <div class="tw-word">"Please be advised that..." (cold opener)</div>
+        <div class="tw-word">"It has come to our attention..." (distancing)</div>
+        <div class="tw-word">"In accordance with best practices..." (bureaucratic)</div>
+        <div class="tw-word">"Pursuant to your inquiry..." (overly legalistic)</div>
+        <div class="tw-word">"The aforementioned condition..." (dehumanizing)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">An AI drafts this opening for a patient letter: "Dear Ms. Thompson, Please be advised that your recent colonoscopy results have indicated the presence of a polyp, which has been classified as pre-cancerous. It is recommended that you schedule a follow-up procedure within the next 6 months." What tone problem does this letter have, and what should be changed?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">The tone is too casual — "polyp" should be replaced with the clinical term "adenomatous lesion"</button>
+        <button class="qopt" onclick="cq(this,false)">The letter is appropriately professional — medical information should be delivered directly without softening</button>
+        <button class="qopt" onclick="cq(this,true)">The tone is too cold and clinical for a patient receiving potentially alarming health news. "Please be advised" is a bureaucratic opener that creates distance. The letter delivers scary news without any acknowledgment of what this might mean emotionally for the patient. It needs warmth, reassurance where appropriate, and a human invitation to ask questions.</button>
+        <button class="qopt" onclick="cq(this,false)">The letter is too long — the finding and next steps should be condensed to one sentence</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI defaults to "clinical cold" — technically accurate but impersonal. For patient-facing documents especially, tone adjustment is often the most significant edit you'll make. Correct facts delivered coldly can harm patient trust and compliance.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The target for patient-facing documents: professional, warm, and clear — not clinical and cold, not casual and chatty. Clinical notes between providers can use more clinical language. Internal memos use professional but direct language. One tone does not fit all healthcare documents.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Common AI tone signals to watch for and fix: "Please be advised," "It has come to our attention," "Pursuant to," "The aforementioned," "In accordance with." These phrases signal bureaucratic distance. Replace them with direct, human language that addresses the reader personally.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const toneData=[
+  {tab:'❄️ Too Clinical / Cold',examples:[{label:'Patient notification letter — AI draft',text:`Dear Patient,
+
+Your laboratory results have been reviewed. The following findings were noted: HbA1c 9.8%, which is indicative of suboptimal glycemic control. A diagnosis of Type 2 Diabetes Mellitus has been established. Pharmacological intervention will be initiated. Please contact the office to schedule your appointment.`,why:'What\'s wrong: "Suboptimal glycemic control," "pharmacological intervention," and "has been established" are clinical chart language. The patient is being told they have diabetes — an alarming moment — with zero acknowledgment of how they might feel. "Please contact the office" gives no number or guidance. This letter will alarm and confuse.'},
+  {label:'Shift handoff note — AI draft (overcorrected)',text:`The patient, Mr. Thompson, presents with a chief complaint of dyspnea on exertion. His cardiopulmonary status remains tenuous. The attending physician has been apprised of the patient's condition. Monitoring parameters are within acceptable clinical thresholds at this time.`,why:'What\'s wrong: "Tenuous," "apprised," "cardiopulmonary status," and "acceptable clinical thresholds" are clinical language used for effect rather than precision. A shift handoff should be clear and scannable — not written to sound impressive. A clear "O2 sat 94% on 2L NC" beats "cardiopulmonary status remains tenuous" every time.'}]},
+  {tab:'🎯 Professional Warm (Target)',examples:[{label:'Patient notification letter — edited version',text:`Dear Ms. Rodriguez,
+
+I'm writing to share your recent blood test results, which show your blood sugar has been running higher than normal. This is something called Type 2 diabetes — a condition that's very common and very manageable.
+
+I'd like to talk through what this means for you and what we can do together. Please call us at (555) 204-1100 to schedule a time — we can usually see you within a week.
+
+If you have questions before then, please don't hesitate to call.
+
+Warmly,
+Dr. Kim and the Green Valley Team`,why:'Why this works: It delivers the same clinical information as the cold version but acknowledges the patient as a person. "Very common and very manageable" provides genuine reassurance. "Together" signals partnership. A specific phone number and timeline remove any uncertainty about next steps.'},
+  {label:'Shift handoff — edited version',text:`Room 4 — James Park (MRN 55219) ⚠️ WATCH
+
+Respiratory: O2 sat dropped to 88% at 2:15am. Currently on 2L NC — stable at 95% since 3am. Dr. Kim aware, orders received.
+Vitals otherwise stable. Patient resting comfortably.
+
+→ Day team: Continue Q2hr O2 monitoring. ABG results expected 7:30am. Flag immediately if sat drops below 93%.`,why:'Why this works: Clear, direct, specific. The tone is professional without being cold — it uses plain language, flags urgency clearly, and gives the incoming team exactly what they need to act.'}]},
+  {tab:'🔥 Too Casual / Unprofessional',examples:[{label:'Internal email — AI overcorrected to casual',text:`Hey everyone!! Just a heads up that we're making a change to how we document patient calls starting Monday 😊 It's gonna be pretty easy — basically just log calls in the system within 30 mins of the call ending. No biggie! Let me know if you have Qs lol
+
+Thanks!!`,why:'What\'s wrong: "Hey everyone!!", "gonna be," "No biggie," "lol," and "Qs" are texting language in a workplace policy communication. Even if the content is accurate, this tone signals that the change isn\'t being taken seriously — and staff will respond accordingly.'},
+  {label:'Patient follow-up text — too casual',text:`Hi there! Your labs are back and everything looks pretty good! Your doc will reach out if there\'s anything to worry about. Hope you\'re having a great day! 😊`,why:'What\'s wrong: "Pretty good," "your doc," and "anything to worry about" are vague and informal for a clinical communication. "Pretty good" isn\'t a medical finding. "If there\'s anything to worry about" suggests uncertainty where there should be clarity. The patient deserves a specific result, not reassuring vagueness.'}]}
+];
+let currentTone=0;
+function showTone(i){currentTone=i;document.querySelectorAll('.tone-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));renderTone();}
+function renderTone(){const d=toneData[currentTone];document.getElementById('toneContainer').innerHTML=`<div class="tone-panel active">${d.examples.map(ex=>`<div class="tone-example"><div class="te-label">${ex.label}</div><div class="te-text">${ex.text.replace(/\n/g,'<br>')}</div><div class="te-why">${ex.why}</div></div>`).join('')}</div>`;}
+renderTone();
+
+const rcData=[
+  {context:'A patient calling to ask about a test result — email response',original:'Dear patient: Your test result was received. There are no findings requiring urgent intervention at this time. A follow-up will be scheduled at the appropriate interval.',opts:[{text:'"Dear Ms. Lopez, Your test results came back — everything looks normal. No action is needed right now. Dr. Reyes will schedule your next check-up as usual. If you have any questions, please call us at (555) 204-1100."',correct:true,fb:'✅ Correct! This is professional and warm — it delivers the same information ("everything looks normal") in language the patient can understand, includes the doctor\'s name for a personal touch, and gives a specific phone number. It feels human.'},{text:'"Hey girl! Your results are fine lol. Don\'t stress! Dr. Reyes will set you up with another appt soon 😊"',correct:false,fb:'❌ Too casual and unprofessional. "Hey girl," "lol," and emoji are not appropriate in a clinical communication. The patient deserves professional communication regardless of how good the news is.'},{text:'"Per your inquiry regarding your recent diagnostic evaluation: findings are within acceptable parameters. Recommend follow-up evaluation per standard protocol at the appropriate clinical interval."',correct:false,fb:'❌ Too clinical and cold. "Per your inquiry," "diagnostic evaluation," and "acceptable parameters" are impersonal and would confuse most patients. The patient asked a simple question and deserves a clear, human answer.'}]},
+  {context:'Informing a patient their insurance denied a referral',original:'Insurance denial notification: Your referral request for specialty care has been denied by your insurance provider. You may have rights to appeal this decision. Contact your insurance provider for further information.',opts:[{text:'"Dear Mr. Santos, We\'re writing to let you know that your insurance has denied the referral to the cardiologist we requested for you. We know this is frustrating. Our team is ready to help — we can submit an appeal on your behalf or explore other options. Please call us at (555) 204-1100 so we can figure out the best next step together."',correct:true,fb:'✅ Correct! Acknowledges the emotional impact ("we know this is frustrating"), explains what happened simply, offers specific help rather than just deflecting to the insurance company, and gives a direct phone number. This is patient-centered communication.'},{text:'"Hey Mr. Santos, Bad news — your insurance said no to the cardiologist referral. Ugh, insurance companies, right? You can try appealing or just call them I guess."',correct:false,fb:'❌ Too casual and dismissive. "Ugh, insurance companies" is unprofessional. "I guess" signals indifference. This patient needs clear guidance and support, not commiseration.'},{text:'"Re: Insurance Denial — Cardiology Referral. Adverse determination received. Appeal rights attach. Patient responsible for initiating appeal process with payer. Provider unable to guarantee coverage outcome."',correct:false,fb:'❌ This reads like a legal notice, not a healthcare communication. "Adverse determination," "appeal rights attach," and "payer" are insurance/legal jargon. The patient needs plain language and help navigating this, not a disclaimer.'}]},
+  {context:'Staff memo about a medication error near-miss',original:'All staff are required to immediately implement the updated medication verification procedure. Non-compliance will not be tolerated. Report any failure to comply to the charge nurse. This is effective immediately.',opts:[{text:'"To: All Clinical Staff\nFROM: Charge Nurse Rivera\nRE: Updated Medication Verification Procedure — Effective Monday June 17\n\nFollowing a recent near-miss event, we are updating our medication verification process to add an extra safety step. Starting Monday, all medication administrations require two-step verification using the new protocol (see attached).\n\nThis matters. The new step takes 30 seconds and protects our patients and our team. Training will be held Friday at 7am. Questions: contact me at Ext. 311."',correct:true,fb:'✅ Correct! The memo explains WHY the change is happening (a near-miss — transparency builds buy-in), describes the specific change, quantifies the impact ("30 seconds"), and provides a training date and contact. Professional and respectful of staff.'},{text:'"Heads up everyone — quick safety thing: make sure you do the two-step med verification starting Monday k? It\'s because of a near-miss thing. Thx"',correct:false,fb:'❌ "Quick safety thing," "k?" and "thx" undersell the seriousness of a medication safety change. Staff need to understand this matters. Casual language signals that it doesn\'t.'},{text:'"MANDATORY POLICY CHANGE — IMMEDIATE EFFECT. Two-step verification required for ALL medications effective IMMEDIATELY. Non-compliance is grounds for disciplinary action. Failure to comply will be documented."',correct:false,fb:'❌ All caps and repeated threats create fear rather than safety. Staff are more likely to cut corners when they feel monitored and threatened than when they understand the purpose of a change. Authoritarian tone without explanation produces compliance theater, not genuine safety.'}]},
+  {context:'Letter to a patient about a missed appointment',original:'Notice: You missed your scheduled appointment on June 12, 2024. Please reschedule as soon as possible. Repeated missed appointments may result in discharge from the practice.',opts:[{text:'"Dear Mrs. Chen, We noticed you weren\'t able to make your June 12th appointment. We hope everything is okay! Your health care matters to us, and we\'d love to get you back on the calendar. Please call us at (555) 204-1100 at your convenience — we have availability this week. If you need help with transportation or have other barriers to getting in, just let us know."',correct:true,fb:'✅ Correct! Leads with concern rather than accusation ("we hope everything is okay"), communicates that the patient matters, provides a specific phone number, offers specific availability, and even addresses a common barrier (transportation). This is patient-centered without being dismissive of the missed appointment.'},{text:'"SECOND NOTICE: Appointment Missed 06/12/2024. Reschedule Required. Please be advised that failure to maintain scheduled appointments may result in removal from our patient panel."',correct:false,fb:'❌ "SECOND NOTICE," "Please be advised," and "failure to maintain" create a threatening, legalistic tone. Most missed appointments have non-intentional causes — life, transportation, illness. This letter treats a patient like a defaulting borrower rather than a person.'},{text:'"Hey girl, you missed your appointment lol — everything ok? Just shoot us a text when you want to come back in! 💕"',correct:false,fb:'❌ Too casual and unprofessional for a clinical communication. "Hey girl," "lol," and "💕" are inappropriate regardless of how friendly the patient relationship is. Professional communications maintain appropriate boundaries.'}]}
+];
+let currentRc=0;
+const rcAnswers={};
+function showRc(i){currentRc=i;document.querySelectorAll('.rc-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));renderRc();}
+function renderRc(){const d=rcData[currentRc];document.getElementById('rcContainer').innerHTML=`<div class="rc-panel active"><div class="rc-context">📋 Context: ${d.context}</div><div class="rc-original"><div class="rc-orig-label">❌ AI Draft (Tone Problem)</div><div style="font-size:13px;line-height:1.7;">${d.original}</div></div><div style="font-size:13px;font-weight:600;color:var(--purple-dark);margin-bottom:8px;">Which rewrite has the right tone?</div><div class="rc-opts">${d.opts.map((o,oi)=>`<button class="rc-opt" id="rco${oi}" onclick="pickRc(${oi})">${o.text.replace(/\n/g,'<br>')}</button><div class="rc-fb" id="rcfb${oi}"></div>`).join('')}</div></div>`;}
+function pickRc(oi){if(rcAnswers[currentRc]!==undefined)return;rcAnswers[currentRc]=oi;const opt=rcData[currentRc].opts[oi];document.getElementById('rco'+oi).className='rc-opt '+(opt.correct?'rc-correct':'rc-wrong');if(!opt.correct)rcData[currentRc].opts.forEach((o,i)=>{if(o.correct)document.getElementById('rco'+i).className='rc-opt rc-correct';});const fb=document.getElementById('rcfb'+oi);fb.textContent=opt.fb;fb.className='rc-fb show '+(opt.correct?'good':'bad');}
+renderRc();
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct! "Please be advised" is a bureaucratic opener that immediately creates emotional distance — it\'s what landlords write before eviction notices. For a patient receiving potentially alarming health news, this letter fails on every dimension of compassionate communication: it offers no acknowledgment of how frightening "pre-cancerous" sounds, no reassurance that a polyp classification doesn\'t mean cancer, no guidance on what the follow-up procedure involves, and no invitation to ask questions. A revised version would acknowledge the news directly, offer appropriate context ("many polyps are successfully treated and don\'t become cancer"), and give a specific person to call with concerns.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('too cold and clinical'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ Medical information about a potentially pre-cancerous finding should always be delivered with warmth and acknowledgment of the patient\'s emotional experience. "Please be advised" is one of the most common AI-generated cold openers — it sounds professional but creates distance exactly when connection matters. The content of the letter may be accurate, but if the patient feels like they got a legal notice about their health, the communication has failed.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

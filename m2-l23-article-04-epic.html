@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Real-World Spotlight: Epic Systems — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--red:#DC2626;--red-pale:#FFF1F1;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height;6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,56px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;}
+.stat-card{background:var(--purple-pale);border:2px solid var(--purple-mid);border-radius:18px;padding:22px;text-align:center;}
+.stat-num{font-family:'Fraunces',serif;font-size:36px;font-weight:900;color:var(--purple-dark);}
+.stat-label{font-size:13px;color:var(--gray-muted);margin-top:6px;line-height:1.4;}
+.epic-features{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.ef-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.ef-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ef-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.ef-nav{display:flex;gap:0;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;overflow:hidden;margin-bottom:20px;}
+.ef-btn{flex:1;padding:12px 6px;text-align:center;cursor:pointer;border:none;background:transparent;font-size:11px;font-weight:600;color:var(--gray-muted);border-right:1px solid var(--purple-mid);transition:all .2s;}
+.ef-btn:last-child{border-right:none;}
+.ef-btn.active{background:var(--purple);color:white;}
+.ef-panel{display:none;animation:fadeIn .3s ease;}
+.ef-panel.active{display:block;}
+.ef-feature-name{font-family:'Fraunces',serif;font-size:19px;font-weight:700;color:var(--purple-dark);margin-bottom:8px;}
+.ef-feature-desc{font-size:14px;line-height:1.7;color:var(--gray-text);margin-bottom:14px;}
+.ef-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.ef-col{background:var(--white);border-radius:10px;padding:12px 14px;border:1px solid var(--purple-mid);}
+.ef-col-title{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.08em;margin-bottom:6px;}
+.ef-col-item{font-size:13px;line-height:1.6;padding:3px 0;}
+.ef-insight{background:var(--orange-pale);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--orange);}
+.review-workflow{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
+.rw-step{display:flex;gap:14px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:16px;}
+.rw-icon{font-size:22px;flex-shrink:0;margin-top:2px;}
+.rw-body h4{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.rw-body p{font-size:13px;line-height:1.6;color:var(--gray-text);margin:0;}
+.rw-body .rw-note{background:var(--purple-pale);border-radius:6px;padding:5px 10px;font-size:12px;color:var(--purple-dark);margin-top:6px;}
+.skip-consequences{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0;}
+.sc-card{border-radius:16px;padding:18px;}
+.sc-card.bad{background:var(--red-pale);border:2px solid #FCA5A5;}
+.sc-card.lesson{background:var(--green-pale);border:2px solid #86EFAC;}
+.sc-icon{font-size:22px;margin-bottom:6px;}
+.sc-title{font-size:14px;font-weight:700;margin-bottom:6px;}
+.sc-card.bad .sc-title{color:var(--red);}
+.sc-card.lesson .sc-title{color:var(--green);}
+.sc-text{font-size:13px;line-height:1.6;color:var(--gray-text);}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:640px){.hero,.content{padding-left:24px;padding-right:24px;}.stat-row,.ef-grid,.skip-consequences{grid-template-columns:1fr;}.ef-btn{font-size:10px;padding:10px 3px;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 2.3 · Real-World Spotlight</div>
+  <h1>Real-World Spotlight: How Epic Systems Uses AI-Assisted Documentation and Why Human Review Is Non-Negotiable</h1>
+  <p class="hero-sub">Epic is the most widely used electronic health record system in the US, running in more than 350 health systems covering nearly 40% of US patients. Understanding how Epic integrates AI — and how their own guidance positions human review — gives you the professional context you need for any clinical role.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>Why Epic Matters to Almost Every Healthcare Worker</h2>
+    <p>If you work in healthcare in the US, there's a very high probability you will use Epic. It dominates the hospital sector, is growing in outpatient and specialty settings, and is increasingly the platform where AI documentation tools are deployed. When healthcare organizations invest in AI, they typically integrate it directly into Epic — which means your interaction with AI documentation will most likely happen through Epic's interface.</p>
+    <p><mark>Epic's approach to AI is important not just because of their market share, but because of their philosophy:</mark> AI tools in Epic are consistently positioned as decision support and drafting assistance — not as replacements for clinical judgment. Epic's own documentation and training materials emphasize that every AI-generated output requires human review before it becomes part of the patient record.</p>
+    <div class="stat-row">
+      <div class="stat-card"><div class="stat-num">350+</div><div class="stat-label">US health systems using Epic as their primary EHR</div></div>
+      <div class="stat-card"><div class="stat-num">~40%</div><div class="stat-label">Of US patients whose health records are stored in Epic</div></div>
+      <div class="stat-card"><div class="stat-num">2020+</div><div class="stat-label">Year Epic began embedding generative AI tools directly into clinical workflows</div></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Epic's AI Documentation Features — Explore Each</h2>
+    <p>Epic has built several AI-powered documentation features directly into the EHR interface. Click each one to understand what it does and what review it requires:</p>
+    <div class="epic-features">
+      <div class="ef-label">🔬 Epic AI Feature Explorer</div>
+      <div class="ef-title">Four Key AI Capabilities Inside Epic</div>
+      <div class="ef-sub">These features are available in Epic installations — though your specific facility may have some enabled and others not.</div>
+      <div class="ef-nav">
+        <button class="ef-btn active" onclick="showEf(0)">Ambient Documentation</button>
+        <button class="ef-btn" onclick="showEf(1)">AI Note Drafting</button>
+        <button class="ef-btn" onclick="showEf(2)">In-Basket AI</button>
+        <button class="ef-btn" onclick="showEf(3)">Predictive Alerts</button>
+      </div>
+      <div id="efContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Epic's Human Review Workflow</h2>
+    <p>Epic has been explicit in their published guidance that AI-generated content requires a specific human review workflow before entering the patient record. Here's what that workflow looks like in practice:</p>
+    <div class="review-workflow">
+      <div class="rw-step"><div class="rw-icon">🎙️</div><div class="rw-body"><h4>AI generates a draft during or after the encounter</h4><p>The AI listens to the conversation (ambient) or receives structured data from the EHR and generates a note draft. This happens automatically and takes seconds.</p><div class="rw-note">📌 The draft is flagged as "AI-Generated — Requires Review" and cannot be signed directly without a review action.</div></div></div>
+      <div class="rw-step"><div class="rw-icon">🔍</div><div class="rw-body"><h4>Clinician reviews each section of the note</h4><p>The physician or APP reads through the AI-generated note section by section. Epic's interface highlights AI-generated portions and any sections where confidence is lower.</p><div class="rw-note">📌 Epic's published guidance: "All AI-generated content must be reviewed for accuracy and completeness before attestation."</div></div></div>
+      <div class="rw-step"><div class="rw-icon">✏️</div><div class="rw-body"><h4>Clinician edits, corrects, and adds missing information</h4><p>Any errors are corrected inline. Any missing context — exam findings not captured verbally, patient emotional state, non-verbal observations — is added manually. The clinician's own clinical reasoning shapes the assessment and plan.</p><div class="rw-note">📌 The most common additions: specific physical exam findings, the clinical reasoning behind diagnostic or treatment decisions, and patient-specific context.</div></div></div>
+      <div class="rw-step"><div class="rw-icon">✅</div><div class="rw-body"><h4>Clinician signs — taking full ownership</h4><p>By signing, the clinician attests that the content of the note is accurate, complete, and represents their professional judgment. Epic's attestation workflow requires the clinician to actively confirm they have reviewed AI-generated content.</p><div class="rw-note">🔑 Epic's position: The signature is a legal and professional attestation. The AI's role in generating the note does not reduce the clinician's responsibility for its contents.</div></div></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What Happens When the Review Step Gets Skipped</h2>
+    <p>Published research and case reports from health systems using Epic AI features have documented what happens when review is rushed or skipped. These are the most common consequences:</p>
+    <div class="skip-consequences">
+      <div class="sc-card bad"><div class="sc-icon">💊</div><div class="sc-title">Medication errors enter the permanent record</div><div class="sc-text">AI-generated notes with incorrect medication names, doses, or frequencies become part of the permanent record when signed without review — and can be acted on by the next provider who reads the chart.</div></div>
+      <div class="sc-card bad"><div class="sc-icon">🔄</div><div class="sc-title">Copy-forward contamination</div><div class="sc-text">When AI auto-populates from prior notes, outdated information (resolved conditions, discontinued medications, old vital signs) can be carried forward incorrectly. This is sometimes called "note bloat" — the record grows with inaccurate historical information.</div></div>
+      <div class="sc-card bad"><div class="sc-icon">📋</div><div class="sc-title">Missing clinical reasoning</div><div class="sc-text">AI can document what happened but not why clinical decisions were made. When review is skipped, notes often lack the diagnostic reasoning that justifies the treatment plan — which creates billing, liability, and continuity problems.</div></div>
+      <div class="sc-card bad"><div class="sc-icon">⚖️</div><div class="sc-title">Legal exposure for signed inaccuracies</div><div class="sc-text">In malpractice cases, signed AI-generated notes with errors create clear evidence that the signing clinician either didn't review the note or reviewed it and missed the error — both are problematic in a legal proceeding.</div></div>
+      <div class="sc-card lesson"><div class="sc-icon">🎯</div><div class="sc-title">What the data shows works</div><div class="sc-text">Health systems that invest in structured AI review training — teaching clinicians exactly what to check and how — see dramatically lower error rates in AI-assisted documentation than those that deploy AI without review workflow guidance.</div></div>
+      <div class="sc-card lesson"><div class="sc-icon">🕐</div><div class="sc-title">Review takes minutes, not hours</div><div class="sc-text">Properly trained clinicians report that a thorough review of an AI-generated note takes 2–5 minutes for a typical encounter — compared to 15–20 minutes of typing that the AI replaced. The time savings are real even with rigorous review.</div></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="pull-quote"><p>Epic builds tools that make documentation faster. They are explicit that faster documentation doesn't mean less careful documentation. The review step is designed into the workflow because Epic knows what happens without it.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A hospital implementing Epic's ambient documentation feature notices that physicians are signing AI-generated notes within seconds of them appearing — without reading them. What is the most significant systemic risk this creates?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">The AI notes will be lower quality because the system learns from how physicians interact with them</button>
+        <button class="qopt" onclick="cq(this,false)">Epic's licensing terms may be violated by not following the intended workflow</button>
+        <button class="qopt" onclick="cq(this,true)">AI errors — wrong medications, missing context, auto-populated outdated information — will enter the permanent record at scale, creating a systematic documentation quality problem that will affect future care decisions, billing accuracy, and legal liability across potentially thousands of patient records</button>
+        <button class="qopt" onclick="cq(this,false)">Physicians will lose documentation skills over time because they're not practicing writing</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Epic is the most widely deployed EHR in the US, running in 350+ health systems. Their AI features — ambient documentation, note drafting, In-Basket AI, and predictive alerts — are all designed with a mandatory human review step built into the workflow.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Epic's own published guidance is explicit: all AI-generated content requires review for accuracy and completeness before attestation. Signing = professional attestation of accuracy regardless of how the note was generated.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>When review is skipped at scale, the consequences include medication errors entering the permanent record, copy-forward contamination, missing clinical reasoning, and legal exposure. Health systems with structured review training consistently outperform those without it on documentation accuracy.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const efData=[
+  {name:'Ambient Documentation (Epic Ambient)',desc:'Epic\'s ambient AI feature — integrated with partners like Nuance DAX — listens to physician-patient conversations and automatically generates a structured clinical note in real time. The note appears in the physician\'s Epic workspace within seconds of the encounter ending.',what:['Real-time conversation capture without physician dictation','Automatic note structuring by specialty (primary care, cardiology, etc.)','Direct integration with Epic\'s note workflow — no copy-paste required','Highlights AI-generated sections for review'],review:['Every section flagged as AI-generated requires explicit review','Physical exam findings often need manual addition (AI captures verbal only)','Assessment and plan requires clinical reasoning added by physician','Patient statements quoted directly must be verified as accurately captured'],insight:'⚠️ Ambient AI is one of the most time-saving Epic features — and one of the highest-review-burden features. Because it captures the entire encounter, the draft is longer and has more specifics to verify than a manually dictated note.'},
+  {name:'AI Note Drafting (Assisted Authoring)',desc:'Epic\'s assisted authoring features use AI to help structure and draft clinical notes from structured EHR data — pulling current medications, recent labs, problem lists, and prior note summaries to populate a starting note template.',what:['Auto-populates current medications from the medication list','Pulls recent lab values into the appropriate note sections','Generates note structure based on visit type','SmartText templates that dynamically populate with patient data'],review:['Auto-populated medications must match what the patient is actually taking now','Recent labs included must be current — not outdated pulls','Prior note summaries require verification that conditions are still active','All auto-populated data is from the chart, not the encounter'],insight:'⚠️ Auto-populated data is only as accurate as the underlying EHR record. If the medication list hasn\'t been reconciled recently, the AI will auto-populate outdated medications into the note.'},
+  {name:'In-Basket AI (Message Drafting)',desc:'Epic\'s In-Basket AI helps clinical staff draft responses to patient messages, internal staff communications, and after-visit summaries. It can draft a response to a patient question, suggest a standard reply to a common inquiry, or help structure a complex patient communication.',what:['Draft patient message responses in MyChart','Suggested replies for common clinical questions','After-visit summary generation from the encounter note','Template suggestions for common communication types'],review:['All patient-facing drafts require tone review — AI tends toward clinical cold','Specific advice (medications, symptoms to watch) must match the clinical plan','AI-drafted patient instructions must be in plain language, not clinical shorthand','Verify that any links or phone numbers generated are accurate'],insight:'⚠️ In-Basket AI is often used by MAs and support staff, not just physicians. Review standards apply regardless of role — every person who sends an AI-drafted patient message owns its accuracy and tone.'},
+  {name:'Predictive Alerts and Documentation Gaps',desc:'Epic\'s AI can analyze a note in progress and flag documentation gaps — suggesting when a diagnosis code isn\'t supported by the note content, when a medication lacks a documented indication, or when required elements for billing appear to be missing.',what:['Flags when diagnosis codes lack supporting documentation','Identifies missing elements for visit complexity billing','Suggests adding documentation to support ordered tests','Alerts when care gaps exist for chronic condition management'],review:['Alerts are suggestions, not requirements — clinical judgment determines response','Adding documentation in response to a flag must be clinically accurate','Some flags are false positives and should be dismissed after review','Never add clinical documentation purely to satisfy a flag without clinical basis'],insight:'⚠️ The most important caution with documentation gap alerts: adding information to a note purely to satisfy a billing or compliance flag — without clinical accuracy — is documentation fraud, regardless of whether AI suggested it.'}
+];
+let currentEf=0;
+function showEf(i){currentEf=i;document.querySelectorAll('.ef-btn').forEach((b,bi)=>b.classList.toggle('active',bi===i));renderEf();}
+function renderEf(){const f=efData[currentEf];document.getElementById('efContainer').innerHTML=`<div class="ef-panel active"><div class="ef-feature-name">${f.name}</div><div class="ef-feature-desc">${f.desc}</div><div class="ef-grid"><div class="ef-col"><div class="ef-col-title">✅ What the AI Does</div>${f.what.map(w=>`<div class="ef-col-item">• ${w}</div>`).join('')}</div><div class="ef-col"><div class="ef-col-title">👤 What Review Requires</div>${f.review.map(r=>`<div class="ef-col-item">• ${r}</div>`).join('')}</div></div><div class="ef-insight">${f.insight}</div></div>`;}
+renderEf();
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct! When an individual physician skips review once, the risk is limited to that one encounter. But when an entire hospital\'s physician population is signing unreviewed AI notes, you\'re creating a systematic documentation quality problem at scale. Errors in signed notes become permanent records that future providers act on. Auto-populated outdated medications get prescribed. Missing clinical reasoning creates billing and liability exposure. One physician\'s bad habit is a recoverable problem. An institutional pattern of unreviewed AI documentation is a patient safety crisis — exactly why Epic builds the review attestation step into the signing workflow and why health systems need to actively monitor compliance with it.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('AI errors'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ While AI learning from interactions is a consideration, and licensing terms exist, the primary risk is clinical — not technical or contractual. When review is systematically skipped, the documentation errors that AI makes (medication errors, outdated information, missing reasoning) enter the permanent record at scale. These records are then used by other providers, billed to insurance, and potentially used in legal proceedings. The systematic impact on patient care quality and safety is the most significant risk.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
