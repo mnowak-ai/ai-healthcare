@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Three Documents Every Healthcare Worker Writes — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--red:#DC2626;--red-pale:#FFF1F1;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* DOC TABS */
+.doc-explorer{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.de-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.de-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.de-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.de-nav{display:flex;gap:0;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;overflow:hidden;margin-bottom:20px;}
+.de-btn{flex:1;padding:14px 8px;text-align:center;cursor:pointer;border:none;background:transparent;font-size:13px;font-weight:600;color:var(--gray-muted);transition:all .2s;border-right:1px solid var(--purple-mid);}
+.de-btn:last-child{border-right:none;}
+.de-btn.active{background:var(--purple);color:white;}
+.de-panel{display:none;animation:fadeIn .3s ease;}
+.de-panel.active{display:block;}
+.doc-header{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.doc-icon-big{font-size:40px;}
+.doc-meta{}
+.doc-name{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);}
+.doc-tagline{font-size:14px;color:var(--gray-muted);}
+.doc-example-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.1em;margin-bottom:8px;}
+.doc-side-by-side{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.doc-version{border-radius:14px;padding:16px;}
+.doc-version.bad-v{background:var(--red-pale);border:2px solid #FCA5A5;}
+.doc-version.good-v{background:var(--green-pale);border:2px solid #86EFAC;}
+.doc-ver-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.doc-version.bad-v .doc-ver-label{color:var(--red);}
+.doc-version.good-v .doc-ver-label{color:var(--green);}
+.doc-text-block{font-size:13px;line-height:1.75;font-family:monospace;background:rgba(255,255,255,.6);border-radius:8px;padding:12px;white-space:pre-wrap;}
+.doc-rules{display:flex;flex-direction:column;gap:8px;}
+.doc-rule{display:flex;gap:10px;align-items:flex-start;background:var(--white);border-radius:10px;padding:10px 14px;}
+.doc-rule-icon{font-size:16px;flex-shrink:0;}
+.doc-rule-text{font-size:13px;line-height:1.5;color:var(--gray-text);}
+
+/* BUILD-A-DOC ACTIVITY */
+.build-activity{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.ba-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.ba-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ba-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.ba-scenario{background:var(--purple-pale);border-left:4px solid var(--purple);padding:14px 18px;border-radius:0 12px 12px 0;font-size:15px;line-height:1.7;margin-bottom:20px;}
+.ba-fields{display:flex;flex-direction:column;gap:12px;margin-bottom:20px;}
+.ba-field{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;padding:14px 16px;}
+.ba-field-label{font-size:12px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
+.ba-options{display:flex;flex-wrap:wrap;gap:8px;}
+.ba-option{padding:6px 14px;border-radius:8px;border:1.5px solid var(--purple-mid);background:var(--white);font-size:13px;cursor:pointer;transition:all .2s;color:var(--gray-text);}
+.ba-option:hover{border-color:var(--purple);}
+.ba-option.selected{background:var(--purple);border-color:var(--purple);color:white;}
+.ba-option.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.ba-preview{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:18px;min-height:80px;}
+.ba-preview-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--gray-muted);margin-bottom:8px;letter-spacing:.08em;}
+.ba-preview-text{font-size:14px;line-height:1.75;font-family:monospace;color:var(--gray-text);}
+.ba-result{font-size:15px;line-height:1.6;padding:14px 18px;border-radius:12px;margin-top:12px;display:none;}
+.ba-result.show{display:block;animation:fadeIn .35s ease;}
+.ba-result.good{background:var(--green-pale);color:var(--green);}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:640px){.hero,.content{padding-left:24px;padding-right:24px;}.doc-side-by-side{grid-template-columns:1fr;}.de-btn{font-size:11px;padding:10px 4px;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 2.1 · Professional Documentation Basics</div>
+  <h1>The Three Documents Every Healthcare Worker Writes</h1>
+  <p class="hero-sub">Emails. Memos. Reports. These three document types show up in every healthcare role — from front desk to clinical support to management. Understanding what each one is, what it must contain, and what it absolutely cannot contain is foundational to working in healthcare.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Why These Three Documents?</h2>
+    <p>Healthcare workers write many types of documents over their careers — clinical notes, incident reports, referral letters, discharge summaries. But three types appear in virtually every role, every day, across every type of healthcare setting: the professional email, the internal memo, and the shift or status report.</p>
+    <p>Getting these three right is the foundation of everything else. <mark>If you can write a clear, professional email, a well-structured memo, and an accurate report, you already have the skills that most healthcare roles actually need from you day to day.</mark> Everything else builds from here.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Explore Each Document Type: Real Examples Included</h2>
+    <p>Click through each document type to see what it is, when you use it, what a bad version looks like, and what a great version looks like side by side:</p>
+    <div class="doc-explorer">
+      <div class="de-label">📄 Document Deep-Dive</div>
+      <div class="de-title">Three Documents. Real Healthcare Examples.</div>
+      <div class="de-sub">Select a document type to see exactly what it looks like in practice.</div>
+      <div class="de-nav">
+        <button class="de-btn active" onclick="showDoc(0)">📧 Email</button>
+        <button class="de-btn" onclick="showDoc(1)">📄 Memo</button>
+        <button class="de-btn" onclick="showDoc(2)">📊 Report</button>
+      </div>
+      <div id="docContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Build a Professional Email: Activity</h2>
+    <p>You're a medical assistant at a primary care clinic. A patient, Maria Santos, called to report that she's been experiencing side effects from her new blood pressure medication (lisinopril 10mg, started 5 days ago). She mentioned dizziness and a dry cough. You need to send an email to Dr. Reyes to flag this. Build that email by making the right choices below:</p>
+    <div class="build-activity">
+      <div class="ba-label">✉️ Build-A-Document</div>
+      <div class="ba-title">Write the Right Email</div>
+      <div class="ba-sub">Pick the correct option for each part of the email. Watch the preview update as you go.</div>
+      <div class="ba-scenario">📞 Situation: Maria Santos (DOB 04/12/1968, MRN 448821) called at 2:30pm reporting dizziness and a dry cough since starting lisinopril 10mg 5 days ago (prescribed by Dr. Reyes on June 6th). She rates dizziness as 5/10 and says the cough is persistent but not severe.</div>
+      <div class="ba-fields" id="baFields"></div>
+      <div class="ba-preview-label">📋 Your Email Preview</div>
+      <div class="ba-preview"><div class="ba-preview-text" id="baPreview">Choose options above to build your email...</div></div>
+      <div class="ba-result" id="baResult"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="pull-quote"><p>In healthcare, the best document is not the most elaborate one. It's the one that gives the next person exactly what they need to act — nothing more, nothing less.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A clinic manager needs to communicate a new policy: starting next Monday, all staff must log patient phone calls in the EHR within 30 minutes of the call. What is the most appropriate document format to use?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">A quick email to the team with the new rule in the subject line</button>
+        <button class="qopt" onclick="cq(this,false)">A verbal announcement at the next team huddle</button>
+        <button class="qopt" onclick="cq(this,true)">A formal internal memo — because this is an official policy change that needs to be documented, clearly attributed to management, include an effective date, and serve as a record that all staff were informed</button>
+        <button class="qopt" onclick="cq(this,false)">A report summarizing current phone call documentation rates</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Professional emails are for direct communication between people. They need a clear subject, professional greeting, single clear purpose, and a specific call to action. Never include patient info in unsecured email.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Internal memos are for official communications — policy changes, announcements, formal requests. They need a header (To/From/Date/Re), a clear opening that states the purpose, and specific action items with dates.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Reports (including shift summaries, status updates, and clinical reports) must be objective, factual, and complete. They document what happened — not what you think happened or how you felt about it.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const docData=[
+  {
+    icon:'📧',name:'Professional Email',tagline:'Direct communication between staff, departments, or providers',
+    bad:{label:'❌ Unprofessional Version',text:`From: j.rivera@clinic.com
+To: drpatel@clinic.com
+Subject: fyi
+
+hey doc just wanted to let u know mrs johnson is here again and shes saying her ankle still hurts. she seems kind of annoyed. maybe call her?
+
+- jess`},
+    good:{label:'✅ Professional Version',text:`From: J.Rivera@GreenValleyClinic.com
+To: Dr.Patel@GreenValleyClinic.com
+Subject: Patient Follow-Up — Margaret Johnson (MRN 77432), Ankle Pain
+
+Dear Dr. Patel,
+
+Margaret Johnson (DOB 08/14/1952, MRN 77432) called at 10:15am regarding persistent ankle pain following her June 3rd visit. She reports no improvement and rates pain 6/10. She is requesting a callback today.
+
+Please advise on next steps — I can schedule a follow-up or relay your recommendation.
+
+Thank you,
+Jessica Rivera, MA
+Green Valley Clinic | Ext. 204`},
+    rules:[{icon:'📌',text:'Subject line tells the reader exactly what this is about before they open it'},{icon:'👤',text:'Patient is identified with full name, DOB, and MRN — no ambiguity'},{icon:'📅',text:'Time, date, and specific symptoms are documented precisely'},{icon:'✅',text:'Clear action requested — the doctor knows exactly what to do next'},{icon:'🔒',text:'NOTE: This email would only be appropriate on a secure, HIPAA-compliant internal system'}]
+  },
+  {
+    icon:'📄',name:'Internal Memo',tagline:'Official written communication within a department or facility',
+    bad:{label:'❌ Unprofessional Version',text:`Hey everyone,
+
+Just a reminder that we really need to start doing a better job with gloves. There have been some issues. Please be more careful going forward.
+
+Thanks`},
+    good:{label:'✅ Professional Version',text:`MEMORANDUM
+
+TO: All Clinical Support Staff, Rooms 1–8
+FROM: Maria Chen, RN, Infection Control Coordinator
+DATE: June 12, 2024
+RE: Mandatory PPE Protocol Update — Effective June 17, 2024
+
+Effective Monday, June 17, all staff performing patient contact must:
+• Don gloves before entering any patient room
+• Change gloves between patients without exception
+• Document PPE use in EHR encounter record
+
+This update follows our Q2 compliance audit. Please direct questions to M. Chen (Ext. 311) or attend Friday's 9am briefing (Conf. Room B).`},
+    rules:[{icon:'📋',text:'Formal memo header: To/From/Date/Re clearly establishes context'},{icon:'📅',text:'Effective date is specific — not "soon" or "shortly"'},{icon:'🔢',text:'Action items are numbered/bulleted — each one is a clear, distinct task'},{icon:'❓',text:'Questions pathway is provided — who to ask, how, and when'},{icon:'⚖️',text:'Memo serves as a documented record that all staff were formally informed'}]
+  },
+  {
+    icon:'📊',name:'Status Report / Shift Summary',tagline:'Documentation of what happened during a period — objective and complete',
+    bad:{label:'❌ Unprofessional Version',text:`Shift Report — Night Shift
+
+Things were pretty crazy tonight. Room 4 had some issues and we had to call the doctor. Room 6 patient seems better. Meds were given. One patient was difficult but we managed. Overall okay night. Good luck with morning.
+
+— Night Team`},
+    good:{label:'✅ Professional Version',text:`NIGHT SHIFT SUMMARY — 7pm–7am | June 12–13, 2024
+Prepared by: T. Nguyen, RN | Shift Charge Nurse
+
+ROOM 4 — James Park (MRN 55219):
+O2 sat dropped to 88% at 2:15am. Supplemental O2 @ 2L started. Dr. Kim notified at 2:20am. Sats stable at 95% by 3:00am. Continue Q2hr monitoring. ⚠️ WATCH CLOSELY.
+
+ROOM 6 — Diane Flores (MRN 61007):
+Pain improved from 8/10 to 3/10 after morphine 2mg IV at 21:00 per Dr. Osei order. Resting comfortably. No new concerns.
+
+ALL MEDS: Administered on schedule. See MAR for full record.
+
+PENDING: Room 4 lab results expected 7:30am. Room 2 PT consult requested — confirm with PT dept.`},
+    rules:[{icon:'📋',text:'Each patient is listed individually — no room for ambiguity about who is being discussed'},{icon:'⏰',text:'Every event has a specific time — "during the night" is replaced with "2:15am"'},{icon:'🚨',text:'Critical patients are flagged clearly (⚠️) so the incoming team knows what to prioritize'},{icon:'✅',text:'Pending items are explicit — what needs to happen, when, and who is responsible'},{icon:'📊',text:'Objective data (O2 sat 88%, pain 8/10) replaces subjective impressions ("seemed worse")'}]
+  }
+];
+let currentDoc=0;
+function showDoc(i){currentDoc=i;document.querySelectorAll('.de-btn').forEach((b,bi)=>b.classList.toggle('active',bi===i));renderDoc();}
+function renderDoc(){const d=docData[currentDoc];document.getElementById('docContainer').innerHTML=`<div class="de-panel active"><div class="doc-header"><div class="doc-icon-big">${d.icon}</div><div class="doc-meta"><div class="doc-name">${d.name}</div><div class="doc-tagline">${d.tagline}</div></div></div><div class="doc-example-label">Side-by-Side Examples</div><div class="doc-side-by-side"><div class="doc-version bad-v"><div class="doc-ver-label">${d.bad.label}</div><div class="doc-text-block">${d.bad.text}</div></div><div class="doc-version good-v"><div class="doc-ver-label">${d.good.label}</div><div class="doc-text-block">${d.good.text}</div></div></div><div class="doc-example-label" style="margin-top:14px;">What makes the good version work</div><div class="doc-rules">${d.rules.map(r=>`<div class="doc-rule"><div class="doc-rule-icon">${r.icon}</div><div class="doc-rule-text">${r.text}</div></div>`).join('')}</div></div>`;}
+renderDoc();
+
+// BUILD-A-DOC
+const baFieldsData=[
+  {label:'Subject Line',options:[{text:'FYI - patient called',correct:false,feedback:'Too vague — "FYI" tells the doctor nothing before they open it.'},{text:'Side Effects Report — Maria Santos (MRN 448821) — Lisinopril',correct:true,feedback:'✅ Perfect. The doctor knows who, what, and why before opening the email.'},{text:'URGENT — call patient NOW',correct:false,feedback:'No patient identifier, no clinical context, and unnecessary urgency language.'}]},
+  {label:'Opening Line',options:[{text:'Hey Dr. Reyes, quick heads up about a patient.',correct:false,feedback:'"Hey" and "quick heads up" are too casual for a clinical communication.'},{text:'Dear Dr. Reyes,',correct:true,feedback:'✅ Professional and appropriate for clinical email.'},{text:'To Whom It May Concern,',correct:false,feedback:'Too formal and impersonal for an internal email to a specific provider.'}]},
+  {label:'Patient Information',options:[{text:'Maria Santos called about her BP meds.',correct:false,feedback:'Missing DOB, MRN, medication name, dose, and start date — not enough for the doctor to act.'},{text:'Maria Santos (DOB 04/12/1968, MRN 448821) called at 2:30pm reporting dizziness (5/10) and persistent dry cough since starting lisinopril 10mg on June 6th (5 days ago).',correct:true,feedback:'✅ Complete identification, symptom severity, medication name, dose, and timeline. The doctor has everything needed.'},{text:'A patient is having bad side effects and is very uncomfortable.',correct:false,feedback:'No patient identification at all — this cannot be acted on safely.'}]},
+  {label:'Closing / Action Request',options:[{text:'Let me know what to do. Thanks!',correct:false,feedback:'Unclear who should do what — give the doctor a specific path forward.'},{text:'Please advise on next steps at your earliest convenience. I can schedule a follow-up, relay your recommendations to the patient, or arrange a callback. — J. Rivera, MA',correct:true,feedback:'✅ Offers specific options, is appropriately professional, and includes your name and role.'},{text:'She wants to talk to you ASAP so please call her back today no matter what.',correct:false,feedback:'Demanding tone is inappropriate in a professional clinical email.'}]}
+];
+const selections={};
+function updatePreview(){
+  const parts={subject:null,opening:null,patient:null,closing:null};
+  Object.entries(selections).forEach(([fi,oi])=>{
+    const opt=baFieldsData[fi].options[oi];
+    if(fi==0)parts.subject=opt.correct?opt.text:'[SUBJECT NEEDED]';
+    if(fi==1)parts.opening=opt.correct?opt.text+'<br>':'[OPENING NEEDED]';
+    if(fi==2)parts.patient=opt.correct?opt.text:'[PATIENT INFO NEEDED]';
+    if(fi==3)parts.closing=opt.correct?'<br>'+opt.text:'[CLOSING NEEDED]';
+  });
+  const preview=`Subject: ${parts.subject||'—'}\n\n${parts.opening||'—'}\n\n${parts.patient||'—'}${parts.closing||''}`;
+  document.getElementById('baPreview').textContent=preview;
+  if(Object.keys(selections).length===4){
+    const allCorrect=Object.entries(selections).every(([fi,oi])=>baFieldsData[fi].options[oi].correct);
+    const res=document.getElementById('baResult');
+    res.className='ba-result show good';
+    res.textContent=allCorrect?'✅ Excellent! You built a complete, professional clinical email. Every element is specific, actionable, and appropriate for a HIPAA-compliant internal system.':'📝 Good attempt! Review any options marked wrong above — each wrong choice identifies a specific professional writing skill to strengthen.';
+  }
+}
+const baContainer=document.getElementById('baFields');
+baFieldsData.forEach((field,fi)=>{
+  const div=document.createElement('div');div.className='ba-field';
+  div.innerHTML=`<div class="ba-field-label">${field.label}</div><div class="ba-options">${field.options.map((opt,oi)=>`<button class="ba-option" id="opt${fi}_${oi}" onclick="selectOpt(${fi},${oi})">${opt.text}</button>`).join('')}</div><div style="font-size:13px;color:var(--gray-muted);margin-top:8px;display:none;" id="optfb${fi}"></div>`;
+  baContainer.appendChild(div);
+});
+function selectOpt(fi,oi){
+  if(selections[fi]!==undefined)return;
+  selections[fi]=oi;
+  const opt=baFieldsData[fi].options[oi];
+  document.querySelectorAll(`[id^="opt${fi}_"]`).forEach((btn,bi)=>{
+    if(bi===oi){btn.className='ba-option '+(opt.correct?'selected':'wrong');}
+  });
+  const fb=document.getElementById('optfb'+fi);fb.textContent=opt.feedback;fb.style.display='block';
+  updatePreview();
+}
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct! A memo is the right format because it creates a permanent, formal record of a policy change. A quick email might get missed or deleted. Verbal announcements leave no documentation that staff were informed. A report documents what is, not what should be. The memo establishes the policy, the effective date, who issued it, and what staff are expected to do — making it the appropriate document for any official organizational communication.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('formal internal memo'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ Think about what documentation this communication needs to create. Emails are good for direct conversation but don\'t serve well as official policy records. Verbal announcements leave no paper trail. Reports describe existing data, not new directives. A formal memo is specifically designed for official announcements — it has a header with date and sender, creates a record that all staff were informed, and carries the authority of management in written form.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

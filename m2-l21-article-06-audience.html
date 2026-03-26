@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Who Is Reading Your Document? — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--red:#DC2626;--red-pale:#FFF1F1;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,56px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.audience-explorer{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.ae-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.ae-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ae-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.audience-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+.audience-btn{border-radius:14px;padding:14px;cursor:pointer;border:2px solid transparent;transition:all .2s;text-align:center;}
+.audience-btn:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.1);}
+.audience-btn.active{border-color:var(--purple);box-shadow:0 4px 14px rgba(123,47,190,.2);}
+.aud-icon{font-size:28px;margin-bottom:6px;}
+.aud-name{font-size:13px;font-weight:700;color:var(--purple-dark);}
+.aud-bg-1{background:#EFF6FF;}
+.aud-bg-2{background:var(--purple-pale);}
+.aud-bg-3{background:var(--green-pale);}
+.aud-bg-4{background:var(--orange-pale);}
+.aud-bg-5{background:#F0F9FF;}
+.aud-bg-6{background:var(--red-pale);}
+.audience-detail{background:var(--white);border-radius:14px;padding:20px;border:1.5px solid var(--purple-mid);display:none;animation:fadeIn .3s ease;}
+.audience-detail.show{display:block;}
+.aud-detail-name{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.aud-detail-role{font-size:13px;color:var(--gray-muted);margin-bottom:14px;}
+.aud-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.aud-detail-col h4{font-size:12px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.08em;margin-bottom:8px;}
+.aud-detail-item{font-size:13px;line-height:1.6;padding:5px 0;border-bottom:1px solid var(--purple-mid);}
+.aud-detail-item:last-child{border-bottom:none;}
+.aud-example{background:var(--purple-pale);border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.65;margin-top:12px;color:var(--purple-dark);}
+.same-info-box{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.si-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+.si-tab{padding:8px 14px;border-radius:10px;border:1.5px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.si-tab.active{background:var(--purple);border-color:var(--purple);color:white;}
+.si-panel{display:none;animation:fadeIn .3s ease;}
+.si-panel.active{display:block;}
+.si-version{background:var(--white);border-radius:12px;padding:16px;border:1.5px solid var(--purple-mid);margin-bottom:8px;}
+.si-ver-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.08em;margin-bottom:8px;}
+.si-text{font-size:14px;line-height:1.7;font-family:monospace;}
+.si-why{font-size:13px;color:var(--gray-muted);margin-top:8px;padding:8px 12px;background:var(--purple-pale);border-radius:8px;}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:640px){.hero,.content{padding-left:24px;padding-right:24px;}.audience-grid{grid-template-columns:1fr 1fr;}.aud-detail-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 2.1 · Professional Documentation Basics</div>
+  <h1>Who Is Reading Your Document? Understanding Your Audience in Healthcare</h1>
+  <p class="hero-sub">In healthcare, the same piece of information needs to be written differently depending on who will read it. A clinical note for a physician reads nothing like discharge instructions for a patient. Understanding your audience before you write — or edit AI output — is a foundational professional skill.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>You Write Once. Many People Act On It.</h2>
+    <p>One of the things that makes healthcare documentation uniquely challenging is that the same document may be read by people with dramatically different backgrounds, needs, and goals. A clinical note you write today might be read by a nurse tonight, a specialist next week, a patient next month, and an attorney two years from now. Each of them is looking for something completely different.</p>
+    <p><mark>Writing for your primary audience while being readable to your secondary audiences is the skill at the heart of great healthcare documentation.</mark> You can't write one version for everyone — but you can write one version that serves the most critical readers well.</p>
+    <div class="pull-quote"><p>Before you write a single word, ask yourself: who is this for, what do they need to know, and what level of detail do they need to act on it?</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Know Your Audience: Six Healthcare Readers</h2>
+    <p>Click each type of reader to understand what they need from your documentation, what they look for, and what can go wrong when you don't write for them:</p>
+    <div class="audience-explorer">
+      <div class="ae-label">👥 Audience Explorer</div>
+      <div class="ae-title">Six Readers. Six Different Needs.</div>
+      <div class="ae-sub">Click any reader type to see what they need from your documentation.</div>
+      <div class="audience-grid" id="audienceGrid"></div>
+      <div class="audience-detail" id="audienceDetail"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Same Information, Different Versions</h2>
+    <p>A patient has been diagnosed with Type 2 diabetes and needs to start metformin. The same core information needs to reach four different audiences. Click each tab to see how the writing changes:</p>
+    <div class="same-info-box">
+      <div class="ae-label">📝 Audience Adaptation</div>
+      <div class="ae-title">One Diagnosis. Four Documents.</div>
+      <div class="si-tabs">
+        <button class="si-tab active" onclick="showSi(0)">Clinical Note</button>
+        <button class="si-tab" onclick="showSi(1)">Patient Letter</button>
+        <button class="si-tab" onclick="showSi(2)">Referral to Endocrinologist</button>
+        <button class="si-tab" onclick="showSi(3)">Insurance Auth Request</button>
+      </div>
+      <div id="siContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A physician writes the following in a patient's discharge instructions: "Patient discharged with Dx of NSTEMI. Continue ASA 81mg QD, initiate dual antiplatelet therapy per AHA guidelines. Follow up with cardiologist PRN." A patient reads this and doesn't understand a word of it. Whose responsibility is this communication failure?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">The patient should have asked for clarification</button>
+        <button class="qopt" onclick="cq(this,false)">The hospital's patient education department should have provided a translation</button>
+        <button class="qopt" onclick="cq(this,true)">The physician writing the discharge instructions — discharge instructions must be written for the patient audience, in plain language without clinical abbreviations, because the patient is the primary reader and must be able to act on the information at home without medical support</button>
+        <button class="qopt" onclick="cq(this,false)">This is acceptable — the patient's primary care physician can explain it at the follow-up</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Six major audiences read healthcare documentation: clinical teams, patients, insurance reviewers, legal reviewers, compliance teams, and AI systems. Each needs different language, detail level, and format.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The same information gets written completely differently for different audiences — clinical notes use precise medical language; patient letters use plain language; insurance documents justify medical necessity; referrals provide clinical context for a specialist.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>When reviewing AI-generated documents, always check: who is the primary audience for this document, and is this version written appropriately for them? AI tools frequently generate clinical-level language for patient-facing documents and vice versa.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const audiences=[
+  {icon:'🩺',name:'Clinical Team',bg:'aud-bg-1',needs:'Speed + Precision',looks:['Specific vitals and measurements','Current medications and doses','Active problems and status','Clear action items with owners'],risks:['Too much narrative — they need scannable facts','Vague language like "doing better"','Missing timestamps or medication specifics'],example:'✅ Write for speed and precision. Clinical teams may read a note in 60 seconds at a busy shift change. Every sentence should deliver actionable information.'},
+  {icon:'👤',name:'Patient',bg:'aud-bg-2',needs:'Understanding + Action',looks:['What is happening with my health','What do I need to do','What should I watch for','Who do I call if I have questions'],risks:['Medical abbreviations (NSTEMI, PRN, QD)','Clinical language without explanation','Instructions that assume medical knowledge'],example:'✅ Write for comprehension and action. Patients take documents home with no medical support. If they can\'t understand it, they can\'t act on it — and that affects their outcomes.'},
+  {icon:'💰',name:'Insurance Reviewer',bg:'aud-bg-3',needs:'Medical Necessity',looks:['Specific diagnosis codes (ICD-10)','Clinical justification for the service','Why this specific treatment was needed','Provider credentials and signatures'],risks:['Vague clinical justification','Missing diagnosis codes or CPT codes','Language that doesn\'t match insurance criteria'],example:'✅ Write for justification. Insurance reviewers are looking for specific clinical language that maps to their coverage policies. Missing the right terms means a denied claim.'},
+  {icon:'⚖️',name:'Legal Reviewer',bg:'aud-bg-4',needs:'Accountability + Completeness',looks:['Who did what, when, and why','Every action documented with author and time','No unexplained gaps in the record','Objective language without subjective opinions'],risks:['Passive voice hiding who is responsible','Subjective judgments ("patient was difficult")','Gaps in the timeline','Late additions without documentation'],example:'✅ Write for accountability. Legal reviewers read documentation looking for what was done, who did it, and when. Gaps and vague language always work against the healthcare provider.'},
+  {icon:'📋',name:'Compliance Team',bg:'aud-bg-5',needs:'Standards Adherence',looks:['Proper use of approved abbreviations','Complete required fields and signatures','Timely documentation (not retroactive)','Appropriate level of service documentation'],risks:['Unapproved abbreviations','Missing required fields or signatures','Documentation entered significantly after the event'],example:'✅ Write for completeness and standards. Compliance reviewers audit against specific regulatory requirements. Missing a required signature or entering notes too late creates compliance risk for the whole facility.'},
+  {icon:'🤖',name:'AI System',bg:'aud-bg-6',needs:'Structured, Unambiguous Data',looks:['Clear sentence structure with specific subjects','Numeric data in standard formats','Named individuals rather than pronouns','Consistent terminology (not synonyms for the same thing)'],risks:['Ambiguous pronouns ("she" — which person?)','Informal abbreviations not in medical training data','Inconsistent terminology ("chest pain" vs. "precordial discomfort")'],example:'✅ Write for clarity and consistency. AI systems processing your documentation cannot ask clarifying questions. Ambiguous notes produce ambiguous summaries — which then mislead the next human reader.'}
+];
+let selectedAud=null;
+const ag=document.getElementById('audienceGrid');
+audiences.forEach((a,i)=>{
+  const div=document.createElement('div');div.className=`audience-btn ${a.bg}`;
+  div.innerHTML=`<div class="aud-icon">${a.icon}</div><div class="aud-name">${a.name}</div>`;
+  div.onclick=()=>selectAud(i);
+  ag.appendChild(div);
+});
+function selectAud(i){
+  if(selectedAud===i){selectedAud=null;document.querySelectorAll('.audience-btn').forEach(b=>b.classList.remove('active'));document.getElementById('audienceDetail').className='audience-detail';return;}
+  selectedAud=i;
+  document.querySelectorAll('.audience-btn').forEach((b,bi)=>b.classList.toggle('active',bi===i));
+  const a=audiences[i];
+  document.getElementById('audienceDetail').innerHTML=`<div class="aud-detail-name">${a.icon} ${a.name}</div><div class="aud-detail-role">Primary need: <strong>${a.needs}</strong></div><div class="aud-detail-grid"><div><h4>What they look for</h4>${a.looks.map(l=>`<div class="aud-detail-item">✓ ${l}</div>`).join('')}</div><div><h4>What creates problems</h4>${a.risks.map(r=>`<div class="aud-detail-item">⚠️ ${r}</div>`).join('')}</div></div><div class="aud-example">${a.example}</div>`;
+  document.getElementById('audienceDetail').className='audience-detail show';
+}
+
+const siData=[
+  {label:'📋 Clinical Note — For the Treating Team',text:`Assessment: 54-year-old female presents with fasting BG 218 mg/dL, HbA1c 9.4%. Consistent with Type 2 DM, newly diagnosed.
+
+Plan: Initiate metformin 500mg PO BID with meals. Titrate to 1000mg BID over 4 weeks if tolerated. Recheck HbA1c in 3 months. Diabetes education referral placed. Nutritional counseling ordered. Patient instructed on SMBG.`,why:'Why this works for clinicians: Precise values, standard abbreviations, clear medication titration schedule, and specific follow-up timeframe. A clinician can act on every line of this note.'},
+  {label:'👤 Patient Letter — For Mrs. Chen Herself',text:`Dear Mrs. Chen,
+
+Your recent blood tests show that your blood sugar has been running higher than it should. This is called Type 2 diabetes. The good news is that this is something we can manage together with the right plan.
+
+Dr. Rodriguez has prescribed a medication called metformin to help lower your blood sugar. You'll start with one tablet (500mg) twice a day with meals. After 4 weeks, we'll likely increase this to two tablets twice a day.
+
+Please come back in 3 months so we can recheck your blood sugar levels. We've also signed you up for a diabetes education class and a nutrition appointment — you'll receive details by mail.
+
+If you have questions, please call us at (555) 204-1100.`,why:'Why this works for patients: Plain language, no abbreviations, specific instructions in plain terms, emotional acknowledgment, and a clear phone number for questions. The patient can read this at home and know exactly what to do.'},
+  {label:'🔬 Referral to Endocrinologist',text:`RE: Referral — Type 2 Diabetes Mellitus, Newly Diagnosed
+
+Patient: Susan Chen | DOB: 03/14/1970 | MRN: 88332
+Referring Provider: Dr. A. Rodriguez, MD | NPI: 1234567890
+
+Clinical Summary: 54F presenting with HbA1c 9.4%, FPG 218 mg/dL, BMI 31.2. Initiating metformin per ADA guidelines; however, given significantly elevated HbA1c at diagnosis, requesting endocrinology evaluation for possible early insulin initiation or GLP-1 agonist therapy consideration.
+
+Relevant History: Hypertension (controlled on lisinopril), no known thyroid disease, family history of T2DM (mother, maternal uncle).
+
+Question for Specialist: Is early combination therapy indicated given HbA1c >9% at diagnosis?`,why:'Why this works for specialists: The endocrinologist receives a complete clinical picture — labs, relevant history, current plan, and the specific question. No need to search through the chart. This is written peer-to-peer with appropriate clinical language.'},
+  {label:'💰 Insurance Prior Authorization',text:`PRIOR AUTHORIZATION REQUEST — Metformin 500mg
+
+ICD-10: E11.9 (Type 2 Diabetes Mellitus without complications)
+NDC: 00093-1076-01 | Requested Quantity: 60 tablets/month
+
+Medical Necessity Justification: Patient meets diagnostic criteria for Type 2 DM (HbA1c 9.4%, FPG 218 mg/dL per lab 06/12/2024). Metformin is the ADA first-line agent for newly diagnosed T2DM. No contraindications identified (eGFR 82, no hepatic impairment). Lifestyle interventions initiated (nutrition counseling, diabetes education referral).
+
+Requesting 12-month authorization per ADA treatment guidelines for newly diagnosed T2DM.`,why:'Why this works for insurers: ICD-10 code, NDC number, specific lab values, guideline citation, contraindication review, and clear quantity/duration request. Each element maps to a specific insurance review criterion.'}
+];
+let currentSi=0;
+function showSi(i){currentSi=i;document.querySelectorAll('.si-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));renderSi();}
+function renderSi(){const d=siData[currentSi];document.getElementById('siContainer').innerHTML=`<div class="si-panel active"><div class="si-version"><div class="si-ver-label">${d.label}</div><div class="si-text">${d.text.replace(/\n/g,'<br>')}</div><div class="si-why">${d.why}</div></div></div>`;}
+renderSi();
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct! Discharge instructions are a patient-audience document. "NSTEMI," "ASA 81mg QD," "dual antiplatelet therapy," and "PRN" are clinical shorthand that patients cannot reasonably be expected to understand. When patients go home without understanding their instructions, they\'re more likely to take medications incorrectly, miss follow-ups, and return to the ER. The physician is responsible for writing (or ensuring the writing of) patient-appropriate discharge instructions — or explicitly delegating that responsibility to a nurse or patient educator.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('physician writing'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ The responsibility for audience-appropriate communication sits with the person creating the document. Discharge instructions are a legal and clinical requirement — and they must be comprehensible to the patient. Waiting for a follow-up isn\'t acceptable because the patient needs to act on these instructions before that appointment. Asking the patient to advocate for themselves when they may not know what they don\'t understand also isn\'t a workable standard.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

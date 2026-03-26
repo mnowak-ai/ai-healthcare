@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Writing Across Healthcare Settings — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--red:#DC2626;--red-pale:#FFF1F1;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,56px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* SETTINGS EXPLORER */
+.settings-explorer{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.se-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.se-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.se-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.setting-tabs{display:flex;gap:0;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;overflow:hidden;margin-bottom:20px;}
+.setting-tab{flex:1;padding:14px 8px;text-align:center;cursor:pointer;border:none;background:transparent;font-size:12px;font-weight:600;color:var(--gray-muted);transition:all .2s;border-right:1px solid var(--purple-mid);}
+.setting-tab:last-child{border-right:none;}
+.setting-tab.active{background:var(--purple);color:white;}
+.setting-panel{display:none;animation:fadeIn .3s ease;}
+.setting-panel.active{display:block;}
+.setting-header{display:flex;align-items:center;gap:14px;margin-bottom:18px;}
+.setting-icon{font-size:40px;}
+.setting-name{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--purple-dark);}
+.setting-tagline{font-size:13px;color:var(--gray-muted);}
+.setting-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+.setting-col{background:var(--white);border-radius:12px;padding:14px 16px;border:1px solid var(--purple-mid);}
+.setting-col-title{font-size:12px;font-weight:700;text-transform:uppercase;color:var(--purple);letter-spacing:.08em;margin-bottom:8px;}
+.setting-col-item{font-size:13px;line-height:1.6;padding:4px 0;border-bottom:1px solid var(--purple-mid);}
+.setting-col-item:last-child{border-bottom:none;}
+.setting-example{background:var(--purple-pale);border-radius:12px;padding:14px 16px;}
+.setting-example-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);margin-bottom:8px;letter-spacing:.08em;}
+.setting-example-text{font-size:13px;line-height:1.75;font-family:monospace;}
+.setting-tip{background:var(--green-pale);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--green);margin-top:12px;}
+
+/* SAME SITUATION DIFFERENT SETTINGS */
+.situation-box{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.sit-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+.sit-tab{padding:8px 14px;border-radius:10px;border:1.5px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.sit-tab.active{background:var(--purple);border-color:var(--purple);color:white;}
+.sit-panel{display:none;animation:fadeIn .3s ease;}
+.sit-panel.active{display:block;}
+.sit-note{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;padding:16px;margin-bottom:10px;}
+.sit-note-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--purple);margin-bottom:8px;letter-spacing:.08em;}
+.sit-note-text{font-size:13px;line-height:1.75;font-family:monospace;white-space:pre-wrap;}
+.sit-why{font-size:13px;color:var(--gray-muted);padding:10px 14px;background:var(--purple-pale);border-radius:8px;}
+
+/* KEY DIFFERENCES TABLE */
+.diff-table{width:100%;border-collapse:collapse;margin:24px 0;border-radius:14px;overflow:hidden;border:1.5px solid var(--purple-mid);}
+.diff-table th{background:var(--purple);color:white;padding:12px 14px;font-size:12px;font-weight:600;text-align:left;}
+.diff-table td{padding:10px 14px;font-size:13px;border-bottom:1px solid var(--purple-mid);vertical-align:top;line-height:1.5;}
+.diff-table tr:last-child td{border-bottom:none;}
+.diff-table tr:nth-child(even) td{background:var(--gray-soft);}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:640px){.hero,.content{padding-left:24px;padding-right:24px;}.setting-grid{grid-template-columns:1fr;}.setting-tab{font-size:11px;padding:10px 4px;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 2.1 · Professional Documentation Basics</div>
+  <h1>Writing Across Healthcare Settings: Hospital vs. Clinic vs. Home Health</h1>
+  <p class="hero-sub">Documentation looks different depending on where care is being delivered. A hospital's clinical note, a clinic's visit summary, and a home health aide's daily log all serve different purposes, follow different formats, and are written for different readers. Understanding those differences prepares you for any healthcare environment.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>The Setting Changes the Documentation</h2>
+    <p>When people picture "healthcare documentation," they often picture a hospital — nurses charting at a nursing station, physicians dictating notes. But most healthcare in the US doesn't happen in hospitals. It happens in primary care clinics, urgent care centers, outpatient surgery centers, long-term care facilities, and increasingly in patients' own homes.</p>
+    <p><mark>Each of these settings has its own documentation culture, its own regulatory requirements, and its own communication priorities.</mark> If you move between settings during your career — or if you're using an AI tool trained on one setting's notes to document in another — you need to know how to adapt.</p>
+    <div class="pull-quote"><p>The same diagnosis documented in a hospital, a clinic, and a home health context looks like three completely different documents — because it is.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Explore Each Setting: What Documentation Looks Like</h2>
+    <p>Click through each healthcare setting to understand its unique documentation environment, pace, format, and what goes wrong when documentation is done poorly:</p>
+    <div class="settings-explorer">
+      <div class="se-label">🏥 Setting Explorer</div>
+      <div class="se-title">Documentation in Four Healthcare Environments</div>
+      <div class="se-sub">Each setting has its own rules, pace, and documentation priorities. Click to explore.</div>
+      <div class="setting-tabs">
+        <button class="setting-tab active" onclick="showSetting(0)">🏥 Hospital / Inpatient</button>
+        <button class="setting-tab" onclick="showSetting(1)">🏢 Outpatient Clinic</button>
+        <button class="setting-tab" onclick="showSetting(2)">🏠 Home Health</button>
+        <button class="setting-tab" onclick="showSetting(3)">🚑 Long-Term Care</button>
+      </div>
+      <div id="settingContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Same Patient, Same Situation — Three Different Documents</h2>
+    <p>Mrs. Rivera, 72, has been diagnosed with a urinary tract infection (UTI) and given a prescription for trimethoprim-sulfamethoxazole (Bactrim DS). Here's how that same clinical event gets documented across three different settings:</p>
+    <div class="situation-box">
+      <div class="se-label">📋 Cross-Setting Comparison</div>
+      <div class="se-title">One Diagnosis. Three Documentation Styles.</div>
+      <div class="sit-tabs">
+        <button class="sit-tab active" onclick="showSit(0)">🏥 Hospital Chart Note</button>
+        <button class="sit-tab" onclick="showSit(1)">🏢 Clinic Visit Summary</button>
+        <button class="sit-tab" onclick="showSit(2)">🏠 Home Health Log</button>
+      </div>
+      <div id="sitContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Key Differences at a Glance</h2>
+    <p>Use this quick reference to understand how the same documentation elements look different across settings:</p>
+    <table class="diff-table">
+      <thead><tr><th>Documentation Element</th><th>🏥 Hospital</th><th>🏢 Clinic</th><th>🏠 Home Health</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Note frequency</strong></td><td>Multiple times per shift (Q shift minimum)</td><td>Once per visit</td><td>Daily or per visit (often per Medicaid/Medicare requirements)</td></tr>
+        <tr><td><strong>Primary reader</strong></td><td>Next shift nurse + covering physician</td><td>Patient's own provider team at next visit</td><td>Home health agency, supervising nurse, insurance</td></tr>
+        <tr><td><strong>Tone</strong></td><td>Highly clinical, abbreviated</td><td>Clinical but often more narrative</td><td>Detailed, often plain language elements for patient comprehension</td></tr>
+        <tr><td><strong>Most critical element</strong></td><td>Current status + pending actions</td><td>Visit purpose + follow-up plan</td><td>Functional status changes + safety observations</td></tr>
+        <tr><td><strong>AI tool caution</strong></td><td>Hospital AI trained notes may over-document for outpatient use</td><td>Clinic AI notes may miss the hospitalization-level detail needed for continuity</td><td>AI rarely trained on home health format — highest review burden</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What This Means When You Use AI Documentation Tools</h2>
+    <p>AI documentation tools are typically trained on large datasets of clinical notes — but those datasets aren't equal across settings. Most AI documentation training data comes from large hospital systems because that's where the largest volume of structured EHR data exists. This creates a specific and important bias:</p>
+    <p><mark>AI tools used in home health or outpatient clinic settings may produce notes that sound like hospital documentation</mark> — more technical, less personal, and missing the functional and safety details that matter in non-hospital settings. When you review AI output in these settings, you're not just checking for factual accuracy. You're also checking whether the format and focus are right for where the care is happening.</p>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A home health aide uses an AI documentation tool to write her daily visit note. The AI generates: "Patient presents with UTI. Trimethoprim-sulfamethoxazole 160mg/800mg BID initiated. Monitor for adverse reactions including GI disturbance and hypersensitivity. Renal function monitoring recommended." What is the biggest problem with using this note in a home health context?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">The medication dosage format is incorrect for a home health document</button>
+        <button class="qopt" onclick="cq(this,true)">The note reads like a hospital clinical note — it focuses on medical management language rather than the functional observations, daily status, and safety monitoring that home health documentation requires, and it doesn't reflect what the aide actually observed and did during the visit</button>
+        <button class="qopt" onclick="cq(this,false)">The note is missing the patient's date of birth and MRN</button>
+        <button class="qopt" onclick="cq(this,false)">The abbreviation "BID" should be spelled out as "twice daily"</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Hospital documentation prioritizes current clinical status, shift-to-shift continuity, and rapid communication across a large care team. Clinic documentation focuses on visit purpose and follow-up. Home health documentation emphasizes functional status, safety observations, and what the patient can and can't do independently.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The same diagnosis looks like three completely different documents across settings — not because the facts change, but because the purpose, reader, format, and regulatory requirements all differ.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI documentation tools are primarily trained on hospital data — meaning their outputs in clinic and home health settings may use the wrong format, wrong level of clinical detail, and miss the setting-specific information that regulators, insurers, and care teams actually need.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const settingData=[
+  {icon:'🏥',name:'Hospital / Inpatient',tagline:'High acuity · 24/7 coverage · Large multidisciplinary teams',mustHave:['Current vital signs with timestamps','Active problems list — updated every shift','All medications with dose, route, frequency','Pending tests and results','Specific watch-fors for incoming shift','Who has been notified of what'],avoidHere:['Narrative-heavy prose — too slow to scan','Missing timestamps on any clinical event','"Stable" without supporting numbers','Assuming incoming shift knows patient history'],example:`NIGHT SHIFT SUMMARY — Rm 12 — Ana Reyes (MRN 66102)\n\nStatus: Admitted 06/12 for CHF exacerbation. 
+Respiratory: O2 sat 92–95% on 2L NC. No acute distress overnight.
+Meds given: Furosemide 40mg IV at 22:00 (Dr. Park order). 
+UO: 850mL last 4hr — responding to diuresis.
+⚠️ WATCH: Potassium 3.2 — replacement ordered, watch for arrhythmia.
+Pending: BMP at 06:00. Cardiology rounding at 08:00.`,tip:'💡 Hospital documentation is designed for speed and safety at handoff. Every second the incoming nurse spends hunting for information is a second they\'re not with their patients.'},
+  {icon:'🏢',name:'Outpatient Clinic',tagline:'Scheduled visits · Single provider · Longitudinal patient relationships',mustHave:['Clear reason for today\'s visit','What changed since last visit','Examination findings relevant to today','Treatment plan with specific follow-up','Patient education provided and understood','Any referrals made — to whom and why'],avoidHere:['Copying and pasting from previous visit notes unchanged','Missing the follow-up plan and timeline','No documentation of what patient was told','Vague complaints without new information'],example:`OFFICE VISIT NOTE — 06/12/2024
+Patient: Thomas Hill (DOB 11/03/1958)
+Chief Complaint: Follow-up, Type 2 DM management
+
+Subjective: Patient reports good medication adherence. Fingerstick logs show fasting BG avg 148 over past 2 weeks (improved from 185). Denies hypoglycemia. No new symptoms.
+
+Assessment: T2DM — improving glycemic control. HbA1c ordered today.
+
+Plan: Continue metformin 1000mg BID. Recheck HbA1c in 6 weeks. Patient counseled on continued dietary management. Lab slip provided.`,tip:'💡 Clinic notes support continuity over time — the next provider reading this note 3 months from now needs to understand what was decided today and what to look for at the next visit.'},
+  {icon:'🏠',name:'Home Health',tagline:'Patient\'s home environment · Functional focus · Insurance-driven documentation',mustHave:['Functional status — what can patient do independently','Safety observations — fall risks, hazards, medication management','Vital signs with reference to baseline','Any acute changes from last visit','Caregiver status and ability','All interventions performed during this visit'],avoidHere:['Pure clinical language without functional context','Missing safety observations','"No change" without supporting evidence','Skipping caregiver education documentation'],example:`HOME HEALTH VISIT NOTE — 06/12/2024
+Patient: Margaret Chen | RN Visit #8
+
+Vital Signs: BP 134/82 (baseline 140s/80s), HR 76, O2 sat 97% RA
+Functional Status: Ambulating independently with walker in home. Transferred chair-to-stand independently x3 — no assist needed. Meal prep: able to prepare simple meals with setup assist.
+Safety: Bathroom grab bars installed since last visit. No fall since 06/05.
+Wound: Left heel wound 1.2cm x 0.8cm, clean, no drainage. Dressing changed per protocol.
+Patient/Caregiver Education: Medication schedule reviewed with daughter — verbalized understanding.`,tip:'💡 Home health documentation drives insurance reimbursement. Medicare and Medicaid require specific functional status language and evidence of skilled need — vague notes result in denied claims.'},
+  {icon:'🚑',name:'Long-Term Care / Skilled Nursing',tagline:'Chronic conditions · Regulatory compliance · Interdisciplinary care planning',mustHave:['Activities of daily living (ADL) status','Behavioral observations (mood, cognition, agitation)','Weight and nutritional intake','Skin integrity assessment','Medication administration record','Any acute changes requiring notification'],avoidHere:['Documenting only when something is wrong','Missing required quarterly assessment documentation','Skipping behavioral change documentation','Using hospital-style notes that miss required long-term care elements'],example:`DAILY NURSING NOTE — 06/12/2024 | Oak Manor SNF
+Resident: Robert Davis (Rm 14B) | MDS Assessment Due 06/30
+
+ADLs: Required moderate assist with bathing. Independent with feeding. Continent of bladder.
+Cognition: Oriented x2 (person, place). Asked for deceased wife twice — redirected with family photos, calmed within 5 min.
+Nutrition: Ate 85% of lunch. Weight today 168 lbs (stable vs. 167 lbs last week).
+Skin: Stage 1 area coccyx unchanged — repositioning Q2hr ongoing.
+Notification: Daughter called at 14:00 re: upcoming care plan meeting 06/20.`,tip:'💡 Long-term care documentation must satisfy both clinical needs AND federal survey requirements. Regulators look for specific elements — missing them creates compliance deficiencies that can result in facility sanctions.'}
+];
+let currentSetting=0;
+function showSetting(i){currentSetting=i;document.querySelectorAll('.setting-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));renderSetting();}
+function renderSetting(){const s=settingData[currentSetting];document.getElementById('settingContainer').innerHTML=`<div class="setting-panel active"><div class="setting-header"><div class="setting-icon">${s.icon}</div><div><div class="setting-name">${s.name}</div><div class="setting-tagline">${s.tagline}</div></div></div><div class="setting-grid"><div class="setting-col"><div class="setting-col-title">✅ Must include</div>${s.mustHave.map(i=>`<div class="setting-col-item">• ${i}</div>`).join('')}</div><div class="setting-col"><div class="setting-col-title">❌ Avoid in this setting</div>${s.avoidHere.map(i=>`<div class="setting-col-item">• ${i}</div>`).join('')}</div></div><div class="setting-example"><div class="setting-example-label">📋 Sample Note Format</div><div class="setting-example-text">${s.example}</div></div><div class="setting-tip">${s.tip}</div></div>`;}
+renderSetting();
+
+const sitData=[
+  {label:'🏥 Hospital Inpatient Chart Note',text:`Assessment/Plan — Ana Reyes (MRN 66102) — Day 2 of Admission
+
+A: 64F admitted with confirmed UTI. UA positive for nitrites and leukocyte esterase. Urine culture pending. Febrile to 38.6°C on admission, now afebrile x12hr.
+
+P: 
+• Continue TMP-SMX DS 160/800mg PO BID x7 days — Day 2
+• IV fluids discontinued — tolerating PO fluids
+• Urine culture results expected 24hr — adjust therapy if resistant
+• D/C planning if afebrile x24hr and culture sensitivity confirmed
+• Patient ambulating independently — no fall risk concerns`,why:'Why this format: Hospital note focuses on acute status, current treatment day, pending results, and decision criteria for discharge. Very clinical, scannable, action-oriented. The care team reads this in seconds.'},
+  {label:'🏢 Clinic Visit Summary Note',text:`OFFICE VISIT — Ana Reyes (MRN 66102) — 06/12/2024
+Dr. Maria Lopez, MD
+
+CC: Urinary frequency and burning x3 days
+
+Assessment: Uncomplicated UTI. UA in office positive. No fever, no flank pain, no CVA tenderness. No recent hospitalizations. No antibiotic use in past 3 months.
+
+Plan: TMP-SMX DS 160/800mg PO BID x3 days (shorter course appropriate for uncomplicated UTI). Encouraged fluid intake. Return if not improved in 48hr or worsening.
+
+Patient Education: Patient instructed on completing full antibiotic course and signs of progression (fever, back pain) requiring return visit or ER. Verbalized understanding.
+
+Follow-up: Return in 1 week if symptoms persist, or PRN.`,why:'Why this format: Clinic note tells the story of this visit — what brought her in, what was found, what was decided, and what the patient was told. Less urgent than hospital, more narrative, includes follow-up plan and patient education.'},
+  {label:'🏠 Home Health Daily Visit Log',text:`HOME HEALTH AIDE VISIT — 06/12/2024 | 09:00–10:30am
+Patient: Ana Reyes | Aide: Maria T.
+
+Today's status: Patient reports feeling better than yesterday. Denies pain. States "I think the pills are working."
+
+Medication: Observed patient take TMP-SMX DS tablet with full glass of water at 09:15. Medication box reviewed — all prior doses taken as scheduled. No missed doses.
+
+Functional Status: Up and ambulating to kitchen independently. Preparing own breakfast with minimal setup assist. Slower than baseline but improving.
+
+Fluids: Patient drank 2 glasses of water during visit. Encouraged 8 glasses daily per nurse instruction. Agreed to try.
+
+Safety: Bathroom observed — grab bars intact. No new fall risk concerns. Encouraged patient to call aide before getting up at night.
+
+Aide interventions: Medication monitoring, ADL observation, fluid encouragement, light housekeeping.`,why:'Why this format: Home health log documents what the AIDE actually observed and did — not medical management. It captures functional improvement, medication adherence in real time, safety observations, and patient statements. Insurance reviewers use this to confirm skilled need and appropriate care delivery.'}
+];
+let currentSit=0;
+function showSit(i){currentSit=i;document.querySelectorAll('.sit-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));renderSit();}
+function renderSit(){const d=sitData[currentSit];document.getElementById('sitContainer').innerHTML=`<div class="sit-panel active"><div class="sit-note"><div class="sit-note-label">${d.label}</div><div class="sit-note-text">${d.text}</div></div><div class="sit-why">${d.why}</div></div>`;}
+renderSit();
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct! The AI generated a hospital-style clinical note — focused on medical management, using clinical abbreviations, and describing what should happen medically. A home health aide\'s daily note needs to document what the aide actually observed during the visit: Can the patient walk to the bathroom? Are they taking their medication? Are they drinking enough fluids? Are there any new safety concerns in the home? The functional and safety details that matter for home health reimbursement and continuity are completely absent. This is exactly the kind of setting-format mismatch you need to catch when reviewing AI-generated documentation.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('hospital clinical note'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ The medication format and BID abbreviation are minor issues compared to the fundamental format problem. This note reads like it was written by a physician for a hospital chart — because AI tools are predominantly trained on hospital documentation data. A home health aide\'s daily note should capture functional status observations, medication adherence witnessed by the aide, safety observations in the home environment, and patient statements. None of those things appear in the AI-generated note.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

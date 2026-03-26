@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional Tone in Healthcare — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--red:#DC2626;--red-pale:#FFF1F1;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* TONE SPECTRUM */
+.tone-spectrum{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.ts-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.ts-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ts-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.spectrum-bar{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px;}
+.spectrum-zone{border-radius:16px;padding:18px;cursor:pointer;transition:all .2s;border:2px solid transparent;}
+.spectrum-zone.too-cold{background:#EFF6FF;border-color:#BFDBFE;}
+.spectrum-zone.just-right{background:var(--purple-pale);border-color:var(--purple-mid);}
+.spectrum-zone.too-casual{background:#FFF7ED;border-color:#FDE68A;}
+.spectrum-zone.active{transform:scale(1.02);box-shadow:0 4px 20px rgba(0,0,0,.12);}
+.zone-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.too-cold .zone-label{color:#1D4ED8;}
+.just-right .zone-label{color:var(--purple);}
+.too-casual .zone-label{color:var(--orange);}
+.zone-name{font-size:16px;font-weight:700;color:var(--gray-text);margin-bottom:8px;}
+.zone-desc{font-size:13px;line-height:1.55;color:var(--gray-muted);}
+.spectrum-examples{display:none;animation:fadeIn .3s ease;}
+.spectrum-examples.show{display:block;}
+.se-example{background:var(--white);border-radius:12px;padding:14px 16px;margin-bottom:10px;font-size:14px;line-height:1.6;}
+.se-example strong{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.se-example.cold strong{color:#1D4ED8;}
+.se-example.right strong{color:var(--purple);}
+.se-example.casual strong{color:var(--orange);}
+.se-why{background:rgba(255,255,255,.7);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--gray-text);border-left:3px solid currentColor;margin-top:10px;}
+
+/* REWRITE CHALLENGE */
+.rewrite{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.rw-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.rw-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.rw-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.rw-tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.rw-tab{padding:8px 14px;border-radius:10px;border:1.5px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.rw-tab.active{background:var(--purple);border-color:var(--purple);color:white;}
+.rw-panel{display:none;animation:fadeIn .3s ease;}
+.rw-panel.active{display:block;}
+.rw-original{background:var(--red-pale);border:1.5px solid #FCA5A5;border-radius:12px;padding:14px 16px;margin-bottom:14px;}
+.rw-original-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--red);margin-bottom:6px;letter-spacing:.08em;}
+.rw-original-text{font-size:14px;line-height:1.7;font-style:italic;}
+.rw-options-label{font-size:13px;font-weight:600;color:var(--gray-muted);margin-bottom:8px;}
+.rw-options{display:flex;flex-direction:column;gap:8px;}
+.rw-option{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;padding:12px 16px;cursor:pointer;font-size:14px;line-height:1.6;transition:all .2s;text-align:left;}
+.rw-option:hover{border-color:var(--purple);}
+.rw-option.rw-correct{background:var(--green-pale);border-color:var(--green);}
+.rw-option.rw-wrong{background:var(--red-pale);border-color:var(--red);}
+.rw-feedback{font-size:14px;line-height:1.65;padding:12px 16px;border-radius:10px;margin-top:10px;display:none;}
+.rw-feedback.show{display:block;animation:fadeIn .3s ease;}
+.rw-feedback.good{background:var(--green-pale);color:var(--green);}
+.rw-feedback.bad{background:var(--red-pale);color:var(--red);}
+
+/* TONE WORD BANK */
+.word-bank{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:24px 0;}
+.wb-col{border-radius:16px;padding:16px;}
+.wb-col.use{background:var(--green-pale);border:2px solid #86EFAC;}
+.wb-col.avoid{background:var(--red-pale);border:2px solid #FCA5A5;}
+.wb-col.context{background:var(--purple-pale);border:2px solid var(--purple-mid);}
+.wb-col-title{font-size:13px;font-weight:700;margin-bottom:10px;}
+.wb-col.use .wb-col-title{color:var(--green);}
+.wb-col.avoid .wb-col-title{color:var(--red);}
+.wb-col.context .wb-col-title{color:var(--purple);}
+.wb-word{font-size:13px;padding:5px 10px;border-radius:8px;margin-bottom:6px;display:block;}
+.wb-col.use .wb-word{background:rgba(255,255,255,.6);color:var(--green);}
+.wb-col.avoid .wb-word{background:rgba(255,255,255,.6);color:var(--red);}
+.wb-col.context .wb-word{background:rgba(255,255,255,.6);color:var(--purple-dark);}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:640px){.hero,.content{padding-left:24px;padding-right:24px;}.spectrum-bar{grid-template-columns:1fr;}.word-bank{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 2.1 · Professional Documentation Basics</div>
+  <h1>Professional Tone in Healthcare: What It Sounds Like and Why It Changes Everything</h1>
+  <p class="hero-sub">Tone is the invisible quality of your writing that tells the reader how you feel about what you're saying — and how you feel about them. In healthcare, the wrong tone doesn't just create awkwardness. It can undermine trust, bias clinical decisions, and create real legal and ethical problems.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Tone Isn't Just About Being Polite</h2>
+    <p>When most people hear "professional tone," they think it just means "be formal and not rude." That's part of it — but in healthcare, tone does much more work than that. Tone affects whether a patient feels respected or dismissed. It affects whether a colleague trusts your judgment or questions it. It affects whether a legal reviewer sees a careful professional or someone who didn't take their work seriously.</p>
+    <p>There are three tone zones in healthcare writing. Only one of them is right. <mark>The target is: professional, warm, and precise</mark> — not cold and clinical, not casual and chatty, but something specific in between that very few other professions require.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Three Tone Zones — Where Do You Land?</h2>
+    <p>Click each zone to see real examples from healthcare settings and understand what goes wrong on each extreme:</p>
+    <div class="tone-spectrum">
+      <div class="ts-label">🎚️ Tone Zone Explorer</div>
+      <div class="ts-title">Healthcare Tone: Finding the Target</div>
+      <div class="ts-sub">Click each zone to explore what it sounds like and why it matters.</div>
+      <div class="spectrum-bar">
+        <div class="spectrum-zone too-cold" onclick="showZone('cold')"><div class="zone-label">Zone 1</div><div class="zone-name">❄️ Too Cold / Clinical</div><div class="zone-desc">Technically accurate but dehumanizing. Reads like a machine wrote it.</div></div>
+        <div class="spectrum-zone just-right" onclick="showZone('right')"><div class="zone-label">✅ Target Zone</div><div class="zone-name">🎯 Professional + Warm</div><div class="zone-desc">Clear, respectful, specific, and human. The healthcare standard.</div></div>
+        <div class="spectrum-zone too-casual" onclick="showZone('casual')"><div class="zone-label">Zone 3</div><div class="zone-name">🔥 Too Casual</div><div class="zone-desc">Friendly but unprofessional. Creates ambiguity and legal risk.</div></div>
+      </div>
+      <div class="spectrum-examples" id="specExamples"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Rewrite Challenge: Fix the Tone</h2>
+    <p>Each example below has a tone problem. Read the original, then pick the version with the correct professional healthcare tone:</p>
+    <div class="rewrite">
+      <div class="rw-label">✏️ Tone Rewrite Challenge</div>
+      <div class="rw-title">Find the Best Tone for Each Situation</div>
+      <div class="rw-sub">Select the version with the most appropriate professional healthcare tone.</div>
+      <div class="rw-tabs">
+        <button class="rw-tab active" onclick="showRw(0)">Situation 1</button>
+        <button class="rw-tab" onclick="showRw(1)">Situation 2</button>
+        <button class="rw-tab" onclick="showRw(2)">Situation 3</button>
+        <button class="rw-tab" onclick="showRw(3)">Situation 4</button>
+      </div>
+      <div id="rwContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Words That Help vs. Words That Hurt</h2>
+    <p>In healthcare writing, specific words carry specific risks. Here's your quick reference guide to words and phrases that improve your tone vs. those that create problems:</p>
+    <div class="word-bank">
+      <div class="wb-col use">
+        <div class="wb-col-title">✅ Use These</div>
+        <span class="wb-word">"Patient reported..."</span>
+        <span class="wb-word">"Patient declined..."</span>
+        <span class="wb-word">"Observed..."</span>
+        <span class="wb-word">"Per patient statement..."</span>
+        <span class="wb-word">"Notified Dr. [Name] at [time]"</span>
+        <span class="wb-word">"Please advise on next steps"</span>
+        <span class="wb-word">"I respectfully request..."</span>
+        <span class="wb-word">"Thank you for your assistance"</span>
+      </div>
+      <div class="wb-col avoid">
+        <div class="wb-col-title">❌ Avoid These</div>
+        <span class="wb-word">"Patient is difficult"</span>
+        <span class="wb-word">"Obviously..." / "Clearly..."</span>
+        <span class="wb-word">"The patient claims..."</span>
+        <span class="wb-word">"She/he just wants attention"</span>
+        <span class="wb-word">"ASAP!!!" / "URGENT!!!"</span>
+        <span class="wb-word">"No brainer" / "Honestly"</span>
+        <span class="wb-word">"FYI" without context</span>
+        <span class="wb-word">Slang or texting abbreviations</span>
+      </div>
+      <div class="wb-col context">
+        <div class="wb-col-title">📌 Use With Care</div>
+        <span class="wb-word">"Appears to..." (note subjective)</span>
+        <span class="wb-word">"Urgent" (only if clinically true)</span>
+        <span class="wb-word">"Noncompliant" (document facts instead)</span>
+        <span class="wb-word">"Emotional" (describe behavior)</span>
+        <span class="wb-word">"Alert" (specify what and when)</span>
+        <span class="wb-word">"As needed" (specify the need)</span>
+        <span class="wb-word">"Routine" (define the routine)</span>
+        <span class="wb-word">"Stable" (include the numbers)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>When AI Gets the Tone Wrong</h2>
+    <p>AI writing tools are improving rapidly, but tone is one of the hardest things for AI to get right in healthcare contexts — for two specific reasons.</p>
+    <p>First, <mark>AI often defaults to "too clinical."</mark> It uses cold, formulaic language that sounds technically correct but lacks the human warmth appropriate for patient-facing communications. If you're using AI to draft a letter to a patient about a concerning test result, the AI version might be accurate but feel alarming or impersonal.</p>
+    <p>Second, <mark>AI sometimes defaults to "too casual"</mark> when it's trying to sound friendly — especially when given informal prompts. If you ask AI to "write a friendly email to the team," you might get language that's too breezy for a clinical communication.</p>
+    <p>Your job when reviewing AI-drafted documents is to run a tone check: Is this too cold? Too casual? Or just right? The target never changes — even when the tool changes.</p>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A care coordinator needs to send a patient a letter explaining that their insurance denied coverage for a recommended procedure. Which version has the most appropriate professional healthcare tone?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Version A: "Hey! We just wanted to let you know that insurance was kind of a pain and didn't approve the procedure. Ugh! We'll figure it out together 😊"</button>
+        <button class="qopt" onclick="cq(this,false)">Version B: "RE: Insurance Denial — CPT Code 27447. The payer has issued a determination of medical non-necessity per policy exclusion 14.3(b). Appeal rights attach."</button>
+        <button class="qopt" onclick="cq(this,true)">Version C: "Dear Ms. Reyes, We are writing to let you know that your insurance has denied coverage for the knee replacement procedure recommended by Dr. Torres. We understand this is disappointing news. Our team is ready to help you explore your options, including an appeal. Please call us at (555) 204-1100 and we will guide you through the next steps."</button>
+        <button class="qopt" onclick="cq(this,false)">Version D: "Your insurance claim was denied. Please call the office to discuss."</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Healthcare tone has a specific target: professional, warm, and precise. Too clinical feels cold and can harm patient trust. Too casual creates legal risk and looks unprofessional. The target is always in between.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Words matter beyond their literal meaning. "Patient claims" implies doubt. "Obviously" implies the reader should feel embarrassed for not knowing. "Patient is difficult" is a judgment, not a fact. Choose words that are respectful, objective, and factual.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI frequently misses the tone target — either going too clinical or too casual. When reviewing AI-generated healthcare documents, run a tone check as part of your edit: Is this warm enough for a patient? Is this professional enough for a clinical record?</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const zoneData={
+  cold:{label:'❄️ Too Cold / Clinical',color:'#1D4ED8',examples:[{label:'Clinical note example',cls:'cold',text:'"Subject presents with SOB and elevated troponin. Intervention initiated per protocol. Family notified."',why:'What\'s wrong: This note is technically complete but completely dehumanized. "Subject" instead of the patient\'s name. No acknowledgment of the seriousness of what the family was told. Correct the information without the robotic delivery.'},
+    {label:'Patient letter example',cls:'cold',text:'"Your A1C is 9.2. This represents inadequate glycemic control. Dietary modification and medication adjustment will be required. Please schedule an appointment."',why:'What\'s wrong: Technically accurate but reads like a machine wrote it. The patient just received scary news with zero human acknowledgment.'}]},
+  right:{label:'✅ Professional + Warm',color:'var(--purple)',examples:[{label:'Clinical note example',cls:'right',text:'"Patient (James Park, MRN 55219) reported chest tightness beginning at 19:00. Troponin elevated at 0.8. Dr. Kim notified at 19:15 and orders received. Family informed of patient status by RN at 20:00."',why:'Why this works: Complete, specific, objective — and written about a person, not a "subject." Every relevant party is named and every time is logged.'},
+    {label:'Patient letter example',cls:'right',text:'"Dear Mr. Santos, Your recent lab results show your A1C at 9.2%, which tells us your blood sugar has been running higher than we\'d like. The good news is this is something we can work on together. Dr. Rivera would like to meet with you to talk through a plan. Please call us at (555) 401-0022 to schedule."',why:'Why this works: Clear, accurate, and human. The patient understands what the number means. They feel supported rather than scolded.'}]},
+  casual:{label:'🔥 Too Casual',color:'var(--orange)',examples:[{label:'Internal email example',cls:'casual',text:'"Heads up!! Mrs. Henderson in room 6 is being super demanding today lol, might want to prep yourselves 😂 she keeps asking for the doctor every 5 mins"',why:'What\'s wrong: This creates a biased record, uses unprofessional language, and will look terrible if reviewed in a complaint. The patient\'s behavior should be documented with specific facts, not judgment and emojis.'},
+    {label:'Shift handoff example',cls:'casual',text:'"Room 3 pt doing way better, gave him his meds, everything\'s chill now. Night shift should be fine 👍"',why:'What\'s wrong: "Way better," "everything\'s chill," and "should be fine" contain zero clinical information. This tells the incoming nurse nothing they can act on.'}]}
+};
+let currentZone=null;
+function showZone(zone){
+  if(currentZone===zone){currentZone=null;document.getElementById('specExamples').className='spectrum-examples';return;}
+  currentZone=zone;
+  document.querySelectorAll('.spectrum-zone').forEach(z=>z.classList.remove('active'));
+  document.querySelector(`.${zone==='cold'?'too-cold':zone==='right'?'just-right':'too-casual'}`).classList.add('active');
+  const d=zoneData[zone];
+  document.getElementById('specExamples').innerHTML=`<div style="font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:12px;">${d.label} — Real Examples</div>${d.examples.map(ex=>`<div class="se-example ${ex.cls}"><strong>${ex.label}</strong>"${ex.text}"<div class="se-why" style="border-color:${d.color}">${ex.why}</div></div>`).join('')}`;
+  document.getElementById('specExamples').className='spectrum-examples show';
+}
+
+const rwData=[
+  {context:'A nurse documenting why a patient refused a blood draw',original:'"Patient was being super difficult and threw a fit about the blood draw again. Third time this week she\'s done this."',options:[{text:'"Patient declined blood draw at 10:00am for the third time this week. States: \'I\'m afraid of needles and I need to talk to my doctor first.\' Dr. Patel notified at 10:05am."',correct:true,fb:'✅ Correct. This version replaces judgment ("difficult," "threw a fit") with specific, observable facts. It quotes the patient directly, documents the refusal objectively, and shows appropriate follow-up.'},
+    {text:'"Patient has issues with blood draws and will not cooperate. We will try again later."',correct:false,fb:'❌ Still too vague and judgmental. "Issues" and "will not cooperate" are assessments, not facts. How many times? What did the patient say? What action was taken?'},
+    {text:'"The patient in Room 8 is being very uncooperative with the standard procedure required for her care."',correct:false,fb:'❌ "Uncooperative" is a judgment. "Very" adds nothing clinical. And "required for her care" editorializes the situation without documenting what the patient actually said or did.'}]},
+  {context:'Notifying a colleague that a patient is waiting',original:'"HEY!! Mr. Ramirez has been waiting for like 40 mins and is getting really mad, someone needs to see him NOW!!!"',options:[{text:'"Mr. Ramirez (MRN 39042) has been waiting since 9:15am (40 minutes). He has expressed frustration to front desk staff. Please advise on timeline — he may need to be rescheduled or provided an update."',correct:true,fb:'✅ Correct. The urgency is conveyed through facts (40 minutes, expressed frustration) rather than caps lock and exclamation points. A specific action is requested.'},
+    {text:'"Just to note, there is a patient in the waiting room who has been there for a while and seems upset."',correct:false,fb:'❌ "A while," "seems upset," and no patient name give the recipient nothing specific to act on. The appropriate information is: who, how long, current status, what\'s needed.'},
+    {text:'"Patient wait time exceeds acceptable threshold. Patient has vocalized dissatisfaction with current service delivery."',correct:false,fb:'❌ Too clinical to the point of being absurd. "Vocalized dissatisfaction with service delivery" is robotic and strips all useful information. Professional tone is human — not bureaucratic.'}]},
+  {context:'Writing discharge instructions about wound care',original:'"Ok so basically just keep it clean and dry, no getting it wet or anything like that, and come back if it looks bad or whatever"',options:[{text:'"Wound Care Instructions: Keep the wound site clean and dry at all times. Do not submerge in water (no swimming or baths) for 7 days. Change dressing daily using the sterile supplies provided. Contact our office immediately if you notice increased redness, swelling, warmth, discharge, or fever above 101°F."',correct:true,fb:'✅ Correct. Specific, actionable, and complete. The patient knows exactly what to do and what symptoms should prompt them to call. No ambiguity.'},
+    {text:'"Please maintain wound hygiene per discharge protocol standards and adhere to prescribed wound management guidelines."',correct:false,fb:'❌ The patient has no idea what any of this means in practical terms. Too clinical, no actionable instructions, no symptom list.'},
+    {text:'"Take care of your wound and don\'t let it get infected. Call us if you\'re worried!"',correct:false,fb:'❌ "Take care of" and "don\'t let it get infected" give no actual instructions. "If you\'re worried" is subjective — patients may not recognize warning signs. Discharge instructions must be specific.'}]},
+  {context:'An email to a supervisor requesting a schedule change',original:'"Hey so I really need next Friday off, I have something personal to deal with and it\'s kind of urgent so I was hoping you could switch me with someone??"',options:[{text:'"Hi Maria, I\'m writing to request a schedule change for Friday, June 21st due to a personal matter. I\'m available to cover a shift on Saturday June 22nd or Monday June 24th in exchange. Please let me know if either works. Thank you for considering this. — Dana Chen, CNA"',correct:true,fb:'✅ Correct. Professional greeting, specific date, brief appropriate explanation, offers a solution (doesn\'t just ask for a favor), provides alternatives, and includes a professional sign-off.'},
+    {text:'"To: Supervisor Re: Schedule Change Request — I formally request modification to my assigned schedule for the date of June 21st. I will provide appropriate documentation upon request. Regards, Dana Chen, CNA."',correct:false,fb:'❌ Too formal and cold — "I formally request modification" reads like a legal filing. Healthcare tone is professional but also human. A warm, direct request is appropriate here.'},
+    {text:'"Sorry to bother you, I know you\'re super busy, but I was wondering if maybe possibly I could have June 21st off? No worries at all if not, I totally understand if it doesn\'t work out!"',correct:false,fb:'❌ Overly apologetic and uncertain. "Maybe possibly" and "no worries if not" signal lack of professionalism and make it easy to ignore. State your need clearly — you\'re not asking a favor, you\'re making a reasonable professional request.'}]}
+];
+let rwAnswers={};
+let currentRw=0;
+function showRw(i){currentRw=i;rwAnswers={};document.querySelectorAll('.rw-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));renderRw();}
+function renderRw(){const d=rwData[currentRw];document.getElementById('rwContainer').innerHTML=`<div class="rw-panel active"><div style="font-size:13px;font-weight:600;color:var(--purple);margin-bottom:8px;">📋 Situation: ${d.context}</div><div class="rw-original"><div class="rw-original-label">❌ Original (Tone Problem)</div><div class="rw-original-text">"${d.original}"</div></div><div class="rw-options-label">Which rewrite has the right tone for healthcare?</div><div class="rw-options">${d.options.map((opt,oi)=>`<button class="rw-option" id="rwo${oi}" onclick="pickRw(${oi})">${opt.text}</button><div class="rw-feedback" id="rwfb${oi}"></div>`).join('')}</div></div>`;}
+function pickRw(oi){if(document.querySelector('.rw-option.rw-correct')||document.querySelector('.rw-option.rw-wrong'))return;const opt=rwData[currentRw].options[oi];document.getElementById('rwo'+oi).className='rw-option '+(opt.correct?'rw-correct':'rw-wrong');if(!opt.correct){rwData[currentRw].options.forEach((o,ii)=>{if(o.correct)document.getElementById('rwo'+ii).className='rw-option rw-correct';});}const fb=document.getElementById('rwfb'+oi);fb.textContent=opt.fb;fb.className='rw-feedback show '+(opt.correct?'good':'bad');}
+renderRw();
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct! Version C hits the target perfectly. It\'s professional (proper salutation, formal sentence structure), warm (acknowledges that the news is disappointing), clear (explains what happened in plain language), and actionable (provides a specific phone number and next steps). Version A is too casual. Version B is so clinical the patient would need a medical degree to understand it. Version D is technically accurate but offers zero human acknowledgment or guidance.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('Version C'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ Think about who is reading this letter and what they need. Version A is friendly but unprofessional — "insurance was kind of a pain" is not appropriate in a formal patient letter. Version B is so technically dense a patient would need to look up every term. Version D gives no human acknowledgment, no explanation, and no guidance. Version C is the only one that\'s professional AND helpful AND human — all three qualities are required in healthcare patient communication.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

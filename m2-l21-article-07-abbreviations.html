@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medical Abbreviations and Jargon — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--red:#DC2626;--red-pale:#FFF1F1;--orange:#D97706;--orange-pale:#FFFBEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,56px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* DANGEROUS ABBREV CARDS */
+.danger-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.danger-card{background:var(--white);border:2px solid #FCA5A5;border-radius:18px;padding:20px;}
+.danger-abbrev{font-family:'Fraunces',serif;font-size:32px;font-weight:900;color:var(--red);margin-bottom:4px;}
+.danger-banned{display:inline-block;background:var(--red-pale);color:var(--red);font-size:11px;font-weight:700;text-transform:uppercase;padding:3px 10px;border-radius:100px;margin-bottom:10px;}
+.danger-problem{font-size:13px;line-height:1.6;color:var(--gray-text);margin-bottom:10px;}
+.danger-confusion{background:var(--red-pale);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--red);}
+.danger-use-instead{background:var(--green-pale);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--green);margin-top:6px;}
+
+/* APPROVED vs DANGEROUS EXPLORER */
+.abbrev-explorer{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.ae-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.ae-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ae-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.ae-tabs{display:flex;gap:0;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;overflow:hidden;margin-bottom:18px;}
+.ae-tab{flex:1;padding:12px 8px;text-align:center;cursor:pointer;border:none;background:transparent;font-size:13px;font-weight:600;color:var(--gray-muted);transition:all .2s;border-right:1px solid var(--purple-mid);}
+.ae-tab:last-child{border-right:none;}
+.ae-tab.active{background:var(--purple);color:white;}
+.ae-panel{display:none;animation:fadeIn .3s ease;}
+.ae-panel.active{display:block;}
+.abbrev-table{width:100%;border-collapse:collapse;border-radius:12px;overflow:hidden;border:1.5px solid var(--purple-mid);}
+.abbrev-table th{background:var(--purple);color:white;padding:10px 14px;font-size:12px;font-weight:600;text-align:left;}
+.abbrev-table td{padding:10px 14px;font-size:13px;border-bottom:1px solid var(--purple-mid);vertical-align:top;}
+.abbrev-table tr:last-child td{border-bottom:none;}
+.abbrev-table tr:nth-child(even) td{background:var(--gray-soft);}
+.abbrev-code{font-weight:700;color:var(--purple-dark);font-family:monospace;}
+.danger-tag{background:var(--red-pale);color:var(--red);font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;}
+.ok-tag{background:var(--green-pale);color:var(--green);font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;}
+.context-tag{background:var(--orange-pale);color:var(--orange);font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;}
+
+/* CONTEXT CHECK ACTIVITY */
+.context-activity{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.ca-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.ca-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ca-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.ca-items{display:flex;flex-direction:column;gap:14px;}
+.ca-item{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;padding:18px;}
+.ca-sentence{font-size:14px;line-height:1.7;font-family:monospace;background:var(--gray-soft);padding:10px 12px;border-radius:8px;margin-bottom:12px;}
+.ca-question{font-size:13px;font-weight:600;color:var(--purple-dark);margin-bottom:8px;}
+.ca-opts{display:flex;gap:8px;flex-wrap:wrap;}
+.ca-opt{padding:7px 16px;border-radius:8px;border:1.5px solid var(--purple-mid);background:var(--white);font-size:13px;cursor:pointer;transition:all .2s;}
+.ca-opt:hover{border-color:var(--purple);}
+.ca-opt.ca-correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.ca-opt.ca-wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.ca-fb{font-size:13px;line-height:1.6;padding:10px 14px;border-radius:8px;margin-top:10px;display:none;}
+.ca-fb.show{display:block;animation:fadeIn .3s ease;}
+.ca-fb.good{background:var(--green-pale);color:var(--green);}
+.ca-fb.bad{background:var(--red-pale);color:var(--red);}
+
+/* QUIZ */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:640px){.hero,.content{padding-left:24px;padding-right:24px;}.danger-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 2.1 · Professional Documentation Basics</div>
+  <h1>Medical Abbreviations and Jargon: When to Use Them — and When They Become Dangerous</h1>
+  <p class="hero-sub">Medical abbreviations save time. They also kill patients when used incorrectly. The Joint Commission has a specific "Do Not Use" list — a collection of abbreviations that have caused so many errors they are now officially banned from clinical documentation in accredited healthcare facilities.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>Why Abbreviations Exist — and Why They're Dangerous</h2>
+    <p>Medical professionals developed abbreviations because clinical documentation is fast-paced and time-pressured. Writing "twice daily" every time takes longer than writing "BID." Writing "by mouth" takes longer than "PO." When you're documenting 30 patients a day, those seconds add up.</p>
+    <p>The problem is that abbreviations only work if everyone reads them the same way. And in healthcare, many abbreviations are ambiguous, look similar to other abbreviations, or mean completely different things in different specialties. <mark>When an abbreviation is misread in a medication order, the wrong drug gets given at the wrong dose.</mark> The Joint Commission — the body that accredits most US hospitals — studied these errors and created a mandatory banned list as a result.</p>
+    <div class="pull-quote"><p>Every abbreviation is a bet that the person reading it will decode it correctly. In healthcare, the cost of losing that bet can be a patient's life.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Joint Commission "Do Not Use" List</h2>
+    <p>These abbreviations are officially banned from all clinical documentation at Joint Commission-accredited facilities. Using them is a compliance violation — and more importantly, each one has caused documented patient harm:</p>
+    <div class="danger-grid">
+      <div class="danger-card">
+        <div class="danger-abbrev">U or u</div>
+        <div class="danger-banned">❌ BANNED</div>
+        <div class="danger-problem">Meant to mean "units" — but routinely mistaken for the number "0" (zero) or "4" in handwriting, especially when written quickly.</div>
+        <div class="danger-confusion">Real error: "10U insulin" read as "100 insulin" — a 10x overdose that caused a patient death.</div>
+        <div class="danger-use-instead">✅ Write: "units" — always spell it out</div>
+      </div>
+      <div class="danger-card">
+        <div class="danger-abbrev">QD / QOD</div>
+        <div class="danger-banned">❌ BANNED</div>
+        <div class="danger-problem">"QD" = daily. "QOD" = every other day. When handwritten, the "D" and "OD" look nearly identical — and giving a daily drug every other day (or vice versa) can be dangerous.</div>
+        <div class="danger-confusion">Real error: Anticoagulant ordered QOD given QD — patient received double the intended dose.</div>
+        <div class="danger-use-instead">✅ Write: "daily" or "every other day" — spell it out</div>
+      </div>
+      <div class="danger-card">
+        <div class="danger-abbrev">MS / MSO4 / MgSO4</div>
+        <div class="danger-banned">❌ BANNED</div>
+        <div class="danger-problem">"MS" can mean morphine sulfate OR magnesium sulfate. These are completely different medications with different dosing and indications. MSO4 (morphine) and MgSO4 (magnesium) look very similar when handwritten quickly.</div>
+        <div class="danger-confusion">Real error: A patient in labor received morphine instead of magnesium sulfate — two drugs that are never interchangeable.</div>
+        <div class="danger-use-instead">✅ Write: "morphine sulfate" or "magnesium sulfate" — full names required</div>
+      </div>
+      <div class="danger-card">
+        <div class="danger-abbrev">µg (microgram)</div>
+        <div class="danger-banned">❌ BANNED</div>
+        <div class="danger-problem">The symbol µ (mu) can be misread as "mg" (milligrams). The difference between micrograms and milligrams is 1,000-fold. A drug ordered in micrograms given in milligrams is a catastrophic overdose.</div>
+        <div class="danger-confusion">Real error: Digoxin 0.125µg misread as 0.125mg — causing life-threatening toxicity.</div>
+        <div class="danger-use-instead">✅ Write: "mcg" for micrograms — never use the µ symbol</div>
+      </div>
+      <div class="danger-card">
+        <div class="danger-abbrev">Trailing zero (1.0mg)</div>
+        <div class="danger-banned">❌ BANNED</div>
+        <div class="danger-problem">Writing "1.0mg" instead of "1mg" — the decimal point can be missed, making it look like "10mg." This is called a trailing zero and is banned in all medication orders.</div>
+        <div class="danger-confusion">Real error: Warfarin 1.0mg order read as 10mg — a 10x overdose of a blood thinner.</div>
+        <div class="danger-use-instead">✅ Write: "1mg" never "1.0mg" — drop trailing zeros always</div>
+      </div>
+      <div class="danger-card">
+        <div class="danger-abbrev">Naked decimal (.5mg)</div>
+        <div class="danger-banned">❌ BANNED</div>
+        <div class="danger-problem">Writing ".5mg" without a leading zero — if the decimal point is missed, it becomes "5mg" instead of "0.5mg" — a 10x overdose.</div>
+        <div class="danger-confusion">Real error: Hydromorphone .5mg ordered but decimal missed — patient received 5mg, causing respiratory arrest.</div>
+        <div class="danger-use-instead">✅ Write: "0.5mg" — always include leading zero before decimal</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>When Abbreviations ARE Appropriate — and When They're Not</h2>
+    <p>Not all abbreviations are dangerous. The key is knowing your context — what document you're writing, who will read it, and whether your facility has approved that abbreviation. Click each tab to see approved, context-dependent, and always-spell-out examples:</p>
+    <div class="abbrev-explorer">
+      <div class="ae-label">📋 Abbreviation Guide</div>
+      <div class="ae-title">Approved, Context-Dependent, and Never Use</div>
+      <div class="ae-sub">Use these tables as a quick reference for the most common documentation situations.</div>
+      <div class="ae-tabs">
+        <button class="ae-tab active" onclick="showAe(0)">✅ Generally Approved</button>
+        <button class="ae-tab" onclick="showAe(1)">📋 Context-Dependent</button>
+        <button class="ae-tab" onclick="showAe(2)">❌ Always Spell Out</button>
+      </div>
+      <div id="aeContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>How AI Handles Abbreviations — and Where It Goes Wrong</h2>
+    <p>AI documentation tools have a specific and important problem with abbreviations: they were trained on massive amounts of existing clinical text — including text that contains banned abbreviations. This means AI tools may confidently generate documentation using the exact abbreviations that are on the Joint Commission "Do Not Use" list.</p>
+    <p>When you review AI-generated notes, <mark>checking for prohibited abbreviations is a required step</mark> — not an optional one. The AI doesn't know your facility's approved abbreviation list, and it doesn't know which abbreviations have caused errors. You do. That's why your review matters.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Abbreviation or Spell It Out? Context Check</h2>
+    <p>For each sentence below, decide: is the abbreviation use appropriate, or should it be spelled out?</p>
+    <div class="context-activity">
+      <div class="ca-label">✏️ Abbreviation Judgment Practice</div>
+      <div class="ca-title">Appropriate or Needs to Be Spelled Out?</div>
+      <div class="ca-sub">Consider who will read this document when making your decision.</div>
+      <div class="ca-items" id="caItems"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">An AI documentation tool generates a medication order that reads: "Administer insulin 10U SQ QD before breakfast." What are the two Joint Commission "Do Not Use" violations in this order?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Using "SQ" instead of "subcutaneous" and not specifying the type of insulin</button>
+        <button class="qopt" onclick="cq(this,true)">"U" for units (should be spelled "units") and "QD" for daily (should be spelled "daily") — both are on the official banned list because they have caused documented fatal medication errors</button>
+        <button class="qopt" onclick="cq(this,false)">Not including the patient's name and not specifying the meal timing precisely</button>
+        <button class="qopt" onclick="cq(this,false)">Using "SQ" and "QD" — both abbreviations should always be spelled out regardless of context</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The Joint Commission "Do Not Use" list bans specific abbreviations from clinical documentation because they have caused documented patient harm. Key banned items: "U" for units, "QD/QOD," "MS/MSO4/MgSO4," µg symbol, trailing zeros (1.0mg), and naked decimals (.5mg).</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Context determines whether an abbreviation is appropriate — clinical notes between providers can use standard approved abbreviations; patient-facing documents should avoid most abbreviations entirely; medication orders require the most strict adherence to approved formats.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI documentation tools were trained on historical clinical text that includes banned abbreviations — making a mandatory abbreviation check part of every AI output review before a note enters the permanent record.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const aeTables=[
+  {label:'✅ Generally Approved Abbreviations',desc:'These are widely accepted in clinical documentation between healthcare providers.',rows:[['BP','Blood pressure','Clinical notes, handoff reports'],['HR','Heart rate','Clinical notes, vital signs'],['SOB','Shortness of breath','Clinical notes between providers'],['PO','By mouth (per os)','Medication orders — clinical setting'],['PRN','As needed','Medication orders — with specific criteria defined'],['BID','Twice daily','Medication orders — clinical setting'],['TID','Three times daily','Medication orders — clinical setting'],['NPO','Nothing by mouth','Clinical notes, pre-procedure orders'],['DOB','Date of birth','All documentation types'],['MRN','Medical record number','All documentation types']]},
+  {label:'📋 Context-Dependent Abbreviations',desc:'These are appropriate in clinical-to-clinical communication but should be spelled out in patient-facing documents.',rows:[['Dx','Diagnosis','Clinical: ✅ | Patient documents: ❌ spell out'],['Hx','History','Clinical: ✅ | Patient documents: ❌ spell out'],['Sx','Symptoms','Clinical: ✅ | Patient documents: ❌ spell out'],['Tx','Treatment','Clinical: ✅ | Patient documents: ❌ spell out'],['NSTEMI','Non-ST-elevation myocardial infarction','Clinical: ✅ | Patient letters: ❌ explain in plain language'],['HbA1c','Glycated hemoglobin','Clinical: ✅ | Patient letters: ❌ explain what it measures'],['eGFR','Estimated glomerular filtration rate','Clinical: ✅ | Patient letters: ❌ explain as kidney function test'],['HTN','Hypertension','Clinical: ✅ | Patient documents: ❌ write "high blood pressure"']]},
+  {label:'❌ Always Spell Out — Never Abbreviate',desc:'These must be spelled out in ALL documentation regardless of context. Most are on the Joint Commission banned list.',rows:[['U','Write "units" — "U" looks like 0 or 4','ALL documents'],['QD / QOD','Write "daily" or "every other day"','ALL documents'],['MS','Write "morphine sulfate" or "magnesium sulfate" in full','ALL documents'],['µg','Write "mcg" — never use the Greek mu symbol','ALL documents'],['IU','Write "international units" — "IU" misread as IV','ALL documents'],['cc','Write "mL" — "cc" can be confused with "00"','ALL documents'],['Trailing zero','Write "5mg" not "5.0mg"','ALL medication documents'],['Naked decimal','Write "0.5mg" not ".5mg"','ALL medication documents']]}
+];
+let currentAe=0;
+function showAe(i){currentAe=i;document.querySelectorAll('.ae-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));renderAe();}
+function renderAe(){const d=aeTables[currentAe];document.getElementById('aeContainer').innerHTML=`<div class="ae-panel active"><p style="font-size:14px;color:var(--gray-muted);margin-bottom:12px;">${d.desc}</p><table class="abbrev-table"><thead><tr><th>Abbreviation</th><th>Meaning / Rule</th><th>When Appropriate</th></tr></thead><tbody>${d.rows.map(r=>`<tr><td class="abbrev-code">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')}</tbody></table></div>`;}
+renderAe();
+
+const caData=[
+  {sentence:'"Patient discharged with Dx of HTN. Continue lisinopril 10mg PO QD. Follow up with PCP in 2 weeks."',question:'This is a patient discharge instruction letter. Is this abbreviation use appropriate?',opts:['✅ Appropriate — standard medical abbreviations','❌ Needs to be spelled out — patient audience cannot decode Dx, HTN, PO, QD, or PCP'],correct:1,fb:'✅ Correct! Discharge instructions are patient-audience documents. "Dx," "HTN," "PO," "QD," and "PCP" all require spelling out. Better: "You have been diagnosed with high blood pressure (hypertension). Continue taking lisinopril 10mg by mouth once daily. Follow up with your primary care doctor in 2 weeks." Note: QD is also on the Joint Commission banned list.'},
+  {sentence:'"Pt. admitted with SOB and O2 sat 88% on RA. CXR ordered. ABG pending."',question:'This is an internal nursing handoff note. Is this abbreviation use appropriate?',opts:['✅ Appropriate — clinical audience, standard approved abbreviations','❌ Needs spelling out — too many abbreviations for any reader'],correct:0,fb:'✅ Correct! This is a clinical note between nursing staff — all abbreviations here (SOB, O2 sat, RA = room air, CXR = chest X-ray, ABG = arterial blood gas) are standard approved clinical abbreviations. In a clinical context between providers, these save time without creating risk.'},
+  {sentence:'"Administer warfarin 2.0mg PO QD per Dr. Kim order."',question:'This is a medication administration order. Is this abbreviation/number format appropriate?',opts:['✅ Appropriate — doses are clearly specified','❌ Has two errors: "2.0mg" has a banned trailing zero (should be "2mg") and "QD" is on the Joint Commission banned list (should be "daily")'],correct:1,fb:'✅ Correct! Two banned patterns appear here. "2.0mg" should be "2mg" — trailing zeros are specifically banned because the decimal can be missed, making it look like "20mg." "QD" is on the Joint Commission banned list and should be written "daily." The correct order: "Administer warfarin 2mg PO daily per Dr. Kim order."'},
+  {sentence:'"RE: Referral for cardiology evaluation. Pt. has Hx of MI x2, currently on ASA 81mg QD, metoprolol 50mg BID."',question:'This is a physician-to-cardiologist referral letter. Is this abbreviation use appropriate?',opts:['✅ Appropriate — clinical peer-to-peer communication with standard abbreviations (except one issue)','❌ All abbreviations must be spelled out in referral letters'],correct:0,fb:'✅ Mostly correct! Physician-to-cardiologist referral is clinical peer-to-peer communication where abbreviations like "Hx" (history), "MI" (myocardial infarction), "ASA" (aspirin), and "BID" are appropriate. However, "QD" is still on the banned list even in clinical documentation — this should be written "daily." Everything else is acceptable in this context.'}
+];
+const caAnswers={};
+const caContainer=document.getElementById('caItems');
+caData.forEach((item,i)=>{
+  const div=document.createElement('div');div.className='ca-item';
+  div.innerHTML=`<div class="ca-sentence">"${item.sentence}"</div><div class="ca-question">${item.question}</div><div class="ca-opts">${item.opts.map((o,oi)=>`<button class="ca-opt" id="cao${i}_${oi}" onclick="pickCa(${i},${oi})">${o}</button>`).join('')}</div><div class="ca-fb" id="cafb${i}"></div>`;
+  caContainer.appendChild(div);
+});
+function pickCa(i,oi){
+  if(caAnswers[i]!==undefined)return;
+  caAnswers[i]=oi;
+  const correct=oi===caData[i].correct;
+  document.getElementById('cao'+i+'_'+oi).className='ca-opt '+(correct?'ca-correct':'ca-wrong');
+  if(!correct)document.getElementById('cao'+i+'_'+caData[i].correct).className='ca-opt ca-correct';
+  const fb=document.getElementById('cafb'+i);fb.textContent=caData[i].fb;fb.className='ca-fb show '+(correct?'good':'bad');
+}
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct! "U" is specifically banned because it looks like the number "0" or "4" — "10U" can be read as "100" (a 10x overdose). "QD" is banned because in handwriting it looks nearly identical to "QOD" (every other day) — giving a once-daily medication every other day, or an every-other-day medication daily, changes the therapeutic effect significantly. Both substitutions (writing "units" and "daily") are simple and eliminate documented sources of patient harm. When reviewing AI-generated medication orders, these are the first things to scan for.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('"U" for units'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ "SQ" (subcutaneous) is actually an acceptable abbreviation in most facility policies, and insulin type specificity is a separate clinical issue. The two Joint Commission "Do Not Use" violations are the abbreviation "U" (which must be spelled "units") and "QD" (which must be spelled "daily"). These specific abbreviations are banned because they have caused fatal medication errors in documented cases — not because abbreviations in general are inappropriate in medication orders.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
