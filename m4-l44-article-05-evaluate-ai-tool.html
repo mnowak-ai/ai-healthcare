@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Evaluate an AI Tool Before Using It — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.eval-checklist{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
+.eval-section{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:18px;overflow:hidden;}
+.eval-section-header{background:var(--purple-pale);padding:14px 20px;font-size:14px;font-weight:700;color:var(--purple-dark);display:flex;align-items:center;gap:10px;}
+.eval-questions{padding:16px 20px;display:flex;flex-direction:column;gap:10px;}
+.eval-q{display:flex;gap:12px;align-items:flex-start;}
+.eval-q-check{width:20px;height:20px;border:2px solid var(--purple-mid);border-radius:5px;flex-shrink:0;margin-top:2px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;}
+.eval-q-check.checked{background:var(--green);border-color:var(--green);}
+.eval-q-text{flex:1;}
+.eval-q-main{font-size:14px;font-weight:600;color:var(--purple-dark);}
+.eval-q-sub{font-size:12px;color:var(--gray-muted);margin-top:2px;line-height:1.5;}
+.eval-q-warning{background:var(--orange-pale);border-radius:6px;padding:4px 8px;font-size:11px;color:var(--orange);margin-top:4px;display:inline-block;}
+.score-display{background:var(--purple);color:white;border-radius:14px;padding:18px 22px;margin-top:16px;display:none;animation:fadeIn .4s ease;}
+.score-display.show{display:block;}
+.score-num{font-family:'Fraunces',serif;font-size:40px;font-weight:900;}
+.red-flags{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0;}
+.rf-card{background:var(--red-pale);border:1.5px solid #FCA5A5;border-radius:14px;padding:16px;}
+.rf-title{font-size:14px;font-weight:700;color:var(--red);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.rf-desc{font-size:13px;line-height:1.6;color:var(--gray-text);}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.red-flags{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 4.4 · Responsible Workflow Integration</div>
+  <h1>How to Evaluate an AI Tool Before Using It in a Clinical or Administrative Setting</h1>
+  <p class="hero-sub">AI tools get introduced into healthcare settings in many ways — through organizational rollout, vendor demos, colleague recommendations, or department pilots. Before you use any new AI tool with patient data or clinical workflows, there's a structured evaluation you should run. This is that evaluation.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+  <div class="section fade-in">
+    <h2>Why Evaluation Is a Professional Skill</h2>
+    <p>Healthcare workers are not just consumers of AI tools — they're the humans responsible for how those tools are used. A tool that hasn't been properly evaluated is a tool whose failure modes you don't know, whose training data you haven't examined, and whose equity performance you can't defend.</p>
+    <p><mark>Every question in the evaluation below has a corresponding risk if left unasked.</mark> Use this framework when a new AI tool is introduced to your department, when you're asked to participate in a pilot, or when you're in a role that influences which tools get adopted.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The AI Tool Evaluation Framework — Use as a Checklist</h2>
+    <p>Click each question as you work through it. The checklist will track your progress:</p>
+    <div class="eval-checklist" id="evalChecklist"></div>
+    <div class="score-display" id="scoreDisplay"><div class="score-num" id="scoreNum">0/16</div><div style="font-size:14px;opacity:.85;margin-top:4px;" id="scoreMsg">Work through the evaluation above</div></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Red Flags That Should Pause Any Tool Adoption</h2>
+    <p>Some answers to evaluation questions should immediately halt consideration of a tool — regardless of how good it looks otherwise:</p>
+    <div class="red-flags">
+      <div class="rf-card"><div class="rf-title">🚩 No BAA available</div><div class="rf-desc">Any vendor handling patient data who won't sign a Business Associate Agreement is automatically disqualified from HIPAA-regulated use. No exceptions.</div></div>
+      <div class="rf-card"><div class="rf-title">🚩 Can't tell you training population</div><div class="rf-desc">If the vendor can't describe who their tool was trained on and can't provide demographic performance breakdown, you cannot assess equity risk. This should disqualify the tool for clinical use.</div></div>
+      <div class="rf-card"><div class="rf-title">🚩 "Validated" only on their own data</div><div class="rf-desc">Internal vendor validation is not independent validation. A tool should have external validation studies, ideally peer-reviewed, on populations similar to yours.</div></div>
+      <div class="rf-card"><div class="rf-title">🚩 No human review step in the workflow</div><div class="rf-desc">Any tool designed to produce clinical outputs without a mandatory human review checkpoint before action is taken is a patient safety risk by design.</div></div>
+      <div class="rf-card"><div class="rf-title">🚩 Accountability is unclear</div><div class="rf-desc">If the vendor and your organization haven't explicitly discussed who is responsible when the tool is wrong — and that answer should be "the using institution and clinician" — the liability landscape is dangerously undefined.</div></div>
+      <div class="rf-card"><div class="rf-title">🚩 No performance monitoring plan</div><div class="rf-desc">A tool with no plan for ongoing performance review after deployment will drift without detection. Responsible integration includes monitoring, not just a one-time approval.</div></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A vendor presents an AI diagnostic support tool with "98% accuracy." When asked about demographic performance breakdown, they say the tool is "accurate across all patient types" but can't provide data by race, sex, or age group. What should happen next?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Accept the 98% figure — that level of accuracy is strong evidence the tool works well for all patients</button>
+        <button class="qopt" onclick="cq(this,true)">Require the vendor to provide demographic performance data before proceeding — "accurate across all patient types" without supporting data is a marketing claim, not evidence of equitable performance</button>
+        <button class="qopt" onclick="cq(this,false)">Ask clinicians to test the tool informally with patients to see if any performance gaps emerge</button>
+        <button class="qopt" onclick="cq(this,false)">Approve the tool contingent on monitoring for disparities after deployment</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Evaluating AI tools is a professional skill — not just an IT function. Healthcare workers who participate in tool adoption decisions, department pilots, or workflow design have a responsibility to ask the questions that protect patients.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Six automatic red flags: no BAA, unknown training population, vendor-only validation, no human review step, undefined accountability, and no post-deployment monitoring plan. Any of these should pause adoption until resolved.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Demographic performance data is not optional. "Accurate across all patient types" without supporting data is a marketing claim. Before a tool with clinical applications is deployed, equity performance must be documented and defensible.</p></div>
+    </div>
+  </div>
+</div>
+<script>
+const evalSections=[
+  {icon:'🔐',title:'Category 1: Privacy & Compliance',questions:[
+    {main:'Is there a signed Business Associate Agreement (BAA) with this vendor?',sub:'Without a BAA, no patient data can ever enter this tool under HIPAA. This is a binary requirement.',warning:'No BAA = tool cannot be used with PHI. Period.'},
+    {main:'Has your organization\'s IT and compliance team specifically approved this tool?',sub:'Not "it looks secure" — formally evaluated and approved with documentation.',warning:'Informal approval is not approval.'},
+    {main:'What data does the tool collect, store, and transmit?',sub:'Does it retain patient data after use? Who has access to retained data? Where is it stored?',warning:null},
+    {main:'Is the tool HIPAA-compliant under your organization\'s specific data classification?',sub:'General "HIPAA compliant" claims need verification against your organization\'s specific data use context.',warning:null}
+  ]},
+  {icon:'🎯',title:'Category 2: Validation & Accuracy',questions:[
+    {main:'Has the tool been independently validated — not just by the vendor?',sub:'Peer-reviewed studies, external validation cohorts, or academic institution testing. Vendor-only data is insufficient.',warning:'Vendor-only validation = higher risk of optimistic performance claims.'},
+    {main:'What population was it trained on and validated against?',sub:'Age range, racial and ethnic composition, geographic distribution, care setting (academic vs. community).',warning:'If vendor can\'t answer this clearly, the tool cannot be safely evaluated for equity.'},
+    {main:'What is the tool\'s performance broken down by demographic group?',sub:'Accuracy, false positive rate, and false negative rate by race, sex, age, insurance status if relevant.',warning:'Overall accuracy hides demographic disparities. Group-level data is required.'},
+    {main:'What are the tool\'s documented failure modes and known limitations?',sub:'Responsible vendors document what their tool gets wrong, not just what it gets right.',warning:null}
+  ]},
+  {icon:'⚙️',title:'Category 3: Workflow & Oversight',questions:[
+    {main:'Is there a mandatory human review step before any AI output is acted on?',sub:'The workflow must include a qualified human checkpoint — not just "clinicians can review if they want."',warning:'No required human review = highest patient safety risk configuration.'},
+    {main:'Who is accountable when the tool produces an incorrect output that causes harm?',sub:'This should be explicitly addressed in the vendor contract and organizational policy.',warning:null},
+    {main:'What training does staff need to use this tool appropriately?',sub:'Not just how to use the interface — how to critically evaluate its outputs and when to override.',warning:null},
+    {main:'What is the plan for monitoring the tool\'s performance after deployment?',sub:'Regular audits, bias monitoring, alert volume tracking, clinical outcome review.',warning:'No monitoring plan = no way to detect if performance degrades or disparities emerge over time.'}
+  ]},
+  {icon:'📊',title:'Category 4: Organizational Fit',questions:[
+    {main:'Has the tool been piloted in a setting similar to yours before full deployment?',sub:'Patient population, care setting, workflow structure. Academic medical center pilots don\'t always translate to community clinic settings.',warning:null},
+    {main:'What does the tool require from staff time and workflow change?',sub:'Implementation burden affects adoption and appropriate use. Underprepared deployment leads to shortcuts.',warning:null},
+    {main:'What is the process for reporting tool concerns or errors after deployment?',sub:'Staff need a clear channel to report when they think the tool is performing incorrectly.',warning:'No reporting channel = no feedback loop = no way to detect and correct problems.'},
+    {main:'What is the exit plan if the tool needs to be discontinued or replaced?',sub:'Patient care workflows that depend on a single vendor tool are a continuity risk.',warning:null}
+  ]}
+];
+
+let checked=new Set();
+function buildChecklist(){
+  const c=document.getElementById('evalChecklist');
+  let qIdx=0;
+  evalSections.forEach((s,si)=>{
+    const sec=document.createElement('div');
+    sec.className='eval-section';
+    const questions=s.questions.map((q,qi)=>{
+      const idx=qIdx++;
+      return `<div class="eval-q">
+        <div class="eval-q-check" id="ck${idx}" onclick="toggleCheck(${idx})"></div>
+        <div class="eval-q-text">
+          <div class="eval-q-main">${q.main}</div>
+          <div class="eval-q-sub">${q.sub}</div>
+          ${q.warning?`<div class="eval-q-warning">⚠️ ${q.warning}</div>`:''}
+        </div>
+      </div>`;
+    }).join('');
+    sec.innerHTML=`<div class="eval-section-header">${s.icon} ${s.title}</div><div class="eval-questions">${questions}</div>`;
+    c.appendChild(sec);
+  });
+}
+buildChecklist();
+const totalQ=16;
+function toggleCheck(i){
+  const el=document.getElementById('ck'+i);
+  if(checked.has(i)){checked.delete(i);el.classList.remove('checked');el.innerHTML='';}
+  else{checked.add(i);el.classList.add('checked');el.innerHTML='<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';}
+  const n=checked.size;
+  document.getElementById('scoreNum').textContent=n+'/'+totalQ;
+  const msgs=['Work through the evaluation above','Keep going — more questions to work through','Good progress on the evaluation','Getting close — a few more questions','Evaluation complete — use this as your formal record for this tool review'];
+  document.getElementById('scoreMsg').textContent=msgs[Math.min(Math.floor(n/4),4)];
+  document.getElementById('scoreDisplay').classList.add('show');
+}
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. "98% accuracy" is an aggregate metric that tells you nothing about performance for specific patient groups. A tool can be 99% accurate for white male patients and 90% accurate for Black female patients and still report an aggregate well above 98%. Demographic performance data is non-optional for clinical AI tools. Requiring it before proceeding is the appropriate professional response — not accepting a marketing claim or hoping disparities will emerge in post-deployment monitoring (which means real patients received unequal care while you were watching for the problem to appear).';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('Require the vendor'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ High aggregate accuracy never guarantees equitable performance across demographic groups. Informal testing with patients means real patients bear the risk of discovering disparities. Approving contingent on post-deployment monitoring means disparities will cause real patient harm before they\'re detected. The right answer is to require the data before adoption — making this a pre-condition for tool approval, not an afterthought.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

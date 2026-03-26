@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Human-in-the-Loop: What It Means, Why It Matters, and How to Do It Right — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.hitl-flow{display:flex;align-items:center;gap:0;margin:24px 0;overflow-x:auto;padding-bottom:8px;}
+.hitl-step{background:var(--white);border:2px solid var(--purple-mid);border-radius:16px;padding:18px 16px;text-align:center;min-width:130px;flex-shrink:0;}
+.hitl-step.human-step{border-color:var(--green);background:var(--green-pale);}
+.hitl-step.ai-step{border-color:var(--purple);background:var(--purple-pale);}
+.hitl-step.team-step{border-color:#6366F1;background:#EEF2FF;}
+.hitl-icon{font-size:24px;margin-bottom:6px;}
+.hitl-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.hitl-step.human-step .hitl-label{color:var(--green);}
+.hitl-step.ai-step .hitl-label{color:var(--purple);}
+.hitl-step.team-step .hitl-label{color:#4338CA;}
+.hitl-title{font-size:13px;font-weight:600;color:var(--purple-dark);}
+.hitl-arrow{font-size:24px;color:var(--purple-mid);padding:0 6px;flex-shrink:0;}
+.spectrum{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:24px 0;}
+.spec-card{border-radius:14px;padding:16px;border:2px solid;text-align:center;}
+.spec-card.s1{background:var(--green-pale);border-color:#86EFAC;}
+.spec-card.s2{background:#EEF2FF;border-color:#A5B4FC;}
+.spec-card.s3{background:var(--orange-pale);border-color:#FDE68A;}
+.spec-card.s4{background:var(--red-pale);border-color:#FCA5A5;}
+.spec-num{font-family:'Fraunces',serif;font-size:22px;font-weight:900;margin-bottom:4px;}
+.spec-card.s1 .spec-num{color:var(--green);}
+.spec-card.s2 .spec-num{color:#4338CA;}
+.spec-card.s3 .spec-num{color:var(--orange);}
+.spec-card.s4 .spec-num{color:var(--red);}
+.spec-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
+.spec-card.s1 .spec-label{color:var(--green);}
+.spec-card.s2 .spec-label{color:#4338CA;}
+.spec-card.s3 .spec-label{color:var(--orange);}
+.spec-card.s4 .spec-label{color:var(--red);}
+.spec-desc{font-size:12px;line-height:1.5;color:var(--gray-text);}
+.examples-tabs{margin:24px 0;}
+.et-nav{display:flex;gap:8px;border-bottom:2px solid var(--purple-mid);flex-wrap:wrap;}
+.et-tab{padding:10px 16px;font-size:13px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--gray-muted);border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;}
+.et-tab.active{color:var(--purple);border-bottom-color:var(--purple);}
+.et-panel{display:none;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:0 16px 16px 16px;padding:24px;animation:fadeIn .3s ease;}
+.et-panel.active{display:block;}
+.et-dept{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--purple-dark);margin-bottom:12px;}
+.et-steps{display:flex;flex-direction:column;gap:8px;}
+.et-step{display:flex;gap:10px;padding:10px 12px;border-radius:10px;}
+.et-step.ai{background:var(--purple-pale);}
+.et-step.human{background:var(--green-pale);}
+.et-step.team{background:#EEF2FF;}
+.et-step-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+.et-step-text{font-size:13px;line-height:1.6;color:var(--gray-text);}
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.spectrum{grid-template-columns:1fr 1fr;}.hitl-flow{flex-direction:column;align-items:flex-start;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 4.4 · Responsible Workflow Integration</div>
+  <h1>Human-in-the-Loop: What It Means, Why It Matters, and How to Do It Right</h1>
+  <p class="hero-sub">The video shows the "AI suggests → humans decide → teams review" model. This article names the concept, explains the reasoning behind it, and — most importantly — shows what it actually looks like in practice across the departments you'll work in.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>What "Human-in-the-Loop" Actually Means</h2>
+    <p>"Human-in-the-loop" (HITL) is a workflow design concept that places a qualified human reviewer at a critical checkpoint in any process where AI is producing outputs that affect real decisions. It means the AI doesn't complete the action — it generates a recommendation, flag, or draft, and a human must actively review and approve before anything happens.</p>
+    <p>This sounds simple, but it's easy to do wrong. A human who is technically "in the loop" but rubber-stamps AI outputs without genuine engagement isn't actually providing oversight — they're adding a human signature to an AI decision. <mark>Real HITL means the human is exercising independent judgment, not just approving what the AI already decided.</mark></p>
+
+    <div class="hitl-flow">
+      <div class="hitl-step ai-step"><div class="hitl-icon">🤖</div><div class="hitl-label">AI</div><div class="hitl-title">Generates output, flag, or recommendation</div></div>
+      <div class="hitl-arrow">→</div>
+      <div class="hitl-step human-step"><div class="hitl-icon">👤</div><div class="hitl-label">Human Reviews</div><div class="hitl-title">Applies professional judgment — genuinely evaluates the output</div></div>
+      <div class="hitl-arrow">→</div>
+      <div class="hitl-step human-step"><div class="hitl-icon">✍️</div><div class="hitl-label">Human Decides</div><div class="hitl-title">Approves, modifies, or overrides — with documented reasoning</div></div>
+      <div class="hitl-arrow">→</div>
+      <div class="hitl-step team-step"><div class="hitl-icon">👥</div><div class="hitl-label">Team Reviews</div><div class="hitl-title">Regular audit of AI-assisted decisions across the workflow</div></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Why This Design Is the Gold Standard</h2>
+    <p>HITL isn't just an ethics requirement — it's a quality design. Every major failure mode in healthcare AI comes back to removing or weakening human oversight. The three most common failure patterns:</p>
+    <div class="spectrum">
+      <div class="spec-card s1"><div class="spec-num">✅</div><div class="spec-label">HITL Done Right</div><div class="spec-desc">Human reviews AI output with genuine critical engagement before any action is taken. Override decisions are documented. Audit happens regularly.</div></div>
+      <div class="spec-card s2"><div class="spec-num">⚠️</div><div class="spec-label">Nominal Review</div><div class="spec-desc">Human is technically "in the loop" but reviews too quickly to catch errors. AI reliability has eroded scrutiny. Complacency has set in.</div></div>
+      <div class="spec-card s3"><div class="spec-num">🚨</div><div class="spec-label">Human Out of Loop</div><div class="spec-desc">AI outputs are acted on automatically or near-automatically without meaningful human review. Common in alert fatigue situations.</div></div>
+      <div class="spec-card s4"><div class="spec-num">❌</div><div class="spec-label">AI Makes Decision</div><div class="spec-desc">AI output becomes the decision itself. No human review step exists. This is the highest-risk configuration for patient safety.</div></div>
+    </div>
+    <p>Healthcare AI incidents are almost always traceable to the right half of this spectrum — either nominal review that didn't catch the error, or a workflow where the human review step was eliminated entirely in the name of efficiency.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>What HITL Actually Looks Like by Department</h2>
+    <p>HITL isn't one thing — it looks different depending on the workflow, the stakes, and the role. Click each department to see what genuine human-in-the-loop oversight looks like in practice:</p>
+    <div class="examples-tabs">
+      <div class="et-nav" id="etNav"></div>
+      <div id="etContainer"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>How to Be a Good Human in the Loop</h2>
+    <p>Being human-in-the-loop isn't passive — it's an active professional practice. Here's what it requires of you specifically:</p>
+    <div style="display:flex;flex-direction:column;gap:10px;margin:16px 0;">
+      <div style="background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;padding:14px 18px;display:flex;gap:12px;"><div style="font-size:18px;flex-shrink:0;">🔍</div><div><strong style="color:var(--purple-dark);">Actually read the output.</strong> <span style="font-size:14px;color:var(--gray-text);">Not skim it — read it. If the AI generated a clinical note, read the whole note against your own knowledge of what happened. If it generated a risk score, look at the underlying data points that drove it.</span></div></div>
+      <div style="background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;padding:14px 18px;display:flex;gap:12px;"><div style="font-size:18px;flex-shrink:0;">🧠</div><div><strong style="color:var(--purple-dark);">Apply your own knowledge.</strong> <span style="font-size:14px;color:var(--gray-text);">The review step requires you to bring something the AI doesn't have — your direct knowledge of this patient, this situation, what was actually said and observed. Use it.</span></div></div>
+      <div style="background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;padding:14px 18px;display:flex;gap:12px;"><div style="font-size:18px;flex-shrink:0;">📝</div><div><strong style="color:var(--purple-dark);">Document your review.</strong> <span style="font-size:14px;color:var(--gray-text);">If you changed something, document what you changed and why. If you agreed with the AI, document that you reviewed it. If you overrode it, document your clinical reasoning. The audit trail is your professional protection.</span></div></div>
+      <div style="background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;padding:14px 18px;display:flex;gap:12px;"><div style="font-size:18px;flex-shrink:0;">🚩</div><div><strong style="color:var(--purple-dark);">Flag disagreements.</strong> <span style="font-size:14px;color:var(--gray-text);">When your judgment differs from the AI's output, that discrepancy is information — both for the current patient and for improving the tool. Report patterns of disagreement through your organization's appropriate channel.</span></div></div>
+    </div>
+    <div class="pull-quote"><p>The human-in-the-loop is only as valuable as the quality of human judgment brought to that checkpoint. A review that takes three seconds and produces a signature isn't oversight — it's theater. And theater won't protect a patient or a professional when something goes wrong.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A hospital implements a new AI documentation system. To measure how well the human-in-the-loop process is working, what would be the MOST useful thing to track?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">The percentage of AI-generated notes that are signed within 10 minutes — faster sign-off indicates the tool is working well</button>
+        <button class="qopt" onclick="cq(this,false)">The overall accuracy rate of the AI tool based on vendor-provided data</button>
+        <button class="qopt" onclick="cq(this,true)">The rate at which clinicians edit or correct AI-generated notes before signing — a very low edit rate may indicate rubber-stamping rather than genuine review</button>
+        <button class="qopt" onclick="cq(this,false)">The number of patient complaints about documentation errors after the system was implemented</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Human-in-the-loop (HITL) means a qualified human reviews AI output with genuine professional judgment before any action is taken. It is not the same as a human signing off on what the AI already decided.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Almost every healthcare AI failure is traceable to removing or weakening the human review step — through automation complacency, efficiency pressure, or workflow design that bypasses oversight entirely.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Being a good human-in-the-loop requires active engagement: actually reading outputs, applying your own knowledge, documenting your review, and flagging disagreements. It's a professional practice, not a checkbox.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const departments=[
+  {
+    name:'📋 Clinical Documentation',
+    steps:[
+      {type:'ai',icon:'🤖',text:'AI documentation tool generates a clinical note from the clinician\'s verbal summary or visit data.'},
+      {type:'human',icon:'👤',text:'Clinician reads the full generated note — not skims it — comparing it against their own memory of the encounter. Asks: is the patient\'s own language represented accurately? Are there any clinical details that are missing, wrong, or taken out of context?'},
+      {type:'human',icon:'✍️',text:'Clinician edits any inaccuracies, adds information the AI missed, and notes the source of any changes. Signs the corrected note with a notation that AI assist was used and reviewed.'},
+      {type:'team',icon:'👥',text:'Department conducts monthly audit of AI-assisted documentation — tracking edit rate, types of errors corrected, and patterns across clinicians. Very low edit rates trigger a review of whether genuine oversight is occurring.'}
+    ]
+  },
+  {
+    name:'⚠️ Clinical Alerts',
+    steps:[
+      {type:'ai',icon:'🤖',text:'AI early warning system fires an alert flagging a patient for elevated deterioration risk based on vital sign patterns.'},
+      {type:'human',icon:'👤',text:'Nurse receives the alert and goes to the bedside — physically assessing the patient before deciding on any action. Reviews the data that triggered the alert alongside their direct clinical observation.'},
+      {type:'human',icon:'✍️',text:'Nurse makes the clinical decision: escalate, monitor and document, or dismiss with documented clinical rationale. Both escalations and dismissals are recorded with reasoning.'},
+      {type:'team',icon:'👥',text:'Alert committee reviews override and dismissal patterns weekly. High dismiss rates for a specific alert type may indicate the tool is generating too many false positives — a signal for recalibration, not ignored.'}
+    ]
+  },
+  {
+    name:'🏥 Scheduling',
+    steps:[
+      {type:'ai',icon:'🤖',text:'AI scheduling optimization tool generates the proposed schedule for the next day based on provider availability, patient complexity, and appointment type.'},
+      {type:'human',icon:'👤',text:'Coordinator reviews the AI-built schedule, checking for patient-specific needs the algorithm couldn\'t account for — communication barriers, caregiver constraints, complex visit sequencing.'},
+      {type:'human',icon:'✍️',text:'Coordinator adjusts the schedule as needed, confirms provider availability for any changes, and sends the day\'s schedule. Documents any overrides to the AI recommendation.'},
+      {type:'team',icon:'👥',text:'Scheduling manager reviews patterns in AI overrides monthly — understanding which AI recommendations consistently require human correction informs whether the tool needs reconfiguration.'}
+    ]
+  },
+  {
+    name:'💊 Pharmacy / Medication',
+    steps:[
+      {type:'ai',icon:'🤖',text:'AI medication reconciliation and interaction checking tool reviews the patient\'s medication list and flags potential issues — interactions, duplications, or dose anomalies.'},
+      {type:'human',icon:'👤',text:'Pharmacist reviews all flags against the patient\'s complete medication history, allergies, and clinical context. For each flag, independently verifies whether it represents a real concern or a false positive.'},
+      {type:'human',icon:'✍️',text:'Pharmacist approves, modifies, or dismisses each flag with documented clinical reasoning. Contacts the prescribing provider for any real concerns before the medication is dispensed.'},
+      {type:'team',icon:'👥',text:'Pharmacy department tracks false positive rates and override reasons — high false positive rates for specific flags prompt reconfiguration to reduce alert fatigue without compromising safety.'}
+    ]
+  }
+];
+
+let etIdx=0;
+function buildET(){
+  const nav=document.getElementById('etNav');
+  departments.forEach((d,i)=>{
+    const btn=document.createElement('button');
+    btn.className='et-tab'+(i===0?' active':'');
+    btn.textContent=d.name;
+    btn.onclick=()=>showET(i);
+    nav.appendChild(btn);
+  });
+  renderET();
+}
+function showET(i){
+  etIdx=i;
+  document.querySelectorAll('.et-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));
+  renderET();
+}
+function renderET(){
+  const d=departments[etIdx];
+  const steps=d.steps.map(s=>`<div class="et-step ${s.type}"><div class="et-step-icon">${s.icon}</div><div class="et-step-text">${s.text}</div></div>`).join('');
+  document.getElementById('etContainer').innerHTML=`<div class="et-panel active"><div class="et-dept">${d.name}</div><div class="et-steps">${steps}</div></div>`;
+}
+buildET();
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. The edit rate is one of the best proxy measures for whether genuine HITL oversight is happening. A very low edit rate doesn\'t necessarily mean the AI is very accurate — it may mean clinicians have stopped critically reviewing outputs and are signing whatever the AI produces. Counterintuitively, some level of editing is a sign of healthy human oversight. Fast sign-off speed measures efficiency, not review quality. Vendor accuracy data measures average performance, not whether the human review step is functional.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('edit or correct'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ Fast sign-off actually suggests less review, not more — it\'s a potential complacency signal. Vendor accuracy data tells you how the AI performs on average, not whether your staff is actually engaging with the review step. Patient complaints are a lagging indicator — they only surface after errors have already reached patients. The edit rate gives you a leading indicator: are humans actually bringing their own knowledge to the review, or are they signing what the AI produced?';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

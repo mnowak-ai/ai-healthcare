@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Day in the Life: How AI-Integrated Workflows Actually Look Across Five Healthcare Roles — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* Role selector */
+.role-explorer{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.re-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.re-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.re-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.role-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.role-tab{padding:10px 16px;border-radius:12px;border:1.5px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px;}
+.role-tab.active{background:var(--purple);border-color:var(--purple);color:white;}
+.role-panel{display:none;animation:fadeIn .3s ease;}
+.role-panel.active{display:block;}
+.role-intro{background:var(--white);border-radius:14px;padding:18px 20px;margin-bottom:16px;display:flex;gap:16px;align-items:flex-start;}
+.role-avatar{font-size:36px;flex-shrink:0;}
+.role-intro-text{flex:1;}
+.role-name{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--purple-dark);margin-bottom:2px;}
+.role-setting{font-size:13px;color:var(--gray-muted);margin-bottom:6px;}
+.role-summary{font-size:14px;line-height:1.65;color:var(--gray-text);}
+.timeline-day{display:flex;flex-direction:column;gap:0;position:relative;}
+.timeline-day::before{content:'';position:absolute;left:44px;top:22px;bottom:22px;width:2px;background:var(--purple-mid);}
+.day-event{display:flex;gap:16px;padding-bottom:14px;position:relative;}
+.day-time{font-size:11px;font-weight:700;color:var(--purple);min-width:52px;padding-top:4px;text-align:right;flex-shrink:0;}
+.day-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:5px;position:relative;z-index:1;}
+.day-dot.ai-touch{background:var(--purple);}
+.day-dot.human-only{background:var(--green);}
+.day-dot.judgment-call{background:var(--orange);}
+.day-body{flex:1;background:var(--white);border-radius:10px;padding:10px 14px;}
+.day-action{font-size:14px;font-weight:600;color:var(--purple-dark);margin-bottom:4px;}
+.day-detail{font-size:13px;line-height:1.6;color:var(--gray-text);}
+.day-ai-note{background:var(--purple-pale);border-radius:6px;padding:5px 10px;font-size:12px;color:var(--purple-dark);margin-top:6px;}
+.day-judgment{background:var(--orange-pale);border-radius:6px;padding:5px 10px;font-size:12px;color:var(--orange);margin-top:6px;}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;padding:10px 14px;background:var(--white);border-radius:8px;}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gray-muted);}
+.legend-dot{width:10px;height:10px;border-radius:50%;}
+
+/* Quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.role-tabs{flex-direction:column;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 4.4 · Responsible Workflow Integration</div>
+  <h1>A Day in the Life: How AI-Integrated Workflows Actually Look Across Five Healthcare Roles</h1>
+  <p class="hero-sub">Theory becomes real when you see it play out through a specific person's actual workday. This article walks through a full shift for five different healthcare roles — showing exactly when AI appears, what the worker does with it, and where human judgment is not optional.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>What This Article Does</h2>
+    <p>Every other article in this module explains a principle. This one shows you what those principles look like when lived through a real workday. Five roles, five complete shifts, each with specific moments where AI intersects with the work — and specific moments where the human in the role has to step up and make a call no algorithm can make for them.</p>
+    <p>The pattern you'll see in every role is the same: <mark>AI handles the volume, the speed, the pattern recognition. Humans handle the judgment, the relationship, and the accountability.</mark> What changes is how that looks in practice for each specific job.</p>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Select a Role to Follow Through a Full Shift</h2>
+    <div class="role-explorer">
+      <div class="re-label">👥 Day-in-the-Life Explorer</div>
+      <div class="re-title">Five Roles, Five Shifts, Five AI Stories</div>
+      <div class="re-sub">Click any role to see their full workday — every AI touchpoint, every human judgment call, every moment where the two meet.</div>
+      <div class="role-tabs" id="roleTabs"></div>
+      <div id="roleContainer"></div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div>AI-assisted task</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Human-only task</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--orange)"></div>Critical judgment call</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="pull-quote"><p>In every role, AI shows up as a tool that makes the volume manageable. What it never replaces is the moment when a professional stops, looks at the actual person in front of them, and makes a call based on what they see, know, and feel responsible for.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">A front desk coordinator's AI scheduling system sends an automatic confirmation to a patient for a follow-up appointment. The patient calls back confused — they never agreed to a follow-up and have a work conflict they need to resolve. What is the coordinator's role in this AI-assisted workflow?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">Explain that the AI system automatically schedules follow-ups and the patient will need to contact their doctor to cancel</button>
+        <button class="qopt" onclick="cq(this,true)">Handle the patient's concern directly — acknowledge the confusion, help resolve the conflict, and flag to the appropriate person that the automatic scheduling created an issue this patient didn't expect</button>
+        <button class="qopt" onclick="cq(this,false)">The AI scheduled correctly based on the physician's order, so there is nothing the coordinator needs to do</button>
+        <button class="qopt" onclick="cq(this,false)">Refer the patient back to the physician — scheduling decisions aren't within the coordinator's authority to change</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Across all five roles, AI appears at the same types of moments: processing volume, surfacing patterns, drafting content, and flagging anomalies. The human role is consistent too: review, verify, apply judgment, and own the outcome.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Every role has moments where AI output and human observation conflict — and in every case, the professional's obligation is to investigate that discrepancy rather than defaulting to either source.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The most valuable thing a healthcare worker brings to an AI-integrated workflow isn't technical skill — it's the judgment, the relationships, and the professional accountability that no tool can replicate or absorb.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const roles=[
+  {
+    tab:'👩‍⚕️ Nurse',
+    avatar:'👩‍⚕️',
+    name:'Maria, RN — Med-Surg Unit',
+    setting:'Regional hospital, 28-bed medical-surgical floor, morning shift 7am–7pm',
+    summary:'Maria\'s floor uses Epic with AI documentation assist, an AI-powered early warning system for patient deterioration, and an AI medication reconciliation tool. She sees 5 patients per shift.',
+    events:[
+      {time:'7:00',dot:'human-only',action:'Shift handoff',detail:'Receives verbal report from night nurse. Reviews patient list manually — she wants her own read on each patient before the AI summaries.',judgment:'Human-only: Nothing replaces the direct handoff conversation with the nurse who just spent 12 hours with these patients.'},
+      {time:'7:20',dot:'ai-touch',action:'Reviews AI-generated pre-shift summary',detail:'Epic\'s AI has generated overnight summaries for each of her 5 patients — flagging a blood pressure trend in Room 12 and a missed pain medication dose in Room 14.',aiNote:'AI flagged the BP trend. Maria now confirms this against the actual vital sign data herself.',judgment:'Judgment call: She reviews Room 12\'s BP readings directly and decides the trend warrants a call to the attending before morning rounds.'},
+      {time:'8:15',dot:'ai-touch',action:'Morning assessment documentation',detail:'Uses ambient AI to record her morning assessment findings as she examines each patient. The AI drafts the note from her verbal summary.',aiNote:'AI drafts the note — Maria reviews each one before finalizing. She catches that the AI recorded "no complaints" for Room 14, when the patient mentioned mild nausea she needs to log.'},
+      {time:'9:30',dot:'judgment-call',action:'Early warning alert fires for Room 12',detail:'The AI deterioration monitor flags Room 12 for elevated early warning score. Maria goes to the bedside.',judgment:'JUDGMENT CALL: The patient looks anxious but otherwise stable. She reviews the vital trend data herself, calls the attending, and documents her clinical assessment alongside the AI alert. The attending orders a one-time intervention — not escalation. Maria\'s bedside assessment was essential to that decision.'},
+      {time:'11:00',dot:'ai-touch',action:'Medication reconciliation check',detail:'Before administering afternoon meds, Maria reviews the AI-assisted medication reconciliation list.',aiNote:'The AI flagged a potential duplicate — two blood pressure medications with overlapping mechanisms. Maria verifies against the original admission orders and confirms the flag is a false positive, but documents her review.'},
+      {time:'13:00',dot:'human-only',action:'Difficult conversation with family',detail:'Room 14\'s family has questions about the patient\'s prognosis and is upset. Maria sits with them for 20 minutes.',judgment:'Human-only: No AI tool is involved here, and none should be. This conversation requires her full presence, her clinical knowledge of their specific family member, and her professional judgment about how much information to share before the physician arrives.'},
+      {time:'16:00',dot:'ai-touch',action:'End-of-shift documentation',detail:'Completes shift notes using AI assist. Reviews all five AI-generated notes for accuracy before signing.',aiNote:'Finds and corrects two small inaccuracies across the five notes — takes about 8 minutes total. Signs with documentation that AI assist was used and reviewed.'},
+      {time:'19:00',dot:'human-only',action:'Shift handoff to night nurse',detail:'Provides direct verbal handoff. Does not hand off the AI summaries as a substitute — she gives her own assessment of each patient\'s current status.',judgment:'Human-only: The incoming nurse needs her professional read — not a summary of what AI surfaced.'}
+    ]
+  },
+  {
+    tab:'🩺 Medical Assistant',
+    avatar:'🩺',
+    name:'James, MA — Primary Care Clinic',
+    setting:'Multi-provider primary care clinic, 8am–5pm. Sees approximately 20 patients across 4 providers.',
+    summary:'James uses an AI-assisted check-in workflow, vital sign documentation with AI trend analysis, and an AI pre-visit preparation tool that pulls relevant history.',
+    events:[
+      {time:'8:00',dot:'ai-touch',action:'Morning check-in queue review',detail:'Reviews the AI-generated pre-visit summaries for the day\'s patients. Each summary highlights relevant chronic conditions, upcoming preventive care gaps, and last visit notes.',aiNote:'The summaries save significant preparation time. James still reads each one critically — particularly for patients he knows have complex situations the AI may not have fully weighted.'},
+      {time:'8:30',dot:'human-only',action:'Room 1 — vital signs and intake',detail:'Takes vitals manually and enters them into Epic. Asks the patient about their reason for visit and any changes since the last appointment.',judgment:'Human-only: The conversation is the intake. The AI can flag what was documented before — it can\'t have the conversation.'},
+      {time:'8:45',dot:'ai-touch',action:'AI trend flags an abnormal reading',detail:'Epic\'s AI flags that the patient\'s blood pressure reading is significantly higher than the last three visits. A notification appears.',aiNote:'James notes the flag and confirms it with a second manual reading. He then tells the provider before they enter — "BP trending up, AI flagged it, confirmed with repeat." He doesn\'t interpret it — he passes the clinical information forward.'},
+      {time:'10:15',dot:'judgment-call',action:'Patient asks a symptom question',detail:'A patient asks James whether their new symptom sounds like it could be related to their medication.',judgment:'JUDGMENT CALL: This is outside his scope. James says warmly: "That\'s a great question for Dr. Chen — let me make sure she knows you want to ask that today." He adds a note to the visit reason. He does NOT look it up in an AI tool and relay an answer.'},
+      {time:'12:00',dot:'ai-touch',action:'Preventive care gap notifications',detail:'Between appointments, the AI system sends reminders about patients due for screenings — mammograms, colonoscopies, flu shots. James prepares the materials for the afternoon providers.',aiNote:'The AI identifies the gaps accurately. James prepares the talking points. Whether to address them during today\'s visit is the provider\'s call.'},
+      {time:'14:30',dot:'human-only',action:'Distressed patient needs support',detail:'A patient starts crying during intake — they just received a difficult diagnosis from a specialist. James sits with them, gets water, and lets the provider know before entering.',judgment:'Human-only: James\'s job in this moment is human presence, not data collection. The AI summary can wait.'},
+      {time:'16:30',dot:'ai-touch',action:'End-of-day reconciliation',detail:'Reviews documentation for the day\'s patients to ensure all visit notes are complete and signed. Flags two unsigned notes to the relevant providers.',aiNote:'AI documentation assist was used across most visits today. James\'s end-of-day review is the final check that nothing slipped through.'}
+    ]
+  },
+  {
+    tab:'🖥️ Front Desk',
+    avatar:'🖥️',
+    name:'Destiny, Front Desk Coordinator — Specialty Clinic',
+    setting:'Cardiology specialty clinic, 8am–5pm, high-volume patient scheduling.',
+    summary:'Destiny uses an AI scheduling optimization tool, automated insurance pre-authorization tracking, and an AI-generated no-show risk predictor.',
+    events:[
+      {time:'8:00',dot:'ai-touch',action:'Daily schedule review',detail:'Reviews the AI-optimized schedule for the day. The AI has automatically adjusted appointment lengths based on visit type and patient complexity.',aiNote:'Destiny reviews the AI-built schedule manually. She notices a 10-minute appointment for a patient she knows always takes longer due to communication needs — she adjusts it before the day begins.'},
+      {time:'8:30',dot:'ai-touch',action:'No-show risk notifications',detail:'The AI flags three patients as high no-show risk based on historical patterns. Destiny calls each one with a confirmation reminder.',aiNote:'The AI identifies who to call. Destiny makes the calls — and uses her knowledge of each patient to adjust her approach. One of the "high-risk" patients simply always forgets; she knows to text instead.'},
+      {time:'9:15',dot:'human-only',action:'Complex scheduling request',detail:'A patient calls wanting to schedule multiple interconnected appointments — cardiology, echo, and stress test — in a way that works with their caregiver schedule.',judgment:'Human-only: The AI scheduling tool can\'t navigate this complexity. Destiny manually coordinates the three appointments, confirms with both the cardiology and imaging departments, and builds the sequence the patient needs.'},
+      {time:'11:00',dot:'judgment-call',action:'Insurance pre-auth AI flags an issue',detail:'The AI pre-authorization tracker shows a high-priority flag on a patient scheduled for this afternoon — their prior auth appears expired.',judgment:'JUDGMENT CALL: Destiny can\'t determine if this is a system error or a real lapse. She calls the insurance company directly to verify, then loops in the billing department. She does not cancel the appointment or tell the patient anything until she has confirmed information.'},
+      {time:'13:30',dot:'ai-touch',action:'Afternoon check-in processing',detail:'High-volume check-in period. The AI assists with eligibility verification and copay calculation for each arriving patient.',aiNote:'The AI speeds up the verification process significantly. Destiny reviews each patient interaction individually — she\'s the one each patient sees first and her attention to their experience matters beyond what the AI verifies.'},
+      {time:'15:00',dot:'human-only',action:'Upset patient at the desk',detail:'A patient is frustrated about a billing issue from a previous visit. The AI has nothing to do with this conversation.',judgment:'Human-only: Destiny listens, acknowledges the frustration, reviews the account, and escalates appropriately. Patient experience is a human skill.'},
+      {time:'16:30',dot:'ai-touch',action:'Next-day schedule preparation',detail:'AI generates tomorrow\'s preliminary schedule. Destiny reviews it, makes manual adjustments, and confirms any outstanding authorizations.',aiNote:'The AI builds the draft. The human approves it — with contextual knowledge the algorithm doesn\'t have.'}
+    ]
+  },
+  {
+    tab:'💻 Clinical Informatics',
+    avatar:'💻',
+    name:'Dr. Priya Singh — Clinical Informatics Specialist',
+    setting:'Health system IT/clinical informatics team. No direct patient care — works at the intersection of clinical practice and AI systems.',
+    summary:'Priya\'s role is to evaluate, implement, monitor, and troubleshoot AI tools used across the health system. She is the human-in-the-loop for the tools themselves.',
+    events:[
+      {time:'8:00',dot:'ai-touch',action:'Daily AI performance dashboard review',detail:'Reviews automated performance reports on each active AI tool — accuracy metrics, alert volumes, override rates, demographic breakdown of outputs.',aiNote:'The dashboard is AI-generated. Priya reads it critically — she\'s looking for patterns that indicate drift, bias, or emerging errors.'},
+      {time:'9:00',dot:'judgment-call',action:'Anomaly detected in sepsis algorithm',detail:'The sepsis AI tool\'s alert volume has increased 40% over the past two weeks without a corresponding increase in confirmed sepsis cases.',judgment:'JUDGMENT CALL: This could mean the tool is over-alerting (generating false positives) due to a data quality issue, or it could mean a real increase in sepsis risk. Priya pulls the case-level data, reviews a sample of alerts, and convenes a clinical review meeting. She does NOT adjust the algorithm without clinical validation.'},
+      {time:'11:00',dot:'human-only',action:'Vendor meeting — new AI tool evaluation',detail:'Meets with an AI vendor presenting a new predictive readmission tool. She conducts a structured evaluation including questions about training data, validation populations, demographic performance breakdown, and HIPAA compliance.',judgment:'Human-only: No AI can evaluate another AI. This requires her clinical informatics expertise, her knowledge of the patient population, and her ability to ask the questions vendors don\'t volunteer answers to.'},
+      {time:'13:30',dot:'ai-touch',action:'Clinician support — AI tool training',detail:'Leads a training session for nurses on the updated early warning system. Uses real (de-identified) examples of alerts the AI generated and the clinical decisions that followed.',aiNote:'The training includes examples where the AI was right and examples where clinical judgment correctly overrode it. Both are essential.'},
+      {time:'15:00',dot:'judgment-call',action:'Equity audit — demographic performance review',detail:'Reviews quarterly bias audit results for three AI tools. One shows a statistically significant performance gap between patient populations.',judgment:'JUDGMENT CALL: Priya documents the finding, escalates to the CMO and compliance team, recommends pausing use of that specific tool for the affected population until the issue is investigated, and begins the process of working with the vendor on remediation.'},
+      {time:'17:00',dot:'human-only',action:'Policy update documentation',detail:'Drafts an update to the health system\'s AI use policy based on emerging regulatory guidance from FDA and ONC.',judgment:'Human-only: Policy judgment requires her expertise, her understanding of the clinical environment, and her ability to translate technical and regulatory requirements into practical guidance for frontline staff.'}
+    ]
+  },
+  {
+    tab:'🏥 Administrator',
+    avatar:'🏥',
+    name:'Marcus, Hospital Operations Administrator',
+    setting:'Mid-size community hospital. Responsible for operational efficiency, staffing, and AI program oversight.',
+    summary:'Marcus uses AI analytics for operational decision-making — staffing models, capacity planning, quality metrics, and budget analysis. His AI integration decisions affect every role in this article.',
+    events:[
+      {time:'7:30',dot:'ai-touch',action:'Overnight operations review',detail:'Reviews AI-generated overnight operations dashboard — bed utilization, ED wait times, OR schedule adherence, staffing gaps.',aiNote:'The dashboard gives him a data-complete picture of overnight operations in minutes. He uses it as a starting point — not a conclusion.'},
+      {time:'8:30',dot:'judgment-call',action:'Staffing decision — AI recommendation vs. reality',detail:'The AI staffing model recommends reducing nursing staff on one floor based on current census data.',judgment:'JUDGMENT CALL: Marcus knows that census is expected to rise this afternoon due to a scheduled OR case. He overrides the staffing recommendation and maintains current levels. He documents his reasoning. This is human judgment informed by context the AI\'s data snapshot didn\'t include.'},
+      {time:'10:00',dot:'ai-touch',action:'Quality metrics review meeting',detail:'Presents AI-generated quality metric trends to department heads. The AI has identified an increase in readmission rates in one service line.',aiNote:'The AI identified the pattern. The meeting is about human interpretation: what\'s driving this, what do we do about it, whose judgment leads the response?'},
+      {time:'12:00',dot:'human-only',action:'Staff concern conversation',detail:'A nurse manager raises concerns about an AI documentation tool creating compliance anxiety among her staff. Marcus listens.',judgment:'Human-only: This conversation is about professional trust, organizational culture, and human wellbeing. The AI has nothing to do with it — and it\'s as important as any data dashboard.'},
+      {time:'14:00',dot:'ai-touch',action:'AI vendor contract review',detail:'Reviewing contract renewal for an AI scheduling tool. AI analytics summarizes utilization data and ROI metrics.',aiNote:'The AI gives him the data. Whether to renew requires weighing staff experience, patient satisfaction data, integration complexity, and cost — judgment he provides.'},
+      {time:'16:00',dot:'judgment-call',action:'Incident response — AI tool failure',detail:'An AI medication alert tool generated erroneous flags for six patients this afternoon due to a data feed error. No patient harm occurred but clinical staff are shaken.',judgment:'JUDGMENT CALL: Marcus activates the incident protocol, notifies clinical leadership, arranges a rapid staff debrief, and contacts the vendor. He also decides the tool should be temporarily disabled while the root cause is investigated — a call only a human with organizational authority can make.'}
+    ]
+  }
+];
+
+let roleIdx=0;
+function buildRoles(){
+  const tabs=document.getElementById('roleTabs');
+  roles.forEach((r,i)=>{
+    const btn=document.createElement('button');
+    btn.className='role-tab'+(i===0?' active':'');
+    btn.innerHTML=r.tab;
+    btn.onclick=()=>showRole(i);
+    tabs.appendChild(btn);
+  });
+  renderRole();
+}
+function showRole(i){
+  roleIdx=i;
+  document.querySelectorAll('.role-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));
+  renderRole();
+}
+function renderRole(){
+  const r=roles[roleIdx];
+  const events=r.events.map(e=>`
+    <div class="day-event">
+      <div class="day-time">${e.time}</div>
+      <div class="day-dot ${e.dot}"></div>
+      <div class="day-body">
+        <div class="day-action">${e.action}</div>
+        <div class="day-detail">${e.detail}</div>
+        ${e.aiNote?`<div class="day-ai-note">🤖 ${e.aiNote}</div>`:''}
+        ${e.judgment&&e.dot==='judgment-call'?`<div class="day-judgment">⚖️ ${e.judgment}</div>`:''}
+        ${e.judgment&&e.dot==='human-only'?`<div class="day-ai-note" style="background:var(--green-pale);color:var(--green);">👤 ${e.judgment}</div>`:''}
+      </div>
+    </div>`).join('');
+  document.getElementById('roleContainer').innerHTML=`
+    <div class="role-panel active">
+      <div class="role-intro">
+        <div class="role-avatar">${r.avatar}</div>
+        <div class="role-intro-text">
+          <div class="role-name">${r.name}</div>
+          <div class="role-setting">${r.setting}</div>
+          <div class="role-summary">${r.summary}</div>
+        </div>
+      </div>
+      <div class="timeline-day">${events}</div>
+    </div>`;
+}
+buildRoles();
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. The AI scheduled efficiently based on the physician\'s order — that\'s its job. But the patient\'s confusion and work conflict are human problems that require a human response. The coordinator\'s role is to handle what the AI can\'t: direct patient engagement, empathy, flexibility, and organizational communication. Telling the patient it\'s the AI\'s decision, or that it\'s not within her authority, abandons the patient at exactly the point where human attention matters most.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('Handle the patient\'s concern'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ The AI scheduling correctly per the physician\'s order doesn\'t mean the patient\'s experience is irrelevant or outside the coordinator\'s role. Healthcare workers at every point in the care process are responsible for the patient experience they can directly affect. This patient is confused and has a real scheduling conflict — directing them back to the system or to the physician without trying to help first is not responsive patient care.';}
+}
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
