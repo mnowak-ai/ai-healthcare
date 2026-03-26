@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Biased Data Produces Biased AI: A Step-by-Step Explanation — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,56px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+.section{padding:32px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--purple-dark);margin-bottom:16px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:20px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* Bias pipeline */
+.pipeline{display:flex;flex-direction:column;gap:0;margin:24px 0;position:relative;}
+.pipeline::before{content:'';position:absolute;left:21px;top:42px;bottom:42px;width:3px;background:linear-gradient(to bottom,var(--orange),var(--red));}
+.pl-step{display:flex;gap:20px;padding-bottom:24px;position:relative;}
+.pl-dot{width:44px;height:44px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;position:relative;z-index:1;}
+.pl-dot.s1{background:var(--orange);}
+.pl-dot.s2{background:#F97316;}
+.pl-dot.s3{background:#EF4444;}
+.pl-dot.s4{background:var(--red);}
+.pl-dot.s5{background:#991B1B;}
+.pl-body{flex:1;padding-top:6px;}
+.pl-step-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--orange);margin-bottom:4px;}
+.pl-step-title{font-size:16px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.pl-step-desc{font-size:14px;line-height:1.7;color:var(--gray-text);}
+.pl-step-example{background:var(--orange-pale);border-radius:8px;padding:8px 12px;font-size:13px;color:#92400E;margin-top:8px;}
+
+/* Bias types grid */
+.bias-types{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.bt-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px;cursor:pointer;transition:all .2s;}
+.bt-card:hover,.bt-card.open{border-color:var(--purple);background:var(--purple-pale);}
+.bt-card-header{display:flex;align-items:center;gap:10px;margin-bottom:0;}
+.bt-icon{font-size:22px;flex-shrink:0;}
+.bt-name{font-size:14px;font-weight:700;color:var(--purple-dark);flex:1;}
+.bt-toggle{font-size:13px;color:var(--gray-muted);transition:transform .2s;}
+.bt-card.open .bt-toggle{transform:rotate(180deg);}
+.bt-body{font-size:13px;line-height:1.65;color:var(--gray-text);margin-top:10px;display:none;}
+.bt-card.open .bt-body{display:block;}
+.bt-hc-example{background:var(--purple-pale);border-radius:6px;padding:6px 10px;font-size:12px;color:var(--purple-dark);margin-top:8px;}
+
+/* Interactive trace */
+.trace-sim{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.ts-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.ts-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ts-sub{font-size:14px;color:var(--gray-muted);margin-bottom:20px;}
+.trace-steps{display:flex;flex-direction:column;gap:8px;}
+.trace-step{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;transition:all .2s;}
+.trace-step:hover{border-color:var(--purple);}
+.trace-step.revealed{border-color:var(--red);background:var(--red-pale);}
+.trace-step-q{font-size:14px;font-weight:600;color:var(--purple-dark);}
+.trace-step-a{font-size:13px;line-height:1.65;color:var(--red);margin-top:8px;display:none;}
+.trace-step.revealed .trace-step-a{display:block;}
+.trace-btn{font-size:12px;color:var(--purple);font-weight:600;margin-top:6px;}
+
+/* Quiz */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:24px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:24px 0 48px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.bias-types{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<div class="hero">
+  <div class="lesson-tag">Lesson 4.2 · AI Bias & Equity</div>
+  <h1>How Biased Data Produces Biased AI: A Step-by-Step Explanation</h1>
+  <p class="hero-sub">Understanding that AI bias exists is one thing. Understanding exactly how it gets created — step by step, from the data collection phase to the moment it affects a patient — is what allows healthcare workers to catch it, question it, and stop it from causing harm.</p>
+  <div class="hero-divider"></div>
+</div>
+<div class="content">
+
+  <div class="section fade-in">
+    <h2>The Core Principle: AI Learns What It's Taught</h2>
+    <p>AI doesn't reason. It pattern-matches. When an AI system is built, it is shown thousands or millions of examples — data from real patients — and it learns to identify patterns in that data that predict the outcome it's being trained to predict.</p>
+    <p>This means AI is only as fair as its training data. If the training data reflects a world where certain patients received worse care, the AI will learn to treat those patients as lower-priority. If the data was collected primarily from one type of patient, the AI will work better for that type of patient than for others. <mark>The algorithm isn't choosing to be unfair — it's doing exactly what it was taught to do, with the information it was given.</mark></p>
+    <div class="pull-quote"><p>Garbage in, garbage out is a well-known computing principle. In healthcare AI, the version that matters most is: inequity in, inequity out. The AI faithfully learns the discrimination that was already in the system.</p></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>The Bias Pipeline: How It Gets Built In</h2>
+    <p>Bias doesn't enter an AI system all at once — it enters at multiple stages. Here's the full pipeline from historical data to patient impact:</p>
+    <div class="pipeline">
+      <div class="pl-step">
+        <div class="pl-dot s1">🏛️</div>
+        <div class="pl-body">
+          <div class="pl-step-label">Stage 1</div>
+          <div class="pl-step-title">Historical inequity in healthcare</div>
+          <div class="pl-step-desc">Healthcare has not treated all patients equally. Certain groups have had less access to care, faced discrimination in diagnosis and treatment, been excluded from clinical research, and received systematically different care quality. This inequality is real and documented — it's not an accusation, it's a measurement.</div>
+          <div class="pl-step-example">Example: Black patients have historically been undertreated for pain, leading to decades of medical records that show lower pain medication usage — not because they experienced less pain, but because their pain was taken less seriously.</div>
+        </div>
+      </div>
+      <div class="pl-step">
+        <div class="pl-dot s2">📊</div>
+        <div class="pl-body">
+          <div class="pl-step-label">Stage 2</div>
+          <div class="pl-step-title">Unequal data collection</div>
+          <div class="pl-step-desc">The data used to train healthcare AI is collected from existing healthcare systems. If certain populations sought care less often, were seen at under-resourced facilities with less thorough documentation, or were excluded from research studies, their information is underrepresented in the training data. The AI learns mostly from the patients who were most present in the system.</div>
+          <div class="pl-step-example">Example: A hospital in a wealthy suburban area collects rich, detailed patient records for decades. An AI trained on those records will work better for patients similar to that population — not necessarily for patients from under-resourced communities.</div>
+        </div>
+      </div>
+      <div class="pl-step">
+        <div class="pl-dot s3">🔢</div>
+        <div class="pl-body">
+          <div class="pl-step-label">Stage 3</div>
+          <div class="pl-step-title">Proxy variables encode race indirectly</div>
+          <div class="pl-step-desc">AI builders often know they shouldn't use race directly as a variable. But other variables — zip code, insurance type, prior healthcare utilization, income proxies — correlate strongly with race because of structural inequality. When AI uses these "neutral" variables, it can end up making racially different predictions without explicitly using race as an input.</div>
+          <div class="pl-step-example">Example: Using "distance to specialty care" as a variable produces different scores for patients in zip codes with historically limited healthcare access — which correlate with race and income in predictable ways.</div>
+        </div>
+      </div>
+      <div class="pl-step">
+        <div class="pl-dot s4">🤖</div>
+        <div class="pl-body">
+          <div class="pl-step-label">Stage 4</div>
+          <div class="pl-step-title">The AI is trained and deployed without bias testing</div>
+          <div class="pl-step-desc">Until recently, most healthcare AI was validated for overall accuracy — not for equity across subgroups. An algorithm can be 85% accurate overall while being 92% accurate for white patients and 71% accurate for Black patients. "Overall accuracy" passes validation even when the tool is deeply unequal. If no one looks at the subgroup breakdown, no one finds the problem.</div>
+          <div class="pl-step-example">Example: A fall-risk prediction tool is validated on 10,000 patients and achieves good overall accuracy. But the validation report doesn't break performance down by race — so the fact that it performs poorly for Latino patients goes undetected until it's deployed across thousands of hospital beds.</div>
+        </div>
+      </div>
+      <div class="pl-step">
+        <div class="pl-dot s5">🏥</div>
+        <div class="pl-body">
+          <div class="pl-step-label">Stage 5</div>
+          <div class="pl-step-title">Biased outputs reach patients — at scale</div>
+          <div class="pl-step-desc">The tool is deployed in hospitals across the country. Because the bias is systematic, it applies the same way to every patient who goes through the system. There are no visible red flags in individual cases — the numbers all look "normal." The harm accumulates quietly, across thousands of patients, before anyone connects the dots.</div>
+          <div class="pl-step-example">Example: The hospital risk algorithm studied in the Obermeyer research was in use at hundreds of hospitals — affecting an estimated 200 million patients annually — before outside researchers identified the racial disparity it was producing.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Four Types of Bias to Know</h2>
+    <p>Healthcare AI bias shows up in different forms. Click each type to understand what it is and how it appears in healthcare:</p>
+    <div class="bias-types" id="biasTypesContainer"></div>
+  </div>
+
+  <div class="section fade-in">
+    <h2>Trace the Bias: An Interactive Example</h2>
+    <p>Let's walk through a specific scenario step by step. Click each stage to reveal how bias entered this fictional AI tool:</p>
+    <div class="trace-sim">
+      <div class="ts-label">🔍 Bias Trace Exercise</div>
+      <div class="ts-title">Following the Bias Into a No-Show Prediction Tool</div>
+      <div class="ts-sub">A hospital builds an AI tool to predict which patients will miss appointments. Click each stage to trace where bias enters.</div>
+      <div class="trace-steps" id="traceSteps"></div>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="quiz">
+      <div class="quiz-label">🧠 Quick Check</div>
+      <div class="quiz-q">An AI tool for predicting patient readmissions was validated and found to be 89% accurate overall. A quality improvement analyst then runs the data broken down by race and finds the tool is 94% accurate for white patients but only 79% accurate for Black patients. What does this mean?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="cq(this,false)">The tool passed validation so the 79% accuracy for Black patients is within acceptable range</button>
+        <button class="qopt" onclick="cq(this,false)">The difference reflects real differences in health risk between groups, not bias</button>
+        <button class="qopt" onclick="cq(this,true)">The tool has a significant equity problem — "overall accuracy" masked unequal performance across groups, and the 15-point accuracy gap means Black patients are systematically receiving less accurate readmission predictions, potentially leading to worse care planning for this group</button>
+        <button class="qopt" onclick="cq(this,false)">The tool needs to be retrained only for Black patients</button>
+      </div>
+      <div class="qfb" id="qfb"></div>
+    </div>
+  </div>
+
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Article Summary</div>
+    <h2>What to Remember</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Bias enters AI at every stage of the pipeline — from historical inequity in healthcare, to unequal data collection, to proxy variables that encode race indirectly, to validation processes that never checked subgroup performance. Fixing it requires addressing each stage.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Overall accuracy is not the same as equitable accuracy. A tool can pass validation with high overall performance while failing specific patient populations. Subgroup performance analysis is essential for detecting AI bias — and most tools have historically not reported it.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Bias accumulates quietly. There are no obvious red flags in individual outputs. Healthcare workers catch bias by noticing patterns across patients — which is why your observation and willingness to report matters so much.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const biasTypeData=[
+  {icon:'📉',name:'Historical Bias',body:'Occurs when training data reflects past discrimination or unequal treatment. Because the AI learns from what happened before, it replicates historical inequities into future predictions.',hc:'In healthcare: An AI for pain management trained on historical prescribing data learns to recommend lower pain medication doses for groups that were historically undertreated — even when their pain level is identical.'},
+  {icon:'🔬',name:'Measurement Bias',body:'Occurs when the way data is collected or measured differs across groups. If a diagnostic test or assessment tool works differently for different populations, the data it generates introduces bias.',hc:'In healthcare: Pulse oximeters measuring blood oxygen less accurately for darker skin tones means the training data for oxygenation-related AI is systematically inaccurate for darker-skinned patients.'},
+  {icon:'👥',name:'Representation Bias',body:'Occurs when certain groups are underrepresented in the training data. An AI trained mostly on one type of patient will work better for that type and produce less reliable outputs for groups it saw less of.',hc:'In healthcare: Dermatology AI trained on image databases that are 80%+ lighter skin tones will misidentify conditions on darker skin tones because it simply hasn\'t learned what they look like.'},
+  {icon:'🔄',name:'Feedback Loop Bias',body:'Occurs when biased AI outputs are used to make decisions that then generate new data — and that new data re-trains the AI, making it more biased over time.',hc:'In healthcare: If an AI underestimates Black patients\' disease risk, they receive fewer interventions, appear healthier in follow-up data, and the AI "learns" that its lower scores were correct — the bias becomes self-reinforcing.'}
+];
+
+function buildBiasTypes(){
+  const c=document.getElementById('biasTypesContainer');
+  biasTypeData.forEach((b,i)=>{
+    const el=document.createElement('div');
+    el.className='bt-card';
+    el.innerHTML=`<div class="bt-card-header"><div class="bt-icon">${b.icon}</div><div class="bt-name">${b.name}</div><div class="bt-toggle">▼</div></div><div class="bt-body">${b.body}<div class="bt-hc-example">💊 Healthcare example: ${b.hc}</div></div>`;
+    el.onclick=()=>el.classList.toggle('open');
+    c.appendChild(el);
+  });
+}
+buildBiasTypes();
+
+const traceData=[
+  {q:'Stage 1: What data does the hospital use to build this tool?',a:'The hospital uses 10 years of appointment records. But patients from lower-income zip codes missed more appointments on average — not because they\'re less committed to their health, but because of transportation barriers, inflexible work schedules, and childcare challenges. The AI doesn\'t know why patients missed appointments — it just sees the pattern.'},
+  {q:'Stage 2: What does the AI learn from this data?',a:'The AI learns that patients from certain zip codes, with certain insurance types, and with certain appointment histories are more likely to miss appointments. These variables all correlate with race and income — but the AI treats them as neutral predictors.'},
+  {q:'Stage 3: How does the AI use this learning?',a:'The tool is deployed and begins flagging patients as "high no-show risk." It systematically flags patients from lower-income areas and those with public insurance at higher rates — which correlates with race. The flagging itself seems data-driven and neutral.'},
+  {q:'Stage 4: What happens to "high risk" patients?',a:'The hospital\'s response to high no-show predictions is to send reminder calls — a good thing. But they also give these patients shorter appointment slots and schedule them during less convenient times, reasoning that they\'re "less reliable." This makes it harder for those patients to keep appointments, generating more no-show data.'},
+  {q:'Stage 5: What does the feedback loop create?',a:'More missed appointments by the flagged group → more data confirming the prediction → AI gets retrained with this data → flags the same group even more confidently. The bias is now self-reinforcing, and the original structural barriers (transportation, work flexibility) remain unaddressed.'}
+];
+
+function buildTrace(){
+  const c=document.getElementById('traceSteps');
+  traceData.forEach((t,i)=>{
+    const el=document.createElement('div');
+    el.className='trace-step';
+    el.innerHTML=`<div class="trace-step-q">Step ${i+1}: ${t.q}</div><div class="trace-step-a">${t.a}</div><div class="trace-btn">Click to reveal →</div>`;
+    el.onclick=()=>{el.classList.add('revealed');el.querySelector('.trace-btn').style.display='none';};
+    c.appendChild(el);
+  });
+}
+buildTrace();
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById('qfb');
+  if(correct){fb.className='qfb show cfb';fb.textContent='✅ Correct. "Overall accuracy" conceals subgroup performance differences — and this is one of the most common ways healthcare AI bias goes undetected. An 89% overall accuracy that masks a 15-point gap between racial groups is not an equitable tool. It means Black patients are receiving systematically worse readmission predictions, which affects their care planning, discharge decisions, and follow-up support. The solution isn\'t to retrain only on Black patients — it\'s to investigate why the disparity exists and fix the underlying issue in the training data or model design.';}
+  else{document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('equity problem'))o.classList.add('correct');});fb.className='qfb show wfb';fb.textContent='❌ A 15-point accuracy gap between racial groups is a significant equity problem — not an acceptable range, and not necessarily a reflection of real health differences. This is exactly the validation gap that allows AI bias to persist: "overall accuracy" masks unequal performance. The right response is to investigate the disparity, understand its cause, and fix the model — not to accept it as within acceptable bounds or retrain only on one group.';}
+}
+
+window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
