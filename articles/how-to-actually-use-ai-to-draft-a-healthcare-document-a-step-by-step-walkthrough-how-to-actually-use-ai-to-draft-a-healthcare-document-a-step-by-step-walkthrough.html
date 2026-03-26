@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Actually Use AI to Draft a Healthcare Document: A Step-by-Step Walkthrough</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: #1a0a2e;
+            background-color: #f5f3ff;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 100%);
+            position: relative;
+            padding: 80px 24px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 30px,
+                rgba(124, 58, 237, 0.1) 30px,
+                rgba(124, 58, 237, 0.1) 60px
+            );
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: clamp(48px, 8vw, 80px);
+            color: white;
+            letter-spacing: 2px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-subtitle {
+            font-size: 22px;
+            color: #c4b5fd;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .hero-hook {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 600px;
+        }
+
+        /* Section Labels */
+        .section-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #7c3aed;
+            border: 2px solid #7c3aed;
+            padding: 8px 16px;
+            display: inline-block;
+            margin-bottom: 24px;
+            border-radius: 4px;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        /* What You'll Learn */
+        .learn-section {
+            background: white;
+            border-radius: 20px;
+            padding: 48px;
+            margin-bottom: 60px;
+            border: 2px solid #e9d5ff;
+        }
+
+        .learn-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .learn-card {
+            background: #f5f3ff;
+            border-radius: 12px;
+            padding: 24px;
+            border-left: 4px solid #7c3aed;
+        }
+
+        .learn-card-number {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 32px;
+            color: #7c3aed;
+            margin-bottom: 8px;
+        }
+
+        .learn-card p {
+            font-size: 16px;
+            color: #1a0a2e;
+        }
+
+        /* Content Sections */
+        .content-section {
+            margin-bottom: 60px;
+        }
+
+        .content-section h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 42px;
+            color: #1a0a2e;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+        }
+
+        .content-section h3 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 24px;
+            color: #7c3aed;
+            margin: 32px 0 16px 0;
+            font-weight: 700;
+        }
+
+        .content-section p {
+            margin-bottom: 20px;
+        }
+
+        /* Key Term Badge */
+        .key-term {
+            background: #c4b5fd;
+            color: #1a0a2e;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        /* Step Cards */
+        .step-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            margin: 24px 0;
+            border: 2px solid #e9d5ff;
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -16px;
+            left: 24px;
+            background: #7c3aed;
+            color: white;
+            font-family: 'Bebas Neue', cursive;
+            font-size: 24px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step-card h4 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 20px;
+            color: #1a0a2e;
+            margin-bottom: 16px;
+            font-weight: 700;
+            padding-top: 8px;
+        }
+
+        /* Prompt Example Box */
+        .prompt-box {
+            background: #1a0a2e;
+            color: #c4b5fd;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+
+        .prompt-box .label {
+            color: #7c3aed;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 12px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Warning/Tip Boxes */
+        .tip-box {
+            background: #f5f3ff;
+            border-left: 4px solid #7c3aed;
+            padding: 20px 24px;
+            margin: 24px 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .tip-box.warning {
+            background: #fef3c7;
+            border-left-color: #f59e0b;
+        }
+
+        .tip-box-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #7c3aed;
+            margin-bottom: 8px;
+        }
+
+        .tip-box.warning .tip-box-title {
+            color: #b45309;
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            margin: 24px 0;
+        }
+
+        .checklist li {
+            padding: 12px 0 12px 40px;
+            position: relative;
+            border-bottom: 1px solid #e9d5ff;
+        }
+
+        .checklist li::before {
+            content: '☐';
+            position: absolute;
+            left: 8px;
+            color: #7c3aed;
+            font-size: 20px;
+        }
+
+        /* Key Terms Section */
+        .terms-section {
+            background: white;
+            border-radius: 20px;
+            padding: 48px;
+            margin-bottom: 60px;
+            border: 2px solid #e9d5ff;
+        }
+
+        .terms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .term-card {
+            background: #f5f3ff;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .term-card h4 {
+            font-family: 'Space Mono', monospace;
+            font-size: 16px;
+            color: #7c3aed;
+            margin-bottom: 12px;
+        }
+
+        .term-card p {
+            font-size: 15px;
+            color: #1a0a2e;
+            margin: 0;
+        }
+
+        /* Real World Section */
+        .real-world-section {
+            background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+            border-radius: 20px;
+            padding: 48px;
+            margin-bottom: 60px;
+            color: white;
+        }
+
+        .real-world-section .section-label {
+            color: white;
+            border-color: white;
+        }
+
+        .real-world-section h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 42px;
+            margin-bottom: 24px;
+            color: white;
+        }
+
+        .real-world-section p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .scenario-box {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+
+        .scenario-box h4 {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            color: #c4b5fd;
+        }
+
+        /* Reflect Section */
+        .reflect-section {
+            background: white;
+            border-radius: 20px;
+            padding: 48px;
+            margin-bottom: 60px;
+            border: 2px solid #e9d5ff;
+        }
+
+        .reflect-section h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 42px;
+            color: #1a0a2e;
+            margin-bottom: 24px;
+        }
+
+        .question-list {
+            list-style: none;
+        }
+
+        .question-list li {
+            padding: 20px;
+            background: #f5f3ff;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            font-size: 17px;
+            position: relative;
+            padding-left: 60px;
+        }
+
+        .question-list li::before {
+            content: '?';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #7c3aed;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', cursive;
+            font-size: 18px;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a0a2e;
+            color: white;
+            text-align: center;
+            padding: 40px 24px;
+        }
+
+        footer p {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+        .footer-brand {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 28px;
+            color: #c4b5fd;
+            margin-bottom: 8px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .hero {
+                padding: 60px 20px;
+            }
+
+            .container {
+                padding: 40px 20px;
+            }
+
+            .learn-section,
+            .terms-section,
+            .reflect-section,
+            .real-world-section {
+                padding: 32px 24px;
+            }
+
+            .step-card {
+                padding: 24px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>How to Actually Use AI to Draft a Healthcare Document</h1>
+            <p class="hero-subtitle">A Step-by-Step Walkthrough</p>
+            <p class="hero-hook">This is your practical guide to writing clear prompts, fixing AI mistakes, and verifying everything before you hit send.</p>
+        </div>
+    </section>
+
+    <!-- What You'll Learn -->
+    <div class="container">
+        <section class="learn-section">
+            <span class="section-label">What You'll Learn</span>
+            <div class="learn-grid">
+                <div class="learn-card">
+                    <div class="learn-card-number">01</div>
+                    <p>How to write a clear prompt that gives you useful results the first time</p>
+                </div>
+                <div class="learn-card">
+                    <div class="learn-card-number">02</div>
+                    <p>What details to include so the AI understands the healthcare context</p>
+                </div>
+                <div class="learn-card">
+                    <div class="learn-card-number">03</div>
+                    <p>How to spot and fix mistakes in AI-generated drafts</p>
+                </div>
+                <div class="learn-card">
+                    <div class="learn-card-number">04</div>
+                    <p>A verification checklist to use before sending any document</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content Section 1 -->
+        <section class="content-section">
+            <span class="section-label">Getting Started</span>
+            <h2>Before You Write a Single Word</h2>
+            
+            <p>Using AI to draft healthcare documents can save you hours. But there's a catch. AI doesn't know your patient. It doesn't know your office policies. It doesn't know what happened last Tuesday.</p>
+            
+            <p>That means you need to give it the right information. Think of AI as a very fast assistant who just started today. Smart, but clueless about the details. Your job is to bring them up to speed.</p>
+
+            <div class="tip-box">
+                <div class="tip-box-title">Pro Tip</div>
+                <p>Gather all your facts first. Patient name, dates, procedures, medications, insurance details. Having these ready makes everything faster.</p>
+            </div>
+
+            <p>Let's walk through the full process, step by step.</p>
+        </section>
+
+        <!-- Main Content Section 2 -->
+        <section class="content-section">
+            <span class="section-label">Step-by-Step</span>
+            <h2>Writing Your First Prompt</h2>
+
+            <p>A <span class="key-term">prompt</span> is the instruction you give to an AI tool. It tells the AI what you want. Good prompts get good results. Bad prompts get confusing garbage.</p>
+
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h4>State What You Need</h4>
+                <p>Start by telling the AI exactly what kind of document you want. Be specific. "Write a letter" is too vague. "Write a prior authorization letter for a medication" is better.</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h4>Provide the Context</h4>
+                <p>Give the AI the background info. Who is the patient? What is the diagnosis? What treatment are you requesting? Why is it needed? The AI can only work with what you give it.</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h4>Specify the Tone and Format</h4>
+                <p>Do you need formal language? A bulleted list? A one-page summary? Tell the AI. It won't guess correctly on its own.</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <h4>Include Constraints</h4>
+                <p>Set limits. "Keep it under 300 words." "Use only information I provide." "Don't make up statistics." These rules keep the AI focused.</p>
+            </div>
+
+            <h3>Example: A Good Prompt</h3>
+            
+            <p>Let's say you need to write a prior authorization letter for a patient who needs an MRI. Here's what a solid prompt looks like:</p>
+
+            <div class="prompt-box">
+                <span class="label">Sample Prompt</span>
+                Write a prior authorization letter for an MRI scan. Use these details:
+                <br><br>
+                • Patient: Sarah Chen, DOB 04/15/1985<br>
+                • Insurance: BlueCross BlueShield, Member ID 12345678<br>
+                • Diagnosis: Chronic lower back pain (ICD-10: M54.5)<br>
+                • Requested procedure: Lumbar MRI without contrast<br>
+                • Reason: Patient has not responded to 6 weeks of physical therapy and NSAIDs. Need to rule out disc herniation.<br>
+                • Requesting provider: Dr. Maria Santos, MD<br><br>
+                
+                Keep the letter professional and under one page. Include all required information for insurance review.
+            </div>
+
+            <p>See how specific that is? The AI now has everything it needs. No guessing required.</p>
+        </section>
+
+        <!-- Main Content Section 3 -->
+        <section class="content-section">
+            <span class="section-label">Fixing Problems</span>
+            <h2>What to Do When the AI Draft is Wrong</h2>
+
+            <p>Here's the truth: AI will make mistakes. Sometimes small ones. Sometimes big ones. Your job is to catch them all.</p>
+
+            <p><span class="key-term">Hallucination</span> is when AI makes up information that sounds real but isn't. It might invent a medication name. It might create a fake statistic. This is common, and it's dangerous in healthcare.</p>
+
+            <h3>Common Problems to Watch For</h3>
+
+            <div class="step-card">
+                <div class="step-number">!</div>
+                <h4>Made-Up Facts</h4>
+                <p>The AI might add details you never gave it. Maybe it says the patient "has been suffering for three years" when you never mentioned that. Delete anything you can't verify.</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">!</div>
+                <h4>Wrong Medical Terms</h4>
+                <p>AI might use outdated terms or mix up similar-sounding conditions. Always double-check medication names, diagnosis codes, and procedure names against official sources.</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">!</div>
+                <h4>Incorrect Formatting</h4>
+                <p>Insurance companies want things in a specific format. The AI might miss required fields like Tax ID numbers or NPI codes. Add these yourself.</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">!</div>
+                <h4>Awkward Language</h4>
+                <p>Sometimes AI writes sentences that are technically correct but sound weird. Read everything out loud. If it sounds strange, rewrite it.</p>
+            </div>
+
+            <div class="tip-box warning">
+                <div class="tip-box-title">Warning</div>
+                <p>Never trust AI-generated statistics, research citations, or claims about "studies show." These are often completely made up. If you need data, find it yourself from real sources.</p>
+            </div>
+
+            <h3>How to Fix It: Follow-Up Prompts</h3>
+
+            <p>You don't have to start over when something's wrong. You can ask the AI to fix specific problems. This is called <span class="key-term">iterating</span> — making changes step by step.</p>
+
+            <div class="prompt-box">
+                <span class="label">Follow-Up Prompt Example</span>
+                Good start, but please make these changes:<br><br>
+                • Remove the sentence about "studies showing 80% effectiveness" — I didn't provide that<br>
+                • Add the provider's NPI number: 1234567890<br>
+                • Make the closing paragraph more urgent — emphasize the patient is in significant pain
+            </div>
+
+            <p>Keep fixing until the draft is right. Three or four rounds of edits is normal.</p>
+        </section>
+
+        <!-- Main Content Section 4 -->
+        <section class="content-section">
+            <span class="section-label">Quality Control</span>
+            <h2>Your Pre-Send Verification Checklist</h2>
+
+            <p>Before any healthcare document leaves your desk, run through this checklist. Every single time. No exceptions.</p>
+
+            <ul class="checklist">
+                <li><strong>Patient Information:</strong> Is the name spelled correctly? Is the date of birth right? Is the member ID accurate?</li>
+                <li><strong>Medical Accuracy:</strong> Are all diagnosis codes correct? Are medication names and dosages right? Are procedure codes accurate?</li>
+                <li><strong>No Made-Up Content:</strong> Did you verify every fact in the document? Did you remove any statistics or claims you can't source?</li>
+                <li><strong>Required Fields:</strong> Does the document include all fields the recipient needs? (NPI, Tax ID, dates of service, etc.)</li>
+                <li><strong>Tone and Professionalism:</strong> Does it sound appropriate? Would your supervisor approve of this language?</li>
+                <li><strong>Privacy Check:</strong> Are you sending this through a secure channel? Are you only including necessary information?</li>
+                <li><strong>Final Read:</strong> Did you read the entire document out loud? Does everything make sense?</li>
+            </ul>
+
+            <div class="tip-box">
+                <div class="tip-box-title">Remember</div>
+                <p>The AI wrote the draft. But you are responsible for what gets sent. If there's an error, it's your name on the line. Take verification seriously.</p>
+            </div>
+        </section>
+
+        <!-- Main Content Section 5 -->
+        <section class="content-section">
+            <span class="section-label">Privacy Matters</span>
+            <h2>Protecting Patient Information</h2>
+
+            <p>Here's something crucial: not all AI tools are safe for healthcare use. <span class="key-term">HIPAA</span> is the law that protects patient health information. Breaking HIPAA rules can get you fired and fined.</p>
+
+            <p>Before using any AI tool with real patient data, ask yourself:</p>
+
+            <ul class="checklist">
+                <li>Is this tool approved by my workplace for healthcare use?</li>
+                <li>Does the company have a Business Associate Agreement (BAA) with the AI provider?</li>
+                <li>Is my data encrypted and protected?</li>
+            </ul>
+
+            <p>If you're not sure, use fake names and placeholder information while drafting. Then swap in the real details after. This keeps patient data safe while you work.</p>
+
+            <div class="tip-box warning">
+                <div class="tip-box-title">Never Do This</div>
+                <p>Never paste real patient names, Social Security numbers, or detailed medical histories into a free AI tool that hasn't been approved by your organization.</p>
+            </div>
+        </section>
+
+        <!-- Key Terms Section -->
+        <section class="terms-section">
+            <span class="section-label">Key Terms</span>
+            <h2 style="font-family: 'Bebas Neue', cursive; font-size: 42px; margin-bottom: 16px;">Glossary</h2>
+            <div class="terms-grid">
+                <div class="term-card">
+                    <h4>Prompt</h4>
+                    <p>The instruction you give to an AI tool. It tells the AI what you want it to create.</p>
+                </div>
+                <div class="term-card">
+                    <h4>Hallucination</h4>
+                    <p>When AI makes up information that sounds real but isn't true. Common with facts, statistics, and names.</p>
+                </div>
+                <div class="term-card">
+                    <h4>Iterating</h4>
+                    <p>Making changes step by step. Asking the AI to fix specific problems in follow-up prompts.</p>
+                </div>
+                <div class="term-card">
+                    <h4>Prior Authorization</h4>
+                    <p>A letter asking an insurance company to approve a treatment or procedure before it happens.</p>
+                </div>
+                <div class="term-card">
+                    <h4>HIPAA</h4>
+                    <p>The law that protects patient health information. Breaking it can result in fines and job loss.</p>
+                </div>
+                <div class="term-card">
+                    <h4>BAA</h4>
+                    <p>Business Associate Agreement. A legal contract that lets a company handle protected health data safely.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Real World Connection -->
+        <section class="real-world-section">
+            <span class="section-label">Real World Connection</span>
+            <h2>How This Works in an Actual Job</h2>
+            <p>Medical assistants, billing coordinators, and health administrators spend hours on paperwork. Prior authorizations. Appeals letters. Patient summaries. Insurance correspondence.</p>
+            
+            <p>AI can cut that time dramatically. What used to take 45 minutes might take 10. But only if you know how to use it correctly.</p>
+
+            <div class="scenario-box">
+                <h4>Day in the Life</h4>
+                <p>Maya is a medical assistant at a busy clinic. She gets three prior authorization requests before lunch. Using AI, she drafts all three letters in 20 minutes. She spends another 20 minutes verifying details and adding missing codes. By noon, all three are submitted. Without AI, that would have been her entire morning.</p>
+            </div>
+
+            <p style="margin-top: 24px;">The skill isn't just "knowing AI exists." It's knowing how to prompt it, check it, and fix it. That's what makes you valuable.</p>
+        </section>
+
+        <!-- Reflect Section -->
+        <section class="reflect-section">
+            <span class="section-label">Think About It</span>
+            <h2>Reflect</h2>
+            <ul class="question-list">
+                <li>Why is it dangerous to trust AI-generated statistics or "research" in healthcare documents?</li>
+                <li>If you found an error in an AI draft after sending it, what would you do? Who would you tell?</li>
+                <li>How would you explain to a coworker why they shouldn't paste patient names into ChatGPT?</li>
+                <li>What makes a good prompt different from a bad one? How can you tell before you see the results?</li>
+            </ul>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-brand">AI Essentials</div>
+        <p>Healthcare Documentation Module</p>
+    </footer>
+</body>
+</html>
