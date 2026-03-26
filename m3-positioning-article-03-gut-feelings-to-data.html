@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From Gut Feelings to Data-Driven Decisions — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;
+  --white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;
+  --green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;
+  --red:#DC2626;--red-pale:#FFF1F1;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
+
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+.section{padding:36px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* ERA COMPARISON — the core interactive */
+.era-compare{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.ec-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.ec-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.ec-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.ec-tabs{display:flex;gap:0;border:2px solid var(--purple-mid);border-radius:14px;overflow:hidden;margin-bottom:20px;}
+.ec-tab{flex:1;padding:12px;text-align:center;font-size:13px;font-weight:700;cursor:pointer;border:none;background:var(--white);color:var(--gray-muted);transition:all .2s;}
+.ec-tab.active{background:var(--purple);color:var(--white);}
+.ec-panel{display:none;animation:fadeIn .3s ease;}
+.ec-panel.active{display:block;}
+.ec-scenario{background:var(--white);border-radius:14px;padding:20px;margin-bottom:14px;border:1.5px solid var(--purple-mid);}
+.ec-scene-title{font-size:13px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.ec-columns{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.ec-col{border-radius:12px;padding:14px;}
+.ec-col.old{background:#FFF7F0;border:1.5px solid #FED7AA;}
+.ec-col.new{background:var(--purple-pale);border:1.5px solid var(--purple-mid);}
+.ec-col-header{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;}
+.ec-col.old .ec-col-header{color:var(--orange);}
+.ec-col.new .ec-col-header{color:var(--purple);}
+.ec-col-body{font-size:13px;line-height:1.7;color:var(--gray-text);}
+.ec-outcome{display:flex;gap:10px;align-items:flex-start;margin-top:10px;padding:10px 14px;border-radius:10px;}
+.ec-outcome.better{background:var(--green-pale);}
+.ec-outcome.worse{background:var(--red-pale);}
+.ec-outcome-icon{font-size:18px;flex-shrink:0;}
+.ec-outcome-text{font-size:13px;line-height:1.5;color:var(--gray-text);}
+
+/* EVOLUTION TIMELINE */
+.evo-timeline{margin:28px 0;}
+.evo-item{display:flex;gap:0;margin-bottom:0;}
+.evo-left{width:110px;flex-shrink:0;text-align:right;padding-right:20px;padding-top:6px;}
+.evo-year-badge{display:inline-block;background:var(--purple);color:white;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;}
+.evo-center{display:flex;flex-direction:column;align-items:center;width:40px;flex-shrink:0;}
+.evo-dot{width:16px;height:16px;border-radius:50%;background:var(--purple);border:3px solid var(--white);box-shadow:0 0 0 2px var(--purple);flex-shrink:0;margin-top:6px;}
+.evo-line{width:2px;flex:1;background:var(--purple-mid);min-height:24px;}
+.evo-item:last-child .evo-line{display:none;}
+.evo-right{flex:1;padding-bottom:28px;padding-top:2px;}
+.evo-heading{font-size:16px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.evo-body{font-size:14px;line-height:1.65;color:var(--gray-text);}
+.evo-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.evo-tag{padding:3px 10px;border-radius:100px;font-size:11px;font-weight:600;background:var(--purple-pale);color:var(--purple);}
+
+/* THE BALANCE POINT */
+.balance{background:var(--purple-dark);border-radius:24px;padding:36px;margin:28px 0;text-align:center;}
+.balance-title{font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:var(--white);margin-bottom:20px;}
+.balance-row{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;}
+.balance-side{background:rgba(255,255,255,.1);border-radius:16px;padding:20px 24px;flex:1;min-width:180px;max-width:240px;}
+.balance-icon{font-size:32px;margin-bottom:8px;}
+.balance-label{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);margin-bottom:6px;}
+.balance-items{font-size:12px;color:rgba(255,255,255,.7);line-height:1.7;}
+.balance-plus{font-size:28px;color:rgba(255,255,255,.4);}
+.balance-result{background:var(--purple);border-radius:16px;padding:16px 24px;margin-top:16px;display:inline-block;}
+.balance-result-text{font-size:15px;font-weight:700;color:var(--white);}
+
+/* KNOWLEDGE CHECK */
+.quiz{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.quiz-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
+.qopts{display:flex;flex-direction:column;gap:10px;}
+.qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
+
+/* SUMMARY */
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+
+@media(max-width:600px){
+  .hero,.content{padding-left:24px;padding-right:24px;}
+  .ec-columns{grid-template-columns:1fr;}
+  .balance-row{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Opening · Before Lesson 3.1</div>
+  <h1>From Gut Feelings to Data-Driven Decisions: How Healthcare Changed in the Last 20 Years</h1>
+  <p class="hero-sub">Healthcare has always required good judgment. But what "good judgment" looks like has changed dramatically. Understanding that shift — from experience-based intuition to AI-supported analysis — is what makes Module 3 make sense.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <!-- Section 1 -->
+  <div class="section fade-in">
+    <h2>Healthcare Decisions Used to Be Made Very Differently</h2>
+    <p>Imagine a hospital administrator in 1995 trying to figure out how many nurses to schedule for the following Tuesday. How did they do it? They looked at last year's schedule. They talked to the head nurse. They thought about whether there was anything unusual coming up. They made their best guess based on experience — and hoped it was right.</p>
+    <p>That's not a criticism. That's just how it worked. Healthcare has always been driven by highly trained, experienced professionals making judgment calls. And those professionals did remarkable work with the tools they had.</p>
+    <p>But here's the problem with gut-feeling decisions: <mark>they're only as good as the experience behind them, and experience has limits.</mark> One person, no matter how skilled, can only remember so much, see so many patterns, and consider so many variables at once. The human brain is powerful — but it wasn't built to process thousands of data points simultaneously.</p>
+    <div class="pull-quote"><p>Gut feelings aren't wrong. They're just limited. Data doesn't replace intuition — it gives intuition more to work with.</p></div>
+  </div>
+
+  <!-- ERA COMPARISON -->
+  <div class="era-compare fade-in">
+    <div class="ec-label">⚖️ Then vs. Now</div>
+    <div class="ec-title">How the Same Healthcare Decisions Look With and Without Data</div>
+    <div class="ec-sub">Click each scenario to compare how this decision was made before data tools — and how it's made now with AI support.</div>
+    <div class="ec-tabs">
+      <button class="ec-tab active" onclick="showEra(0)">Staffing a Shift</button>
+      <button class="ec-tab" onclick="showEra(1)">Managing a Supply Shortage</button>
+      <button class="ec-tab" onclick="showEra(2)">Scheduling Appointments</button>
+      <button class="ec-tab" onclick="showEra(3)">Tracking Patient Flow</button>
+    </div>
+    <div id="eraContainer"></div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section fade-in">
+    <h2>How Healthcare Got Here: The 20-Year Evolution</h2>
+    <p>The shift from gut feelings to data-driven decisions didn't happen overnight. It happened in stages — and each stage built on the last. Understanding this history helps you see why AI is the natural next step, not some sudden disruption.</p>
+
+    <div class="evo-timeline">
+      <div class="evo-item">
+        <div class="evo-left"><div class="evo-year-badge">Pre-2000</div></div>
+        <div class="evo-center"><div class="evo-dot"></div><div class="evo-line"></div></div>
+        <div class="evo-right">
+          <div class="evo-heading">The Paper Era: Experience Is Everything</div>
+          <div class="evo-body">Healthcare runs almost entirely on the knowledge and judgment of experienced professionals. Decisions are made based on training, memory, and years of observing patterns. Patient records are on paper. There's no systematic way to spot trends across thousands of patients. What one doctor knows stays with that doctor.</div>
+          <div class="evo-tags"><span class="evo-tag">Paper records</span><span class="evo-tag">Manual scheduling</span><span class="evo-tag">Experience-based decisions</span></div>
+        </div>
+      </div>
+      <div class="evo-item">
+        <div class="evo-left"><div class="evo-year-badge">2000–2010</div></div>
+        <div class="evo-center"><div class="evo-dot"></div><div class="evo-line"></div></div>
+        <div class="evo-right">
+          <div class="evo-heading">Digital Begins: Data Exists But Isn't Used Well</div>
+          <div class="evo-body">Healthcare starts going digital. Scheduling software, billing systems, and early electronic records appear. Data starts being captured — but most organizations don't have the tools or skills to analyze it meaningfully. It's like collecting books without being able to read them.</div>
+          <div class="evo-tags"><span class="evo-tag">Basic digital tools</span><span class="evo-tag">Scheduling software</span><span class="evo-tag">Data collected, not used</span></div>
+        </div>
+      </div>
+      <div class="evo-item">
+        <div class="evo-left"><div class="evo-year-badge">2010–2016</div></div>
+        <div class="evo-center"><div class="evo-dot"></div><div class="evo-line"></div></div>
+        <div class="evo-right">
+          <div class="evo-heading">The EHR Mandate: Healthcare Goes Fully Digital</div>
+          <div class="evo-body">The U.S. government mandates Electronic Health Records (EHRs) with financial incentives to adopt them quickly. Within a few years, almost every hospital has digital records. Now enormous amounts of data exist — patient histories, diagnoses, medications, schedules, billing, outcomes. The raw material for AI is suddenly everywhere.</div>
+          <div class="evo-tags"><span class="evo-tag">EHR adoption</span><span class="evo-tag">Massive data generation</span><span class="evo-tag">Digital-first workflows</span></div>
+        </div>
+      </div>
+      <div class="evo-item">
+        <div class="evo-left"><div class="evo-year-badge">2016–2022</div></div>
+        <div class="evo-center"><div class="evo-dot"></div><div class="evo-line"></div></div>
+        <div class="evo-right">
+          <div class="evo-heading">Analytics Arrives: Making Sense of the Data</div>
+          <div class="evo-body">Healthcare analytics platforms emerge. Dashboards. Reports. Trend tracking. For the first time, administrators can see what's happening across their organization in real time. Early AI tools start appearing for specific tasks — readmission prediction, fraud detection, imaging analysis. The conversation shifts from "how do we collect data?" to "how do we use it?"</div>
+          <div class="evo-tags"><span class="evo-tag">Analytics dashboards</span><span class="evo-tag">Early AI pilots</span><span class="evo-tag">Data-informed decisions</span></div>
+        </div>
+      </div>
+      <div class="evo-item">
+        <div class="evo-left"><div class="evo-year-badge">2022–Now</div></div>
+        <div class="evo-center"><div class="evo-dot" style="background:var(--purple);box-shadow:0 0 0 6px var(--purple-pale);"></div><div class="evo-line"></div></div>
+        <div class="evo-right">
+          <div class="evo-heading">AI Becomes Standard: Every Worker Interacts With It</div>
+          <div class="evo-body">AI tools are no longer experimental — they're deployed across operations at major health systems and increasingly at smaller organizations too. Scheduling coordinators get AI no-show predictions. Nurse managers get AI staffing recommendations. Administrators see AI-generated operational alerts. The question shifts from "should we use AI?" to "how do we use it responsibly and well?"</div>
+          <div class="evo-tags"><span class="evo-tag">AI at scale</span><span class="evo-tag">All roles impacted</span><span class="evo-tag">AI literacy required</span></div>
+        </div>
+      </div>
+      <div class="evo-item">
+        <div class="evo-left"><div class="evo-year-badge">Next 5 yrs</div></div>
+        <div class="evo-center"><div class="evo-dot" style="background:var(--purple-dark);border:2px dashed var(--purple-mid);"></div><div class="evo-line"></div></div>
+        <div class="evo-right">
+          <div class="evo-heading">AI Fluency Becomes a Hiring Requirement</div>
+          <div class="evo-body">Healthcare AI will continue expanding. The workers who thrive will be those who can use AI tools fluently, evaluate their outputs critically, and apply human judgment where AI falls short. This certification is designed to get you there.</div>
+          <div class="evo-tags"><span class="evo-tag">Required skill</span><span class="evo-tag">Career differentiator</span><span class="evo-tag">You are here</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BALANCE SECTION -->
+  <div class="balance fade-in">
+    <div class="balance-title">The Right Balance: Data + Human Judgment</div>
+    <div class="balance-row">
+      <div class="balance-side">
+        <div class="balance-icon">🤖</div>
+        <div class="balance-label">What AI Brings</div>
+        <div class="balance-items">Processes thousands of data points instantly<br>Spots patterns humans would miss<br>Never forgets historical trends<br>Works 24/7 without fatigue</div>
+      </div>
+      <div class="balance-plus">+</div>
+      <div class="balance-side">
+        <div class="balance-icon">🧠</div>
+        <div class="balance-label">What Humans Bring</div>
+        <div class="balance-items">Understands context and nuance<br>Applies ethical judgment<br>Reads relationships and dynamics<br>Owns accountability for decisions</div>
+      </div>
+    </div>
+    <div class="balance-result">
+      <div class="balance-result-text">= Better decisions, faster, with full human accountability</div>
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="section fade-in">
+    <h2>What This Means for You — Right Now</h2>
+    <p>Here's what's worth sitting with before you move into the lessons: the healthcare industry didn't shift to data-driven decisions because data is inherently better than experience. It shifted because data, when used well by skilled humans, produces <mark>consistently better outcomes for patients and more efficient operations for organizations.</mark></p>
+    <p>The key phrase there is "used well by skilled humans." That's you. AI can process the data. It can spot the patterns. It can generate a recommendation. But it takes a trained, thoughtful healthcare professional to look at that recommendation and decide: Does this make sense? Is there context the AI missed? What do I know about this situation that the data doesn't capture?</p>
+    <p>That's the skill this module teaches. And it's a skill that wasn't required 20 years ago — because 20 years ago, the AI wasn't there to give the recommendation in the first place. You're learning something genuinely new because the job itself has genuinely changed.</p>
+    <div class="pull-quote"><p>The best healthcare workers of the next decade won't be the ones who trust AI the most or the ones who resist it the hardest. They'll be the ones who know exactly when to use it and exactly when to push back.</p></div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz fade-in">
+    <div class="quiz-label">🧠 Quick Check</div>
+    <div class="quiz-q">A hospital administrator from 2005 and a hospital administrator today are both trying to figure out how to staff next Tuesday's shift. What is the most significant difference between how they approach this decision?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="cq(this,false)">Today's administrator is more experienced and has better training</button>
+      <button class="qopt" onclick="cq(this,false)">Today's administrator uses computers, but the information they're working with is essentially the same</button>
+      <button class="qopt" onclick="cq(this,true)">Today's administrator can access AI-generated recommendations based on historical patterns, predicted patient volume, and real-time data — but still needs human judgment to evaluate and act on that information</button>
+      <button class="qopt" onclick="cq(this,false)">Today's administrator lets the AI make the staffing decision automatically</button>
+    </div>
+    <div class="qfb" id="qfb"></div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Key Takeaways</div>
+    <h2>What to Remember From This Article</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Healthcare has always required good judgment. What's changed is the information available to support that judgment — moving from experience-only to data-informed, and now to AI-supported decision-making.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The 20-year evolution: paper era → digital records → EHR mandate → analytics dashboards → AI at scale. Each stage built the foundation for the next. AI didn't arrive from nowhere — it arrived because the data finally existed to train it.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI brings data processing power and pattern recognition. Humans bring context, ethics, accountability, and judgment. Neither is sufficient alone. The combination is what produces genuinely better healthcare decisions.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The most valuable healthcare workers aren't those who trust AI the most or resist it the hardest — they're those who know when to use it, how to evaluate its outputs, and when to apply human judgment instead.</p></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const eras=[
+  {
+    title:'Staffing a Shift',
+    old:{
+      header:'Before Data Tools (Pre-2010)',
+      body:'The nurse manager looks at last week\'s schedule, calls the charge nurse to get a "feel" for how busy it usually is on Tuesdays, adds an extra nurse if someone called out sick last month, and goes with their gut. If they\'re experienced and the week is typical, it mostly works.'
+    },
+    new:{
+      header:'With AI Decision Support (Today)',
+      body:'An AI tool analyzes 3 years of Tuesday staffing data, upcoming appointments, current bed occupancy trends, and historical no-show patterns. It recommends specific staffing levels for each 4-hour block. The nurse manager reviews the recommendation, considers that a new surgical program started this month (which the AI data doesn\'t fully reflect yet), and adjusts two shifts upward.'
+    },
+    better:'Result: The AI recommendation got the manager 80% of the way there. Human judgment — knowing the new program context — got them the other 20%. Neither one alone would have been as good.',
+    worse:null
+  },
+  {
+    title:'Managing a Supply Shortage',
+    old:{
+      header:'Before Data Tools (Pre-2010)',
+      body:'The supply room coordinator notices gloves are running low on Tuesday. They call the supplier, find out there\'s a national shortage, and scramble to find an alternate vendor. By Thursday, three departments have run out and had to borrow from each other. The problem is solved reactively — after it happened.'
+    },
+    new:{
+      header:'With AI Decision Support (Today)',
+      body:'An AI inventory system flags 10 days earlier that glove usage has increased 23% over baseline and that the current stock level is trending toward a shortage in 8 days. The supply coordinator investigates, confirms usage is up because of a new wound care protocol, and contacts three vendors immediately. Stock is replenished before any department notices a problem.'
+    },
+    better:'Result: The AI spotted a pattern humans couldn\'t see — 23% usage increase over weeks of data. The human provided the critical context (new wound care protocol) and took the action. Proactive instead of reactive.',
+    worse:null
+  },
+  {
+    title:'Scheduling Appointments',
+    old:{
+      header:'Before Data Tools (Pre-2010)',
+      body:'A scheduling coordinator books appointments based on the provider\'s available slots. No-shows happen regularly but there\'s no system to predict them. On heavy no-show days, providers sit idle for large parts of the afternoon. On other days, the schedule runs perfectly. It\'s unpredictable because there\'s no data on the pattern.'
+    },
+    new:{
+      header:'With AI Decision Support (Today)',
+      body:'An AI scheduling system analyzes 2 years of appointment history and identifies that Tuesday afternoon slots have a 28% no-show rate for patients who booked more than 3 weeks in advance. It recommends strategic overbooking for those slots and sends automated reminders at the 48-hour and 24-hour marks. The coordinator approves the strategy and monitors outcomes weekly.'
+    },
+    better:'Result: No-show rate drops from 28% to 14% for those slots. Provider idle time decreases. The AI identified the pattern; the coordinator verified the strategy made sense for their specific patient population.',
+    worse:null
+  },
+  {
+    title:'Tracking Patient Flow',
+    old:{
+      header:'Before Data Tools (Pre-2010)',
+      body:'A hospital administrator knows the ER gets busy on Friday nights and during flu season from 20 years of experience. They schedule extra staff for those times. But they miss the fact that their ER actually spikes specifically on the second Monday of each month — because that\'s when local employers\' insurance resets and people finally come in for things they\'ve been waiting on.'
+    },
+    new:{
+      header:'With AI Decision Support (Today)',
+      body:'An analytics dashboard shows ER visit patterns over 3 years. The AI flags a consistent monthly spike pattern that no human had ever noticed. The administrator looks at the data, hypothesizes the insurance reset connection, checks with a community health liaison to confirm it, and adjusts staffing for the specific Mondays going forward.'
+    },
+    better:'Result: A pattern that existed for years and harmed patient care — long waits on those Mondays — is finally fixed. The AI saw a pattern that was hiding in plain sight. The human provided the context and the creative interpretation.',
+    worse:null
+  }
+];
+
+let currentEra=0;
+
+function showEra(i){
+  currentEra=i;
+  document.querySelectorAll('.ec-tab').forEach((t,ti)=>t.classList.toggle('active',ti===i));
+  renderEra();
+}
+
+function renderEra(){
+  const e=eras[currentEra];
+  document.getElementById('eraContainer').innerHTML=`
+    <div class="ec-scenario">
+      <div class="ec-scene-title">📋 Scenario: ${e.title}</div>
+      <div class="ec-columns">
+        <div class="ec-col old">
+          <div class="ec-col-header">📋 ${e.old.header}</div>
+          <div class="ec-col-body">${e.old.body}</div>
+        </div>
+        <div class="ec-col new">
+          <div class="ec-col-header">🤖 ${e.new.header}</div>
+          <div class="ec-col-body">${e.new.body}</div>
+        </div>
+      </div>
+      <div class="ec-outcome better">
+        <span class="ec-outcome-icon">💡</span>
+        <span class="ec-outcome-text"><strong>What this shows:</strong> ${e.better}</span>
+      </div>
+    </div>`;
+}
+renderEra();
+
+function cq(btn,correct){
+  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
+  btn.classList.add(correct?'correct':'wrong');
+  if(!correct)document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('AI-generated recommendations'))o.classList.add('correct');});
+  const fb=document.getElementById('qfb');
+  fb.className='qfb show '+(correct?'cfb':'wfb');
+  fb.textContent=correct
+    ?'✅ Exactly right. The fundamental difference isn\'t experience level or computer access — it\'s the quality and volume of information available to support the decision. Today\'s administrator has AI tools that can analyze years of historical patterns, predict future demand, and flag issues proactively. But — and this is the crucial part — they still need human judgment to evaluate whether that recommendation makes sense given the current context. The AI gives better information; the human still makes the call.'
+    :'❌ The key difference isn\'t training level or basic computer use — it\'s the kind of information available. Today\'s administrator has access to AI-generated analysis of historical patterns, real-time data, and predictive recommendations that simply didn\'t exist before. But "lets the AI decide automatically" is also wrong — AI provides recommendations, and humans remain responsible for the final decision. The right answer captures both the AI advantage AND the continuing requirement for human judgment.';
+}
+
+window.addEventListener('scroll',()=>{
+  const e=document.documentElement;
+  document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';
+});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{
+  if(e.isIntersecting)e.target.classList.add('visible');
+}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

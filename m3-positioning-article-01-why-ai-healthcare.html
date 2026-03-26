@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why AI in Healthcare Is the Most Important Skill You Can Learn Right Now — AI in Healthcare Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;
+  --white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;
+  --green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;
+  --teal:#0D7377;--teal-pale:#E6F7F7;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;transition:width .1s;}
+
+/* HERO */
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+
+/* CONTENT */
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+.section{padding:36px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+
+/* PULL QUOTE */
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+/* STAT COUNTER STRIP */
+.stat-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0;}
+.stat-card{background:var(--purple-dark);border-radius:20px;padding:28px 20px;text-align:center;position:relative;overflow:hidden;}
+.stat-card::after{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;background:rgba(255,255,255,.06);border-radius:50%;}
+.stat-num{font-family:'Fraunces',serif;font-size:42px;font-weight:900;color:var(--white);line-height:1;margin-bottom:6px;}
+.stat-num span{font-size:24px;}
+.stat-label{font-size:13px;color:rgba(255,255,255,.75);line-height:1.4;}
+
+/* OPPORTUNITY MAP — interactive */
+.opp-map{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
+.opp-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.opp-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
+.opp-sub{font-size:15px;color:var(--gray-muted);margin-bottom:20px;}
+.opp-roles{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;}
+.opp-role{padding:10px 18px;border-radius:100px;border:2px solid var(--purple-mid);background:var(--white);color:var(--gray-muted);font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;}
+.opp-role:hover{border-color:var(--purple);color:var(--purple);}
+.opp-role.active{background:var(--purple);border-color:var(--purple);color:var(--white);}
+.opp-detail{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:22px;display:none;animation:fadeIn .3s ease;}
+.opp-detail.visible{display:block;}
+.opp-detail-role{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:6px;}
+.opp-detail-title{font-family:'Fraunces',serif;font-size:18px;color:var(--purple-dark);font-weight:700;margin-bottom:10px;}
+.opp-detail-body{font-size:14px;line-height:1.7;color:var(--gray-text);margin-bottom:14px;}
+.opp-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.opp-tag{padding:4px 12px;border-radius:100px;font-size:12px;font-weight:600;}
+.opp-tag.ai{background:var(--purple-pale);color:var(--purple);}
+.opp-tag.grow{background:var(--green-pale);color:var(--green);}
+.opp-tag.pay{background:var(--orange-pale);color:var(--orange);}
+
+/* TIMELINE — why now */
+.timeline{margin:28px 0;display:flex;flex-direction:column;gap:0;}
+.tl-item{display:flex;gap:20px;padding-bottom:28px;position:relative;}
+.tl-item:not(:last-child)::before{content:'';position:absolute;left:19px;top:40px;bottom:0;width:2px;background:var(--purple-mid);}
+.tl-dot{width:40px;height:40px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;z-index:1;}
+.tl-dot.past{background:var(--gray-muted);}
+.tl-dot.now{background:var(--purple);box-shadow:0 0 0 6px var(--purple-pale);}
+.tl-dot.future{background:var(--purple-dark);border:2px dashed var(--purple-mid);}
+.tl-content{flex:1;padding-top:6px;}
+.tl-year{font-size:12px;font-weight:700;color:var(--purple);letter-spacing:.1em;margin-bottom:4px;}
+.tl-heading{font-size:16px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+.tl-body{font-size:14px;line-height:1.65;color:var(--gray-text);}
+
+/* REALITY CHECK CARDS */
+.reality-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.reality-card{border-radius:16px;padding:20px;}
+.reality-card.myth{background:#FFF1F1;border:1.5px solid #FCA5A5;}
+.reality-card.fact{background:var(--green-pale);border:1.5px solid #86EFAC;}
+.rc-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;}
+.reality-card.myth .rc-label{color:#DC2626;}
+.reality-card.fact .rc-label{color:var(--green);}
+.rc-text{font-size:14px;line-height:1.6;color:var(--gray-text);}
+
+/* REFLECTION PROMPT */
+.reflection{background:var(--purple-pale);border:1.5px solid var(--purple-mid);border-radius:20px;padding:28px;margin:28px 0;}
+.reflection-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:10px;}
+.reflection-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);font-weight:700;margin-bottom:16px;line-height:1.3;}
+.reflection-input{width:100%;min-height:100px;border:2px solid var(--purple-mid);border-radius:12px;padding:14px 16px;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--gray-text);resize:vertical;outline:none;transition:border .2s;}
+.reflection-input:focus{border-color:var(--purple);}
+.reflection-hint{font-size:13px;color:var(--gray-muted);margin-top:8px;}
+
+/* SUMMARY */
+.summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
+
+/* ANIMATIONS */
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+@keyframes countUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+.stat-num{animation:countUp .6s ease forwards;}
+
+@media(max-width:600px){
+  .hero,.content{padding-left:24px;padding-right:24px;}
+  .stat-strip{grid-template-columns:1fr;}
+  .reality-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+
+<div class="hero">
+  <div class="lesson-tag">Module 3 · Opening · Before Lesson 3.1</div>
+  <h1>Why AI in Healthcare Is the Most Important Skill You Can Learn Right Now</h1>
+  <p class="hero-sub">You picked the right certification at the right moment. The healthcare industry is in the middle of the biggest technology shift in its history — and the people who understand it are about to become the most valuable workers in the room.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <!-- Section 1 -->
+  <div class="section fade-in">
+    <h2>Something Big Is Happening in Healthcare</h2>
+    <p>Every single day, hospitals and clinics across the country are making decisions about which staff to hire, which tools to buy, and how to run their operations more efficiently. More and more of those decisions involve AI — artificial intelligence tools that help predict patient flow, manage schedules, flag risks before they become problems, and make sense of massive amounts of data.</p>
+    <p>This isn't something that's coming. It's already here. And the healthcare workers who understand how AI works — who know what it can do, what it can't do, and how to use it responsibly — are going to have a real career advantage over those who don't.</p>
+    <p>That's exactly what Module 3 is about. Before we dive into data, dashboards, and decision support, it's worth pausing to understand <mark>why this moment matters so much</mark> — and why the skills you're building right now are exactly the ones healthcare needs.</p>
+  </div>
+
+  <!-- STAT STRIP -->
+  <div class="stat-strip fade-in">
+    <div class="stat-card">
+      <div class="stat-num" id="stat1">$45<span>B</span></div>
+      <div class="stat-label">Projected global healthcare AI market by 2026 — up from $11B in 2021</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat2">9 in 10</div>
+      <div class="stat-label">Major U.S. hospitals already using some form of AI in their operations</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat3">3x</div>
+      <div class="stat-label">Faster hiring preference for candidates who demonstrate AI fluency in healthcare roles</div>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section fade-in">
+    <h2>What Does "AI in Healthcare" Actually Mean for Your Career?</h2>
+    <p>When most people hear "AI in healthcare," they picture robots doing surgery or computers diagnosing cancer. Those things exist — but they're a tiny slice of what's actually happening. The much bigger story is happening in the everyday operations of healthcare: <mark>scheduling, staffing, data tracking, decision-making, and workflow management.</mark></p>
+    <p>And that's where most healthcare jobs live. Whether you're a nurse, a medical assistant, a front desk coordinator, a health data analyst, or an operations manager — AI is already showing up in your workflow. The question isn't whether you'll encounter it. It's whether you'll be ready for it.</p>
+    <div class="pull-quote"><p>The healthcare worker of the future isn't someone who competes with AI. It's someone who knows how to use AI to do their job better than anyone else.</p></div>
+  </div>
+
+  <!-- OPPORTUNITY MAP -->
+  <div class="opp-map fade-in">
+    <div class="opp-label">🗺️ Career Opportunity Map</div>
+    <div class="opp-title">How AI Skills Show Up Across Healthcare Roles</div>
+    <div class="opp-sub">Click a role to see how AI is changing that job — and what the opportunity looks like for people who are prepared.</div>
+    <div class="opp-roles">
+      <button class="opp-role" onclick="showRole('nurse')">🩺 Nurse / MA</button>
+      <button class="opp-role" onclick="showRole('front')">📋 Front Desk / Scheduling</button>
+      <button class="opp-role" onclick="showRole('ops')">📊 Operations Manager</button>
+      <button class="opp-role" onclick="showRole('analyst')">💻 Health Data Analyst</button>
+      <button class="opp-role" onclick="showRole('admin')">🏥 Healthcare Administrator</button>
+    </div>
+    <div class="opp-detail" id="oppDetail"></div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="section fade-in">
+    <h2>Why Right Now? A Quick Look at How We Got Here</h2>
+    <p>Healthcare has always been slow to adopt new technology — for good reason. When you're dealing with people's lives, you need to be careful about what you change and how fast. But the last few years have accelerated things dramatically. Here's why this moment is different from every previous technology shift in healthcare:</p>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot past">📄</div>
+        <div class="tl-content">
+          <div class="tl-year">Before 2010</div>
+          <div class="tl-heading">Paper Charts and Manual Everything</div>
+          <div class="tl-body">Most hospitals ran on paper. Scheduling was done on paper. Patient records were in physical folders. Data analysis meant someone manually reviewing spreadsheets. Technology meant email and fax machines.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot past">💾</div>
+        <div class="tl-content">
+          <div class="tl-year">2010–2018</div>
+          <div class="tl-heading">The EHR Revolution</div>
+          <div class="tl-body">The U.S. government pushed hospitals to adopt Electronic Health Records (EHRs). Healthcare went digital fast. Suddenly, every patient interaction was generating data — but most hospitals didn't know how to use it yet.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot past">🤖</div>
+        <div class="tl-content">
+          <div class="tl-year">2018–2022</div>
+          <div class="tl-heading">Early AI Experiments</div>
+          <div class="tl-body">Healthcare organizations started experimenting with AI. Mostly behind the scenes — AI for billing, AI for scheduling optimization, AI for reading imaging scans. Results were mixed, but the foundation was being built.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot now">⚡</div>
+        <div class="tl-content">
+          <div class="tl-year">2022–Now</div>
+          <div class="tl-heading">The Mainstream Moment — Where We Are Today</div>
+          <div class="tl-body">AI tools became faster, cheaper, and much more capable. Major health systems deployed AI at scale. Front-line workers started seeing it in their daily workflows. The question shifted from "should we use AI?" to "how do we use it well?" — and that's the question this certification answers.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot future">🔭</div>
+        <div class="tl-content">
+          <div class="tl-year">The Next 5 Years</div>
+          <div class="tl-heading">AI Fluency Becomes a Job Requirement</div>
+          <div class="tl-body">Healthcare job postings are already starting to list AI literacy as a preferred — or required — skill. Workers who understand how to use, evaluate, and question AI tools will have a significant hiring and promotion advantage over those who don't.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: Myth vs Reality -->
+  <div class="section fade-in">
+    <h2>Let's Clear Up Some Common Misunderstandings</h2>
+    <p>Before you go further, it helps to correct a few ideas that might be floating around in your head about what "AI in healthcare" actually means for workers like you.</p>
+    <div class="reality-grid">
+      <div class="reality-card myth">
+        <div class="rc-label">❌ Myth</div>
+        <div class="rc-text">"AI is going to replace healthcare workers. Learning about it just means I'm preparing for my job to disappear."</div>
+      </div>
+      <div class="reality-card fact">
+        <div class="rc-label">✅ Reality</div>
+        <div class="rc-text">AI handles specific, repetitive tasks — like sorting data or spotting scheduling gaps. It cannot replace the judgment, communication, and care that human workers provide. Workers who know AI become more valuable, not less necessary.</div>
+      </div>
+      <div class="reality-card myth">
+        <div class="rc-label">❌ Myth</div>
+        <div class="rc-text">"You have to be technical or good at math to understand healthcare AI."</div>
+      </div>
+      <div class="reality-card fact">
+        <div class="rc-label">✅ Reality</div>
+        <div class="rc-text">Using AI in healthcare is a practical skill, not a technical one. You don't build the AI — you learn how to read its outputs, ask the right questions about them, and make smart decisions with them. No coding required.</div>
+      </div>
+      <div class="reality-card myth">
+        <div class="rc-label">❌ Myth</div>
+        <div class="rc-text">"AI in healthcare is only for doctors and high-level administrators."</div>
+      </div>
+      <div class="reality-card fact">
+        <div class="rc-label">✅ Reality</div>
+        <div class="rc-text">The biggest AI deployments in healthcare right now are in operations, scheduling, staffing, and workflow — exactly the areas where front-line and administrative workers operate every single day.</div>
+      </div>
+      <div class="reality-card myth">
+        <div class="rc-label">❌ Myth</div>
+        <div class="rc-text">"I can just learn this on the job when I need it."</div>
+      </div>
+      <div class="reality-card fact">
+        <div class="rc-label">✅ Reality</div>
+        <div class="rc-text">Workers who already understand AI before they're hired stand out immediately. You don't want to be the person learning the basics while everyone else is already using these tools fluently.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5 -->
+  <div class="section fade-in">
+    <h2>What Module 3 Is Going to Teach You</h2>
+    <p>In the lessons ahead, you're going to learn three deeply practical skills that every healthcare worker in an AI-powered environment needs:</p>
+    <p><strong>Data Literacy:</strong> Healthcare runs on data — scheduling data, staffing data, patient flow data, performance data. You're going to learn how to read that data, understand where it comes from, and know what it means when something looks unusual.</p>
+    <p><strong>Dashboard Reading:</strong> Most healthcare AI communicates through dashboards — visual displays of data that update in real time. You'll learn how to read those dashboards like a pro: spotting trends, identifying problems, and knowing what action to take.</p>
+    <p><strong>Decision Support:</strong> AI doesn't make decisions in healthcare — it supports the humans who do. You're going to learn exactly how that works, what AI can and can't tell you, and how to be the kind of professional who uses AI recommendations wisely instead of blindly.</p>
+    <div class="pull-quote"><p>Data literacy, dashboard reading, and decision support aren't "AI skills" — they're healthcare skills. AI just made them more urgent to learn.</p></div>
+  </div>
+
+  <!-- REFLECTION -->
+  <div class="reflection fade-in">
+    <div class="reflection-label">✍️ Reflection Prompt</div>
+    <div class="reflection-q">Think about a healthcare job you're interested in — or already working in. Where do you think AI might already be showing up in that role? What would be the most useful thing to understand about it?</div>
+    <textarea class="reflection-input" placeholder="Write your thoughts here — there are no wrong answers. This is just a chance to connect what you're learning to where you're going..."></textarea>
+    <div class="reflection-hint">💡 Your reflection stays private. This prompt is here to help you think, not to be graded.</div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary fade-in">
+    <div class="summary-label">📌 Key Takeaways</div>
+    <h2>What to Remember From This Article</h2>
+    <div class="spoints">
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Healthcare AI is no longer experimental — it's being deployed at scale across operations, scheduling, staffing, and workflow management right now. This is the mainstream moment.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>AI doesn't replace healthcare workers — it changes what the most valuable ones know how to do. Workers who understand AI become harder to replace, not easier.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>You don't need to be technical to benefit from this certification. The skills in Module 3 — data literacy, dashboard reading, and decision support — are practical, learnable, and immediately applicable in real healthcare jobs.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>The window to get ahead of this shift is right now. Workers who arrive at healthcare jobs already AI-fluent will have a genuine, measurable advantage over those who don't.</p></div>
+    </div>
+  </div>
+
+</div><!-- /content -->
+
+<script>
+const roles={
+  nurse:{
+    role:'Nurse / Medical Assistant',
+    title:'AI Is Showing Up in Your Clinical Workflow',
+    body:'Nurses and MAs are increasingly working alongside AI tools that flag patient risks, suggest care priorities, and track vital signs in real time. In operations, AI helps predict which patients will need extra time, when to expect surge periods, and how to staff for complex days. Understanding how these tools work means you can use them confidently — and catch it when they get something wrong.',
+    tags:['AI-flagged patient risks','Smart scheduling','Staffing predictions','Care coordination']
+  },
+  front:{
+    role:'Front Desk / Scheduling Coordinator',
+    title:'Scheduling Has Become an AI-Powered Function',
+    body:'Scheduling tools now use AI to predict no-shows, suggest optimal appointment slots, manage waitlists automatically, and flag overbooking risks before they happen. Front desk staff who understand how to read these AI recommendations — and when to override them — become the most reliable people in the building.',
+    tags:['No-show prediction','Waitlist AI','Appointment optimization','Patient flow tracking']
+  },
+  ops:{
+    role:'Operations Manager',
+    title:'Operations Runs on AI Dashboards Now',
+    body:'Operations managers are the primary users of AI dashboards in most healthcare settings. They read real-time data on bed occupancy, staff-to-patient ratios, supply levels, and workflow bottlenecks — and they use AI recommendations to make staffing, scheduling, and resource decisions. Module 3 is essentially a complete training for this role.',
+    tags:['Dashboard analysis','Staffing AI','Resource management','Performance metrics']
+  },
+  analyst:{
+    role:'Health Data Analyst',
+    title:'The Most In-Demand Role in Healthcare Right Now',
+    body:'Health data analysts bridge the gap between the AI tools hospitals use and the human decisions that follow. They understand what the data means, where it came from, whether it can be trusted, and how to communicate it to non-technical colleagues. This is one of the fastest-growing, highest-paid entry paths in healthcare.',
+    tags:['Data interpretation','AI output review','Reporting & visualization','Decision support']
+  },
+  admin:{
+    role:'Healthcare Administrator',
+    title:'Strategic Decision-Making With AI Support',
+    body:'Healthcare administrators oversee entire departments or facilities — and they increasingly rely on AI systems to help them allocate budgets, plan staffing, improve patient experience, and comply with regulations. Administrators who understand the capabilities and limitations of AI tools make dramatically better strategic decisions.',
+    tags:['Strategic planning','Budget & resource AI','Compliance support','Operational oversight']
+  }
+};
+
+function showRole(key){
+  const d=roles[key];
+  document.querySelectorAll('.opp-role').forEach(r=>r.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  const el=document.getElementById('oppDetail');
+  el.innerHTML=`
+    <div class="opp-detail-role">${d.role}</div>
+    <div class="opp-detail-title">${d.title}</div>
+    <div class="opp-detail-body">${d.body}</div>
+    <div class="opp-tags">${d.tags.map(t=>`<span class="opp-tag ai">${t}</span>`).join('')}</div>`;
+  el.classList.add('visible');
+}
+
+window.addEventListener('scroll',()=>{
+  const e=document.documentElement;
+  document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';
+});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{
+  if(e.isIntersecting)e.target.classList.add('visible');
+}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
