@@ -1,15 +1,29 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Alert Fatigue and Dashboard Blindness — AI in Healthcare Certification</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--green:#276749;--green-pale:#F0FFF4;--orange:#D97706;--orange-pale:#FFFBEB;--red:#DC2626;--red-pale:#FFF1F1;}
-*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
 .progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;}
-.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
-h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
-.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}.section{padding:36px 0 0;}h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
-.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+.hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+.lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+.lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;}
+h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-.02em;}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+.hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+.content{max-width:860px;margin:0 auto;padding:0 40px 80px;}
+.section{padding:36px 0 0;}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;line-height:1.2;}
+p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+.pull-quote{margin:28px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+.pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+.pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
 .af-sim{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:24px;padding:32px;margin:28px 0;}
 .af-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
 .af-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:6px;}
@@ -17,25 +31,24 @@ h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900
 .af-day-tabs{display:flex;gap:0;border-radius:14px;overflow:hidden;border:2px solid var(--purple-mid);margin-bottom:18px;}
 .af-day-btn{flex:1;padding:11px 8px;text-align:center;font-size:12px;font-weight:700;cursor:pointer;border:none;background:var(--white);color:var(--gray-muted);transition:all .2s;}
 .af-day-btn.active{background:var(--purple);color:white;}
-.af-alert-list{background:var(--white);border-radius:14px;padding:16px;border:1.5px solid var(--purple-mid);margin-bottom:12px;max-height:260px;overflow-y:auto;}
-.af-alert-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;margin-bottom:6px;border-left:3px solid;font-size:13px;cursor:pointer;transition:all .2s;}
-.af-alert-item.red{background:var(--red-pale);border-left-color:var(--red);}
-.af-alert-item.yellow{background:var(--orange-pale);border-left-color:var(--orange);}
-.af-alert-item.purple{background:var(--purple-pale);border-left-color:var(--purple);}
-.af-alert-item.dismissed{opacity:.3;text-decoration:line-through;}
-.af-alert-icon{font-size:14px;flex-shrink:0;}
-.af-alert-text{flex:1;line-height:1.35;}
-.af-alert-real{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;background:var(--red);color:white;flex-shrink:0;}
 .af-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px;}
 .af-stat{border-radius:12px;padding:14px;text-align:center;}
-.af-stat.volume{background:var(--purple-pale);}
-.af-stat.dismissed-stat{background:var(--orange-pale);}
-.af-stat.missed{background:var(--red-pale);}
+.stat-vol{background:var(--purple-pale);}
+.stat-dis{background:var(--orange-pale);}
+.stat-mis{background:var(--red-pale);}
 .af-stat-num{font-family:'Fraunces',serif;font-size:28px;font-weight:900;}
-.af-stat.volume .af-stat-num{color:var(--purple);}
-.af-stat.dismissed-stat .af-stat-num{color:var(--orange);}
-.af-stat.missed .af-stat-num{color:var(--red);}
+.stat-vol .af-stat-num{color:var(--purple);}
+.stat-dis .af-stat-num{color:var(--orange);}
+.stat-mis .af-stat-num{color:var(--red);}
 .af-stat-label{font-size:11px;color:var(--gray-muted);margin-top:4px;}
+.af-alert-list{background:var(--white);border-radius:14px;padding:16px;border:1.5px solid var(--purple-mid);margin-bottom:12px;max-height:280px;overflow-y:auto;}
+.alert-row{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;margin-bottom:6px;border-left:3px solid;font-size:13px;line-height:1.4;}
+.alert-row.red{background:var(--red-pale);border-left-color:var(--red);}
+.alert-row.yellow{background:var(--orange-pale);border-left-color:var(--orange);}
+.alert-row.purple{background:var(--purple-pale);border-left-color:var(--purple);}
+.alert-badge{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;background:var(--red);color:white;flex-shrink:0;white-space:nowrap;}
+.alert-icon{flex-shrink:0;}
+.alert-text{flex:1;}
 .af-insight{border-radius:12px;padding:14px 18px;font-size:14px;line-height:1.65;}
 .solutions-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:24px 0;}
 .sol-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px;}
@@ -47,38 +60,54 @@ h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900
 .quiz-q{font-family:'Fraunces',serif;font-size:20px;color:var(--purple-dark);margin-bottom:20px;font-weight:700;}
 .qopts{display:flex;flex-direction:column;gap:10px;}
 .qopt{background:var(--white);border:2px solid var(--purple-mid);border-radius:12px;padding:14px 18px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;}
-.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
-.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}.qfb.show{display:block;animation:fadeIn .35s ease;}.qfb.cfb{background:var(--green-pale);color:var(--green);}.qfb.wfb{background:var(--red-pale);color:var(--red);}
+.qopt:hover{border-color:var(--purple);background:var(--purple-pale);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);}
+.qopt.wrong{background:var(--red-pale);border-color:var(--red);color:var(--red);}
+.qfb{font-size:15px;line-height:1.65;padding:16px 20px;border-radius:12px;margin-top:12px;display:none;}
+.qfb.show{display:block;animation:fadeIn .35s ease;}
+.qfb.cfb{background:var(--green-pale);color:var(--green);}
+.qfb.wfb{background:var(--red-pale);color:var(--red);}
 .summary{background:var(--purple-pale);border-radius:24px;padding:40px;margin:28px 0 60px;}
-.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
-.spoints{display:flex;flex-direction:column;gap:14px;}.spoint{display:flex;gap:14px;align-items:flex-start;}
-.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}.sdot svg{width:12px;height:12px;}.spoint p{font-size:16px;line-height:1.65;margin:0;}
+.summary-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;}
+.summary h2{font-family:'Fraunces',serif;font-size:26px;color:var(--purple-dark);margin-bottom:20px;}
+.spoints{display:flex;flex-direction:column;gap:14px;}
+.spoint{display:flex;gap:14px;align-items:flex-start;}
+.sdot{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sdot svg{width:12px;height:12px;}
+.spoint p{font-size:16px;line-height:1.65;margin:0;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}.fade-in.visible{opacity:1;transform:translateY(0);}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
 @media(max-width:600px){.hero,.content{padding-left:24px;padding-right:24px;}.solutions-grid{grid-template-columns:1fr;}.af-stats{grid-template-columns:1fr;}}
-</style></head><body>
+</style>
+</head>
+<body>
 <div class="progress-bar" id="pb"></div>
+
 <div class="hero">
   <div class="lesson-tag">Module 3 · Lesson 3.2 · Reading AI Dashboards</div>
   <h1>Alert Fatigue and Dashboard Blindness: When Too Much Data Becomes a Problem</h1>
-  <p class="hero-sub">More alerts doesn't mean more safety. When dashboards generate too many notifications, healthcare workers stop reading them — including the critical ones. This is a documented patient safety problem, and understanding it makes you a better and more cautious user of AI tools.</p>
+  <p class="hero-sub">More alerts doesn't mean more safety. When dashboards generate too many notifications, healthcare workers stop reading them — including the critical ones. This is a documented patient safety problem, and understanding it makes you a smarter and more cautious user of any AI tool.</p>
   <div class="hero-divider"></div>
 </div>
+
 <div class="content">
+
   <div class="section fade-in">
     <h2>The Paradox of Too Many Alerts</h2>
-    <p>Here's a counterintuitive truth about AI dashboards: adding more alerts doesn't automatically improve safety. In fact, beyond a certain threshold, more alerts can actively reduce safety by overwhelming the people responsible for responding to them.</p>
+    <p>Here's a counterintuitive truth about AI dashboards: adding more alerts doesn't automatically improve safety. In fact, beyond a certain threshold, more alerts can actively <em>reduce</em> safety by overwhelming the people responsible for responding to them.</p>
     <p>This phenomenon — called <strong>alert fatigue</strong> — is one of the most well-documented problems in healthcare technology. Studies have found that in some hospital settings, <mark>more than 90% of clinical alerts are dismissed without being read</mark> — often because staff have learned through experience that the vast majority of alerts are low-priority, redundant, or simply wrong.</p>
     <p>When that happens, the real alerts — the ones that matter — get dismissed along with the noise. And that's when alert fatigue becomes a patient safety issue.</p>
     <div class="pull-quote"><p>An alert system that cries wolf 50 times a day will eventually get ignored on the day it matters most. More data is not the same as better decisions.</p></div>
   </div>
+
   <div class="section fade-in">
     <h2>See It Happen: The Alert Fatigue Simulation</h2>
-    <p>This simulation shows how alert volume changes across a week — and what happens to a healthcare worker's ability to catch the critical alerts as the noise grows. Click each day to see the alert list and whether the worker catches the one that actually matters.</p>
+    <p>This simulation shows how alert volume changes across a week — and what happens to a healthcare worker's ability to catch the critical alerts as the noise grows. Click each day to see the alert list. Alerts marked <strong style="color:var(--red);">CRITICAL</strong> are the ones that truly require immediate action.</p>
     <div class="af-sim">
       <div class="af-label">⚠️ Alert Fatigue Simulation</div>
       <div class="af-title">A Week of Alerts — Watch What Happens</div>
-      <div class="af-sub">Click each day to see the alert volume and what a healthcare worker is likely to notice (or miss). Alerts marked in red contain the critical issue.</div>
+      <div class="af-sub">Click each day to see the alert volume and what a healthcare worker is likely to notice — or miss. Pay attention to how the critical alerts get harder to find as the week progresses.</div>
       <div class="af-day-tabs">
         <button class="af-day-btn active" onclick="showDay(0)">Monday</button>
         <button class="af-day-btn" onclick="showDay(1)">Tuesday</button>
@@ -88,165 +117,239 @@ h1{font-family:'Fraunces',serif;font-size:clamp(36px,5.5vw,60px);font-weight:900
       </div>
       <div class="af-stats" id="afStats"></div>
       <div class="af-alert-list" id="afAlertList"></div>
-      <div class="af-insight" id="afInsight"></div>
+      <div id="afInsight"></div>
     </div>
   </div>
+
   <div class="section fade-in">
     <h2>Why Alert Fatigue Happens — The Psychology</h2>
-    <p>Alert fatigue isn't a laziness problem. It's a cognitive one. The human brain evolved to respond to novel, urgent signals — not to sustain continuous vigilance across dozens of similar-looking notifications. When every alert looks roughly the same, the brain starts treating them all as background noise.</p>
-    <p>In healthcare AI systems, several design choices make this worse: alerts that fire at low-confidence thresholds ("maybe a problem"), alerts for the same low-priority issue every shift, alerts that require action but don't tell you what action, and alert panels so dense with notifications that the critical ones aren't visually distinct.</p>
-    <p>Good healthcare dashboard design addresses this directly — which is why you'll learn about dashboard design in the next article. But as a user of these systems, there's something you can do right now: <mark>treat every alert with full attention, and flag systems that generate too much noise for review by your supervisor or IT team.</mark></p>
+    <p>Alert fatigue isn't a laziness problem. It's a cognitive one. The human brain evolved to respond to novel, urgent signals — not to sustain continuous vigilance across dozens of identical-looking notifications. When every alert looks roughly the same, the brain starts treating them all as background noise.</p>
+    <p>In healthcare AI systems, several design choices make this worse: alerts that fire at low-confidence thresholds, alerts for the same low-priority issue every shift, alerts that require action but don't say what action, and alert panels so dense that critical alerts aren't visually distinct from routine ones.</p>
+    <p>Good healthcare dashboard design addresses this directly. But as a user of these systems, there's something you can do right now: <mark>treat every alert with full attention, and flag systems that generate too much noise for review by your supervisor or IT team.</mark></p>
   </div>
+
   <div class="section fade-in">
     <h2>What Well-Designed Alert Systems Do Differently</h2>
     <div class="solutions-grid">
-      <div class="sol-card"><div class="sol-icon">🎯</div><div class="sol-title">Tiered Severity</div><div class="sol-desc">Distinguish clearly between critical (immediate action required), warning (monitor closely), and informational (awareness only). Use visual hierarchy — size, color, position — to make critical alerts unmissable.</div></div>
-      <div class="sol-card"><div class="sol-icon">🔇</div><div class="sol-title">Intelligent Suppression</div><div class="sol-desc">Don't repeat the same non-urgent alert every 15 minutes. Once flagged, suppress repetition until the situation changes. Repeated identical alerts are the primary driver of dismissal behavior.</div></div>
-      <div class="sol-card"><div class="sol-icon">✅</div><div class="sol-title">Actionable Language</div><div class="sol-desc">Every alert should include what to do, not just what's wrong. "Bed occupancy 94% — contact discharge planning team" is more useful than "Bed occupancy high."</div></div>
-      <div class="sol-card"><div class="sol-icon">📊</div><div class="sol-title">Alert Audit Trails</div><div class="sol-desc">Track which alerts are dismissed vs. acted on, and which dismissed alerts led to problems. This data helps calibrate the alert system over time, reducing noise while maintaining signal.</div></div>
+      <div class="sol-card">
+        <div class="sol-icon">🎯</div>
+        <div class="sol-title">Tiered Severity</div>
+        <div class="sol-desc">Distinguish clearly between critical (immediate action required), warning (monitor closely), and informational (awareness only). Use visual hierarchy — size, color, position — to make critical alerts unmissable regardless of how many other alerts are present.</div>
+      </div>
+      <div class="sol-card">
+        <div class="sol-icon">🔇</div>
+        <div class="sol-title">Intelligent Suppression</div>
+        <div class="sol-desc">Don't repeat the same non-urgent alert every 15 minutes. Once flagged, suppress repetition until the situation changes. Repeated identical alerts are the primary driver of dismissal behavior — staff learn to ignore alerts that "always fire."</div>
+      </div>
+      <div class="sol-card">
+        <div class="sol-icon">✅</div>
+        <div class="sol-title">Actionable Language</div>
+        <div class="sol-desc">Every alert should include what to do, not just what's wrong. "Bed occupancy 94% — contact discharge planning team" is more useful than "Bed occupancy high." Actionable alerts get acted on. Vague alerts get dismissed.</div>
+      </div>
+      <div class="sol-card">
+        <div class="sol-icon">📊</div>
+        <div class="sol-title">Alert Audit Trails</div>
+        <div class="sol-desc">Track which alerts are dismissed vs. acted on, and which dismissed alerts later became problems. This data helps recalibrate the alert system over time — reducing noise while preserving the signal that matters.</div>
+      </div>
     </div>
   </div>
+
   <div class="quiz fade-in">
     <div class="quiz-label">🧠 Quick Check</div>
-    <div class="quiz-q">A nurse manager notices that her team dismisses the staffing alert almost every morning without reading it. She asks the IT team to investigate. The most likely useful finding would be:</div>
+    <div class="quiz-q">A nurse manager notices that her team dismisses the morning staffing alert almost every day without reading it. She asks the IT team to investigate. The most likely useful finding would be:</div>
     <div class="qopts">
       <button class="qopt" onclick="cq(this,false)">The staff lack proper training on how to respond to staffing alerts</button>
       <button class="qopt" onclick="cq(this,false)">The alert system has a technical bug causing it to fire incorrectly</button>
-      <button class="qopt" onclick="cq(this,true)">The staffing alert fires at too low a threshold, generating false-alarm notifications most mornings — so staff have learned it's usually not a real problem and stopped reading it</button>
-      <button class="qopt" onclick="cq(this,false)">The staff are understaffed and don't have time to read alerts properly</button>
+      <button class="qopt" onclick="cq(this,true)">The staffing alert fires at too low a threshold — generating notifications most mornings for near-normal situations — so staff have learned it's usually not a real problem and stopped reading it</button>
+      <button class="qopt" onclick="cq(this,false)">The staff are too busy and don't have time to read alerts properly</button>
     </div>
     <div class="qfb" id="qfb"></div>
   </div>
+
   <div class="summary fade-in">
     <div class="summary-label">📌 Key Takeaways</div>
     <h2>What to Remember From This Article</h2>
     <div class="spoints">
-      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Alert fatigue is a documented patient safety problem. When dashboards generate too many alerts, healthcare workers learn to dismiss them — and eventually dismiss the critical ones too. More alerts ≠ better safety.</p></div>
-      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Alert fatigue is a cognitive problem, not a laziness problem. The brain cannot sustain vigilance across hundreds of identical-looking notifications. System design — not staff effort alone — is the primary solution.</p></div>
-      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>As a user of these systems: treat every alert with full attention, and when you notice you (or your team) routinely dismissing a specific alert type, flag that pattern for investigation. The problem is usually the alert threshold — not your team's diligence.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Alert fatigue is a documented patient safety problem. When dashboards generate too many alerts, healthcare workers learn to dismiss them — and eventually dismiss the critical ones too. More alerts does not equal better safety.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Alert fatigue is a cognitive problem, not a laziness problem. The brain cannot sustain equal vigilance across hundreds of identical-looking notifications. System design — tiered severity, intelligent suppression, actionable language — is the primary solution.</p></div>
+      <div class="spoint"><div class="sdot"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>As a user of these systems: treat every alert with full attention, and when you notice your team routinely dismissing a specific alert type, flag that pattern for investigation. The problem is almost always the alert threshold — not your team's diligence.</p></div>
     </div>
   </div>
+
 </div>
+
 <script>
-const days=[
-  {label:'Monday',volume:4,dismissed:0,missed:0,insight_cls:'bg:var(--green-pale);border:1.5px solid #86EFAC;color:var(--green)',insight:'Monday is manageable. 4 alerts, each distinct and actionable. The team reads every one and responds appropriately. This is what a well-calibrated alert system looks like.',
-   alerts:[
-     {cls:'red',icon:'🚨',text:'CRITICAL: Staffing shortfall projected tonight — 2 nurses below safe minimum',real:true},
-     {cls:'yellow',icon:'⚠️',text:'Supply alert: IV tubing at 2.1 days remaining — reorder recommended'},
-     {cls:'yellow',icon:'⚠️',text:'Schedule fill rate 76% Thursday — 8 open slots, 5 patients on waitlist'},
-     {cls:'purple',icon:'📊',text:'Patient satisfaction weekly summary ready for review'}
-   ]},
-  {label:'Tuesday',volume:9,dismissed:2,missed:0,insight_cls:'background:var(--orange-pale);border:1.5px solid #FDE68A;color:var(--orange)',insight:'Tuesday gets louder. 9 alerts including several repetitive ones from yesterday that haven't been resolved. Staff start skimming. They still catch the critical staffing alert — but it takes longer.',
-   alerts:[
-     {cls:'red',icon:'🚨',text:'CRITICAL: Staffing shortfall projected tonight — still unresolved from yesterday',real:true},
-     {cls:'yellow',icon:'⚠️',text:'Supply: IV tubing now at 1.4 days — order still not placed (repeated from Mon)'},
-     {cls:'yellow',icon:'⚠️',text:'Schedule Thursday still at 71% — repeated from yesterday'},
-     {cls:'purple',icon:'📊',text:'Bed occupancy trending up — 3rd consecutive day above 85%'},
-     {cls:'yellow',icon:'⚠️',text:'Supply: exam gloves at 3.2 days remaining — monitor'},
-     {cls:'purple',icon:'📊',text:'ER wait time average up 4 min vs Monday'},
-     {cls:'yellow',icon:'⚠️',text:'Staff overtime: 2 nurses at 10+ hours overtime this week already'},
-     {cls:'purple',icon:'📊',text:'Medication accuracy 98.9% — within target'},
-     {cls:'purple',icon:'📊',text:'Patient satisfaction data refresh available'}
-   ]},
-  {label:'Wednesday',volume:16,dismissed:7,missed:0,insight_cls:'background:var(--orange-pale);border:1.5px solid #FDE68A;color:var(--orange)',insight:'Wednesday has 16 alerts — many are repeats of still-unresolved issues from Monday and Tuesday. Staff start batch-dismissing the ones that "seem like yesterday's noise." They're still catching the critical one, but it takes a conscious effort to find it in the list.',
-   alerts:[
-     {cls:'red',icon:'🚨',text:'CRITICAL: IV tubing NOW at 0.8 days — shortage imminent, same-day rush order required',real:true},
-     {cls:'red',icon:'🚨',text:'Staffing shortfall TONIGHT — 3rd day unresolved, escalating'},
-     {cls:'yellow',icon:'⚠️',text:'Thursday schedule 68% — repeated 3rd day'},
-     {cls:'yellow',icon:'⚠️',text:'Exam gloves: 2.1 days remaining'},
-     {cls:'purple',icon:'📊',text:'Bed occupancy 89% — above 85% threshold'},
-     {cls:'purple',icon:'📊',text:'ER wait time: 34 min average today'},
-     {cls:'purple',icon:'📊',text:'Nurse overtime: 4 nurses now at 12+ hours this week'},
-     {cls:'yellow',icon:'⚠️',text:'Supply: nitrile gloves now also below threshold'},
-     {cls:'purple',icon:'📊',text:'Patient satisfaction trending down 3rd week'},
-     {cls:'yellow',icon:'⚠️',text:'Schedule Friday also underbooked at 74%'},
-     {cls:'purple',icon:'📊',text:'ALOS up 0.3 days vs baseline'},
-     {cls:'purple',icon:'📊',text:'Medication accuracy 98.7%'},
-     {cls:'yellow',icon:'⚠️',text:'3 patients flagged discharge-ready — no action taken'},
-     {cls:'purple',icon:'📊',text:'Revenue cycle days at 41 — slightly above target'},
-     {cls:'purple',icon:'📊',text:'Staff utilization rate 88% this shift'},
-     {cls:'purple',icon:'📊',text:'Weekly supply inventory summary available'}
-   ]},
-  {label:'Thursday',volume:22,dismissed:14,missed:1,insight_cls:'background:var(--red-pale);border:1.5px solid #FCA5A5;color:var(--red)',insight:'⚠️ Alert fatigue is now active. 22 alerts. Staff are batch-dismissing whole sections. The CRITICAL supply shortage alert — the IV tubing is now actually out — is on screen but gets dismissed with the cluster of "supply" alerts. A patient procedure is delayed while staff hunt for IV tubing from another department.',
-   alerts:[
-     {cls:'red',icon:'🚨',text:'🚨 CRITICAL: IV tubing DEPLETED — zero stock. Procedure delays possible.',real:true},
-     {cls:'red',icon:'🚨',text:'Staffing shortfall 4th day — now a pattern, requires HR escalation'},
-     {cls:'yellow',icon:'⚠️',text:'Thursday schedule 65% — 4th day repeated'},
-     {cls:'yellow',icon:'⚠️',text:'Friday schedule 71% — open slots'},
-     {cls:'yellow',icon:'⚠️',text:'Exam gloves: 1.1 days remaining'},
-     {cls:'yellow',icon:'⚠️',text:'Nitrile gloves: 1.8 days remaining'},
-     {cls:'yellow',icon:'⚠️',text:'Sterile gauze below threshold — new alert'},
-     {cls:'purple',icon:'📊',text:'Bed occupancy 91% — approaching critical'},
-     {cls:'purple',icon:'📊',text:'ER wait time 38 min — up from 34 min yesterday'},
-     {cls:'purple',icon:'📊',text:'ALOS 4.4 days — above target'},
-     {cls:'purple',icon:'📊',text:'Patient satisfaction 4th consecutive decline'},
-     {cls:'purple',icon:'📊',text:'6 discharge-ready patients identified'},
-     {cls:'purple',icon:'📊',text:'Nurse overtime: 6 nurses above threshold'},
-     {cls:'purple',icon:'📊',text:'Staff utilization 91% — approaching overload'},
-     {cls:'purple',icon:'📊',text:'Medication accuracy 98.5%'},
-     {cls:'purple',icon:'📊',text:'Revenue cycle 43 days'},
-     {cls:'purple',icon:'📊',text:'Schedule Monday next week projections available'},
-     {cls:'purple',icon:'📊',text:'Weekly staffing report ready'},
-     {cls:'purple',icon:'📊',text:'Monthly quality metrics summary available'},
-     {cls:'purple',icon:'📊',text:'Benchmark comparison vs. regional hospitals ready'},
-     {cls:'yellow',icon:'⚠️',text:'Supply: PPE reorder schedule review recommended'},
-     {cls:'purple',icon:'📊',text:'AI model confidence note: staffing forecast less reliable this week due to holiday schedule variation'}
-   ]},
-  {label:'Friday',volume:28,dismissed:21,missed:2,insight_cls:'background:var(--red-pale);border:1.5px solid #FCA5A5;color:var(--red)',insight:'🚨 Full alert fatigue. 28 alerts. Staff are dismissing whole categories. The CRITICAL staffing shortfall for this evening gets missed — 3 nurses short at 5PM on a Friday. Two urgent supply alerts also go unread. This is how alert fatigue becomes a patient safety event.',
-   alerts:[
-     {cls:'red',icon:'🚨',text:'🚨 CRITICAL: TONIGHT 5PM — 3 nurse shortfall projected. Action required by 2PM.',real:true},
-     {cls:'red',icon:'🚨',text:'🚨 Exam gloves: 0.2 days remaining — EMERGENCY restock needed NOW',real:true},
-     {cls:'yellow',icon:'⚠️',text:'IV tubing partial restock from emergency order — 1.5 days supply now'},
-     {cls:'yellow',icon:'⚠️',text:'Friday schedule 69%'},
-     {cls:'yellow',icon:'⚠️',text:'Monday schedule 74% — review recommended'},
-     {cls:'yellow',icon:'⚠️',text:'Sterile gauze: 1.1 days remaining'},
-     {cls:'yellow',icon:'⚠️',text:'Nitrile gloves: 0.6 days remaining'},
-     {cls:'yellow',icon:'⚠️',text:'3 more supply items flagged below threshold'},
-     {cls:'purple',icon:'📊',text:'Bed occupancy 93% — critical zone'},
-     {cls:'purple',icon:'📊',text:'ER wait time 42 min'},
-     {cls:'purple',icon:'📊',text:'ALOS 4.6 days'},
-     {cls:'purple',icon:'📊',text:'Patient satisfaction 5th decline — now 82%'},
-     {cls:'purple',icon:'📊',text:'8 discharge-ready patients — 3 pending since Wednesday'},
-     {cls:'purple',icon:'📊',text:'Staff overtime: 8 nurses above safe threshold this week'},
-     {cls:'purple',icon:'📊',text:'Nurse ratio 1:5.8 this morning shift'},
-     {cls:'purple',icon:'📊',text:'Staff utilization 93%'},
-     {cls:'purple',icon:'📊',text:'Medication accuracy 98.2%'},
-     {cls:'purple',icon:'📊',text:'Revenue cycle 45 days'},
-     {cls:'purple',icon:'📊',text:'Weekly summary: 5 operational metrics below target'},
-     {cls:'purple',icon:'📊',text:'Monthly staffing trend analysis ready'},
-     {cls:'purple',icon:'📊',text:'Q3 benchmark report available'},
-     {cls:'purple',icon:'📊',text:'AI forecast update: next week volume'},
-     {cls:'purple',icon:'📊',text:'Patient experience survey batch ready for review'},
-     {cls:'purple',icon:'📊',text:'Supply chain weekly analysis'},
-     {cls:'purple',icon:'📊',text:'Scheduling efficiency report'},
-     {cls:'purple',icon:'📊',text:'HR overtime report'},
-     {cls:'purple',icon:'📊',text:'Finance weekly summary'},
-     {cls:'purple',icon:'📊',text:'Quality metrics dashboard refresh'}
-   ]}
+var dayData = [
+  {
+    volume: 4, dismissed: 0, missed: 0,
+    insightBg: '#F0FFF4', insightBorder: '#86EFAC', insightColor: '#276749',
+    insight: 'Monday is manageable. 4 alerts, each distinct and actionable. The team reads every one and responds appropriately. This is what a well-calibrated alert system looks like.',
+    alerts: [
+      {cls:'red', icon:'🚨', text:'CRITICAL: Staffing shortfall projected tonight — 2 nurses below safe minimum', real:true},
+      {cls:'yellow', icon:'⚠️', text:'Supply alert: IV tubing at 2.1 days remaining — reorder recommended', real:false},
+      {cls:'yellow', icon:'⚠️', text:'Schedule fill rate Thursday 76% — 8 open slots, 5 patients on waitlist', real:false},
+      {cls:'purple', icon:'📊', text:'Patient satisfaction weekly summary ready for review', real:false}
+    ]
+  },
+  {
+    volume: 9, dismissed: 2, missed: 0,
+    insightBg: '#FFFBEB', insightBorder: '#FDE68A', insightColor: '#D97706',
+    insight: 'Tuesday gets louder. 9 alerts including repeats from Monday that remain unresolved. Staff start skimming. They still catch the critical staffing alert — but it takes longer, and 2 lower-priority alerts get batch-dismissed.',
+    alerts: [
+      {cls:'red', icon:'🚨', text:'CRITICAL: Staffing shortfall projected tonight — still unresolved from yesterday', real:true},
+      {cls:'yellow', icon:'⚠️', text:'Supply: IV tubing now at 1.4 days — order still not placed (repeated from Mon)', real:false},
+      {cls:'yellow', icon:'⚠️', text:'Schedule Thursday still at 71% — repeated from yesterday', real:false},
+      {cls:'purple', icon:'📊', text:'Bed occupancy trending up — 3rd consecutive day above 85%', real:false},
+      {cls:'yellow', icon:'⚠️', text:'Supply: exam gloves at 3.2 days remaining — monitor', real:false},
+      {cls:'purple', icon:'📊', text:'ER wait time average up 4 min vs Monday', real:false},
+      {cls:'yellow', icon:'⚠️', text:'Staff overtime: 2 nurses at 10+ hours this week already', real:false},
+      {cls:'purple', icon:'📊', text:'Medication accuracy 98.9% — within target', real:false},
+      {cls:'purple', icon:'📊', text:'Patient satisfaction data refresh available', real:false}
+    ]
+  },
+  {
+    volume: 16, dismissed: 7, missed: 0,
+    insightBg: '#FFFBEB', insightBorder: '#FDE68A', insightColor: '#D97706',
+    insight: 'Wednesday has 16 alerts — many are repeats of still-unresolved issues. Staff batch-dismiss the ones that look like yesterday\'s noise. They\'re still catching the critical one, but it takes real effort to find it buried in the list.',
+    alerts: [
+      {cls:'red', icon:'🚨', text:'CRITICAL: IV tubing NOW at 0.8 days — shortage imminent, same-day rush order required', real:true},
+      {cls:'red', icon:'🚨', text:'Staffing shortfall TONIGHT — 3rd day unresolved, escalating', real:false},
+      {cls:'yellow', icon:'⚠️', text:'Thursday schedule 68% — repeated 3rd day', real:false},
+      {cls:'yellow', icon:'⚠️', text:'Exam gloves: 2.1 days remaining', real:false},
+      {cls:'purple', icon:'📊', text:'Bed occupancy 89% — above 85% threshold', real:false},
+      {cls:'purple', icon:'📊', text:'ER wait time: 34 min average today', real:false},
+      {cls:'purple', icon:'📊', text:'Nurse overtime: 4 nurses now at 12+ hours this week', real:false},
+      {cls:'yellow', icon:'⚠️', text:'Supply: nitrile gloves now also below threshold', real:false},
+      {cls:'purple', icon:'📊', text:'Patient satisfaction trending down 3rd week', real:false},
+      {cls:'yellow', icon:'⚠️', text:'Schedule Friday also underbooked at 74%', real:false},
+      {cls:'purple', icon:'📊', text:'ALOS up 0.3 days vs baseline', real:false},
+      {cls:'purple', icon:'📊', text:'Medication accuracy 98.7%', real:false},
+      {cls:'yellow', icon:'⚠️', text:'3 patients flagged discharge-ready — no action taken yet', real:false},
+      {cls:'purple', icon:'📊', text:'Revenue cycle days at 41 — slightly above target', real:false},
+      {cls:'purple', icon:'📊', text:'Staff utilization rate 88% this shift', real:false},
+      {cls:'purple', icon:'📊', text:'Weekly supply inventory summary available', real:false}
+    ]
+  },
+  {
+    volume: 22, dismissed: 14, missed: 1,
+    insightBg: '#FFF1F1', insightBorder: '#FCA5A5', insightColor: '#DC2626',
+    insight: '⚠️ Alert fatigue is now active. 22 alerts. Staff are batch-dismissing whole sections. The CRITICAL supply shortage — IV tubing depleted — is on screen but gets dismissed with the cluster of supply alerts that have been firing all week. A patient procedure is delayed while staff hunt for IV tubing from another department.',
+    alerts: [
+      {cls:'red', icon:'🚨', text:'CRITICAL: IV tubing DEPLETED — zero stock. Procedure delays possible NOW.', real:true},
+      {cls:'red', icon:'🚨', text:'Staffing shortfall 4th day — now a pattern, requires HR escalation', real:false},
+      {cls:'yellow', icon:'⚠️', text:'Thursday schedule 65% — 4th day repeated', real:false},
+      {cls:'yellow', icon:'⚠️', text:'Friday schedule 71% — open slots', real:false},
+      {cls:'yellow', icon:'⚠️', text:'Exam gloves: 1.1 days remaining', real:false},
+      {cls:'yellow', icon:'⚠️', text:'Nitrile gloves: 1.8 days remaining', real:false},
+      {cls:'yellow', icon:'⚠️', text:'Sterile gauze below threshold — new alert', real:false},
+      {cls:'purple', icon:'📊', text:'Bed occupancy 91% — approaching critical', real:false},
+      {cls:'purple', icon:'📊', text:'ER wait time 38 min — up from 34 min yesterday', real:false},
+      {cls:'purple', icon:'📊', text:'ALOS 4.4 days — above target', real:false},
+      {cls:'purple', icon:'📊', text:'Patient satisfaction 4th consecutive decline', real:false},
+      {cls:'purple', icon:'📊', text:'6 discharge-ready patients identified', real:false},
+      {cls:'purple', icon:'📊', text:'Nurse overtime: 6 nurses above threshold', real:false},
+      {cls:'purple', icon:'📊', text:'Staff utilization 91% — approaching overload', real:false},
+      {cls:'purple', icon:'📊', text:'Medication accuracy 98.5%', real:false},
+      {cls:'purple', icon:'📊', text:'Revenue cycle 43 days', real:false},
+      {cls:'purple', icon:'📊', text:'Schedule Monday next week projections available', real:false},
+      {cls:'purple', icon:'📊', text:'Weekly staffing report ready', real:false},
+      {cls:'purple', icon:'📊', text:'Monthly quality metrics summary available', real:false},
+      {cls:'purple', icon:'📊', text:'Benchmark comparison vs. regional hospitals ready', real:false},
+      {cls:'yellow', icon:'⚠️', text:'Supply: PPE reorder schedule review recommended', real:false},
+      {cls:'purple', icon:'📊', text:'AI model note: staffing forecast less reliable this week due to holiday schedule variation', real:false}
+    ]
+  },
+  {
+    volume: 28, dismissed: 21, missed: 2,
+    insightBg: '#FFF1F1', insightBorder: '#FCA5A5', insightColor: '#DC2626',
+    insight: '🚨 Full alert fatigue. 28 alerts. Staff are dismissing whole categories. The CRITICAL staffing shortfall for this evening gets missed — 3 nurses short at 5PM on a Friday. Two urgent supply alerts also go unread. This is how alert fatigue becomes a patient safety event: not through malice, but through cognitive overload that was entirely predictable and preventable.',
+    alerts: [
+      {cls:'red', icon:'🚨', text:'CRITICAL: TONIGHT 5PM — 3 nurse shortfall projected. Action required by 2PM.', real:true},
+      {cls:'red', icon:'🚨', text:'CRITICAL: Exam gloves at 0.2 days — EMERGENCY restock needed NOW', real:true},
+      {cls:'yellow', icon:'⚠️', text:'IV tubing partial restock from emergency order — 1.5 days supply now', real:false},
+      {cls:'yellow', icon:'⚠️', text:'Friday schedule 69%', real:false},
+      {cls:'yellow', icon:'⚠️', text:'Monday schedule 74% — review recommended', real:false},
+      {cls:'yellow', icon:'⚠️', text:'Sterile gauze: 1.1 days remaining', real:false},
+      {cls:'yellow', icon:'⚠️', text:'Nitrile gloves: 0.6 days remaining', real:false},
+      {cls:'yellow', icon:'⚠️', text:'3 more supply items flagged below threshold', real:false},
+      {cls:'purple', icon:'📊', text:'Bed occupancy 93% — critical zone', real:false},
+      {cls:'purple', icon:'📊', text:'ER wait time 42 min', real:false},
+      {cls:'purple', icon:'📊', text:'ALOS 4.6 days', real:false},
+      {cls:'purple', icon:'📊', text:'Patient satisfaction 5th decline — now 82%', real:false},
+      {cls:'purple', icon:'📊', text:'8 discharge-ready patients — 3 pending since Wednesday', real:false},
+      {cls:'purple', icon:'📊', text:'Staff overtime: 8 nurses above safe threshold this week', real:false},
+      {cls:'purple', icon:'📊', text:'Nurse ratio 1:5.8 this morning shift', real:false},
+      {cls:'purple', icon:'📊', text:'Staff utilization 93%', real:false},
+      {cls:'purple', icon:'📊', text:'Medication accuracy 98.2%', real:false},
+      {cls:'purple', icon:'📊', text:'Revenue cycle 45 days', real:false},
+      {cls:'purple', icon:'📊', text:'Weekly summary: 5 operational metrics below target', real:false},
+      {cls:'purple', icon:'📊', text:'Monthly staffing trend analysis ready', real:false},
+      {cls:'purple', icon:'📊', text:'Q3 benchmark report available', real:false},
+      {cls:'purple', icon:'📊', text:'AI forecast update: next week volume projections', real:false},
+      {cls:'purple', icon:'📊', text:'Patient experience survey batch ready for review', real:false},
+      {cls:'purple', icon:'📊', text:'Supply chain weekly analysis', real:false},
+      {cls:'purple', icon:'📊', text:'Scheduling efficiency report', real:false},
+      {cls:'purple', icon:'📊', text:'HR overtime report', real:false},
+      {cls:'purple', icon:'📊', text:'Finance weekly summary', real:false},
+      {cls:'purple', icon:'📊', text:'Quality metrics dashboard refresh', real:false}
+    ]
+  }
 ];
 
-function showDay(i){
-  document.querySelectorAll('.af-day-btn').forEach((b,bi)=>b.classList.toggle('active',bi===i));
-  const d=days[i];
-  document.getElementById('afStats').innerHTML=`
-    <div class="af-stat volume"><div class="af-stat-num">${d.volume}</div><div class="af-stat-label">Total alerts today</div></div>
-    <div class="af-stat dismissed-stat"><div class="af-stat-num">${d.dismissed}</div><div class="af-stat-label">Dismissed without full read</div></div>
-    <div class="af-stat missed"><div class="af-stat-num">${d.missed}</div><div class="af-stat-label">Critical alerts missed</div></div>`;
-  const listHtml=d.alerts.map(a=>`<div class="af-alert-item ${a.cls}">${a.real?'<span class="af-alert-real">CRITICAL</span>':''}<span class="af-alert-icon">${a.icon}</span><span class="af-alert-text">${a.text}</span></div>`).join('');
-  document.getElementById('afAlertList').innerHTML=listHtml;
-  document.getElementById('afInsight').innerHTML=`<div style="${d.insight_cls};border-radius:12px;padding:14px 18px;font-size:14px;line-height:1.65;">${d.insight}</div>`;
+function showDay(idx) {
+  var d = dayData[idx];
+
+  document.querySelectorAll('.af-day-btn').forEach(function(btn, i) {
+    btn.classList.toggle('active', i === idx);
+  });
+
+  document.getElementById('afStats').innerHTML =
+    '<div class="af-stat stat-vol"><div class="af-stat-num">' + d.volume + '</div><div class="af-stat-label">Total alerts today</div></div>' +
+    '<div class="af-stat stat-dis"><div class="af-stat-num">' + d.dismissed + '</div><div class="af-stat-label">Dismissed without full read</div></div>' +
+    '<div class="af-stat stat-mis"><div class="af-stat-num">' + d.missed + '</div><div class="af-stat-label">Critical alerts missed</div></div>';
+
+  var listHtml = '';
+  d.alerts.forEach(function(a) {
+    listHtml += '<div class="alert-row ' + a.cls + '">';
+    if (a.real) { listHtml += '<span class="alert-badge">CRITICAL</span>'; }
+    listHtml += '<span class="alert-icon">' + a.icon + '</span>';
+    listHtml += '<span class="alert-text">' + a.text + '</span>';
+    listHtml += '</div>';
+  });
+  document.getElementById('afAlertList').innerHTML = listHtml;
+
+  document.getElementById('afInsight').innerHTML =
+    '<div class="af-insight" style="background:' + d.insightBg + ';border:1.5px solid ' + d.insightBorder + ';color:' + d.insightColor + ';">' + d.insight + '</div>';
 }
+
 showDay(0);
 
-function cq(btn,correct){
-  if(document.querySelector('.qopt.correct')||document.querySelector('.qopt.wrong'))return;
-  btn.classList.add(correct?'correct':'wrong');
-  if(!correct)document.querySelectorAll('.qopt').forEach(o=>{if(o.textContent.includes('false-alarm'))o.classList.add('correct');});
-  const fb=document.getElementById('qfb');
-  fb.className='qfb show '+(correct?'cfb':'wfb');
-  fb.textContent=correct?'✅ Correct. When staff routinely dismiss a specific alert without reading it, the most common cause is that the alert has a low signal-to-noise ratio — it fires frequently but is rarely actionable. Staff have learned through repetition that "this alert is usually nothing." The fix is recalibrating the alert threshold, not more training. An alert that fires at the right threshold, for genuinely important situations, gets read. One that fires 12 times before a real problem occurs gets ignored when the real problem arrives.':'❌ Routine dismissal behavior almost never reflects lack of training or understaffing — it reflects a learned response to low-quality alerts. When staff learn through experience that a specific alert rarely represents a real actionable issue, they stop reading it. The most useful IT finding would be reviewing the alert's threshold: is it set so low that it fires for near-normal situations? Recalibrating the threshold to reduce false positives is the primary fix for alert fatigue.';
+function cq(btn, correct) {
+  if (document.querySelector('.qopt.correct') || document.querySelector('.qopt.wrong')) return;
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) {
+    document.querySelectorAll('.qopt').forEach(function(o) {
+      if (o.textContent.indexOf('too low a threshold') > -1) { o.classList.add('correct'); }
+    });
+  }
+  var fb = document.getElementById('qfb');
+  fb.className = 'qfb show ' + (correct ? 'cfb' : 'wfb');
+  fb.textContent = correct
+    ? 'Correct! When staff routinely dismiss a specific alert without reading it, the most common cause is that the alert fires at too low a threshold — generating notifications for near-normal situations. Staff learn through repetition that it is usually nothing, so they stop reading it. The fix is recalibrating the threshold, not more training. An alert that fires at the right threshold gets read. One that fires 12 times before a real problem occurs gets ignored when the real problem arrives.'
+    : 'Routine dismissal behavior almost never reflects lack of training — it reflects a learned response to alerts that fire too often for non-urgent situations. Staff stop reading alerts they have learned to associate with false alarms. The most useful IT finding would be reviewing the alert threshold: recalibrating it to fire only for genuinely actionable situations is the primary fix for alert fatigue.';
 }
-window.addEventListener('scroll',()=>{const e=document.documentElement;document.getElementById('pb').style.width=((e.scrollTop/(e.scrollHeight-e.clientHeight))*100)+'%';});
-const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
-document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
-</script></body></html>
+
+window.addEventListener('scroll', function() {
+  var e = document.documentElement;
+  document.getElementById('pb').style.width = ((e.scrollTop / (e.scrollHeight - e.clientHeight)) * 100) + '%';
+});
+
+var obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(function(el) { obs.observe(el); });
+</script>
+</body>
+</html>
