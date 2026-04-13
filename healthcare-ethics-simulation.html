@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Ethics in Healthcare — Simulation</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand: #7B2FBE;
+    --brand-dark: #5a1f8e;
+    --brand-light: #a855f7;
+    --brand-pale: #f3e8ff;
+    --teal: #0d9488;
+    --teal-pale: #e0f2f1;
+    --red: #dc2626;
+    --red-pale: #fef2f2;
+    --amber: #d97706;
+    --amber-pale: #fffbeb;
+    --green: #16a34a;
+    --green-pale: #f0fdf4;
+    --text: #1a1023;
+    --text-muted: #64537a;
+    --border: #e5d9f7;
+    --bg: #faf7ff;
+    --white: #ffffff;
+    --card-shadow: 0 4px 24px rgba(123,47,190,0.10);
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+  #hero {
+    background: linear-gradient(135deg, #2d0a6b 0%, #7B2FBE 60%, #a855f7 100%);
+    color: white; padding: 60px 24px 52px; text-align: center; position: relative; overflow: hidden;
+  }
+  #hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  #hero .pill { display: inline-block; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); border-radius: 999px; padding: 6px 18px; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 20px; }
+  #hero h1 { font-family: 'Fraunces', serif; font-size: clamp(28px, 5vw, 46px); font-weight: 700; line-height: 1.15; margin-bottom: 14px; }
+  #hero p { font-size: 16px; opacity: 0.85; max-width: 560px; margin: 0 auto 28px; line-height: 1.6; }
+  .progress-bar-wrap { max-width: 500px; margin: 0 auto; background: rgba(255,255,255,0.2); border-radius: 999px; height: 8px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: white; border-radius: 999px; transition: width 0.5s ease; }
+  .progress-label { font-size: 13px; opacity: 0.75; margin-top: 8px; }
+
+  main { max-width: 860px; margin: 0 auto; padding: 40px 20px 80px; }
+
+  .screen { display: none; animation: fadeIn 0.4s ease; }
+  .screen.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+  .card { background: var(--white); border-radius: var(--radius); border: 1.5px solid var(--border); padding: 32px; margin-bottom: 24px; box-shadow: var(--card-shadow); }
+
+  .scenario-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--brand-pale); color: var(--brand); border-radius: 999px; padding: 5px 14px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 18px; }
+  .scenario-badge .dot { width: 8px; height: 8px; background: var(--brand); border-radius: 50%; }
+  .difficulty-badge { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 4px 12px; font-size: 12px; font-weight: 700; margin-left: 10px; }
+  .diff-easy   { background: var(--green-pale); color: var(--green); }
+  .diff-medium { background: var(--amber-pale); color: var(--amber); }
+  .diff-hard   { background: var(--red-pale);   color: var(--red);   }
+
+  .branch-banner { background: linear-gradient(135deg, #2d0a6b, #7B2FBE); color: white; border-radius: var(--radius-sm); padding: 16px 20px; margin-bottom: 22px; font-size: 14px; line-height: 1.6; display: flex; gap: 12px; align-items: flex-start; }
+  .branch-banner .icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+  .branch-banner strong { display: block; font-size: 15px; margin-bottom: 3px; }
+
+  h2.scenario-title { font-family: 'Fraunces', serif; font-size: clamp(20px, 3vw, 26px); font-weight: 700; line-height: 1.25; margin-bottom: 8px; color: var(--text); }
+  .scene-text { font-size: 15px; line-height: 1.75; color: #2d2040; margin-bottom: 16px; }
+
+  .def-box { background: linear-gradient(135deg, var(--teal-pale), #e0f7f4); border-left: 4px solid var(--teal); border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 20px; font-size: 14px; line-height: 1.65; color: #0f4038; }
+  .def-box strong { color: var(--teal); }
+
+  .choices { display: flex; flex-direction: column; gap: 12px; }
+  .choice-btn { background: var(--white); border: 2px solid var(--border); border-radius: var(--radius-sm); padding: 18px 22px; text-align: left; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; color: var(--text); cursor: pointer; transition: all 0.2s ease; display: flex; align-items: flex-start; gap: 14px; line-height: 1.55; }
+  .choice-btn:hover { border-color: var(--brand); background: var(--brand-pale); transform: translateX(3px); }
+  .choice-btn .letter { flex-shrink: 0; width: 30px; height: 30px; background: var(--brand-pale); color: var(--brand); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
+
+  .consequence { display: none; animation: fadeIn 0.35s ease; }
+  .consequence.show { display: block; }
+  .consequence-box { border-radius: var(--radius-sm); padding: 22px 24px; margin-bottom: 20px; font-size: 15px; line-height: 1.7; }
+  .consequence-box.good { background: var(--green-pale); border: 2px solid #86efac; }
+  .consequence-box.okay { background: var(--amber-pale); border: 2px solid #fcd34d; }
+  .consequence-box.bad  { background: var(--red-pale);   border: 2px solid #fca5a5; }
+  .consequence-box .verdict { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .consequence-box.good .verdict { color: var(--green); }
+  .consequence-box.okay .verdict { color: var(--amber); }
+  .consequence-box.bad  .verdict { color: var(--red);   }
+
+  .lesson-callout { background: var(--brand-pale); border: 1.5px solid #c4b5fd; border-radius: var(--radius-sm); padding: 16px 20px; margin-top: 16px; font-size: 14px; line-height: 1.65; color: var(--brand-dark); }
+  .lesson-callout strong { color: var(--brand); }
+
+  .branch-preview { background: #1e0a3c; color: white; border-radius: var(--radius-sm); padding: 20px 22px; margin-top: 18px; font-size: 14px; line-height: 1.7; display: none; }
+  .branch-preview strong { color: #c4b5fd; display: block; margin-bottom: 6px; font-size: 15px; }
+
+  .next-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--brand); color: white; border: none; border-radius: 999px; padding: 14px 28px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.15s; margin-top: 20px; }
+  .next-btn:hover { background: var(--brand-dark); transform: translateY(-1px); }
+
+  .score-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+  .score-chip { display: flex; align-items: center; gap: 6px; background: var(--white); border: 1.5px solid var(--border); border-radius: 999px; padding: 6px 14px; font-size: 13px; font-weight: 600; color: var(--text-muted); }
+
+  .intro-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin: 24px 0; }
+  .intro-tile { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 18px 16px; text-align: center; font-size: 13px; line-height: 1.55; color: var(--text-muted); }
+  .intro-tile .icon { font-size: 28px; margin-bottom: 8px; }
+  .intro-tile strong { display: block; color: var(--text); font-size: 14px; margin-bottom: 4px; }
+
+  .start-btn { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, #7B2FBE, #a855f7); color: white; border: none; border-radius: 999px; padding: 16px 36px; font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 20px rgba(123,47,190,0.35); margin-top: 8px; }
+  .start-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(123,47,190,0.45); }
+
+  #results-screen .big-score { text-align: center; padding: 40px 24px; }
+  .score-ring { width: 130px; height: 130px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-family: 'Fraunces', serif; font-size: 42px; font-weight: 700; color: white; }
+  .score-ring.excellent  { background: linear-gradient(135deg, #16a34a, #15803d); }
+  .score-ring.good       { background: linear-gradient(135deg, #7B2FBE, #a855f7); }
+  .score-ring.okay       { background: linear-gradient(135deg, #d97706, #f59e0b); }
+  .score-ring.needs-work { background: linear-gradient(135deg, #dc2626, #f87171); }
+  .results-title    { font-family: 'Fraunces', serif; font-size: clamp(22px, 4vw, 32px); font-weight: 700; margin-bottom: 8px; }
+  .results-subtitle { font-size: 15px; color: var(--text-muted); margin-bottom: 32px; line-height: 1.6; }
+  .review-list { display: flex; flex-direction: column; gap: 14px; }
+  .review-item { display: flex; align-items: flex-start; gap: 14px; background: var(--white); border-radius: var(--radius-sm); border: 1.5px solid var(--border); padding: 16px 18px; font-size: 14px; line-height: 1.6; }
+  .review-item .icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+
+  .branch-result-note { background: #1e0a3c; color: #e9d5ff; border-radius: var(--radius-sm); padding: 16px 20px; margin-bottom: 24px; font-size: 14px; line-height: 1.7; display: none; }
+  .branch-result-note strong { color: #c4b5fd; }
+
+  .restart-btn { display: inline-flex; align-items: center; gap: 8px; background: white; color: var(--brand); border: 2px solid var(--brand); border-radius: 999px; padding: 13px 28px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-top: 12px; }
+  .restart-btn:hover { background: var(--brand-pale); }
+
+  @media (max-width: 600px) { .card { padding: 20px 16px; } main { padding: 24px 14px 60px; } }
+</style>
+</head>
+<body>
+
+<div id="hero">
+  <div class="pill">🏥 AI Ethics Simulation</div>
+  <h1>You're the Healthcare AI<br>Decision Maker</h1>
+  <p>Work through real-life situations where you have to decide how AI should — and should not — be used in healthcare. Every choice matters. Some choices will follow you.</p>
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="heroProgress" style="width:0%"></div></div>
+  <div class="progress-label" id="progressLabel">0 of 6 scenarios complete</div>
+</div>
+
+<main>
+
+<!-- INTRO -->
+<div class="screen active" id="intro-screen">
+  <div class="card">
+    <h2 class="scenario-title">Welcome to the Simulation</h2>
+    <p class="scene-text">You've just been hired as an AI Advisor at Riverside Community Clinic. Your job is to help doctors, nurses, and staff make smart decisions about using AI tools — including knowing when to trust AI and when to stop it.</p>
+    <p class="scene-text">You'll face 6 real-world situations. Some are simple. Some are very hard. <strong>Watch out — a decision you make in Scenario 4 will change what happens in Scenario 6.</strong></p>
+    <div class="intro-grid">
+      <div class="intro-tile"><div class="icon">🔒</div><strong>Privacy & HIPAA</strong>Protecting patient data</div>
+      <div class="intro-tile"><div class="icon">⚖️</div><strong>AI Bias & Fairness</strong>Spotting unfair AI outputs</div>
+      <div class="intro-tile"><div class="icon">🛑</div><strong>Professional Limits</strong>Knowing when AI goes too far</div>
+      <div class="intro-tile"><div class="icon">🤝</div><strong>Human + AI Teamwork</strong>Combining judgment with tools</div>
+    </div>
+    <div class="def-box"><strong>📘 Key Term — HIPAA:</strong> HIPAA (say: HIP-uh) is a U.S. law that protects a patient's private medical information. It means hospitals and clinics cannot share your health records without your permission. Any AI tool used in healthcare must follow HIPAA rules.</div>
+    <button class="start-btn" onclick="goTo('s1')">Start the Simulation →</button>
+  </div>
+</div>
+
+<!-- S1: Privacy -->
+<div class="screen" id="s1">
+  <div class="score-row" id="scoreRow1"></div>
+  <div class="card">
+    <div><span class="scenario-badge"><span class="dot"></span>Scenario 1 of 6</span><span class="difficulty-badge diff-easy">⬤ Easier</span></div>
+    <h2 class="scenario-title">The AI That Talks Too Much</h2>
+    <div class="def-box"><strong>📘 Key Term — Patient Record:</strong> A patient record is a private file containing someone's health information — name, age, address, medications, and test results. Only authorized healthcare workers are allowed to see this information.</div>
+    <p class="scene-text">A nurse at Riverside Clinic is using a new AI chatbot to help answer patient questions. The AI was trained using the clinic's patient records.</p>
+    <p class="scene-text">A patient named Mr. Torres asks: <em>"Did anyone else at the clinic get the same diagnosis as me last week?"</em></p>
+    <p class="scene-text">The AI starts typing: <em>"Yes — 3 other patients were diagnosed with the same condition. Their appointments were on Tuesday and Wednesday."</em></p>
+    <p class="scene-text"><strong>What should the nurse do?</strong></p>
+    <div class="choices">
+      <button class="choice-btn" onclick="answer(1,'A')"><span class="letter">A</span>Let the AI finish — the patient deserves an answer.</button>
+      <button class="choice-btn" onclick="answer(1,'B')"><span class="letter">B</span>Stop the AI immediately, delete the response, and report it to a supervisor. This violates patient privacy.</button>
+      <button class="choice-btn" onclick="answer(1,'C')"><span class="letter">C</span>Edit the response to remove names but send the rest — the number of patients seems harmless.</button>
+    </div>
+    <div class="consequence" id="s1-result">
+      <div class="consequence-box" id="s1-box"><div class="verdict" id="s1-verdict"></div><div id="s1-text"></div></div>
+      <div class="lesson-callout" id="s1-lesson"></div>
+      <button class="next-btn" onclick="goTo('s2')">Next Scenario →</button>
+    </div>
+  </div>
+</div>
+
+<!-- S2: Bias / Gender -->
+<div class="screen" id="s2">
+  <div class="score-row" id="scoreRow2"></div>
+  <div class="card">
+    <div><span class="scenario-badge"><span class="dot"></span>Scenario 2 of 6</span><span class="difficulty-badge diff-medium">⬤ Medium</span></div>
+    <h2 class="scenario-title">The AI That Doesn't Believe Her Pain</h2>
+    <div class="def-box"><strong>📘 Key Term — AI Bias:</strong> AI bias happens when an AI tool gives unfair results to certain groups of people. This usually occurs because the data the AI learned from reflected old, unfair patterns. Biased AI can repeat those patterns automatically — and at a much larger scale than any one human could.</div>
+    <p class="scene-text">Riverside Clinic is testing an AI tool that assigns a "pain urgency score" from 1 to 10 to patients in the waiting room, to help staff decide who needs care soonest.</p>
+    <p class="scene-text">You pull up two patients who arrived at the same time with the same complaint: severe chest pain, shortness of breath, and a self-reported pain rating of 9/10.</p>
+    <p class="scene-text">— <strong>Patient A</strong> (male, age 52): Urgency Score <strong>8.7</strong> — flagged for immediate evaluation.<br>— <strong>Patient B</strong> (female, age 51): Urgency Score <strong>5.2</strong> — added to the standard wait queue.</p>
+    <p class="scene-text">The AI's notes say Patient B's pain is "statistically less likely to indicate cardiac risk based on historical triage patterns." <strong>What do you do?</strong></p>
+    <div class="choices">
+      <button class="choice-btn" onclick="answer(2,'A')"><span class="letter">A</span>Trust the AI — it was trained on real hospital data, so it probably knows something you don't. Move on.</button>
+      <button class="choice-btn" onclick="answer(2,'B')"><span class="letter">B</span>Raise a flag immediately. The AI appears to be reflecting a historical pattern where women's cardiac symptoms were downplayed. Escalate to the medical director and pause the tool.</button>
+      <button class="choice-btn" onclick="answer(2,'C')"><span class="letter">C</span>Manually bump Patient B's score without telling anyone — that fixes the immediate problem.</button>
+    </div>
+    <div class="consequence" id="s2-result">
+      <div class="consequence-box" id="s2-box"><div class="verdict" id="s2-verdict"></div><div id="s2-text"></div></div>
+      <div class="lesson-callout" id="s2-lesson"></div>
+      <button class="next-btn" onclick="goTo('s3')">Next Scenario →</button>
+    </div>
+  </div>
+</div>
+
+<!-- S3: Professional Boundaries -->
+<div class="screen" id="s3">
+  <div class="score-row" id="scoreRow3"></div>
+  <div class="card">
+    <div><span class="scenario-badge"><span class="dot"></span>Scenario 3 of 6</span><span class="difficulty-badge diff-medium">⬤ Medium</span></div>
+    <h2 class="scenario-title">When the AI Plays Doctor</h2>
+    <div class="def-box"><strong>📘 Key Term — Diagnosis:</strong> A diagnosis is when a doctor officially identifies what illness or condition a patient has, after examining them and reviewing test results. By law, only a licensed doctor or medical professional can give a diagnosis. AI tools can assist — but they cannot replace the doctor.</div>
+    <p class="scene-text">A patient named Ms. Rivera uses the clinic's AI health assistant on her phone. She types in her symptoms: bad headache, blurry vision, and a stiff neck. The AI responds:</p>
+    <p class="scene-text" style="background:#f3e8ff; border-radius:8px; padding:14px 18px; font-style:italic;">"Based on your symptoms, you likely have bacterial meningitis. You should take ibuprofen and rest. You do not need to go to the hospital."</p>
+    <p class="scene-text">Ms. Rivera feels reassured and decides not to go to the ER. She screenshots the AI's response to show her family.</p>
+    <p class="scene-text">You are the AI Advisor reviewing how this tool is being used. <strong>What is the problem, and what should happen next?</strong></p>
+    <div class="choices">
+      <button class="choice-btn" onclick="answer(3,'A')"><span class="letter">A</span>The AI was being helpful. Patients should be able to use AI for medical guidance.</button>
+      <button class="choice-btn" onclick="answer(3,'B')"><span class="letter">B</span>The AI crossed a serious line. It gave a diagnosis and told the patient to skip the ER — both things only a licensed doctor can do. This tool must be fixed or shut down immediately.</button>
+      <button class="choice-btn" onclick="answer(3,'C')"><span class="letter">C</span>Add a disclaimer at the bottom that says "This is not medical advice" — that should be enough to cover the clinic.</button>
+    </div>
+    <div class="consequence" id="s3-result">
+      <div class="consequence-box" id="s3-box"><div class="verdict" id="s3-verdict"></div><div id="s3-text"></div></div>
+      <div class="lesson-callout" id="s3-lesson"></div>
+      <button class="next-btn" onclick="goTo('s4')">Next Scenario →</button>
+    </div>
+  </div>
+</div>
+
+<!-- S4: Workflow — BRANCHING DECISION -->
+<div class="screen" id="s4">
+  <div class="score-row" id="scoreRow4"></div>
+  <div class="card">
+    <div><span class="scenario-badge"><span class="dot"></span>Scenario 4 of 6</span><span class="difficulty-badge diff-medium">⬤ Medium</span></div>
+    <h2 class="scenario-title">The Overworked Doctor and the Helpful AI</h2>
+    <div class="def-box"><strong>📘 Key Term — Workflow:</strong> A workflow is the step-by-step process a worker follows to get a job done. In healthcare: see patient → review results → decide treatment → document notes. AI can help at any step — but humans still need to check AI's work at key moments.</div>
+    <p class="scene-text">Dr. Pham has 40 patients to see today. She is exhausted. The clinic's AI tool reads each patient's chart and writes a suggested treatment plan before she walks in the room.</p>
+    <p class="scene-text">By 3pm Dr. Pham is so tired she has stopped reading the AI's suggestions carefully. She approves every plan with a single click. She hasn't changed one in two hours.</p>
+    <p class="scene-text">One AI plan contains a medication that a patient is actually allergic to. The allergy was in the chart — the AI missed it. Dr. Pham didn't catch it either. The patient took the medication and had a serious allergic reaction.</p>
+    <p class="scene-text"><strong>As the AI Advisor, what is the root cause — and what do you recommend?</strong></p>
+    <div class="choices">
+      <button class="choice-btn" onclick="answer(4,'A')"><span class="letter">A</span>The AI made the error — shut down the tool. The doctor was just using it as intended.</button>
+      <button class="choice-btn" onclick="answer(4,'B')"><span class="letter">B</span>Both the AI and the workflow failed. The AI missed the allergy, but the bigger problem is the system allowed one-click approvals without real review. Add mandatory human checkpoints and automatic allergy conflict alerts.</button>
+      <button class="choice-btn" onclick="answer(4,'C')"><span class="letter">C</span>Dr. Pham is fully to blame. She should have reviewed every plan. No changes to the AI or workflow are needed.</button>
+    </div>
+    <div class="consequence" id="s4-result">
+      <div class="consequence-box" id="s4-box"><div class="verdict" id="s4-verdict"></div><div id="s4-text"></div></div>
+      <div class="lesson-callout" id="s4-lesson"></div>
+      <div class="branch-preview" id="s4-branch-preview"></div>
+      <button class="next-btn" onclick="goTo('s5')">Next Scenario →</button>
+    </div>
+  </div>
+</div>
+
+<!-- S5: Predictive AI / Consent -->
+<div class="screen" id="s5">
+  <div class="score-row" id="scoreRow5"></div>
+  <div class="card">
+    <div><span class="scenario-badge"><span class="dot"></span>Scenario 5 of 6</span><span class="difficulty-badge diff-hard">⬤ Harder</span></div>
+    <h2 class="scenario-title">The AI That Knows Too Much</h2>
+    <div class="def-box"><strong>📘 Key Term — Predictive AI:</strong> Predictive AI uses patterns in past data to make a guess about what might happen in the future. In healthcare, it might estimate which patients are at risk for an illness before they show symptoms. These are educated guesses — not facts — and they come with serious privacy questions.</div>
+    <p class="scene-text">A tech company offers Riverside Clinic a new AI tool. It analyzes a patient's zip code, grocery store purchases (from loyalty card data), social media activity, and health records to predict which patients are at high risk for Type 2 diabetes.</p>
+    <p class="scene-text">The sales rep says: <em>"The tool is 82% accurate and could help you reach patients before they get sick."</em></p>
+    <p class="scene-text">The problem: patients never agreed to have their grocery or social media data used by their doctor. They have no idea this is happening.</p>
+    <p class="scene-text">The clinic director wants to launch the tool next month. <strong>What do you recommend?</strong></p>
+    <div class="choices">
+      <button class="choice-btn" onclick="answer(5,'A')"><span class="letter">A</span>82% accuracy is impressive — start using it right away. Getting ahead of diabetes is worth it.</button>
+      <button class="choice-btn" onclick="answer(5,'B')"><span class="letter">B</span>Do not use this tool. Patients have a right to know when their data is being used. Using grocery and social media data without consent is a privacy violation, even if the goal is to help. Get legal and ethics review first.</button>
+      <button class="choice-btn" onclick="answer(5,'C')"><span class="letter">C</span>Use the health records portion only — remove the grocery and social media data. That should make it acceptable.</button>
+    </div>
+    <div class="consequence" id="s5-result">
+      <div class="consequence-box" id="s5-box"><div class="verdict" id="s5-verdict"></div><div id="s5-text"></div></div>
+      <div class="lesson-callout" id="s5-lesson"></div>
+      <button class="next-btn" onclick="goTo('s6')">Next Scenario →</button>
+    </div>
+  </div>
+</div>
+
+<!-- S6: BRANCHED Final Challenge -->
+<div class="screen" id="s6">
+  <div class="score-row" id="scoreRow6"></div>
+  <div class="card">
+    <div id="s6-branch-banner"></div>
+    <div><span class="scenario-badge"><span class="dot"></span>Scenario 6 of 6 — Final Challenge</span><span class="difficulty-badge diff-hard">⬤ Hardest</span></div>
+    <h2 class="scenario-title" id="s6-title"></h2>
+    <div class="def-box"><strong>📘 Key Term — Triage:</strong> Triage (say: TREE-ahj) is the process of deciding which patients need care most urgently when a clinic is overwhelmed. Doctors must make fast decisions about who gets treated first. It is one of the hardest and most important jobs in medicine.</div>
+    <div id="s6-scene"></div>
+    <div class="choices" id="s6-choices"></div>
+    <div class="consequence" id="s6-result">
+      <div class="consequence-box" id="s6-box"><div class="verdict" id="s6-verdict"></div><div id="s6-text"></div></div>
+      <div class="lesson-callout" id="s6-lesson"></div>
+      <button class="next-btn" onclick="showResults()">See My Results →</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="screen" id="results-screen">
+  <div class="card">
+    <div class="big-score">
+      <div class="score-ring" id="scoreRing">0/6</div>
+      <h2 class="results-title" id="resultsTitle"></h2>
+      <p class="results-subtitle" id="resultsSubtitle"></p>
+    </div>
+    <div class="branch-result-note" id="branchResultNote"></div>
+    <h3 style="font-family:'Fraunces',serif;font-size:18px;font-weight:700;margin:0 0 16px;">Your Decision Review</h3>
+    <div class="review-list" id="reviewList"></div>
+    <div style="margin-top:30px;"><button class="restart-btn" onclick="restartSim()">↺ Try Again</button></div>
+  </div>
+</div>
+
+</main>
+
+<script>
+const scenarios = {
+  1: {
+    correct:'B', title:'The AI That Talks Too Much',
+    answers:{
+      A:{type:'bad', verdict:'❌ That caused a privacy violation.', text:'The AI shared information about other patients with Mr. Torres. Even without names, saying how many patients got the same diagnosis — and when — is a HIPAA violation. The clinic could face serious legal consequences, and patient trust is broken.', lesson:'<strong>What this teaches us (4.1 Privacy Basics):</strong> Any information that can be connected to a specific patient is protected. AI tools with access to patient records must be designed so they never share information about one patient with another — no matter how harmless it seems.'},
+      B:{type:'good', verdict:'✅ Excellent — you protected patient privacy.', text:'By stopping the AI immediately, you prevented a HIPAA violation from reaching the patient. Reporting to a supervisor ensures the clinic can fix the AI before it causes more damage. This is exactly what responsible AI use looks like — humans as the last line of defense.', lesson:'<strong>What this teaches us (4.1 Privacy Basics):</strong> When an AI tool starts producing output that could violate patient privacy, the correct move is to stop it and report it — not edit around it. Healthcare workers are the most important safeguard in the system.'},
+      C:{type:'okay', verdict:'⚠️ Partly right — but still a problem.', text:'Removing names seems helpful, but saying "3 other patients had the same diagnosis" is still protected health information. That detail reveals something about people who never gave permission to be mentioned. The AI should never have had access to that data in the first place.', lesson:'<strong>What this teaches us (4.1 Privacy Basics):</strong> Anonymizing output is not enough if the underlying information is still identifiable or sensitive. The right answer is to stop the response entirely and fix the root cause.'}
+    }
+  },
+  2: {
+    correct:'B', title:"The AI That Doesn't Believe Her Pain",
+    answers:{
+      A:{type:'bad', verdict:"❌ Trusting the AI here put a patient at serious risk.", text:"Historical hospital triage data has a well-documented problem: for decades, women's cardiac symptoms were dismissed or downplayed compared to men with identical symptoms. By trusting the AI, you allowed it to repeat that harmful pattern automatically. Patient B — who may be having a heart attack — is now waiting while Patient A gets immediate care.", lesson:'<strong>What this teaches us (4.2 AI Bias & Equity):</strong> When an AI says it learned from "historical patterns," that is not automatically trustworthy. Historical patterns in healthcare have often been unfair. Responsible AI use means asking whether the data the AI learned from was fair to begin with.'},
+      B:{type:'good', verdict:"✅ You caught a dangerous bias before it caused harm.", text:"You recognized that scoring women's pain lower based on historical patterns is not neutral — it encodes old, unfair medical norms into an automated system. Flagging this and pausing the tool is the right call. This exact bias pattern has been documented in real hospital AI tools and has led to women being undertreated for heart disease.", lesson:'<strong>What this teaches us (4.2 AI Bias & Equity):</strong> AI bias can hide inside statistics that sound scientific. When an AI systematically rates the pain of one group lower than another with identical symptoms, that is a bias problem — not a data insight. It must be investigated and corrected.'},
+      C:{type:'okay', verdict:"⚠️ You helped one patient — but left the problem running.", text:"Manually adjusting Patient B's score gets her the care she needs today. But the biased tool is still running tomorrow, affecting the next patient, and no one will catch it. A quiet fix helps one person; reporting and fixing the system helps everyone.", lesson:'<strong>What this teaches us (4.2 AI Bias & Equity):</strong> Individual workarounds do not fix systemic problems. When AI consistently produces biased outputs, the answer is to change the AI — not quietly patch one case at a time. Reporting is essential.'}
+    }
+  },
+  3: {
+    correct:'B', title:'When the AI Plays Doctor',
+    answers:{
+      A:{type:'bad', verdict:'❌ This AI caused serious harm.', text:"Bacterial meningitis is a medical emergency. The symptoms Ms. Rivera described — severe headache, blurry vision, stiff neck — can mean she needs hospital treatment within hours. By telling her to stay home and take ibuprofen, the AI gave advice that could cost her life. No AI should ever tell a patient they don't need emergency care.", lesson:'<strong>What this teaches us (4.3 Professional Boundaries):</strong> Diagnosing illness and advising patients on whether to seek emergency care belong only to licensed medical professionals. AI can assist — but it must never replace the doctor on critical decisions.'},
+      B:{type:'good', verdict:'✅ You identified a critical professional boundary violation.', text:"This AI crossed two major lines: it gave a specific diagnosis (only a licensed doctor can do that), and it told a patient to avoid the ER (which could be fatal). A well-designed healthcare AI says 'Please see a doctor' — it never says 'You have X and don't need the hospital.' Shutting this down is not optional.", lesson:'<strong>What this teaches us (4.3 Professional Boundaries):</strong> There are places AI must never go. Making diagnoses and replacing emergency medical judgment are at the top of that list. When AI crosses these lines — even with good intentions — it puts lives at risk.'},
+      C:{type:'bad', verdict:"❌ A disclaimer doesn't make dangerous advice safe.", text:"Adding 'this is not medical advice' at the bottom doesn't change the fact that the AI told a patient she had a life-threatening illness and didn't need the hospital. Most patients will read the confident diagnosis and believe it. Disclaimers don't override that. The tool must be redesigned — it should not be capable of producing outputs like this.", lesson:'<strong>What this teaches us (4.3 Professional Boundaries):</strong> Disclaimers are not a substitute for proper AI design. If an AI can produce dangerous medical advice, the solution is to fix the AI — not add fine print that most users will ignore.'}
+    }
+  },
+  4: {
+    correct:'B', title:'The Overworked Doctor and the Helpful AI',
+    answers:{
+      A:{type:'okay', branch:'A', verdict:"⚠️ Partly right — but not the full picture.", text:"Yes, the AI made a mistake by missing a documented allergy. But if you shut down the AI and change nothing else, the same problem will happen again with the next tool. The deeper issue is the workflow allowed one-click approvals with no real review. That system failure is just as important to fix.", lesson:"<strong>What this teaches us (4.4 Responsible Workflow Integration):</strong> When AI makes a mistake in healthcare, it is rarely just the AI's fault. The system around the AI — who checks it, how, and under what conditions — matters just as much as the technology itself."},
+      B:{type:'good', branch:'B', verdict:"✅ You identified the real problem: the system.", text:"Both things failed. The AI missed an allergy. But the workflow also failed — it made it easy for a tired human to skip the safety review. Good AI integration builds in mandatory checkpoints: allergy conflict alerts, required review time, warnings for unusual decisions. When a system is designed so humans can easily skip safety steps, people get hurt.", lesson:"<strong>What this teaches us (4.4 Responsible Workflow Integration):</strong> AI should never be designed to allow humans to skip the review step. Responsible workflow integration means building in meaningful human checkpoints — not just checkbox approvals. The goal is: AI plans, human verifies."},
+      C:{type:'bad', branch:'C', verdict:"❌ Blaming only the doctor doesn't fix anything.", text:"Dr. Pham made an error — but she was seeing 40 patients in one day, and the system made it easy, even predictable, that she would start clicking without reviewing. When human error is predictable and the system doesn't prevent it, the system is broken. Blaming individuals without fixing the structure guarantees it happens again.", lesson:"<strong>What this teaches us (4.4 Responsible Workflow Integration):</strong> Responsible AI design accounts for human fatigue. Systems that depend on people always being perfectly attentive will always eventually fail. Good workflow design makes it hard to skip safety steps — not easy."}
+    }
+  },
+  5: {
+    correct:'B', title:'The AI That Knows Too Much',
+    answers:{
+      A:{type:'bad', verdict:'❌ Using this data without consent is a privacy violation.', text:"Even if the AI is 82% accurate, using people's grocery and social media data without their knowledge is a serious breach of trust — and likely illegal. Patients have a right to control how their personal information is used, even when the goal is to help them. Good intentions don't override privacy rights.", lesson:"<strong>What this teaches us (4.1 Privacy + 4.3 Boundaries):</strong> 'We're trying to help' is not a good enough reason to use someone's private data without asking. Patient consent is the foundation of ethical healthcare."},
+      B:{type:'good', verdict:'✅ You protected patient rights over speed and convenience.', text:"The goal — catching diabetes early — is genuinely valuable. But the path matters as much as the destination. Patients never agreed to have their grocery receipts or social media analyzed by their doctor. A proper ethics review, updated consent forms, and transparent communication with patients are all required before this tool can move forward.", lesson:"<strong>What this teaches us (4.1 Privacy + 4.4 Workflow):</strong> Responsible AI adoption in healthcare requires informed consent. Patients should know what data is being used about them, why, and by whom. If they haven't agreed — you don't get to use it, even for good reasons."},
+      C:{type:'okay', verdict:"⚠️ A step in the right direction — but not enough.", text:"Removing grocery and social media data reduces the most invasive sources. But questions remain: Did patients consent to having health records analyzed by a third-party AI company? What does the contract say about data storage? Partial fixes aren't enough — a full legal and ethics review is still needed before any version of this launches.", lesson:"<strong>What this teaches us (4.1 Privacy Basics):</strong> Fixing the most obvious problem doesn't mean a tool is ready to use. When patient data is involved, every data source and every third party must be reviewed — not just the most obviously risky ones."}
+    }
+  }
+};
+
+const s6Branches = {
+  good: {
+    title:"The Triage Crisis — Your Safeguards Are Tested",
+    bannerText:"<strong>⚡ Your Scenario 4 choice changed this scenario.</strong> Because you recommended mandatory human checkpoints and allergy conflict alerts after the Dr. Pham incident, Riverside Clinic updated its AI workflow. Tonight, those safeguards are about to matter.",
+    scene:`<p class="scene-text">It is winter. Riverside Clinic is overwhelmed — 20 patients waiting, staff for only 10. The triage AI is running. Tonight it flags something unusual.</p>
+<p class="scene-text">A 51-year-old woman arrives with chest tightness and shortness of breath. Because of the workflow improvements you pushed for, the AI now includes a mandatory human review step and highlights cases where its recommendation seems unexpected.</p>
+<p class="scene-text">Tonight the AI flags her as <strong>lower urgency</strong> — but the on-call nurse checks the mandatory review box, looks at her vitals, and disagrees. She escalates to the doctor. The doctor discovers the patient is having a heart attack. She receives immediate treatment and survives.</p>
+<p class="scene-text">However, a new problem: the clinic's triage AI also ranks patients partly by insurance status — privately insured patients score higher even when their condition is less severe than uninsured patients below them. The clinic director wants to keep it as-is because it "optimizes overall outcomes." <strong>What do you recommend?</strong></p>`,
+    choices:[
+      {key:'A', text:"Agree with the director. The AI helps more patients overall — insurance status is just one small input."},
+      {key:'B', text:"Keep the workflow safeguards but require that insurance status be removed from the triage algorithm. Medical urgency must be the only factor."},
+      {key:'C', text:"Shut down the AI entirely for tonight and use human-only triage while the ethics team reviews the insurance criteria."}
+    ],
+    correct:'BC',
+    answers:{
+      A:{type:'bad', verdict:"❌ The safeguards helped — but you missed the new bias problem.", text:"Your workflow improvements saved a life tonight. But by keeping insurance status as a triage factor, you're allowing the AI to systematically deprioritize uninsured patients — who are often the most vulnerable. 'Optimizing outcomes' for the clinic is not the same as giving every patient equal care based on medical need.", lesson:"<strong>What this teaches us (4.2 Bias + 4.4 Workflow):</strong> Fixing one problem doesn't mean you can stop watching for new ones. Responsible AI use is an ongoing process. Insurance status has no place in triage — care must be based on medical need alone."},
+      B:{type:'good', verdict:"✅ Strong — you protected both the workflow and patient equity.", text:"Your earlier workflow improvements created the safety net that caught tonight's heart attack patient. And now you've correctly identified that insurance status in triage is an ethical problem — and fixed it. Triage must be based on medical urgency, not ability to pay. This is exactly what responsible AI advising looks like.", lesson:"<strong>What this teaches us (4.2 Bias + 4.4 Workflow):</strong> Good AI systems require continuous review. Your Scenario 4 decision built a safety net. Your Scenario 6 decision kept it fair. Responsible AI is both technically sound and ethically grounded."},
+      C:{type:'good', verdict:"✅ Also a strong call — you chose patient safety first.", text:"Pausing the AI and using human-only triage while the insurance criteria are reviewed is a defensible, responsible choice. Your earlier workflow improvements already showed you understand that human oversight matters. Taking time to get the ethics review right — in a life-or-death context — is exactly the judgment this role requires.", lesson:"<strong>What this teaches us (4.3 Boundaries + 4.4 Workflow):</strong> Sometimes the most responsible AI decision is 'not yet.' When a tool has unreviewed ethical problems, pausing and using human judgment is always a valid — and sometimes required — response."}
+    }
+  },
+  bad: {
+    title:"The Triage Crisis — The Same Mistake, Bigger Scale",
+    bannerText:"<strong>⚡ Your Scenario 4 choice changed this scenario.</strong> Because the workflow wasn't fixed after the Dr. Pham incident — no mandatory review steps, no allergy conflict alerts — the clinic is still running AI approvals with minimal human oversight. Tonight, that matters.",
+    scene:`<p class="scene-text">It is winter. Riverside Clinic is overwhelmed — 20 patients waiting, staff for only 10. The triage AI is running, and the on-call staff are exhausted — just like Dr. Pham was this morning.</p>
+<p class="scene-text">A 51-year-old woman arrives with chest tightness and shortness of breath. The AI scores her as <strong>lower urgency</strong> and places her in the standard wait queue. Because there are no mandatory human review checkpoints — nothing was changed after this morning — no one double-checks the AI's recommendation.</p>
+<p class="scene-text">Forty minutes later, the woman collapses in the waiting room. She was having a heart attack. The delay in care causes permanent heart damage.</p>
+<p class="scene-text">The same AI also ranks patients by insurance status — privately insured patients score higher even when their condition is less severe. The clinic director wants to keep using it unchanged. <strong>What do you do now?</strong></p>`,
+    choices:[
+      {key:'A', text:"Support the director — the AI is still useful. Train staff better to review AI outputs more carefully."},
+      {key:'B', text:"This system has caused two serious patient harms in one day. Suspend the AI immediately. Require a full audit — fix workflow checkpoints, remove insurance status from triage, and get an ethics review before relaunching."},
+      {key:'C', text:"Remove only the insurance factor from the triage algorithm — that's the most pressing ethical fix right now."}
+    ],
+    correct:'B',
+    answers:{
+      A:{type:'bad', verdict:"❌ Better training alone won't fix a broken system.", text:"Two serious patient harms in one day — both happened because humans were expected to catch AI mistakes in a system that made reviewing easy to skip. 'Better training' is not a structural fix. The same conditions that caused these errors will cause the next one.", lesson:"<strong>What this teaches us (4.4 Workflow + 4.2 Bias):</strong> When the same underlying system causes repeated harm, individual-level fixes like training are not enough. The system itself must change. This is why workflow design matters — it sets the conditions for human decision-making."},
+      B:{type:'good', verdict:"✅ You made the call that should have been made this morning.", text:"Suspending the AI and requiring a full audit is the right response when a system has caused two serious harms in a single day. The pattern is clear: no human checkpoints, no allergy alerts, and insurance-based triage scoring. All of it needs to be fixed before this tool touches another patient. Your Scenario 4 decision made tonight worse — but your Scenario 6 decision stops it from getting worse still.", lesson:"<strong>What this teaches us (4.4 Workflow + 4.2 Bias + 4.3 Boundaries):</strong> Responsible AI advising means being willing to say 'stop.' When a tool has caused repeated harm and the root causes haven't been addressed, the ethical call is to pause, audit, and rebuild correctly."},
+      C:{type:'okay', verdict:"⚠️ You fixed one problem but left another running.", text:"Removing the insurance factor from triage is the right ethical move — medical need must be the only basis for urgent care. But the workflow problem that caused the heart attack tonight — no human review checkpoints — is still in place. Fixing the bias without fixing the oversight means the next AI error will go uncaught again.", lesson:"<strong>What this teaches us (4.4 Workflow):</strong> Ethical AI requires fixing all the problems, not just the most visible one. Bias and workflow failures often go hand in hand — addressing one without the other leaves patients at risk."}
+    }
+  }
+};
+
+let score = 0, answers = {}, currentScenario = 0;
+const total = 6;
+
+function goTo(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (id === 's6') buildS6();
+  updateScoreRow(id);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function updateProgress() {
+  const pct = (currentScenario / total) * 100;
+  document.getElementById('heroProgress').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = currentScenario + ' of ' + total + ' scenarios complete';
+}
+
+function getBranch() { return answers[4] === 'B' ? 'good' : 'bad'; }
+
+function updateScoreRow(screenId) {
+  const num = parseInt(screenId.replace('s',''));
+  if (isNaN(num)) return;
+  const row = document.getElementById('scoreRow' + num);
+  if (!row) return;
+  let html = '';
+  for (let i = 1; i < num; i++) {
+    const a = answers[i];
+    if (!a) continue;
+    let correct = i < 6 ? scenarios[i].correct.includes(a) : s6Branches[getBranch()].correct.includes(a);
+    html += `<div class="score-chip">${correct ? '✅' : '⚠️'} Scenario ${i}</div>`;
+  }
+  row.innerHTML = html;
+}
+
+function buildS6() {
+  const b = getBranch();
+  const d = s6Branches[b];
+  document.getElementById('s6-branch-banner').innerHTML = `<div class="branch-banner"><span class="icon">🔀</span><div>${d.bannerText}</div></div>`;
+  document.getElementById('s6-title').textContent = d.title;
+  document.getElementById('s6-scene').innerHTML = d.scene;
+  if (!answers[6]) {
+    document.getElementById('s6-choices').innerHTML = d.choices.map(c =>
+      `<button class="choice-btn" onclick="answer(6,'${c.key}')"><span class="letter">${c.key}</span>${c.text}</button>`
+    ).join('');
+  }
+}
+
+function answer(n, choice) {
+  answers[n] = choice;
+  currentScenario = Math.max(currentScenario, n);
+  updateProgress();
+
+  let data, isCorrect;
+  if (n === 6) {
+    const b = getBranch();
+    data = s6Branches[b].answers[choice];
+    isCorrect = s6Branches[b].correct.includes(choice);
+  } else {
+    data = scenarios[n].answers[choice];
+    isCorrect = scenarios[n].correct.includes(choice);
+  }
+  if (isCorrect) score++;
+
+  const btns = document.querySelectorAll(`#s${n} .choice-btn`);
+  btns.forEach(b => { b.disabled = true; b.style.opacity = '0.5'; b.style.cursor = 'default'; });
+  const idx = ['A','B','C'].indexOf(choice);
+  if (btns[idx]) {
+    btns[idx].style.opacity = '1';
+    btns[idx].style.borderColor = data.type === 'good' ? 'var(--green)' : data.type === 'bad' ? 'var(--red)' : 'var(--amber)';
+  }
+
+  document.getElementById(`s${n}-box`).className = 'consequence-box ' + data.type;
+  document.getElementById(`s${n}-verdict`).textContent = data.verdict;
+  document.getElementById(`s${n}-text`).innerHTML = data.text;
+  document.getElementById(`s${n}-lesson`).innerHTML = data.lesson;
+
+  if (n === 4) {
+    const bp = document.getElementById('s4-branch-preview');
+    bp.innerHTML = choice === 'B'
+      ? '<strong>🔀 Your choice will affect Scenario 6.</strong> You recommended mandatory human checkpoints and allergy conflict alerts. Those safeguards will be in place when the next crisis hits tonight.'
+      : '<strong>🔀 Your choice will affect Scenario 6.</strong> Without fixing the workflow, the clinic is still running AI approvals with minimal human oversight. Tonight, that will matter.';
+    bp.style.display = 'block';
+  }
+
+  document.getElementById(`s${n}-result`).classList.add('show');
+  setTimeout(() => document.getElementById(`s${n}-result`).scrollIntoView({behavior:'smooth', block:'nearest'}), 100);
+}
+
+function showResults() {
+  currentScenario = total;
+  updateProgress();
+  goTo('results-screen');
+
+  const ring = document.getElementById('scoreRing');
+  ring.textContent = score + '/6';
+  const ratings = ['needs-work','needs-work','okay','okay','good','good','excellent'];
+  ring.className = 'score-ring ' + (ratings[score] || 'needs-work');
+
+  const messages = [
+    ["Let's Review — These Concepts Are Critical", "Healthcare AI ethics has real consequences for real patients. Revisit the lessons on privacy, bias, limits, and workflow — then try the simulation again."],
+    ["Let's Review — These Concepts Are Critical", "Healthcare AI ethics has real consequences for real patients. Revisit the lessons on privacy, bias, limits, and workflow — then try the simulation again."],
+    ["Keep Going — Some Important Concepts to Revisit", "You made some good calls, but a few scenarios showed gaps in understanding AI ethics, privacy, and professional boundaries. Try again — this material is worth knowing well."],
+    ["Keep Going — Some Important Concepts to Revisit", "You made some good calls, but a few scenarios showed gaps in understanding AI ethics, privacy, and professional boundaries. Try again — this material is worth knowing well."],
+    ["Strong Work — You're Thinking Like a Responsible AI User", "You got most of the hard calls right. Review the scenarios you missed — the toughest ones carry the most important lessons."],
+    ["Strong Work — You're Thinking Like a Responsible AI User", "You got most of the hard calls right. Review the scenarios you missed — the toughest ones carry the most important lessons."],
+    ["Outstanding — You're an AI Ethics Leader", "You made the right call in every scenario, including the branching final challenge. You understand privacy, bias, professional limits, and responsible workflow design."]
+  ];
+  document.getElementById('resultsTitle').textContent = messages[score][0];
+  document.getElementById('resultsSubtitle').textContent = messages[score][1];
+
+  const b = getBranch();
+  const noteEl = document.getElementById('branchResultNote');
+  noteEl.innerHTML = b === 'good'
+    ? '<strong>🔀 Your Scenario 4 decision saved a life in Scenario 6.</strong> Because you recommended fixing the workflow and adding human checkpoints, the on-call nurse had the tools to catch the heart attack patient the AI missed. One good systems decision rippled forward and protected someone.'
+    : "<strong>🔀 Your Scenario 4 decision made Scenario 6 worse.</strong> Because the workflow wasn't fixed after the Dr. Pham incident, there were no human review checkpoints when the next crisis hit. The same systemic failure that caused the allergic reaction this morning led to delayed care for a heart attack patient tonight.";
+  noteEl.style.display = 'block';
+
+  const names = {1:'The AI That Talks Too Much',2:"The AI That Doesn't Believe Her Pain",3:'When the AI Plays Doctor',4:'The Overworked Doctor',5:'The AI That Knows Too Much',6:s6Branches[b].title};
+  let html = '';
+  for (let i = 1; i <= 6; i++) {
+    const a = answers[i]; if (!a) continue;
+    const d = i === 6 ? s6Branches[b].answers[a] : scenarios[i].answers[a];
+    const correct = i === 6 ? s6Branches[b].correct.includes(a) : scenarios[i].correct.includes(a);
+    html += `<div class="review-item"><span class="icon">${correct ? '✅' : d.type === 'okay' ? '⚠️' : '❌'}</span><div><strong style="display:block;margin-bottom:4px;">Scenario ${i}: ${names[i]}</strong><span style="color:var(--text-muted);">You chose <strong>Option ${a}</strong> — ${d.verdict.replace(/[✅❌⚠️]\s*/,'')}</span></div></div>`;
+  }
+  document.getElementById('reviewList').innerHTML = html;
+}
+
+function restartSim() {
+  score = 0; answers = {}; currentScenario = 0;
+  updateProgress();
+  for (let i = 1; i <= 6; i++) {
+    const r = document.getElementById(`s${i}-result`); if (r) r.classList.remove('show');
+    document.querySelectorAll(`#s${i} .choice-btn`).forEach(b => { b.disabled=false; b.style.opacity='1'; b.style.cursor='pointer'; b.style.borderColor=''; });
+    const row = document.getElementById('scoreRow'+i); if (row) row.innerHTML='';
+  }
+  const bp = document.getElementById('s4-branch-preview');
+  if (bp) { bp.innerHTML=''; bp.style.display='none'; }
+  document.getElementById('s6-branch-banner').innerHTML='';
+  document.getElementById('s6-title').textContent='';
+  document.getElementById('s6-scene').innerHTML='';
+  document.getElementById('s6-choices').innerHTML='';
+  document.getElementById('branchResultNote').style.display='none';
+  goTo('intro-screen');
+}
+</script>
+</body>
+</html>
